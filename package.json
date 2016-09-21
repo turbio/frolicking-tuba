@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "eslint . --ext .js --ext .jsx --ignore-path .gitignore && mocha"
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,8 @@
   "homepage": "https://github.com/frolicking-tuba/frolicking-tuba#readme",
   "dependencies": {
     "chai": "^3.5.0",
+    "eslint": "^3.5.0",
+    "eslint-plugin-react": "^6.3.0",
     "mocha": "^3.0.2"
   }
 }
