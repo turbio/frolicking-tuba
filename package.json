@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "eslint . --ext .js --ext .jsx --ignore-path .gitignore && mocha"
+    "test": "eslint . --ext .js --ext .jsx --ignore-path .gitignore && mocha",
+    "dev": "webpack -d --watch",
+    "build" : "webpack -p"
   },
   "repository": {
     "type": "git",
