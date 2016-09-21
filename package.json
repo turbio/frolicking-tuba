@@ -1,0 +1,30 @@
+{
+  "name": "frolicking-tuba",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "eslint . --ext .js --ext .jsx --ignore-path .gitignore && mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frolicking-tuba/frolicking-tuba.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/frolicking-tuba/frolicking-tuba/issues"
+  },
+  "homepage": "https://github.com/frolicking-tuba/frolicking-tuba#readme",
+  "dependencies": {
+    "chai": "^3.5.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.5.0",
+    "eslint-config-airbnb": "^11.1.0",
+    "eslint-plugin-import": "^1.15.0",
+    "eslint-plugin-jsx-a11y": "^2.2.2",
+    "eslint-plugin-react": "^6.3.0",
+    "mocha": "^3.0.2"
+  }
+}
