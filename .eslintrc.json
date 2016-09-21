@@ -7,8 +7,8 @@
         "mocha": true
     },
     "extends": [
-      "airbnb",
-      "plugin:react/recommended"
+        "airbnb",
+        "plugin:react/recommended"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -25,8 +25,8 @@
         "array-bracket-spacing": "error",
         "array-callback-return": "error",
         "arrow-body-style": [
-          "error",
-          "as-needed"
+            "error",
+            "as-needed"
         ],
         "arrow-parens": [
             "error",
@@ -60,8 +60,8 @@
         "curly": "error",
         "default-case": "error",
         "dot-location": [
-          "error",
-          "property"
+            "error",
+            "property"
         ],
         "dot-notation": [
             "error",
@@ -82,8 +82,8 @@
         "id-length": ["error", {"exceptions": ["$"]}], 
         "id-match": "error",
         "indent": [
-          "error",
-          2
+            "error",
+            2
         ],
         "init-declarations": "error",
         "jsx-quotes": "error",
@@ -142,8 +142,8 @@
         "no-lonely-if": "error",
         "no-loop-func": "error",
         "no-magic-numbers": [
-          "error",
-          { "ignore": [0, 1, 200, 301, 302, 400, 401, 500] }
+            "error",
+            { "ignore": [0, 1, 200, 301, 302, 400, 401, 500] }
         ],
         "no-mixed-operators": "error",
         "no-mixed-requires": "error",
@@ -202,11 +202,11 @@
         "no-whitespace-before-property": "error",
         "no-with": "error",
         "object-curly-newline": [
-          "error"
+            "error"
         ],
         "object-curly-spacing": [
-          "error",
-          "always"
+            "error",
+            "always"
         ],
         "object-shorthand": "error",
         "one-var": [
@@ -216,8 +216,8 @@
         "one-var-declaration-per-line": "error",
         "operator-assignment": "error",
         "operator-linebreak": [
-          "error",
-          "before"
+            "error",
+            "before"
         ],
         "padded-blocks": "off",
         "prefer-arrow-callback": "error",
@@ -227,8 +227,8 @@
         "prefer-spread": "error",
         "prefer-template": "error",
         "quote-props": [
-          "error",
-          "as-needed"
+            "error",
+            "as-needed"
         ],
         "quotes": [
             "error",
