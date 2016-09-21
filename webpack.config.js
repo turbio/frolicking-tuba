@@ -1,10 +1,10 @@
-var webpack = require('webpack');
-var path = require('path');
+'use strict';
+let path = require('path');
 
-var BUILD_DIR = path.resolve(__dirname, 'client/public');
-var APP_DIR = path.resolve(__dirname, 'client/src');
+let BUILD_DIR = path.resolve(__dirname, 'client/public');
+let APP_DIR = path.resolve(__dirname, 'client/src');
 
-var config = {
+let config = {
   entry: APP_DIR + '/index.jsx',
   output: {
     path: BUILD_DIR,
