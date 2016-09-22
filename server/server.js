@@ -11,3 +11,5 @@ app.use(routes);
 app.listen(config.port, () => {
   console.log(`started on port ${config.port}`);
 });
+
+module.exports = app;
