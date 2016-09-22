@@ -1,8 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import Landing from './components/Landing.jsx';
-
-//const App = () => <Landing />;
+import Navbar from './components/Navbar.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -11,7 +10,10 @@ class App extends React.Component {
   }
   render() {
     return (
-      <Landing loggedIn={this.state.loggedIn} />
+      <div>
+        <Navbar loggedIn={this.state.loggedIn} />
+        <Landing />
+      </div>
     );
   }
 }
