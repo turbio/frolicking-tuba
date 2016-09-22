@@ -266,6 +266,10 @@
         "wrap-iife": "error",
         "wrap-regex": "error",
         "yield-star-spacing": "error",
-        "yoda": "error"
+        "yoda": "error",
+        "comma-dangle": [
+            "error",
+            "never"
+        ]
     }
 }
