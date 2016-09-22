@@ -6,7 +6,7 @@
   "scripts": {
     "test": "eslint . --ext .js --ext .jsx --ignore-path .gitignore && mocha",
     "dev": "webpack -d --watch",
-    "build" : "webpack -p"
+    "build": "webpack -p"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
     "chai": "^3.5.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
+    "react-redux": "^4.4.5",
     "webpack": "^2.1.0-beta.25"
   },
   "devDependencies": {
