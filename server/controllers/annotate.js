@@ -1,3 +1,10 @@
+const github = require('../api/github');
+
 module.exports.create = (req, res) => {
-  res.send('not implemented');
+  github.createIssue('frolicking-tuba/issue-tester', {
+    title: 'title',
+    body: 'issue body'
+  });
+
+  res.end();
 };
