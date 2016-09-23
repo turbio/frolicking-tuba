@@ -1,6 +1,6 @@
 (() => {
   const modalHTML = `
-  <div id="frolicking-tuba-modal">
+  <div id="frolicking-tuba-modal" style="width: 200px">
     <form
         id="frolicking-tuba-modal-feedback"
         method="POST"
@@ -40,7 +40,6 @@
     #frolicking-tuba-modal{
       background: #fff;
       border: 2px #ccc solid;
-      max-width: 200px;
       position: absolute;
       font-family: Helvetica,sans-serif;
     }
@@ -104,8 +103,16 @@
     document.body.innerHTML += modalHTML;
     modalElem = document.getElementById('frolicking-tuba-modal');
 
-    modalElem.style.top = `${event.clientY}px`;
-    modalElem.style.left = `${event.clientX - (modalElem.style.width)}px`;
+    const half = 2;
+    const arrowHeight = 20;
+    const padding = 20;
+
+    const xpos = event.clientX - (modalElem.clientWidth / half);
+    const ypos = event.clientY
+      - (modalElem.clientHeight + arrowHeight + padding);
+
+    modalElem.style.top = `${ypos}px`;
+    modalElem.style.left = `${xpos}px`;
   };
 
   const clicked = (event) => {
