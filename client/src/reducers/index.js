@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import loggedin from './loggedin';
 
-const dashboard = combineReducers({ loggedin });
+const myApp = combineReducers({ loggedin });
 
-export default dashboard;
+export default myApp;
