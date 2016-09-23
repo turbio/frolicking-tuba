@@ -1,6 +1,4 @@
 (() => {
-  console.log('loaded...');
-
   const modalHTML = `
   <div id="frolicking-tuba-modal">
     <form
@@ -15,8 +13,9 @@
       <hr id="frolicking-tuba-modal-hr"/>
       <input type="submit" id="frolicking-tuba-modal-submit" value="send">
     </form>
-  </div>
-  <style>
+  </div> `;
+  const modalCSS = `
+    <style>
     #frolicking-tuba-modal:after, #frolicking-tuba-modal:before {
         top: 100%;
         left: 50%;
@@ -47,7 +46,7 @@
     #frolicking-tuba-modal-comment{
       border: none;
       outline: none;
-      height: 90%;
+      height: 50px;
       width: 90%;
       padding: 5%;
       resize: none;
@@ -72,20 +71,13 @@
     }
   </style>`;
 
-  document.write(modalHTML);
-
-  // Get the modal
-  const modal = document.getElementById('frolicking-tuba-modal');
-  const closeLink = document.getElementById('frolicking-tuba-modal-close');
-  const form = document.getElementById('frolicking-tuba-modal-feedback');
-
-  let selectedText = '';
+  let modalElem = null;
+  let cssAdded = false;
 
   const getSelectedText = () => {
     let text = '';
 
     if (typeof window.getSelection !== 'undefined') {
-      //console.log("window",window.getSelection())
       text = window.getSelection().toString();
     } else if (
         typeof document.selection !== 'undefined'
@@ -96,66 +88,79 @@
     return text;
   };
 
-  const doSomethingWithSelectedText = () => {
-    const text = getSelectedText();
+  const hideModal = () => {
+    modalElem.parentNode.removeChild(modalElem);
+    modalElem = null;
+  };
 
-    if (text !== '') {
-      selectedText = text;
-      modal.style.display = 'block';
+  const showModal = () => {
+    if (!cssAdded) {
+      document.body.innerHTML += modalCSS;
+      cssAdded = true;
+    }
+
+    document.body.innerHTML += modalHTML;
+    modalElem = document.getElementById('frolicking-tuba-modal');
+  };
+
+  const clicked = (event) => {
+    const selectedText = getSelectedText();
+
+    if (modalElem && !event.target.id.startsWith('frolicking-tuba-modal')) {
+      hideModal(event);
+    } else if (selectedText){
+      showModal(event);
     }
   };
 
-  const loadListeners = () => {
-    document.addEventListener('mouseup', doSomethingWithSelectedText);
-    document.addEventListener('keyup', doSomethingWithSelectedText);
-  };
+  document.addEventListener('mouseup', clicked);
 
-  const removeListener = () => {
-    document.removeEventListener('mouseup', doSomethingWithSelectedText);
-    document.removeEventListener('keyup', doSomethingWithSelectedText);
-  };
+  // Get the modal
+  //const modal = document.getElementById('frolicking-tuba-modal');
+  //const form = document.getElementById('frolicking-tuba-modal-feedback');
 
-  const checkForm = (event) => {
-    event.preventDefault();
+  //const loadListeners = () => {
+    //document.addEventListener('mouseup', doSomethingWithSelectedText);
+    //document.addEventListener('keyup', doSomethingWithSelectedText);
+  //};
 
-    const form = (event.target) ? event.target : event.srcElement;
+  //const removeListener = () => {
+    //document.removeEventListener('mouseup', doSomethingWithSelectedText);
+    //document.removeEventListener('keyup', doSomethingWithSelectedText);
+  //};
 
-    if (form.name.value === '') {
-      form.name.focus();
+  //const checkForm = (event) => {
+    //event.preventDefault();
 
-      return false;
-    } else if (form.email.value === '') {
-      form.email.focus();
+    //const form = (event.target) ? event.target : event.srcElement;
 
-      return false;
-    } else if (form.message.value === '') {
-      form.message.focus();
+    //if (form.name.value === '') {
+      //form.name.focus();
 
-      return false;
-    }
+      //return false;
+    //} else if (form.email.value === '') {
+      //form.email.focus();
 
-    return true;
-  };
+      //return false;
+    //} else if (form.message.value === '') {
+      //form.message.focus();
+
+      //return false;
+    //}
+
+    //return true;
+  //};
 
 
   //window.attachEvent("onload", modal_init);
 
-  form.onsubmit = (event) => {
-    if (checkForm(event)) {
-      console.log('submitted', selectedText);
-      modal.style.display = 'none';
-      removeListener();
-    }
-  };
+  //form.onsubmit = (event) => {
+    //if (checkForm(event)) {
+      //console.log('submitted', selectedText);
+      //modal.style.display = 'none';
+      //removeListener();
+    //}
+  //};
 
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = (event) => {
-    if (event.target === modal) {
-      modal.style.display = 'none';
-      loadListeners();
-    }
-  };
-
-  //make this an add event listener, and then remove this listener when we load
-  loadListeners();
+  //// When the user clicks anywhere outside of the modal, close it
 })();
