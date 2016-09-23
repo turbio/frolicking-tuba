@@ -1,4 +1,4 @@
-(() => {
+(() => { // eslint-disable-line max-statements
   const modalHTML = `
   <div id="frolicking-tuba-modal" style="width: 200px">
     <form
@@ -73,6 +73,10 @@
 
   let modalElem = null;
   let cssAdded = false;
+  const half = 2;
+  const arrowHeight = 20;
+  const padding = 20;
+
 
   const getSelectedText = () => {
     let text = '';
@@ -103,10 +107,6 @@
     document.body.innerHTML += modalHTML;
     modalElem = document.getElementById('frolicking-tuba-modal');
 
-    const half = 2;
-    const arrowHeight = 20;
-    const padding = 20;
-
     const xpos = event.clientX - (modalElem.clientWidth / half);
     const ypos = event.clientY
       - (modalElem.clientHeight + arrowHeight + padding);
@@ -126,53 +126,4 @@
   };
 
   document.addEventListener('mouseup', clicked);
-
-  // Get the modal
-  //const modal = document.getElementById('frolicking-tuba-modal');
-  //const form = document.getElementById('frolicking-tuba-modal-feedback');
-
-  //const loadListeners = () => {
-    //document.addEventListener('mouseup', doSomethingWithSelectedText);
-    //document.addEventListener('keyup', doSomethingWithSelectedText);
-  //};
-
-  //const removeListener = () => {
-    //document.removeEventListener('mouseup', doSomethingWithSelectedText);
-    //document.removeEventListener('keyup', doSomethingWithSelectedText);
-  //};
-
-  //const checkForm = (event) => {
-    //event.preventDefault();
-
-    //const form = (event.target) ? event.target : event.srcElement;
-
-    //if (form.name.value === '') {
-      //form.name.focus();
-
-      //return false;
-    //} else if (form.email.value === '') {
-      //form.email.focus();
-
-      //return false;
-    //} else if (form.message.value === '') {
-      //form.message.focus();
-
-      //return false;
-    //}
-
-    //return true;
-  //};
-
-
-  //window.attachEvent("onload", modal_init);
-
-  //form.onsubmit = (event) => {
-    //if (checkForm(event)) {
-      //console.log('submitted', selectedText);
-      //modal.style.display = 'none';
-      //removeListener();
-    //}
-  //};
-
-  //// When the user clicks anywhere outside of the modal, close it
 })();
