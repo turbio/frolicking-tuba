@@ -2,11 +2,11 @@
   "name": "frolicking-tuba",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "eslint . --ext .js --ext .jsx --ignore-path .gitignore && mocha",
     "dev": "webpack -d --watch",
-    "build": "webpack -p"
+    "build": "webpack -p",
+    "start": "node server/server.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,8 @@
     "babel-preset-es2015": "^6.14.0",
     "babel-preset-react": "^6.11.1",
     "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "express": "^4.14.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",
