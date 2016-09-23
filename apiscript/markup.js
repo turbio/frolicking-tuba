@@ -42,6 +42,10 @@
       border: 2px #ccc solid;
       position: absolute;
       font-family: Helvetica,sans-serif;
+
+      opacity: 0;
+      transform: translate(0, 10px);
+      transition: all .25s;
     }
     #frolicking-tuba-modal-comment{
       border: none;
@@ -92,6 +96,18 @@
     return text;
   };
 
+  const setupModal = (event) => {
+    const xpos = event.clientX - (modalElem.clientWidth / half);
+    const ypos = event.clientY
+      - (modalElem.clientHeight + arrowHeight + padding);
+
+    modalElem.style.top = `${ypos}px`;
+    modalElem.style.left = `${xpos}px`;
+
+    modalElem.style.opacity = 1;
+    modalElem.style.transform = 'translate(0, 0)';
+  };
+
   const hideModal = () => {
     modalElem.parentNode.removeChild(modalElem);
     modalElem = null;
@@ -106,13 +122,7 @@
 
     document.body.innerHTML += modalHTML;
     modalElem = document.getElementById('frolicking-tuba-modal');
-
-    const xpos = event.clientX - (modalElem.clientWidth / half);
-    const ypos = event.clientY
-      - (modalElem.clientHeight + arrowHeight + padding);
-
-    modalElem.style.top = `${ypos}px`;
-    modalElem.style.left = `${xpos}px`;
+    setupModal(event);
   };
 
   const clicked = (event) => {
