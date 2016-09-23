@@ -1,21 +1,38 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import dashboard from './reducers';
 import Landing from './components/Landing.jsx';
-import Navbar from './components/Navbar.jsx';
+import NavbarContainer from './containers/NavbarContainer';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { loggedIn: false };
-  }
-  render() {
-    return (
-      <div>
-        <Navbar loggedIn={this.state.loggedIn} />
-        <Landing />
-      </div>
-    );
-  }
-}
+const store = createStore(dashboard);
 
-render(<App />, document.getElementById('app'));
+const App = () => (
+  <div>
+    <NavbarContainer />
+    <Landing />
+  </div>
+);
+
+// class App extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = { loggedIn: false };
+//   }
+//   render() {
+//     return (
+//       <div>
+//         <NavbarContainer />
+//         <Landing />
+//       </div>
+//     );
+//   }
+// }
+
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('app')
+);
