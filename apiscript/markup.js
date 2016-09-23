@@ -2,63 +2,75 @@
   console.log('loaded...');
 
   const modalHTML = `
-  <div
-      style="
-        background: #fff;
-        border: 2px #ccc solid;
-        overflow: hidden;
-        max-width: 200px;
-        position: absolute;
-        font-family: Helvetica,sans-serif"
-      id="frolicking-tuba-modal">
-    <div
-        style="
-          position: absolute;
-          top: 0;
-          right: 0;"
-        id="frolicking-tuba-modal-close">
-      <a href="#" style="text-decoration: none; color: #888;"><b>X</b></a>
-    </div>
+  <div id="frolicking-tuba-modal">
     <form
         id="frolicking-tuba-modal-feedback"
         method="POST"
         action="#"
         accept-charset="UTF-8">
       <textarea
-        style="
-          border: none;
-          outline: none;
-          height: 90%;
-          width: 90%;
-          padding: 5%;
-          resize: none;
-          font-family: Helvetica,sans-serif;
-          font-size: 16px"
         required
-        name="message"
-        cols="48"
-        rows="8"
+        id="frolicking-tuba-modal-comment"
         placeholder="message"></textarea>
-      <hr
-        style="
-          height: 2px;
-          background: #ccc;
-          border: none;
-          margin: 0;"/>
-      <input
-        style="
-          background: none;
-          border: none;
-          color: #3b98ff;
-          font-size: 16px;
-          font-weight: 600;
-          margin: 8px;
-          float: right;"
-        type="submit"
-        name="feedbackForm"
-        value="send">
+      <hr id="frolicking-tuba-modal-hr"/>
+      <input type="submit" id="frolicking-tuba-modal-submit" value="send">
     </form>
-  </div>`;
+  </div>
+  <style>
+    #frolicking-tuba-modal:after, #frolicking-tuba-modal:before {
+        top: 100%;
+        left: 50%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+    #frolicking-tuba-modal:after {
+        border-top-color: #fff;
+        border-width: 20px;
+        margin-left: -20px;
+    }
+    #frolicking-tuba-modal:before {
+        border-top-color: #ccc;
+        border-width: 22px;
+        margin-left: -22px;
+    }
+    #frolicking-tuba-modal{
+      background: #fff;
+      border: 2px #ccc solid;
+      max-width: 200px;
+      position: absolute;
+      font-family: Helvetica,sans-serif;
+    }
+    #frolicking-tuba-modal-comment{
+      border: none;
+      outline: none;
+      height: 90%;
+      width: 90%;
+      padding: 5%;
+      resize: none;
+      font-family: Helvetica,sans-serif;
+      font-size: 16px;
+    }
+    #frolicking-tuba-modal-submit{
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: #3b98ff;
+      font-size: 16px;
+      font-weight: 600;
+      margin: 8px;
+      float: right;
+    }
+    #frolicking-tuba-modal-hr{
+      height: 2px;
+      background: #ccc;
+      border: none;
+      margin: 0;
+    }
+  </style>`;
 
   document.write(modalHTML);
 
@@ -127,12 +139,6 @@
 
 
   //window.attachEvent("onload", modal_init);
-
-  // When the user clicks on <span> (x), close the modal
-  closeLink.onclick = () => {
-    modal.style.display = 'none';
-    loadListeners();
-  };
 
   form.onsubmit = (event) => {
     if (checkForm(event)) {
