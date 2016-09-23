@@ -14,6 +14,7 @@
       <input type="submit" id="frolicking-tuba-modal-submit" value="send">
     </form>
   </div> `;
+
   const modalCSS = `
     <style>
     #frolicking-tuba-modal:after, #frolicking-tuba-modal:before {
@@ -93,7 +94,8 @@
     modalElem = null;
   };
 
-  const showModal = () => {
+  const showModal = (event) => {
+    console.log(event);
     if (!cssAdded) {
       document.body.innerHTML += modalCSS;
       cssAdded = true;
@@ -101,6 +103,9 @@
 
     document.body.innerHTML += modalHTML;
     modalElem = document.getElementById('frolicking-tuba-modal');
+
+    modalElem.style.top = `${event.clientY}px`;
+    modalElem.style.left = `${event.clientX - (modalElem.style.width)}px`;
   };
 
   const clicked = (event) => {
@@ -108,7 +113,7 @@
 
     if (modalElem && !event.target.id.startsWith('frolicking-tuba-modal')) {
       hideModal(event);
-    } else if (selectedText){
+    } else if (selectedText) {
       showModal(event);
     }
   };
