@@ -16,6 +16,7 @@ describe('server', () => {
         });
     });
   });
+
   describe('/api/signup', () => {
     it('should POST to /api/signup', (done) => {
       chai.request(server)
@@ -26,6 +27,7 @@ describe('server', () => {
         });
     });
   });
+
   describe('/api/signin', () => {
     it('should POST to /api/signin', (done) => {
       chai.request(server)

@@ -4,14 +4,14 @@
     "password": "<PASSWORD>"
   },
   "server": {
-    "port": "<SERVERPORT>"
+    "port": "3000"
   },
   "database": {
-    "type": "<DBTYPE>",
-    "user": "<DBUSER>",
-    "host": "<DBHOST>",
-    "port": "<DBPORT>",
-    "database": "<DBNAME>",
-    "password": "<DBPASSWORD>"
+    "type": "postgres",
+    "user": "postgres",
+    "host": "loalhost",
+    "port": 5432,
+    "database": "tuba",
+    "password": ""
   }
 }
