@@ -73,23 +73,27 @@
       cssAdded = true;
     }
 
-    document.body.innerHTML += modalHTML;
+    if (!modalElem) {
+      document.body.innerHTML += modalHTML;
+      modalElem = document.getElementById('frolicking-tuba-modal');
+      formElem = document.getElementById('frolicking-tuba-modal-feedback');
+      commentElem = document.getElementById('frolicking-tuba-modal-comment');
+      formElem.onsubmit = submitForm;
+    }
 
-    modalElem = document.getElementById('frolicking-tuba-modal');
-    formElem = document.getElementById('frolicking-tuba-modal-feedback');
-    commentElem = document.getElementById('frolicking-tuba-modal-comment');
-    formElem.onsubmit = submitForm;
     setupModal(event);
   };
 
   const clicked = (event) => {
     const selection = getSelectedText();
 
-    if (modalElem && !event.target.id.startsWith('frolicking-tuba-modal')) {
-      hideModal(event);
-    } else if (selection) {
+    if (selection) {
       selectedText = selection;
       showModal(event);
+    } else if (
+        modalElem
+        && !event.target.id.startsWith('frolicking-tuba-modal')) {
+      hideModal();
     }
   };
 
