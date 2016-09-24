@@ -1,4 +1,41 @@
+// @import url(https://fonts.googleapis.com/css?family=Lato);
+// $font-family-sans-serif: 'Lato', sans-serif;
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
-h3 {
-    color: green;
+.content {
+  color: blue;
+}
+
+.headerBar {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height:50px;
+  background: white;
+  z-index: 9990;
+  transition: 0.5s ease;
+  -webkit-transition: 0.5s ease;
+  border-bottom-width: 0.5px;
+  border-color:black;
+}
+
+
+.main-area {
+  @extend .row;
+}
+.column {
+  @extend .col-md-4;
+}
+.content {
+  @extend .col-xs-6;
+  @extend .col-sm-6;
+}
+.sidebar {
+  @extend .col-xs-4;
+  @extend .col-sm-4;
+}
+.side-nav {
+  @extend .col-sm-2;
+  @extend .col-sm-2;
 }

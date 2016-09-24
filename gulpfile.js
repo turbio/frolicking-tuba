@@ -34,6 +34,7 @@ gulp.task('sass', () =>
 gulp.task('watch', () => {
   gulp.watch('./apiscript/*', ['apiscript']);
   gulp.watch(path.join(__dirname, 'client/src/*.scss'), ['sass']);
+
 });
 
 // Default Task
