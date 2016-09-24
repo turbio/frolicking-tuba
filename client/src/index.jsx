@@ -5,6 +5,7 @@ import { createStore } from 'redux';
 import myApp from './reducers';
 import Landing from './components/Landing.jsx';
 import NavbarContainer from './containers/NavbarContainer';
+import Auth from './components/auth.jsx';
 
 const store = createStore(myApp);
 
@@ -12,6 +13,7 @@ const App = () => (
   <div>
     <NavbarContainer />
     <Landing />
+    <Auth />
   </div>
 );
 
