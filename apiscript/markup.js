@@ -20,22 +20,18 @@
 
 
   const getSelectedText = () => {
-    let text = '';
+    const selection = window.getSelection();
 
-    if (typeof window.getSelection !== 'undefined') {
-      text = window.getSelection().toString();
-    } else if (
-        typeof document.selection !== 'undefined'
-        && document.selection.type === 'Text') {
-      text = document.selection.createRange().text;
+    if (selection.toString()) {
+      return selection.toString();
     }
 
-    return text;
+    return false;
   };
 
   const setupModal = (event) => {
-    const xpos = event.clientX - (modalElem.clientWidth / half);
-    const ypos = event.clientY
+    const xpos = event.pageX - (modalElem.clientWidth / half);
+    const ypos = event.pageY
       - (modalElem.clientHeight + arrowHeight + padding);
 
     modalElem.style.top = `${ypos}px`;
