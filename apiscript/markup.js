@@ -6,7 +6,7 @@
     <style>
       %CSS%
     </style>`;
-  const apiEndpoint = 'http://localhost:3000/annotate';
+  const apiEndpoint = 'http://localhost:3000/api/annotate';
 
   let modalElem = null;
   let formElem = null;
