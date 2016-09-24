@@ -1,79 +1,11 @@
 (() => { // eslint-disable-line max-statements
   const modalHTML = `
-  <div id="frolicking-tuba-modal" style="width: 200px">
-    <form
-        id="frolicking-tuba-modal-feedback"
-        method="POST"
-        action="#"
-        accept-charset="UTF-8">
-      <textarea
-        required
-        id="frolicking-tuba-modal-comment"
-        placeholder="message"></textarea>
-      <hr id="frolicking-tuba-modal-hr"/>
-      <input type="submit" id="frolicking-tuba-modal-submit" value="send">
-    </form>
-  </div> `;
-
+      %HTML%
+    `;
   const modalCSS = `
     <style>
-    #frolicking-tuba-modal:after, #frolicking-tuba-modal:before {
-        top: 100%;
-        left: 50%;
-        border: solid transparent;
-        content: " ";
-        height: 0;
-        width: 0;
-        position: absolute;
-        pointer-events: none;
-    }
-    #frolicking-tuba-modal:after {
-        border-top-color: #fff;
-        border-width: 20px;
-        margin-left: -20px;
-    }
-    #frolicking-tuba-modal:before {
-        border-top-color: #ccc;
-        border-width: 22px;
-        margin-left: -22px;
-    }
-    #frolicking-tuba-modal{
-      background: #fff;
-      border: 2px #ccc solid;
-      position: absolute;
-      font-family: Helvetica,sans-serif;
-
-      opacity: 0;
-      transform: translate(0, 10px);
-      transition: all .25s;
-    }
-    #frolicking-tuba-modal-comment{
-      border: none;
-      outline: none;
-      height: 50px;
-      width: 90%;
-      padding: 5%;
-      resize: none;
-      font-family: Helvetica,sans-serif;
-      font-size: 16px;
-    }
-    #frolicking-tuba-modal-submit{
-      cursor: pointer;
-      background: none;
-      border: none;
-      color: #3b98ff;
-      font-size: 16px;
-      font-weight: 600;
-      margin: 8px;
-      float: right;
-    }
-    #frolicking-tuba-modal-hr{
-      height: 2px;
-      background: #ccc;
-      border: none;
-      margin: 0;
-    }
-  </style>`;
+      %CSS%
+    </style>`;
 
   let modalElem = null;
   let cssAdded = false;

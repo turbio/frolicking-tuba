@@ -1,4 +1,5 @@
 /node_modules
+/apiscript/markup.min.js
 .DS_Store
 /client/public/bundle.js
 /env/config.json
