@@ -6,7 +6,7 @@
     <style>
       %CSS%
     </style>`;
-  const apiEndpoint = 'http://localhost:3000/annotate';
+  const apiEndpoint = 'http://localhost:3000/api/annotate';
 
   let modalElem = null;
   let formElem = null;
@@ -20,22 +20,18 @@
 
 
   const getSelectedText = () => {
-    let text = '';
+    const selection = window.getSelection();
 
-    if (typeof window.getSelection !== 'undefined') {
-      text = window.getSelection().toString();
-    } else if (
-        typeof document.selection !== 'undefined'
-        && document.selection.type === 'Text') {
-      text = document.selection.createRange().text;
+    if (selection.toString()) {
+      return selection.toString();
     }
 
-    return text;
+    return false;
   };
 
   const setupModal = (event) => {
-    const xpos = event.clientX - (modalElem.clientWidth / half);
-    const ypos = event.clientY
+    const xpos = event.pageX - (modalElem.clientWidth / half);
+    const ypos = event.pageY
       - (modalElem.clientHeight + arrowHeight + padding);
 
     modalElem.style.top = `${ypos}px`;
@@ -73,23 +69,27 @@
       cssAdded = true;
     }
 
-    document.body.innerHTML += modalHTML;
+    if (!modalElem) {
+      document.body.innerHTML += modalHTML;
+      modalElem = document.getElementById('frolicking-tuba-modal');
+      formElem = document.getElementById('frolicking-tuba-modal-feedback');
+      commentElem = document.getElementById('frolicking-tuba-modal-comment');
+      formElem.onsubmit = submitForm;
+    }
 
-    modalElem = document.getElementById('frolicking-tuba-modal');
-    formElem = document.getElementById('frolicking-tuba-modal-feedback');
-    commentElem = document.getElementById('frolicking-tuba-modal-comment');
-    formElem.onsubmit = submitForm;
     setupModal(event);
   };
 
   const clicked = (event) => {
     const selection = getSelectedText();
 
-    if (modalElem && !event.target.id.startsWith('frolicking-tuba-modal')) {
-      hideModal(event);
-    } else if (selection) {
+    if (selection) {
       selectedText = selection;
       showModal(event);
+    } else if (
+        modalElem
+        && !event.target.id.startsWith('frolicking-tuba-modal')) {
+      hideModal();
     }
   };
 
