@@ -5,8 +5,9 @@
   "scripts": {
     "test": "eslint . --ext .js --ext .jsx --ignore-path .gitignore && mocha",
     "dev": "webpack -d --watch",
-    "build": "webpack -p && gulp",
-    "start": "node server/server.js"
+    "build": "webpack -p && gulp && npm run migrate",
+    "start": "node server/server.js",
+    "migrate": "node server/migrate.js"
   },
   "repository": {
     "type": "git",
