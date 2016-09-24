@@ -6,6 +6,7 @@
     <style>
       %CSS%
     </style>`;
+  const endpoint = 'localhost:3000/annotate';
 
   let modalElem = null;
   let cssAdded = false;
