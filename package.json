@@ -5,7 +5,7 @@
   "scripts": {
     "test": "eslint . --ext .js --ext .jsx --ignore-path .gitignore && mocha",
     "dev": "webpack -d --watch",
-    "build": "webpack -p",
+    "build": "webpack -p && gulp",
     "start": "node server/server.js"
   },
   "repository": {
@@ -31,10 +31,13 @@
     "gulp-file-insert": "^1.0.2",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^2.0.0",
+    "pg": "^6.1.0",
+    "pg-hstore": "^2.3.2",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",
     "redux": "^3.6.0",
+    "sequelize": "^3.24.3",
     "webpack": "^2.1.0-beta.25"
   },
   "devDependencies": {

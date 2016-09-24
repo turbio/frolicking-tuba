@@ -4,6 +4,14 @@
     "password": "<PASSWORD>"
   },
   "server": {
-    "port": "3000"
+    "port": "<SERVERPORT>"
+  },
+  "database": {
+    "type": "<DBTYPE>",
+    "user": "<DBUSER>",
+    "host": "<DBHOST>",
+    "port": "<DBPORT>",
+    "database": "<DBNAME>",
+    "password": "<DBPASSWORD>"
   }
 }
