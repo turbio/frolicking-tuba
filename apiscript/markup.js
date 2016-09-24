@@ -6,10 +6,14 @@
     <style>
       %CSS%
     </style>`;
-  const endpoint = 'localhost:3000/annotate';
+  const apiEndpoint = 'http://localhost:3000/annotate';
 
   let modalElem = null;
+  let formElem = null;
+  let commentElem = null;
   let cssAdded = false;
+  let selectedText = '';
+
   const half = 2;
   const arrowHeight = 20;
   const padding = 20;
@@ -44,26 +48,47 @@
   const hideModal = () => {
     modalElem.parentNode.removeChild(modalElem);
     modalElem = null;
+    formElem = null;
+  };
+
+  const submitForm = (event) => {
+    event.preventDefault();
+
+    const request = new XMLHttpRequest();
+
+    request.open('POST', apiEndpoint, true);
+    request.setRequestHeader('Content-Type', 'application/json');
+
+    request.send(JSON.stringify({
+      comment: commentElem.value,
+      selected: selectedText
+    }));
+
+    hideModal();
   };
 
   const showModal = (event) => {
-    console.log(event);
     if (!cssAdded) {
       document.body.innerHTML += modalCSS;
       cssAdded = true;
     }
 
     document.body.innerHTML += modalHTML;
+
     modalElem = document.getElementById('frolicking-tuba-modal');
+    formElem = document.getElementById('frolicking-tuba-modal-feedback');
+    commentElem = document.getElementById('frolicking-tuba-modal-comment');
+    formElem.onsubmit = submitForm;
     setupModal(event);
   };
 
   const clicked = (event) => {
-    const selectedText = getSelectedText();
+    const selection = getSelectedText();
 
     if (modalElem && !event.target.id.startsWith('frolicking-tuba-modal')) {
       hideModal(event);
-    } else if (selectedText) {
+    } else if (selection) {
+      selectedText = selection;
       showModal(event);
     }
   };
