@@ -1,23 +1,21 @@
 const chai = require('chai');
 const server = require('../server/server');
 
-describe('server', () => {
-  describe('/script.js', () => {
-    it('should GET /script.js', (done) => {
+describe('users', () => {
+  describe('signup', () => {
+    it('should POST to /api/signup', (done) => {
       chai.request(server)
-        .get('/script.js')
+        .post('/api/signup')
         .end((err, res) => {
           res.should.have.status(200);
-          res.should.have.header('content-type', /application\/javascript/);
           done(err);
         });
     });
   });
-
-  describe('/api/annotate', () => {
-    it('should POST to /annotate', (done) => {
+  describe('signin', () => {
+    it('should POST to /api/signin', (done) => {
       chai.request(server)
-        .post('/api/annotate')
+        .post('/api/signin')
         .end((err, res) => {
           res.should.have.status(200);
           done(err);
