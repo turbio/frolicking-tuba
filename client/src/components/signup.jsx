@@ -1,6 +1,7 @@
 //signup
 
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 
 class Signup extends Component {
   constructor(props) {
@@ -66,18 +67,12 @@ class Signup extends Component {
             }}
           >Submit</button>
         </div>
-        <a
-          tabIndex="0"
-          onClick={this.props.toggleAuthView}
-        >Log In</a>
+        <Link to="/login">Log In</Link>
       </form>
     );
   }
 }
 
-Signup.propTypes = {
-  callback: PropTypes.func,
-  toggleAuthView: PropTypes.func
-};
+Signup.propTypes = { callback: PropTypes.func };
 
 export default Signup;
