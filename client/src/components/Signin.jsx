@@ -1,15 +1,15 @@
-//signup
+//login
 
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
-class Signup extends Component {
+
+class Signin extends Component {
   constructor(props) {
     super(props);
     this.state = {
       username: '',
-      password: '',
-      companyName: ''
+      password: ''
     };
   }
 
@@ -21,18 +21,15 @@ class Signup extends Component {
   //   this.setState({ password: event.target.value });
   // }
 
-  // handleCompanyNameChange(event) {
-  //   this.setState({ companyName: event.target.value });
-  // }
-
   render() {
     return (
       <div>
-        <h1>Sign Up</h1>
+        <h1>Sign In</h1>
         <form>
           <div>
             <label htmlFor="USERNAME">USERNAME</label>
             <input
+              name="USERNAME"
               type="text"
               value={this.state.username}
               onChange={(event) => {
@@ -43,20 +40,11 @@ class Signup extends Component {
           <div>
             <label htmlFor="PASSWORD">PASSWORD</label>
             <input
+              name="PASSWORD"
               type="password"
               value={this.state.password}
-              onChange={() => {
+              onChange={(event) => {
                 this.setState({ password: event.target.value });
-              }}
-            />
-          </div>
-          <div>
-            <label htmlFor="COMPANY">COMPANY</label>
-            <input
-              type="text"
-              value={this.state.companyName}
-              onChange={() => {
-                this.setState({ companyName: event.target.value });
               }}
             />
           </div>
@@ -67,15 +55,15 @@ class Signup extends Component {
                 event.preventDefault();
                 this.props.callback(this.state);
               }}
-            >Submit</button>
+            >Log In</button>
           </div>
-          <Link to="/signin">Log In</Link>
+          <Link to="/signup">Sign Up</Link>
         </form>
       </div>
     );
   }
 }
 
-Signup.propTypes = { callback: PropTypes.func };
+Signin.propTypes = { callback: PropTypes.func };
 
-export default Signup;
+export default Signin;

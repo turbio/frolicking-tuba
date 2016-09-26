@@ -6,8 +6,8 @@ import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 import myApp from './reducers';
 import Landing from './components/Landing.jsx';
 import NavbarContainer from './containers/NavbarContainer';
-import Login from './components/login.jsx';
-import Signup from './components/signup.jsx';
+import Signin from './components/Signin.jsx';
+import Signup from './components/Signup.jsx';
 
 const store = createStore(myApp);
 
@@ -25,7 +25,7 @@ render(
         <IndexRoute component={Landing} />
       </Route>
       <Route path="/signup" component={Signup} />
-      <Route path="/login" component={Login} />
+      <Route path="/signin" component={Signin} />
     </Router>
   </Provider>,
   document.getElementById('app')
