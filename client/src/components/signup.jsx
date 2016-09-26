@@ -73,9 +73,6 @@ class Signup extends Component {
   }
 }
 
-Signup.propTypes = {
-  callback: PropTypes.func,
-  toggleAuthView: PropTypes.func
-};
+Signup.propTypes = { callback: PropTypes.func };
 
 export default Signup;

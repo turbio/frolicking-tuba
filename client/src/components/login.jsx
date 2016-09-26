@@ -61,9 +61,6 @@ class Login extends Component {
   }
 }
 
-Login.propTypes = {
-  callback: PropTypes.func,
-  toggleAuthView: PropTypes.func
-};
+Login.propTypes = { callback: PropTypes.func };
 
 export default Login;
