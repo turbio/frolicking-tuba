@@ -1,16 +1,14 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 
-const Navbar = ({ loggedIn, onLoginClick }) => (
+const Navbar = ({ loggedIn }) => (
   <div className="headerBar">
-    Navbar
-    <button onClick={() => onLoginClick()}>Toggle LogIn </button>
-    {loggedIn ? <span>Sign Out</span> : <span>Log In / Sign Up</span>}
+    Navbar {loggedIn}
+    <Link to="/signup">Sign Up</Link>
+    <Link to="/login">Log In</Link>
   </div>
 );
 
-Navbar.propTypes = {
-  loggedIn: PropTypes.bool,
-  onLoginClick: PropTypes.func
-};
+Navbar.propTypes = { loggedIn: PropTypes.bool };
 
 export default Navbar;
