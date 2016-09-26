@@ -34,7 +34,7 @@ class Signup extends Component {
             <label htmlFor="USERNAME">USERNAME</label>
             <input
               type="text"
-              value={this.state.username}
+              //value={this.state.username}
               onChange={(event) => {
                 this.setState({ username: event.target.value });
               }}
@@ -44,8 +44,8 @@ class Signup extends Component {
             <label htmlFor="PASSWORD">PASSWORD</label>
             <input
               type="password"
-              value={this.state.password}
-              onChange={() => {
+              //value={this.state.password}
+              onChange={(event) => {
                 this.setState({ password: event.target.value });
               }}
             />
@@ -54,8 +54,8 @@ class Signup extends Component {
             <label htmlFor="COMPANY">COMPANY</label>
             <input
               type="text"
-              value={this.state.companyName}
-              onChange={() => {
+              //value={this.state.companyName}
+              onChange={(event) => {
                 this.setState({ companyName: event.target.value });
               }}
             />

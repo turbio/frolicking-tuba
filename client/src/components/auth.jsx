@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Login from './login.jsx';
-import Signup from './signup.jsx';
+import Login from './Signin.jsx';
+import Signup from './Signup.jsx';
 
 class Auth extends Component {
   constructor(props) {

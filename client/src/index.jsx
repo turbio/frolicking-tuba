@@ -18,14 +18,23 @@ const App = (props) => (
   </div>
 );
 
+const handleSubmit = ({ username, password, companyName }) => {
+  console.log(username);
+  console.log(password);
+  console.log(companyName);
+};
+
+const SingupWrapper = () => (<Signup callback={handleSubmit} />);
+const SinginWrapper = () => (<Signin callback={handleSubmit} />);
+
 render(
   <Provider store={store}>
     <Router history={hashHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={Landing} />
       </Route>
-      <Route path="/signup" component={Signup} />
-      <Route path="/signin" component={Signin} />
+      <Route path="/signup" component={SingupWrapper} />
+      <Route path="/signin" component={SinginWrapper} />
     </Router>
   </Provider>,
   document.getElementById('app')
