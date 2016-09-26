@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 
 const Navbar = ({ loggedIn, onLoginClick }) => (
   <div>
     Navbar
-    <button onClick={() => onLoginClick()}>Toggle LogIn </button>
-    {loggedIn ? <span>Sign Out</span> : <span>Log In / Sign Up</span>}
+    <Link to="/signup">Sign Up</Link>
+    <Link to="/login">Log In</Link>
   </div>
 );
 
