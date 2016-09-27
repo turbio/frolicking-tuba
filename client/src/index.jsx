@@ -67,7 +67,13 @@ render(
       <Route path="/" component={App}>
         <IndexRoute component={Landing} />
         <Route path="welcome" component={Welcome} />
-        <Route path="dashboard" component={Dashboard} />
+        <Route
+          path="dashboard"
+          component={Dashboard}
+          onEnter={() => {
+            console.log('Dashboard onEnter');
+          }}
+        />
       </Route>
       <Route path="/signup" component={SingupWrapper} />
       <Route path="/signin" component={SinginWrapper} />
