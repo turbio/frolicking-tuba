@@ -7,6 +7,8 @@ const script = require('./controllers/script');
 router.post('/api/annotate', annotate.create);
 router.post('/api/signup', user.signup);
 router.post('/api/signin', user.signin);
+router.get('/api/signout', user.signout);
+router.get('/api/me', user.info);
 
 router.get('/script.js', script.get);
 

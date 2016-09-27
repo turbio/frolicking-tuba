@@ -13,5 +13,14 @@
     "port": 5432,
     "database": "tuba",
     "password": ""
-  }
+  },
+  "salt_rounds": 10,
+  "messages": {
+    "missing_cred": "must fill in email and password",
+    "unique_email": "an account with that email already exists",
+    "server_error": "oops... looks like something went wrong",
+    "incorrect_cred": "email and password did not match",
+    "not_logged_in": "you must be logged in to do this"
+  },
+  "secret": "ONLY USE THIS IN DEV"
 }

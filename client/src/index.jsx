@@ -6,9 +6,11 @@ import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 import myApp from './reducers';
 import Landing from './components/Landing.jsx';
 import NavbarContainer from './containers/NavbarContainer';
-import Login from './components/login.jsx';
-import Signup from './components/signup.jsx';
 import Documentation from './components/Documentation.jsx';
+import Signin from './components/Signin.jsx';
+import Signup from './components/Signup.jsx';
+import Dashboard from './components/Dashboard.jsx';
+import Welcome from './components/Welcome.jsx';
 
 const store = createStore(myApp);
 
@@ -19,13 +21,56 @@ const App = (props) => (
   </div>
 );
 
+const handleSubmit = ({
+  username,
+  password,
+  companyName
+}, endpoint, context) => {
+  const url = `/api/${endpoint}`;
+  const data = {
+    email: username,
+    password
+  };
+
+  const headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+
+  fetch(url, {
+    method: 'POST',
+    headers,
+    body: data
+  })
+  .then((response) => {
+    console.log('login success!', response.ok);
+    console.log(response);
+
+    return fetch('/api/me');
+  })
+  .then((response) => response.json())
+  .then((json) => {
+    console.log(json);
+    if (json.github_authenticated) {
+      context.props.router.push('/dashboard');
+    } else {
+      context.props.router.push('/welcome');
+    }
+  })
+  .catch((error) => console.log('fetch error:', error));
+};
+
+const SingupWrapper = () => (<Signup callback={handleSubmit} />);
+const SinginWrapper = () => (<Signin callback={handleSubmit} />);
+
 render(
   <Provider store={store}>
     <Router history={hashHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={Landing} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/login" component={Login} />
+        <Route path="/signup" component={SingupWrapper} />
+        <Route path="/signin" component={SinginWrapper} />
+        <Route path="welcome" component={Welcome} />
+        <Route path="dashboard" component={Dashboard} />
         <Route path="/documentation" component={Documentation} />
       </Route>
     </Router>
@@ -33,4 +78,4 @@ render(
   document.getElementById('app')
 );
 
-App.propTypes = { children: PropTypes.Object };
+App.propTypes = { children: PropTypes.instanceOf(Object) };

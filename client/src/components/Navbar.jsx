@@ -38,7 +38,7 @@ const NavbarComponent = () => (
       </Nav>
       <Nav pullRight>
         <NavItem eventKey={1}><Link to="/signup">Sign Up</Link></NavItem>
-        <NavItem eventKey={2}><Link to="/login">Log In</Link></NavItem>
+        <NavItem eventKey={2}><Link to="/signin">Log In</Link></NavItem>
       </Nav>
     </Navbar.Collapse>
   </Navbar>
