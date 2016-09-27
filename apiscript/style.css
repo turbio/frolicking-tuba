@@ -33,14 +33,14 @@
 	width: 328px;
 }
 #frolicking-tuba-modal-comment{
-	outline: none;
-	height: 50px;
+	height: 100px;
 	width: 300px;
 	padding: 8px;
 	resize: none;
 	font-family: Helvetica,sans-serif;
 	font-size: 12px;
 	margin-top: 5px;
+	margin-bottom: -5px;
 	border: 1px solid #ccc;
 	border-radius: 6px;
 }
