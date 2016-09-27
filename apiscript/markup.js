@@ -69,6 +69,17 @@
     hideModal();
   };
 
+  const getElements = () => {
+    document.body.innerHTML += modalHTML;
+    modalElem = document.getElementById('frolicking-tuba-modal');
+    formElem = document.getElementById('frolicking-tuba-modal-feedback');
+    commentElem = document.getElementById('frolicking-tuba-modal-comment');
+    toElem = document.getElementById('frolicking-tuba-modal-enterTo');
+    fromElem = document.getElementById('frolicking-tuba-modal-enterFrom');
+    titleElem = document.getElementById('frolicking-tuba-modal-enterTitle');
+    formElem.onsubmit = submitForm;
+  };
+
   const showModal = (event) => {
     if (!cssAdded) {
       document.body.innerHTML += modalCSS;
@@ -76,14 +87,7 @@
     }
 
     if (!modalElem) {
-      document.body.innerHTML += modalHTML;
-      modalElem = document.getElementById('frolicking-tuba-modal');
-      formElem = document.getElementById('frolicking-tuba-modal-feedback');
-      commentElem = document.getElementById('frolicking-tuba-modal-comment');
-      toElem = document.getElementById('frolicking-tuba-modal-enterTo');
-      fromElem = document.getElementById('frolicking-tuba-modal-enterFrom');
-      titleElem = document.getElementById('frolicking-tuba-modal-enterTitle');
-      formElem.onsubmit = submitForm;
+      getElements();
     }
 
     setupModal(event);
