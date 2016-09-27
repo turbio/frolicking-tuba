@@ -8,7 +8,7 @@ module.exports.signin = (req, res) => {
   let sessionUser = {};
 
   Promise.resolve().then(() =>
-      User.findOne({ email: req.body.email }))
+      User.findOne({ where: { email: req.body.email } }))
 
     .then((user) =>
       user || Promise.reject(config.messages.incorrect_cred))
