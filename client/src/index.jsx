@@ -6,6 +6,7 @@ import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 import myApp from './reducers';
 import Landing from './components/Landing.jsx';
 import NavbarContainer from './containers/NavbarContainer';
+import Documentation from './components/Documentation.jsx';
 import Signin from './components/Signin.jsx';
 import Signup from './components/Signup.jsx';
 import Dashboard from './components/Dashboard.jsx';
@@ -66,11 +67,12 @@ render(
     <Router history={hashHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={Landing} />
+        <Route path="/signup" component={SingupWrapper} />
+        <Route path="/signin" component={SinginWrapper} />
         <Route path="welcome" component={Welcome} />
         <Route path="dashboard" component={Dashboard} />
+        <Route path="/documentation" component={Documentation} />
       </Route>
-      <Route path="/signup" component={SingupWrapper} />
-      <Route path="/signin" component={SinginWrapper} />
     </Router>
   </Provider>,
   document.getElementById('app')
