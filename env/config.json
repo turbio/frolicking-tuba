@@ -20,5 +20,6 @@
     "unique_email": "an account with that email already exists",
     "server_error": "oops... looks like something went wrong",
     "incorrect_cred": "email and password did not match"
-  }
+  },
+  "secret": "ONLY USE THIS IN DEV"
 }

@@ -15,6 +15,7 @@ describe('users', () => {
         .end((err, res) => {
           res.should.have.status(200);
           res.should.be.json;
+          res.should.have.cookie('connect.sid');
 
           User.findAll({ email: 'test@email' }).then((users) => {
             users.length.should.eq(1);
@@ -79,7 +80,28 @@ describe('users', () => {
         .then((res) => {
           done(res);
         }).catch((res) => {
+          res.should.not.have.cookie('connect.sid');
           res.should.have.status(400);
+          done();
+        });
+    });
+  });
+  describe('me', () => {
+    it('should sign in user with correct credentials', (done) => {
+      chai.request(server)
+        .post('/api/signup')
+        .send({ email: 'first@email', password: 'password' })
+        .then((res) => {
+          res.should.have.status(200);
+          res.should.be.json;
+
+          return chai.request(server)
+            .post('/api/signin')
+            .send({ email: 'first@email', password: 'password' });
+        }).then((res) => {
+          res.should.have.cookie('connect.sid');
+          res.should.have.status(200);
+          res.should.be.json;
           done();
         });
     });

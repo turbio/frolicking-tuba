@@ -4,6 +4,8 @@ const User = require('../models/user');
 const config = require('../../env/config.json');
 
 module.exports.signin = (req, res) => {
+  const session = req.session;
+
   Promise.resolve().then(() =>
       User.findOne({ email: req.body.email }))
 
@@ -15,6 +17,7 @@ module.exports.signin = (req, res) => {
 
     .then((same) => {
       if (same) {
+        session.loggedin = true;
         res.json({ error: null });
 
         return Promise.resolve();
@@ -33,6 +36,8 @@ module.exports.signin = (req, res) => {
 };
 
 module.exports.signup = (req, res) => {
+  const session = req.session;
+
   Promise.resolve().then(() => {
     if (!req.body.email || !req.body.password) {
       return Promise.reject(config.messages.missing_cred);
@@ -46,10 +51,11 @@ module.exports.signup = (req, res) => {
     .then((hash) =>
       User.create({ email: req.body.email, hash }))
 
-    .then(() =>
-      res.json({ error: null }))
+    .then(() => {
+      session.loggedin = true;
+      res.json({ error: null });
 
-    .catch((err) => {
+    }).catch((err) => {
       if (typeof err === 'string') {
         res.status(400).json({ error: err });
       } else if (err.name === 'SequelizeUniqueConstraintError') {
