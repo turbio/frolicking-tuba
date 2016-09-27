@@ -8,7 +8,7 @@
   },
   "database": {
     "type": "postgres",
-    "user": "postgres",
+    "user": "seanyang",
     "host": "localhost",
     "port": 5432,
     "database": "tuba",

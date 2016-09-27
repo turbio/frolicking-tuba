@@ -1,14 +1,17 @@
 import React from 'react';
+// import AutoAffix from 'react-overlays';
+// import Waypoint from 'react-waypoint';
 
+// import { Nav, NavItem } from 'react-bootstrap';
+//import Scrollspy from 'react-scrollspy';
 
 const Documentation = () => (
-  <div className="container">
-    <div className="main-area">
-      <h3>Documentation Page
-        Test Test
-      </h3>
-    </div>
+  <div>
+    <h3>text</h3>
+    <h3>text</h3>
+    <h3>text</h3>
   </div>
 );
 
 export default Documentation;
+

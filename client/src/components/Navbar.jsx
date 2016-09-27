@@ -24,7 +24,7 @@ const NavbarComponent = () => (
     </Navbar.Header>
     <Navbar.Collapse>
       <Nav>
-        <NavItem eventKey={1}>
+        <NavItem eventKey={1} href="#">
           <Link to="/documentation">Documentation</Link>
         </NavItem>
         <NavItem eventKey={2} href="#">Link</NavItem>
@@ -53,5 +53,3 @@ export default NavbarComponent;
 //(current)</span></a></li>
 
 //Add code back in to have a User dropdown
-
-
