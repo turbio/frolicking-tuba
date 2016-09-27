@@ -11,6 +11,9 @@
   let modalElem = null;
   let formElem = null;
   let commentElem = null;
+  let toElem = null;
+  let fromElem = null;
+  let titleElem = null;
   let cssAdded = false;
   let selectedText = '';
 
@@ -56,7 +59,10 @@
     request.setRequestHeader('Content-Type', 'application/json');
 
     request.send(JSON.stringify({
+      title: titleElem.value,
       comment: commentElem.value,
+      to: toElem.value,
+      from: fromElem.value,
       selected: selectedText
     }));
 
@@ -74,6 +80,9 @@
       modalElem = document.getElementById('frolicking-tuba-modal');
       formElem = document.getElementById('frolicking-tuba-modal-feedback');
       commentElem = document.getElementById('frolicking-tuba-modal-comment');
+      toElem = document.getElementById('frolicking-tuba-modal-enterTo');
+      fromElem = document.getElementById('frolicking-tuba-modal-enterFrom');
+      titleElem = document.getElementById('frolicking-tuba-modal-enterTitle');
       formElem.onsubmit = submitForm;
     }
 

@@ -1,7 +1,33 @@
 <div id="frolicking-tuba-modal" style="width: 200px">
   <form id="frolicking-tuba-modal-feedback">
-    <textarea id="frolicking-tuba-modal-comment" placeholder="message" required></textarea>
+    <label>Title: </label> <input 
+                             id="frolicking-tuba-modal-enterTitle"
+                             type="text"
+                             name="modalTitle"
+                             minlength="1"><br>
+    <label>Comment: </label><br>
+    <textarea 
+      id="frolicking-tuba-modal-comment"
+      placeholder="Enter your comment(s) here"
+      name="modalComment"
+      minlength="1"
+      maxlength="1000"
+      required>
+    </textarea>
     <hr id="frolicking-tuba-modal-hr"/>
-    <input type="submit" id="frolicking-tuba-modal-submit" value="send">
+    <label>To: </label> <input 
+                          id="frolicking-tuba-modal-enterTo"
+                          type="text"
+                          name="modalTo"
+                          minlength="1"><br>
+    <label>From: </label> <input 
+                            id="frolicking-tuba-modal-enterFrom"
+                            type="text"
+                            name="modalFrom"
+                            minlength="1"><br>
+    <input 
+      type="submit"
+      id="frolicking-tuba-modal-submit"
+      value="send">
   </form>
 </div>
