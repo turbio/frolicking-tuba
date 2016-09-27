@@ -55,12 +55,32 @@ describe('users', () => {
     });
   });
   describe('signin', () => {
-    it('should POST to /api/signin', (done) => {
+    it('should sign in user with correct credentials', (done) => {
+      chai.request(server)
+        .post('/api/signup')
+        .send({ email: 'first@email', password: 'password' })
+        .then((res) => {
+          res.should.have.status(200);
+          res.should.be.json;
+
+          return chai.request(server)
+            .post('/api/signin')
+            .send({ email: 'first@email', password: 'password' });
+        }).then((res) => {
+          res.should.have.status(200);
+          res.should.be.json;
+          done();
+        });
+    });
+    it('should not sign in user with incorrect credentials', (done) => {
       chai.request(server)
         .post('/api/signin')
-        .end((err, res) => {
-          res.should.have.status(200);
-          done(err);
+        .send({ email: 'nota@user', password: 'fake' })
+        .then((res) => {
+          done(res);
+        }).catch((res) => {
+          res.should.have.status(400);
+          done();
         });
     });
   });

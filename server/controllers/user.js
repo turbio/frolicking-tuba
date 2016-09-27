@@ -8,16 +8,24 @@ module.exports.signin = (req, res) => {
       User.findOne({ email: req.body.email }))
 
     .then((user) =>
-        console.log(user))
+      user || Promise.reject(config.messages.incorrect_cred))
 
-    .then(() =>
-      res.json({ error: null }))
+    .then((user) =>
+      bcrypt.compareAsync(req.body.password, user.hash))
 
-    .catch((err) => {
+    .then((same) => {
+      if (same) {
+        res.json({ error: null });
+
+        return Promise.resolve();
+      }
+
+      return Promise.reject(config.messages.incorrect_cred);
+
+    }).catch((err) => {
+      console.log(err);
       if (typeof err === 'string') {
         res.status(400).json({ error: err });
-      } else if (err.name === 'SequelizeUniqueConstraintError') {
-        res.status(400).json({ error: config.messages.unique_email });
       } else {
         res.status(500).json({ error: config.messages.server_error });
       }
@@ -36,7 +44,7 @@ module.exports.signup = (req, res) => {
       bcrypt.hashAsync(req.body.password, config.salt_rounds))
 
     .then((hash) =>
-      User.create({ email: req.body.email, password: hash }))
+      User.create({ email: req.body.email, hash }))
 
     .then(() =>
       res.json({ error: null }))

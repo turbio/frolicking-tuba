@@ -16,8 +16,9 @@
   },
   "salt_rounds": 10,
   "messages": {
-    "missing_cred": "must fill in username and password",
+    "missing_cred": "must fill in email and password",
     "unique_email": "an account with that email already exists",
-    "server_error": "oops... looks like something went wrong"
+    "server_error": "oops... looks like something went wrong",
+    "incorrect_cred": "email and password did not match"
   }
 }
