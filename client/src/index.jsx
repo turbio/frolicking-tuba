@@ -8,6 +8,7 @@ import Landing from './components/Landing.jsx';
 import NavbarContainer from './containers/NavbarContainer';
 import Login from './components/login.jsx';
 import Signup from './components/signup.jsx';
+import Documentation from './components/Documentation.jsx';
 
 const store = createStore(myApp);
 
@@ -23,9 +24,10 @@ render(
     <Router history={hashHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={Landing} />
+        <Route path="/signup" component={Signup} />
+        <Route path="/login" component={Login} />
+        <Route path="/documentation" component={Documentation} />
       </Route>
-      <Route path="/signup" component={Signup} />
-      <Route path="/login" component={Login} />
     </Router>
   </Provider>,
   document.getElementById('app')

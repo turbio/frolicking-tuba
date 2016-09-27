@@ -5818,7 +5818,7 @@ button.close {
   color: blue; }
 
 .headerBar {
-  position: fixed;
+  position: relative;
   top: 0px;
   left: 0px;
   width: 100%;
@@ -5827,5 +5827,13 @@ button.close {
   z-index: 9990;
   transition: 0.5s ease;
   -webkit-transition: 0.5s ease;
+  border-bottom-style: solid;
   border-bottom-width: 0.5px;
-  border-color: black; }
+  border-color: gray; }
+  .headerBar .container {
+    position: absolute;
+    top: 47%;
+    transform: translateY(-47%); }
+    .headerBar .container #rightMenu {
+      float: right;
+      clear: both; }
