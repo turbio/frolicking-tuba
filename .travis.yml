@@ -4,6 +4,7 @@ services:
   - postgresql
 before_script:
   - psql -c 'create database tuba;' -U postgres
+  - npm run build
 cache:
   directories:
     - node_modules 
