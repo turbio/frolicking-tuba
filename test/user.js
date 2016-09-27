@@ -48,17 +48,20 @@ describe('users', () => {
     it('should sign in user with correct credentials', (done) => {
       request(server)
         .post('/api/signup')
-        .send({ email: 'first@email', password: 'password' })
+        .send({ email: 'test_email', password: 'test_password' })
         .expect(200)
         .expect('Content-Type', /json/)
-        .then(() =>
-          request(server)
-            .post('/api/signin')
-            .send({ email: 'first@email', password: 'password' })
-            .expect(200)
-            .expect('Content-Type', /json/)
-            .then(() => done()))
-        .catch(done);
+        .then(() => {
+          const sess = session(server);
+
+          sess.get('/api/me').expect(400).end(() => {
+            sess.post('/api/signin')
+              .send({ email: 'test_email', password: 'test_password' })
+              .end(() => {
+                sess.get('/api/me').expect(200).end(done);
+              });
+          });
+        }).catch(done);
     });
     it('should not sign in user with incorrect credentials', (done) => {
       request(server)
