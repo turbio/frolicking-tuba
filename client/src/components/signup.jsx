@@ -1,7 +1,7 @@
 //signup
 
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
+import { Link, withRouter } from 'react-router';
 
 class Signup extends Component {
   constructor(props) {
@@ -65,7 +65,7 @@ class Signup extends Component {
               type="submit"
               onClick={(event) => {
                 event.preventDefault();
-                this.props.callback(this.state);
+                this.props.callback(this.state, 'signup', this);
               }}
             >Submit</button>
           </div>
@@ -78,4 +78,4 @@ class Signup extends Component {
 
 Signup.propTypes = { callback: PropTypes.func };
 
-export default Signup;
+export default withRouter(Signup);
