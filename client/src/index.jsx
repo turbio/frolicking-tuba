@@ -39,21 +39,15 @@ const handleSubmit = ({
   fetch(url, {
     method: 'POST',
     headers,
-    body: data
-  })
-  .then((response) => {
-    console.log('login success!', response.ok);
-    console.log(response);
-
-    return fetch('/api/me');
+    credentials: 'same-origin',
+    body: JSON.stringify(data)
   })
   .then((response) => response.json())
   .then((json) => {
-    console.log(json);
-    if (json.github_authenticated) {
-      context.props.router.push('/dashboard');
+    if (json.error) {
+      console.log(json);
     } else {
-      context.props.router.push('/welcome');
+      context.props.router.push('/dashboard');
     }
   })
   .catch((error) => console.log('fetch error:', error));
