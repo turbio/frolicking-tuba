@@ -1,6 +1,7 @@
-const chai = require('chai');
 const server = require('../server/server');
 const User = require('../server/models/user');
+const request = require('supertest');
+const session = require('supertest-session');
 
 describe('users', () => {
   beforeEach((done) => {
@@ -9,14 +10,12 @@ describe('users', () => {
 
   describe('signup', () => {
     it('should create users', (done) => {
-      chai.request(server)
+      request(server)
         .post('/api/signup')
         .send({ email: 'test@email', password: 'password' })
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.should.be.json;
-          res.should.have.cookie('connect.sid');
-
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .end((err) => {
           User.findAll({ email: 'test@email' }).then((users) => {
             users.length.should.eq(1);
             done(err);
@@ -24,77 +23,76 @@ describe('users', () => {
         });
     });
     it('should not allow multiple users with same email', (done) => {
-      chai.request(server)
+      request(server)
         .post('/api/signup')
         .send({ email: 'sameuser@email', password: 'samepassword' })
-        .then((res) => {
-          res.should.have.status(200);
-          res.should.be.json;
-
-          return chai.request(server)
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .then(() =>
+          request(server)
             .post('/api/signup')
-            .send({ email: 'sameuser@email', password: 'samepassword' });
-        }).then((res) => done(res))
-          .catch((res) => {
-            done();
-            res.should.have.status(400);
-            User.findAll({ email: 'sameuser@email' }).then((users) => {
-              users.length.should.eq(1);
-            });
-          });
+            .send({ email: 'sameuser@email', password: 'samepassword' })
+            .expect(400)
+            .then(() => done()))
+        .catch(done);
     });
     it('should not allow blank email or password', (done) => {
-      chai.request(server)
+      request(server)
         .post('/api/signup')
         .send({ email: '', password: 'samepassword' })
-        .then((res) => done(res))
-        .catch((res) => {
-          res.should.have.status(400);
-          done();
-        });
+        .expect(400)
+        .end(done);
     });
   });
   describe('signin', () => {
     it('should sign in user with correct credentials', (done) => {
-      chai.request(server)
+      request(server)
         .post('/api/signup')
         .send({ email: 'first@email', password: 'password' })
-        .then((res) => {
-          res.should.have.status(200);
-          res.should.be.json;
-
-          return chai.request(server)
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .then(() =>
+          request(server)
             .post('/api/signin')
-            .send({ email: 'first@email', password: 'password' });
-        }).then((res) => {
-          res.should.have.status(200);
-          res.should.be.json;
-          done();
-        });
+            .send({ email: 'first@email', password: 'password' })
+            .expect(200)
+            .expect('Content-Type', /json/)
+            .then(() => done()))
+        .catch(done);
     });
     it('should not sign in user with incorrect credentials', (done) => {
-      chai.request(server)
+      request(server)
         .post('/api/signin')
         .send({ email: 'nota@user', password: 'fake' })
-        .then((res) => {
-          done(res);
-        }).catch((res) => {
-          res.should.not.have.cookie('connect.sid');
-          res.should.have.status(400);
-          done();
-        });
+        .expect(400)
+        .end(done);
     });
   });
+});
+
+describe('sessions', () => {
+  let sessionRequest = null;
+
+  before((done) => {
+    sessionRequest = session(server);
+    sessionRequest
+      .post('/api/signup')
+      .send({ email: 'persist', password: 'persist' })
+      .end(done);
+  });
+
   describe('user info', () => {
-    it('should not get user information without a session', (done) => {
-      chai.request(server)
+    it('should get user information with a session', (done) => {
+      sessionRequest
         .get('/api/me')
-        .then((res) => {
-          done(res);
-        }).catch((res) => {
-          res.should.have.status(400);
-          done();
-        });
+        .expect(200)
+        .end(done);
+    });
+    it('should not get user information without a session', (done) => {
+      request(server)
+        .get('/api/me')
+        .expect(400)
+        .end(done);
     });
   });
 });

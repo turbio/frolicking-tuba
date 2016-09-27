@@ -1,27 +1,23 @@
-const chai = require('chai');
 const server = require('../server/server');
+const request = require('supertest');
 
 describe('server', () => {
   describe('/script.js', () => {
     it('should GET /script.js', (done) => {
-      chai.request(server)
+      request(server)
         .get('/script.js')
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.should.have.header('content-type', /application\/javascript/);
-          done(err);
-        });
+        .expect('Content-Type', /javascript/)
+        .expect(200)
+        .end(done);
     });
   });
 
   describe('/api/annotate', () => {
     it('should POST to /annotate', (done) => {
-      chai.request(server)
+      request(server)
         .post('/api/annotate')
-        .end((err, res) => {
-          res.should.have.status(200);
-          done(err);
-        });
+        .expect(200)
+        .end(done);
     });
   });
 });
