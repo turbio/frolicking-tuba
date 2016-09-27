@@ -21,5 +21,5 @@ module.exports.createIssue = (repo, issue) => {
   });
 
   req.write(JSON.stringify(issue));
-  req.end();
+  //req.end();
 };
