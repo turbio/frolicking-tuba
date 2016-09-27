@@ -31,12 +31,18 @@ const handleSubmit = ({
     password
   };
 
+  const headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+
   fetch(url, {
     method: 'POST',
+    headers,
     body: data
   })
   .then((response) => {
     console.log('login success!', response.ok);
+    console.log(response);
 
     return fetch('/api/me');
   })
