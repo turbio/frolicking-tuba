@@ -14,9 +14,12 @@ app.set('trust proxy', 1);
 app.use(session({
   secret: config.secret,
   resave: false,
-  saveUninitialized: true,
-  httpOnly: false,
-  cookie: { secure: false }
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: false,
+    secure: false,
+    maxAge: null
+  }
 }));
 
 app.use(express.static('./client/public'));
