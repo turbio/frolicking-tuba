@@ -4,8 +4,24 @@ const User = require('../models/user');
 const config = require('../../env/config.json');
 
 module.exports.signin = (req, res) => {
-  User.findOne({ email: req.body.email });
-  res.send('not implemented');
+  Promise.resolve().then(() =>
+      User.findOne({ email: req.body.email }))
+
+    .then((user) =>
+        console.log(user))
+
+    .then(() =>
+      res.json({ error: null }))
+
+    .catch((err) => {
+      if (typeof err === 'string') {
+        res.status(400).json({ error: err });
+      } else if (err.name === 'SequelizeUniqueConstraintError') {
+        res.status(400).json({ error: config.messages.unique_email });
+      } else {
+        res.status(500).json({ error: config.messages.server_error });
+      }
+    });
 };
 
 module.exports.signup = (req, res) => {
