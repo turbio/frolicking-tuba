@@ -5,6 +5,7 @@ const config = require('../../env/config.json');
 
 module.exports.signin = (req, res) => {
   const session = req.session;
+  let sessionUser = {};
 
   Promise.resolve().then(() =>
       User.findOne({ email: req.body.email }))
@@ -13,11 +14,11 @@ module.exports.signin = (req, res) => {
       user || Promise.reject(config.messages.incorrect_cred))
 
     .then((user) =>
-      bcrypt.compareAsync(req.body.password, user.hash))
+      (sessionUser = bcrypt.compareAsync(req.body.password, user.hash)))
 
     .then((same) => {
       if (same) {
-        session.loggedin = true;
+        session.user = sessionUser;
         res.json({ error: null });
 
         return Promise.resolve();
@@ -26,7 +27,6 @@ module.exports.signin = (req, res) => {
       return Promise.reject(config.messages.incorrect_cred);
 
     }).catch((err) => {
-      console.log(err);
       if (typeof err === 'string') {
         res.status(400).json({ error: err });
       } else {
@@ -51,8 +51,8 @@ module.exports.signup = (req, res) => {
     .then((hash) =>
       User.create({ email: req.body.email, hash }))
 
-    .then(() => {
-      session.loggedin = true;
+    .then((user) => {
+      session.user = user;
       res.json({ error: null });
 
     }).catch((err) => {
@@ -64,4 +64,16 @@ module.exports.signup = (req, res) => {
         res.status(500).json({ error: config.messages.server_error });
       }
     });
+};
+
+module.exports.signout = (req, res) => {
+  req.session.destroy(() => res.end());
+};
+
+module.exports.info = (req, res) => {
+  if (req.session.user) {
+    res.json({ github_authenticated: false });
+  } else {
+    res.status(400).json({ error: config.messages.not_logged_in });
+  }
 };

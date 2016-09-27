@@ -38,7 +38,6 @@ describe('users', () => {
           .catch((res) => {
             done();
             res.should.have.status(400);
-            res.should.be.json;
             User.findAll({ email: 'sameuser@email' }).then((users) => {
               users.length.should.eq(1);
             });
@@ -86,22 +85,14 @@ describe('users', () => {
         });
     });
   });
-  describe('me', () => {
-    it('should sign in user with correct credentials', (done) => {
+  describe('user info', () => {
+    it('should not get user information without a session', (done) => {
       chai.request(server)
-        .post('/api/signup')
-        .send({ email: 'first@email', password: 'password' })
+        .get('/api/me')
         .then((res) => {
-          res.should.have.status(200);
-          res.should.be.json;
-
-          return chai.request(server)
-            .post('/api/signin')
-            .send({ email: 'first@email', password: 'password' });
-        }).then((res) => {
-          res.should.have.cookie('connect.sid');
-          res.should.have.status(200);
-          res.should.be.json;
+          done(res);
+        }).catch((res) => {
+          res.should.have.status(400);
           done();
         });
     });
