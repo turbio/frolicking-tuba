@@ -44,9 +44,9 @@ const handleSubmit = ({
   .then((json) => {
     console.log(json);
     if (json.github_authenticated) {
-      context.router.push('/welcome');
+      context.props.router.push('/dashboard');
     } else {
-      context.router.push('/dashboard');
+      context.props.router.push('/welcome');
     }
   })
   .catch((error) => console.log('fetch error:', error));
