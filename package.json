@@ -44,6 +44,7 @@
     "redux": "^3.6.0",
     "sequelize": "^3.24.3",
     "supertest": "^2.0.0",
+    "supertest-session": "^2.0.1",
     "webpack": "^2.1.0-beta.25"
   },
   "devDependencies": {

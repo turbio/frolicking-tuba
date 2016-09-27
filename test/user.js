@@ -1,6 +1,7 @@
 const server = require('../server/server');
 const User = require('../server/models/user');
 const request = require('supertest');
+const session = require('supertest-session');
 
 describe('users', () => {
   beforeEach((done) => {
@@ -67,7 +68,26 @@ describe('users', () => {
         .end(done);
     });
   });
+});
+
+describe('sessions', () => {
+  let sessionRequest = null;
+
+  before((done) => {
+    sessionRequest = session(server);
+    sessionRequest
+      .post('/api/signup')
+      .send({ email: 'persist', password: 'persist' })
+      .end(done);
+  });
+
   describe('user info', () => {
+    it('should get user information with a session', (done) => {
+      sessionRequest
+        .get('/api/me')
+        .expect(200)
+        .end(done);
+    });
     it('should not get user information without a session', (done) => {
       request(server)
         .get('/api/me')
