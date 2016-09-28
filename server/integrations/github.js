@@ -21,9 +21,32 @@ module.exports.createIssue = (repo, issue) => {
   });
 
   req.write(JSON.stringify(issue));
+  //req.end();
 };
 
 module.exports.register = (req, res) => {
-  res.json(req);
-  console.log('FROM GITHUB INTEGRATION URL:', req);
+  const apiHost = 'github.com';
+  const apiPath = '/login/oauth/access_token';
+
+  const options = {
+    host: apiHost,
+    post: 80,
+    path: apiPath,
+    method: 'POST'
+  };
+
+  const githubReq = https.request(options, (githubRes) => {
+    githubRes.setEncoding('utf8');
+    githubRes.on('data', (part) => {
+      console.log('data:', part);
+    });
+  });
+
+  githubReq.write(
+    `client_id=${config.github.client_id}\
+    &client_secret=${config.github.secret}\
+    &code=${req.query.code}`
+  );
+
+  res.json('doing stuff...');
 };
