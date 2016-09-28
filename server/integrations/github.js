@@ -45,7 +45,7 @@ module.exports.register = (req, res) => {
     });
 
     githubRes.on('end', () => {
-      res.json({ parseRes(githubResData) });
+      res.json(parseRes(githubResData));
       //res.redirect('/');
     });
   });
