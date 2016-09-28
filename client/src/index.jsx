@@ -3,10 +3,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import {
-  Router,
-  Route,
-  hashHistory,
-  IndexRoute
+  Router, Route, hashHistory, IndexRoute, withRouter
 } from 'react-router';
 import myApp from './reducers';
 import Landing from './components/Landing.jsx';
@@ -19,12 +16,29 @@ import Welcome from './components/Welcome.jsx';
 
 const store = createStore(myApp);
 
-const App = (props) => (
-  <div>
-    <NavbarContainer />
-    {props.children}
-  </div>
-);
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { loggedIn: false };
+  }
+  render() {
+    return (
+      <div>
+        <NavbarContainer loggedIn={this.state.loggedIn} />
+        {this.props.children && React.cloneElement(
+          this.props.children, { loggedIn: this.state.loggedIn }
+        )}
+      </div>
+    );
+  }
+}
+App.propTypes = {
+  children: React.PropTypes.oneOfType([
+    React.PropTypes.arrayOf(React.PropTypes.node),
+    React.PropTypes.node
+  ])
+};
+const AppWrapper = withRouter(App);
 
 // handle Login/SigUp button click
 const handleSubmit = ({
@@ -81,7 +95,7 @@ const requireGithubAuth = (nextState, replace, callback) => {
 render(
   <Provider store={store}>
     <Router history={hashHistory}>
-      <Route path="/" component={App}>
+      <Route path="/" component={AppWrapper}>
         <IndexRoute component={Landing} />
         <Route path="/signup" component={SingupWrapper} />
         <Route path="/signin" component={SinginWrapper} />
