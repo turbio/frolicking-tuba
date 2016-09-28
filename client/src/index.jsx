@@ -19,7 +19,7 @@ const store = createStore(myApp);
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { loggedIn: 'test' };
+    this.state = { loggedIn: false };
   }
   toggleLoggedIn() {
     this.setState({ loggedIn: !this.state.loggedIn });
