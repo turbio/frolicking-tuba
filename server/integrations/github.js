@@ -38,8 +38,15 @@ module.exports.register = (req, res) => {
 
   const githubReq = https.request(options, (githubRes) => {
     githubRes.setEncoding('utf8');
+    let resData = '';
+
     githubRes.on('data', (part) => {
-      console.log('data:', part);
+      resData += part;
+    });
+    githubReq.on('end', () => {
+      console.log('done with: ', resData);
+      //res.redirect('/');
+      res.send('done?');
     });
   });
 
@@ -48,7 +55,5 @@ module.exports.register = (req, res) => {
 &client_secret=${config.github.secret}\
 &code=${req.query.code}`);
 
-  console.log('started...');
   githubReq.end();
-  res.redirect('/');
 };
