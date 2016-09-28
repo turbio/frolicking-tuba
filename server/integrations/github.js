@@ -57,7 +57,10 @@ module.exports.register = (req, res) => {
     });
 
     githubRes.on('end', () => {
-      res.json(parseRes(githubResData));
+      res.json({
+        from: parseRes(githubResData),
+        sess: req.session.user
+      });
       //res.redirect('/');
     });
   });
