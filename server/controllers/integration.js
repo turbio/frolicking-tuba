@@ -1,4 +1,5 @@
 const config = require('../../env/config.json');
+const Integration = require('../models/integration');
 
 module.exports.getAll = (req, res) => {
   if (!req.session.user) {
@@ -7,5 +8,9 @@ module.exports.getAll = (req, res) => {
     return;
   }
 
-  console.log(req.session.user);
+
+  Integration.findAll({
+    where: { userId: req.session.user.id },
+    attributes: ['type']
+  }).then((integrations) => res.json(integrations));
 };
