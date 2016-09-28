@@ -43,6 +43,7 @@ module.exports.register = (req, res) => {
     githubRes.on('data', (part) => {
       githubResData += part;
     });
+
     githubRes.on('end', () => {
       res.json({ parseRes(githubResData) });
       //res.redirect('/');
