@@ -58,6 +58,11 @@ module.exports.register = (req, res) => {
   githubReq.end();
 };
 
-const parseRes = (res) => {
-  return res.split('&');
-};
+const parseRes = (res) =>
+  res
+  .split('&')
+  .reduce((sum, cur) => {
+    const parts = cur.split('=');
+    sum[parts[0]] = parts[1];
+    return sum
+  }, {});
