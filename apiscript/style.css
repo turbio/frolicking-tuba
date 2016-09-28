@@ -30,7 +30,9 @@
 	transform: translate(0, 10px);
 	transition: all .25s;
 	border-radius: 10px;
-	width: 328px;
+	width: 334px;
+	z-index: 99999999999999;
+	padding: 10px;
 }
 #frolicking-tuba-modal-comment{
 	height: 100px;
@@ -42,7 +44,7 @@
 	margin-top: 5px;
 	margin-bottom: -5px;
 	border: 1px solid #ccc;
-	border-radius: 6px;
+	border-radius: 4px;
 }
 #frolicking-tuba-modal-enterTitle,
 #frolicking-tuba-modal-enterTo,
@@ -53,17 +55,19 @@
 	font-size: 12px;
 	width: 300px;
 	border: 1px solid #ccc;
-	border-radius: 6px;
+	border-radius: 4px;
 }
 #frolicking-tuba-modal-submit{
 	cursor: pointer;
-	background: none;
+	background: #a7d4f6;
 	border: none;
-	color: #3b98ff;
+	color: white;
 	font-size: 16px;
 	font-weight: 600;
-	margin: 8px auto;
+	margin: 12px auto;
 	float: right;
+	border-radius: 4px;
+	padding: 5px 10px;
 }
 ::-webkit-input-placeholder {
    color: #c6c6c6;
