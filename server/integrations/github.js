@@ -64,6 +64,8 @@ const parseRes = (res) =>
   .reduce((sum, cur) => {
     const parts = cur.split('=');
     const newSum = sum;
+
     newSum[parts[0]] = parts[1];
+
     return newSum
   }, {});
