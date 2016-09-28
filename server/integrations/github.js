@@ -64,7 +64,7 @@ module.exports.register = (req, res) => {
         res.status(400).json({
           error: 'failed to authenticate with github',
           token: fromGithub.access_token,
-          sess: req.session.user
+          sess: req.session.user || null
         });
 
         return;
