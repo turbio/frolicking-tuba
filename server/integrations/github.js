@@ -3,6 +3,18 @@ const https = require('https');
 
 const apiUrl = 'api.github.com';
 
+const parseRes = (res) =>
+  res
+  .split('&')
+  .reduce((sum, cur) => {
+    const parts = cur.split('=');
+    const newSum = sum;
+
+    newSum[parts[0]] = parts[1];
+
+    return newSum;
+  }, {});
+
 module.exports.createIssue = (repo, issue) => {
   const options = {
     host: apiUrl,
@@ -57,15 +69,3 @@ module.exports.register = (req, res) => {
 
   githubReq.end();
 };
-
-const parseRes = (res) =>
-  res
-  .split('&')
-  .reduce((sum, cur) => {
-    const parts = cur.split('=');
-    const newSum = sum;
-
-    newSum[parts[0]] = parts[1];
-
-    return newSum;
-  }, {});
