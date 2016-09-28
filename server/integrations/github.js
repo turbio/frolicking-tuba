@@ -44,7 +44,7 @@ module.exports.register = (req, res) => {
       githubResData += part;
     });
     githubRes.on('end', () => {
-      res.json({ githubResData });
+      res.json({ parseRes(githubResData) });
       //res.redirect('/');
     });
   });
@@ -55,4 +55,8 @@ module.exports.register = (req, res) => {
 &code=${req.query.code}`);
 
   githubReq.end();
+};
+
+const parseRes = (res) => {
+  return res.split('&');
 };
