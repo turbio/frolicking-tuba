@@ -67,5 +67,5 @@ const parseRes = (res) =>
 
     newSum[parts[0]] = parts[1];
 
-    return newSum
+    return newSum;
   }, {});
