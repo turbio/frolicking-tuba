@@ -72,7 +72,10 @@ module.exports.signout = (req, res) => {
 
 module.exports.info = (req, res) => {
   if (req.session.user) {
-    res.json({ github_authenticated: false });
+    res.json({
+      github_authenticated: false,
+      github_client_id: config.github.client_id
+    });
   } else {
     res.status(400).json({ error: config.messages.not_logged_in });
   }
