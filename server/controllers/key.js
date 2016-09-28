@@ -31,7 +31,9 @@ module.exports.createKey = (req, res) => {
       userId: req.session.user.id,
       key
     })
-    .then((result) => res.status(200).json(result));
+    .then(() => {
+      res.redirect('/');
+    });
   });
 };
 

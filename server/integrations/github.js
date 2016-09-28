@@ -89,3 +89,9 @@ module.exports.register = (req, res) => {
 
   githubReq.end();
 };
+
+module.exports.redirectTo = (req, res) => {
+  res.redirect(
+    `${config.github.auth_url}?client_id=${config.github.client_id}&scope=repo`
+  );
+};

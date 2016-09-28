@@ -2,7 +2,8 @@
   "github": {
     "username": "<USERNAME>",
     "password": "<PASSWORD>",
-    "client_id": "562f07388003d99c712a"
+    "client_id": "562f07388003d99c712a",
+    "auth_url": "https://github.com/login/oauth/authorize"
   },
   "server": {
     "port": "3000"
