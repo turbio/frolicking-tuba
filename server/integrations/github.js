@@ -32,7 +32,8 @@ module.exports.register = (req, res) => {
     host: apiHost,
     post: 80,
     path: apiPath,
-    method: 'POST'
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
   };
 
   const githubReq = https.request(options, (githubRes) => {
