@@ -21,5 +21,8 @@ module.exports.createIssue = (repo, issue) => {
   });
 
   req.write(JSON.stringify(issue));
-  //req.end();
+};
+
+module.exports.register = (req, res) => {
+  console.log('FROM GITHUB INTEGRATION URL:', res);
 };
