@@ -3,6 +3,7 @@ const db = require('./db');
 //models
 const User = require('./models/user');
 const Integration = require('./models/integration');
+const Key = require('./models/key');
 
 //options
 const force = process.argv.includes('--force');
@@ -13,6 +14,8 @@ Promise.resolve().then(() =>
   console.log('syncing User schema') || User.sync({ force })
 ).then(() =>
   console.log('syncing Integration schema') || Integration.sync({ force })
+).then(() =>
+  console.log('syncing Key schema') || Key.sync({ force })
 ).then(() =>
   db.close()
 ).catch((err) =>

@@ -47,6 +47,7 @@ describe('users', () => {
         .end(done);
     });
   });
+
   describe('signin', () => {
     const sessionRequest = session(server);
 
@@ -77,6 +78,7 @@ describe('users', () => {
         .end(done);
     });
   });
+
   describe('signout', () => {
     const sessionRequest = session(server);
 
@@ -105,6 +107,7 @@ describe('users', () => {
         .end(done);
     });
   });
+
   describe('user info', () => {
     it('should get user information with a session', (done) => {
       signedinRequest
@@ -118,5 +121,8 @@ describe('users', () => {
         .expect(400)
         .end(done);
     });
+  });
+
+  describe('integrations', () => {
   });
 });
