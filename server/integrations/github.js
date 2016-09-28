@@ -70,13 +70,11 @@ module.exports.register = (req, res) => {
         return;
       }
 
-      const newIntegration = Integration.create({
+      Integration.create({
         type: 'github',
         meta: fromGithub.access_token,
         userId: req.session.user.id
-      });
-
-      res.json(newIntegration);
+      }).then((integration) => res.json(integration));
     });
   });
 
