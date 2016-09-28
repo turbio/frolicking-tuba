@@ -46,10 +46,9 @@ module.exports.register = (req, res) => {
   githubReq.write(
 `client_id=${config.github.client_id}\
 &client_secret=${config.github.secret}\
-&code=${req.query.code}`
-  );
+&code=${req.query.code}`);
 
   console.log('started...');
   githubReq.end();
-  res.json('doing stuff...');
+  res.redirct('/');
 };
