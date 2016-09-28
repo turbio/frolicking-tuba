@@ -4,6 +4,7 @@ const user = require('./controllers/user');
 const annotate = require('./controllers/annotate');
 const script = require('./controllers/script');
 const integration = require('./controllers/integration');
+const key = require('./controllers/key');
 
 const githubIntegration = require('./integrations/github');
 
@@ -20,6 +21,9 @@ router.get('/api/me', user.info);
 //integrations
 router.get('/api/integrations', integration.getAll);
 router.post('/api/integrations/github', githubIntegration.register);
+
+//keys
+router.get('/api/keys', key.getAll);
 
 router.get('/script.js', script.get);
 
