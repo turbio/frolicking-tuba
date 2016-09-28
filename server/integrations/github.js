@@ -44,7 +44,7 @@ module.exports.register = (req, res) => {
   });
 
   githubReq.write(
-    `client_id=${config.github.client_id}\
+`client_id=${config.github.client_id}\
 &client_secret=${config.github.secret}\
 &code=${req.query.code}`
   );
