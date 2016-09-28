@@ -75,7 +75,7 @@ module.exports.register = (req, res) => {
         meta: fromGithub.access_token
       });
 
-      newIntegration.setUser(req.session.user);
+      newIntegration.userId = req.session.user.id;
 
       res.json(newIntegration);
     });
