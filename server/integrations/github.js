@@ -38,15 +38,14 @@ module.exports.register = (req, res) => {
 
   const githubReq = https.request(options, (githubRes) => {
     githubRes.setEncoding('utf8');
-    let resData = '';
+    let githubResData = '';
 
     githubRes.on('data', (part) => {
-      resData += part;
+      githubResData += part;
     });
     githubReq.on('end', () => {
-      console.log('done with: ', resData);
+      res.json({ githubResData });
       //res.redirect('/');
-      res.send('done?');
     });
   });
 
