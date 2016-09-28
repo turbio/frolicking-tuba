@@ -15,6 +15,7 @@ module.exports.signin = (req, res) => {
 
     .then((user) => {
       sessionUser = user;
+
       return bcrypt.compareAsync(req.body.password, user.hash);
 
     }).then((same) => {
