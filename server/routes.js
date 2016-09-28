@@ -8,15 +8,17 @@ const key = require('./controllers/key');
 
 const githubIntegration = require('./integrations/github');
 
-router.post('/api/annotate', annotate.create);
-
-//user routes
+//deprecate this at some point...
+//DEPRECATED
 router.post('/api/signup', user.signup);
 router.post('/api/signin', user.signin);
 router.get('/api/signout', user.signout);
-
-//deprecate this at some point...
 router.get('/api/me', user.info);
+
+//user routes
+router.post('/api/users/signup', user.signup);
+router.post('/api/users/signin', user.signin);
+router.get('/api/users/signout', user.signout);
 
 //integrations
 router.get('/api/integrations', integration.getAll);
@@ -25,6 +27,10 @@ router.post('/api/integrations/github', githubIntegration.register);
 //keys
 router.get('/api/keys', key.getAll);
 
+//annotations
+router.post('/api/annotate', annotate.create);
+
+//special script serving
 router.get('/script.js', script.get);
 
 module.exports = router;
