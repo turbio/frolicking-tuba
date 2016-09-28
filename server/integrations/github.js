@@ -24,5 +24,6 @@ module.exports.createIssue = (repo, issue) => {
 };
 
 module.exports.register = (req, res) => {
-  console.log('FROM GITHUB INTEGRATION URL:', res);
+  res.json(req);
+  console.log('FROM GITHUB INTEGRATION URL:', req);
 };

@@ -22,7 +22,7 @@ router.get('/api/users/signout', user.signout);
 
 //integrations
 router.get('/api/integrations', integration.getAll);
-router.post('/api/integrations/github', githubIntegration.register);
+router.get('/api/integrations/github', githubIntegration.register);
 
 //keys
 router.get('/api/keys', key.getAll);
