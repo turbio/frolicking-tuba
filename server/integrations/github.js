@@ -50,6 +50,6 @@ module.exports.register = (req, res) => {
   );
 
   console.log('started...');
-  res.end();
+  githubRes.end();
   res.json('doing stuff...');
 };
