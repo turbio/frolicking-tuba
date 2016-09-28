@@ -50,5 +50,5 @@ module.exports.register = (req, res) => {
 
   console.log('started...');
   githubReq.end();
-  res.redirct('/');
+  res.redirect('/');
 };
