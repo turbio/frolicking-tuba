@@ -1,5 +1,6 @@
 const config = require('../../env/config.json');
 const https = require('https');
+const Integration = require('../models/integration');
 
 const apiUrl = 'api.github.com';
 
