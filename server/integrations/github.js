@@ -59,20 +59,19 @@ module.exports.register = (req, res) => {
 
     githubRes.on('end', () => {
       const fromGithub = parseRes(githubResData);
-      if (!fromGithub.access_token) {
+
+      if (!fromGithub.access_token || !req.session.user) {
         res.status(400).json({ error: 'failed to authenticate with github' });
       }
-      res.json({
-        from: parseRes(githubResData),
-        sess: req.session.user
-      });
 
-      Integration.create({
+      const newIntegration = Integration.create({
         type: 'github',
-        meta: parseRes(githubResData)
+        meta: fromGithub.access_token
       });
 
-      //res.redirect('/');
+      newIntegration.setUser(req.session.user);
+
+      res.json(newIntegration);
     });
   });
 
