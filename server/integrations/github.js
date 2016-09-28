@@ -74,7 +74,8 @@ module.exports.register = (req, res) => {
         type: 'github',
         meta: fromGithub.access_token,
         userId: req.session.user.id
-      }).then((integration) => res.json(integration));
+      }).then(() =>
+        res.redirect('/'));
     });
   });
 
@@ -84,4 +85,10 @@ module.exports.register = (req, res) => {
 &code=${req.query.code}`);
 
   githubReq.end();
+};
+
+module.exports.redirectTo = (req, res) => {
+  res.redirect(
+    `${config.github.auth_url}?client_id=${config.github.client_id}&scope=repo`
+  );
 };
