@@ -8,9 +8,9 @@
 	position: absolute;
 	pointer-events: none;
 }
-#frolicking-tuba-modal-feedback {
+/*#frolicking-tuba-modal-feedback {
 	margin: 5px;
-}
+}*/
 #frolicking-tuba-modal:after {
 	border-top-color: #fff;
 	border-width: 20px;
@@ -30,9 +30,9 @@
 	transform: translate(0, 10px);
 	transition: all .25s;
 	border-radius: 10px;
-	width: 334px;
+	width: 316px;
 	z-index: 99999999999999;
-	padding: 10px;
+	padding: 2px 6px 6px 6px;
 }
 #frolicking-tuba-modal-comment{
 	height: 100px;
@@ -62,22 +62,25 @@
 	background: #a7d4f6;
 	border: none;
 	color: white;
-	font-size: 16px;
-	font-weight: 600;
-	margin: 12px auto;
+	font-size: 15px;
+	margin: 12px auto 4px auto;
 	float: right;
 	border-radius: 4px;
 	padding: 5px 10px;
 }
 ::-webkit-input-placeholder {
    color: #c6c6c6;
+   font-size: 14px;
 }
 :-moz-placeholder { /* Firefox 18- */
    color: #c6c6c6;
+   font-size: 14px;
 }
 ::-moz-placeholder {  /* Firefox 19+ */
    color: #c6c6c6;
+   font-size: 14px;
 }
 :-ms-input-placeholder {  
    color: #c6c6c6;
+   font-size: 14px;
 }

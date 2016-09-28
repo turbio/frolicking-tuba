@@ -34,11 +34,13 @@
 
   const setupModal = (event) => {
     let xpos = event.pageX - (modalElem.clientWidth / half);
-    xpos = xpos < 0 ? 0 : xpos;
-    xpos = xpos > window.innerWidth - 328 ? window.innerWidth - 328 : xpos;
     let ypos = event.pageY
       - (modalElem.clientHeight + arrowHeight + padding);
+    const mw = 328;
+
     ypos = ypos < 0 ? 0 : ypos;
+    xpos = xpos < 0 ? 0 : xpos;
+    xpos = xpos > window.innerWidth - mw ? window.innerWidth - mw : xpos;
 
     modalElem.style.top = `${ypos}px`;
     modalElem.style.left = `${xpos}px`;
