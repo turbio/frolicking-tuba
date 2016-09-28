@@ -1,7 +1,8 @@
 {
   "github": {
     "username": "<USERNAME>",
-    "password": "<PASSWORD>"
+    "password": "<PASSWORD>",
+    "client_id": "562f07388003d99c712a"
   },
   "server": {
     "port": "3000"
@@ -22,5 +23,8 @@
     "incorrect_cred": "email and password did not match",
     "not_logged_in": "you must be logged in to do this"
   },
-  "secret": "ONLY USE THIS IN DEV"
+  "secret": "ONLY USE THIS IN DEV",
+  "integrations": [
+    "github"
+  ]
 }

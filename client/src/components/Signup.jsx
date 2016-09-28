@@ -2,6 +2,9 @@
 
 import React, { Component, PropTypes } from 'react';
 import { Link, withRouter } from 'react-router';
+import {
+  FormGroup, FormControl, Jumbotron, Grid, Row, Col, Button
+} from 'react-bootstrap';
 
 class Signup extends Component {
   constructor(props) {
@@ -27,51 +30,63 @@ class Signup extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Sign Up</h1>
-        <form>
-          <div>
-            <label htmlFor="USERNAME">USERNAME</label>
-            <input
-              type="text"
-              //value={this.state.username}
-              onChange={(event) => {
-                this.setState({ username: event.target.value });
-              }}
-            />
-          </div>
-          <div>
-            <label htmlFor="PASSWORD">PASSWORD</label>
-            <input
-              type="password"
-              //value={this.state.password}
-              onChange={(event) => {
-                this.setState({ password: event.target.value });
-              }}
-            />
-          </div>
-          <div>
-            <label htmlFor="COMPANY">COMPANY</label>
-            <input
-              type="text"
-              //value={this.state.companyName}
-              onChange={(event) => {
-                this.setState({ companyName: event.target.value });
-              }}
-            />
-          </div>
-          <div>
-            <button
-              type="submit"
-              onClick={(event) => {
-                event.preventDefault();
-                this.props.callback(this.state, 'signup', this);
-              }}
-            >Submit</button>
-          </div>
-          <Link to="/signin">Log In</Link>
-        </form>
-      </div>
+      <Grid>
+        <Row>
+          <Col md={6} mdOffset={3}>
+            <Jumbotron>
+              <h1>Sign Up</h1>
+              <form>
+                <FormGroup
+                  controlId="username"
+                  //validationState={this.getValidationState()}
+                >
+                  <FormControl
+                    type="text"
+                    placeholder="Email"
+                    onChange={(event) => {
+                      this.setState({ username: event.target.value });
+                    }}
+                  />
+                </FormGroup>
+                <FormGroup
+                  controlId="password"
+                  //validationState={this.getValidationState()}
+                >
+                  <FormControl
+                    type="password"
+                    placeholder="Password"
+                    onChange={(event) => {
+                      this.setState({ password: event.target.value });
+                    }}
+                  />
+                </FormGroup>
+                <FormGroup
+                  controlId="company"
+                  //validationState={this.getValidationState()}
+                >
+                  <FormControl
+                    type="text"
+                    placeholder="Company"
+                    onChange={(event) => {
+                      this.setState({ companyName: event.target.value });
+                    }}
+                  />
+                </FormGroup>
+                <div>
+                  <Button
+                    bsStyle="primary"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      this.props.callback(this.state, 'signup', this);
+                    }}
+                  >Submit</Button>
+                </div>
+                <Link to="/signin">Log In</Link>
+              </form>
+            </Jumbotron>
+          </Col>
+        </Row>
+      </Grid>
     );
   }
 }
