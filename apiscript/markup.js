@@ -11,6 +11,9 @@
   let modalElem = null;
   let formElem = null;
   let commentElem = null;
+  let toElem = null;
+  let fromElem = null;
+  let titleElem = null;
   let cssAdded = false;
   let selectedText = '';
 
@@ -30,9 +33,14 @@
   };
 
   const setupModal = (event) => {
-    const xpos = event.pageX - (modalElem.clientWidth / half);
-    const ypos = event.pageY
+    let xpos = event.pageX - (modalElem.clientWidth / half);
+    let ypos = event.pageY
       - (modalElem.clientHeight + arrowHeight + padding);
+    const mw = 328;
+
+    ypos = ypos < 0 ? 0 : ypos;
+    xpos = xpos < 0 ? 0 : xpos;
+    xpos = xpos > window.innerWidth - mw ? window.innerWidth - mw : xpos;
 
     modalElem.style.top = `${ypos}px`;
     modalElem.style.left = `${xpos}px`;
@@ -56,11 +64,25 @@
     request.setRequestHeader('Content-Type', 'application/json');
 
     request.send(JSON.stringify({
+      title: titleElem.value,
       comment: commentElem.value,
+      to: toElem.value,
+      from: fromElem.value,
       selected: selectedText
     }));
 
     hideModal();
+  };
+
+  const getElements = () => {
+    document.body.innerHTML += modalHTML;
+    modalElem = document.getElementById('frolicking-tuba-modal');
+    formElem = document.getElementById('frolicking-tuba-modal-feedback');
+    commentElem = document.getElementById('frolicking-tuba-modal-comment');
+    toElem = document.getElementById('frolicking-tuba-modal-enterTo');
+    fromElem = document.getElementById('frolicking-tuba-modal-enterFrom');
+    titleElem = document.getElementById('frolicking-tuba-modal-enterTitle');
+    formElem.onsubmit = submitForm;
   };
 
   const showModal = (event) => {
@@ -70,11 +92,7 @@
     }
 
     if (!modalElem) {
-      document.body.innerHTML += modalHTML;
-      modalElem = document.getElementById('frolicking-tuba-modal');
-      formElem = document.getElementById('frolicking-tuba-modal-feedback');
-      commentElem = document.getElementById('frolicking-tuba-modal-comment');
-      formElem.onsubmit = submitForm;
+      getElements();
     }
 
     setupModal(event);
