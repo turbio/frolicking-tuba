@@ -72,10 +72,9 @@ module.exports.register = (req, res) => {
 
       const newIntegration = Integration.create({
         type: 'github',
-        meta: fromGithub.access_token
+        meta: fromGithub.access_token,
+        userId: req.session.user.id
       });
-
-      newIntegration.userId = req.session.user.id;
 
       res.json(newIntegration);
     });
