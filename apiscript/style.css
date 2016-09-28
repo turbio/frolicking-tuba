@@ -8,6 +8,9 @@
 	position: absolute;
 	pointer-events: none;
 }
+/*#frolicking-tuba-modal-feedback {
+	margin: 5px;
+}*/
 #frolicking-tuba-modal:after {
 	border-top-color: #fff;
 	border-width: 20px;
@@ -19,38 +22,65 @@
 	margin-left: -22px;
 }
 #frolicking-tuba-modal{
-	background: #fff;
+	background: white;
 	border: 2px #ccc solid;
 	position: absolute;
 	font-family: Helvetica,sans-serif;
-
 	opacity: 0;
 	transform: translate(0, 10px);
 	transition: all .25s;
+	border-radius: 10px;
+	width: 316px;
+	z-index: 99999999999999;
+	padding: 2px 6px 6px 6px;
 }
 #frolicking-tuba-modal-comment{
-	border: none;
-	outline: none;
-	height: 50px;
-	width: 90%;
-	padding: 5%;
+	height: 100px;
+	width: 300px;
+	padding: 8px;
 	resize: none;
 	font-family: Helvetica,sans-serif;
-	font-size: 16px;
+	font-size: 12px;
+	margin-top: 5px;
+	margin-bottom: -5px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+#frolicking-tuba-modal-enterTitle,
+#frolicking-tuba-modal-enterTo,
+#frolicking-tuba-modal-enterFrom {
+	padding: 8px;
+	margin-top: 5px;
+	font-family: Helvetica,sans-serif;
+	font-size: 12px;
+	width: 300px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
 }
 #frolicking-tuba-modal-submit{
 	cursor: pointer;
-	background: none;
+	background: #a7d4f6;
 	border: none;
-	color: #3b98ff;
-	font-size: 16px;
-	font-weight: 600;
-	margin: 8px;
+	color: white;
+	font-size: 15px;
+	margin: 12px auto 4px auto;
 	float: right;
+	border-radius: 4px;
+	padding: 5px 10px;
 }
-#frolicking-tuba-modal-hr{
-	height: 2px;
-	background: #ccc;
-	border: none;
-	margin: 0;
+::-webkit-input-placeholder {
+   color: #c6c6c6;
+   font-size: 14px;
+}
+:-moz-placeholder { /* Firefox 18- */
+   color: #c6c6c6;
+   font-size: 14px;
+}
+::-moz-placeholder {  /* Firefox 19+ */
+   color: #c6c6c6;
+   font-size: 14px;
+}
+:-ms-input-placeholder {  
+   color: #c6c6c6;
+   font-size: 14px;
 }
