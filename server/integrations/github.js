@@ -63,6 +63,7 @@ const parseRes = (res) =>
   .split('&')
   .reduce((sum, cur) => {
     const parts = cur.split('=');
-    sum[parts[0]] = parts[1];
-    return sum
+    const newSum = sum;
+    newSum[parts[0]] = parts[1];
+    return newSum
   }, {});
