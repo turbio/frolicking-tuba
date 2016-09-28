@@ -23,9 +23,7 @@ class Welcome extends React.Component {
         <h1>Welcome</h1>
         <p>Welcome content</p>
         <a
-          href={`https://github.com/login/oauth/authorize\
-?scope=repo\
-&client_id=${this.state.client_id}`}
+          href="/api/integrations/github"
         >Auth Github</a>
       </div>
     );

@@ -74,8 +74,9 @@ App.propTypes = {
 };
 const AppWrapper = withRouter(App);
 
+// onEnter hook for Dashboard route
 const requireGithubAuth = (nextState, replace, callback) => {
-  console.log('Dashboard onEnter');
+  // check if user has authorized github
   fetch('/api/me', { credentials: 'same-origin' })
   .then((response) => response.json())
   .then((json) => {
