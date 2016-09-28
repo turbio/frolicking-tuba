@@ -22,5 +22,8 @@
     "incorrect_cred": "email and password did not match",
     "not_logged_in": "you must be logged in to do this"
   },
-  "secret": "ONLY USE THIS IN DEV"
+  "secret": "ONLY USE THIS IN DEV",
+  "integrations": [
+    "github"
+  ]
 }
