@@ -74,7 +74,8 @@ module.exports.register = (req, res) => {
         type: 'github',
         meta: fromGithub.access_token,
         userId: req.session.user.id
-      }).then((integration) => res.json(integration));
+      }).then((integration) =>
+        res.redirect('/'));
     });
   });
 
