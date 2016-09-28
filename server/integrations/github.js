@@ -49,5 +49,7 @@ module.exports.register = (req, res) => {
     &code=${req.query.code}`
   );
 
+  console.log('started...');
+  res.end();
   res.json('doing stuff...');
 };
