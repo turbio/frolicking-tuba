@@ -13,10 +13,12 @@ module.exports.signin = (req, res) => {
     .then((user) =>
       user || Promise.reject(config.messages.incorrect_cred))
 
-    .then((user) =>
-      (sessionUser = bcrypt.compareAsync(req.body.password, user.hash)))
+    .then((user) => {
+      sessionUser = user;
 
-    .then((same) => {
+      return bcrypt.compareAsync(req.body.password, user.hash);
+
+    }).then((same) => {
       if (same) {
         session.user = sessionUser;
         res.json({ error: null });
