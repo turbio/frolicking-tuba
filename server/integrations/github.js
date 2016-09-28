@@ -1,6 +1,8 @@
 const config = require('../../env/config.json');
 const https = require('https');
 const Integration = require('../models/integration');
+const key = require('../controllers/key');
+
 
 const apiUrl = 'api.github.com';
 
@@ -74,7 +76,9 @@ module.exports.register = (req, res) => {
         type: 'github',
         meta: fromGithub.access_token,
         userId: req.session.user.id
-      }).then((integration) => res.json(integration));
+      }).then(() => {
+        key.createKey(req, res);
+      });
     });
   });
 
