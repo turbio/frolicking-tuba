@@ -43,11 +43,6 @@ module.exports.register = (req, res) => {
     });
   });
 
-  console.log(
-    `SENDING: client_id=${config.github.client_id}\
-&client_secret=${config.github.secret}\
-&code=${req.query.code}`);
-
   githubReq.write(
     `client_id=${config.github.client_id}\
 &client_secret=${config.github.secret}\
