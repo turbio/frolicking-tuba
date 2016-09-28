@@ -1,4 +1,4 @@
-const github = require('../api/github');
+const github = require('../integrations/github');
 
 module.exports.create = (req, res) => {
   console.log('got annotation', req.body);

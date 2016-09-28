@@ -122,7 +122,4 @@ describe('users', () => {
         .end(done);
     });
   });
-
-  describe('integrations', () => {
-  });
 });
