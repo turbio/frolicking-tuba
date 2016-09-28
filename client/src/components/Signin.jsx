@@ -63,7 +63,7 @@ class Signin extends Component {
                     bsStyle="primary"
                     onClick={(event) => {
                       event.preventDefault();
-                      this.props.callback(this.state, 'signin', this);
+                      this.props.handleAuthSubmit(this.state, 'signin', this);
                     }}
                   >Log In</Button>
                 </div>
@@ -77,6 +77,6 @@ class Signin extends Component {
   }
 }
 
-Signin.propTypes = { callback: PropTypes.func };
+Signin.propTypes = { handleAuthSubmit: PropTypes.func };
 
 export default withRouter(Signin);
