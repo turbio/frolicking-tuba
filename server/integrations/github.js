@@ -43,7 +43,7 @@ module.exports.register = (req, res) => {
     githubRes.on('data', (part) => {
       githubResData += part;
     });
-    githubReq.on('end', () => {
+    githubRes.on('end', () => {
       res.json({ githubResData });
       //res.redirect('/');
     });
