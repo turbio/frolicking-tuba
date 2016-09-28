@@ -9,6 +9,6 @@ module.exports.getAll = (req, res) => {
   }
 
 
-  Integration.findAll({ where: { userId: req.session.user.id } })
+  Integration.findAll()
     .then((integrations) => res.json(integrations));
 };
