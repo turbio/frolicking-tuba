@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
 // const Navbar = ({ loggedIn }) => (
 //   <div className="headerBar">
@@ -27,14 +27,8 @@ const NavbarComponent = () => (
         <NavItem eventKey={1} href="#">
           <Link to="/documentation">Documentation</Link>
         </NavItem>
-        <NavItem eventKey={2} href="#">Link</NavItem>
-        <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
-          <MenuItem eventKey={3.1}>Action</MenuItem>
-          <MenuItem eventKey={3.2}>Another action</MenuItem>
-          <MenuItem eventKey={3.3}>Something else here</MenuItem>
-          <MenuItem divider />
-          <MenuItem eventKey={3.3}>Separated link</MenuItem>
-        </NavDropdown>
+        <NavItem eventKey={2} href="#">Pricing</NavItem>
+        <NavItem eventKey={3} href="#">Team</NavItem>
       </Nav>
       <Nav pullRight>
         <NavItem eventKey={1}><Link to="/signup">Sign Up</Link></NavItem>
