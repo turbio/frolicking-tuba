@@ -68,6 +68,9 @@
 	border-radius: 4px;
 	padding: 5px 10px;
 }
+#frolicking-tuba-modal-submit:hover {
+  background: #95bedd;
+}
 ::-webkit-input-placeholder {
    color: #c6c6c6;
    font-size: 14px;
