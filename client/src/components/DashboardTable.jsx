@@ -5,7 +5,7 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 const DashboardTable = ({ keys }) => (
   <BootstrapTable responsive striped bordered data={keys}>
     <TableHeaderColumn dataField="name" >Name</TableHeaderColumn>
-    <TableHeaderColumn dataField="apiKey" >API Key</TableHeaderColumn>
+    <TableHeaderColumn dataField="apiKey"isKey >API Key</TableHeaderColumn>
     <TableHeaderColumn dataField="endpoint" >Endpoint</TableHeaderColumn>
   </BootstrapTable>
 );
