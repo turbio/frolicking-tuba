@@ -2,8 +2,7 @@ const config = require('../../env/config.json');
 const Key = require('../models/key');
 const Integration = require('../models/integration');
 
-const crypto = require('crypto');
-
+const hash = require('js-md5');
 
 module.exports.getAll = (req, res) => {
   if (req.session.user) {
@@ -22,15 +21,15 @@ module.exports.getAll = (req, res) => {
 
 module.exports.createKey = (req, res) => {
   console.log('starting keygen process');
-  const string = req.session.user.id.toString();
-  const keyString = crypto.createHash(string);
+  const entropy = `${req.session.user.name}ENTROPY!`;
+  const keyString = hash(entropy);
 
   Integration.findOne({ where: { userId: req.session.user.id } })
   .then((integration) => {
     console.log('associating with integration', JSON.stringify(integration));
 
     return Key.create({
-      integrationId: integration.id,
+      //integrationId: integration.id,
       userId: req.session.user.id,
       key: keyString
     })

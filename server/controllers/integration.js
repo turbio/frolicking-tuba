@@ -8,7 +8,6 @@ module.exports.getAll = (req, res) => {
     return;
   }
 
-
   Integration.findAll({
     where: { userId: req.session.user.id },
     attributes: ['type']
