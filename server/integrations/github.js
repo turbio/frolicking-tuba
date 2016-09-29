@@ -106,7 +106,7 @@ module.exports.repoList = (req, res) => {
         host: config.github.api_url,
         path: '/user/repos',
         method: 'POST',
-        headers: { Authorization: `token ${integration.key}` }
+        headers: { Authorization: `token ${integration.meta}` }
       };
 
       const githubReq = https.request(options, (githubRes) => {
@@ -136,6 +136,15 @@ module.exports.repoSelect = (req, res) => {
     return;
   }
 
-  //temporary
-  res.json({ error: null });
+  Integration.findOne({ where: { userId: req.session.user.id } })
+    .then((integration) => {
+      const alteredIntegration = integration;
+
+      //yes... it's really fucking ugly and bad
+      alteredIntegration.meta += `|${req.body.name}`;
+      alteredIntegration.save();
+
+      //temporary, i hope
+      res.json({ error: null });
+    });
 };
