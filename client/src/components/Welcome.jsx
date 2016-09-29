@@ -25,6 +25,7 @@ class Welcome extends React.Component {
         <a
           href="/api/integrations/github"
         >Auth Github</a>
+        {this.state.client_id}
       </div>
     );
   }

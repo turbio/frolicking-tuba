@@ -82,10 +82,11 @@ const requireGithubAuth = (nextState, replace, callback) => {
     if (response.status === 400) {
       console.log(response);
       replace({ pathname: '/signin' });
-      callback();
-    } else {
-      return response.json();
+
+      return callback();
     }
+
+    return response.json();
   })
   .then((json) => {
     // redirect to /welcome if no integration
