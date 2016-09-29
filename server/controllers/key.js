@@ -21,17 +21,24 @@ module.exports.getAll = (req, res) => {
 };
 
 module.exports.createKey = (req, res) => {
+  console.log('starting keygen process');
   const string = req.session.user.id.toString();
-  const key = crypto.createHash(string);
+  const keyString = crypto.createHash(string);
 
   Integration.findOne({ where: { userId: req.session.user.id } })
   .then((integration) => {
-    Key.create({
+    console.log('associating with integration', JSON.stringify(integration));
+
+    return Key.create({
       integrationId: integration.id,
       userId: req.session.user.id,
-      key
+      key: keyString
     })
-    .then(() => {
+    .then((key) => {
+      console.log(
+        'key created',
+        JSON.stringify(key),
+        'going back to index');
       res.redirect('/');
     });
   });
