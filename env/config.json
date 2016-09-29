@@ -4,6 +4,7 @@
     "password": "<PASSWORD>",
     "client_id": "562f07388003d99c712a",
     "auth_url": "https://github.com/login/oauth/authorize",
+    "token_url": "https://github.com/login/oauth/access_token",
     "api_url": "api.github.com"
   },
   "server": {
