@@ -1,5 +1,6 @@
 const server = require('../server/server');
 const request = require('supertest');
+const Integration = require('../server/models/integration');
 
 describe('server', () => {
   describe('/script.js', () => {
@@ -13,11 +14,14 @@ describe('server', () => {
   });
 
   describe('/api/annotate', () => {
-    it('should POST to /annotate', (done) => {
-      request(server)
-        .post('/api/annotate')
-        .expect(200)
-        .end(done);
-    });
+    Integration.create({ meta: 'NOTAREALTOKEN' })
+      .then(() => {
+        it('should POST to /annotate', (done) => {
+          request(server)
+            .post('/api/annotate')
+            .expect(200)
+            .end(done);
+        });
+      });
   });
 });
