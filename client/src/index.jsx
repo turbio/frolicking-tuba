@@ -77,13 +77,20 @@ const AppWrapper = withRouter(App);
 // onEnter hook for Dashboard route
 const requireGithubAuth = (nextState, replace, callback) => {
   // check if user has authorized github
-  fetch('/api/me', { credentials: 'same-origin' })
-  .then((response) => response.json())
+  fetch('/api/integrations', { credentials: 'same-origin' })
+  .then((response) => {
+    if (response.status === 400) {
+      console.log(response);
+      replace({ pathname: '/signin' });
+      callback();
+    } else {
+      return response.json();
+    }
+  })
   .then((json) => {
-    // redirect to /welcome if not github_authenticated
-    if (!json.github_authenticated) {
-      console.log('github_authenticated:', json.github_authenticated);
-      console.log(replace);
+    // redirect to /welcome if no integration
+    if (json.length === 0) {
+      console.log('integrations:', json);
       replace({ pathname: '/welcome' });
     }
     callback();
