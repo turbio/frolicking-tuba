@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col, Grid, Button } from 'react-bootstrap';
-import DashboardTable from './DashboardTable';
+import DashboardTable from './DashboardTable.jsx';
 
 
 class Dashboard extends Component {
