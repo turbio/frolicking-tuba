@@ -5,16 +5,17 @@ const key = require('../controllers/key');
 
 module.exports.createIssue = (repo, issue) => {
   //this is just a place holder, it probably doesn't work
-  const options = {
-    host: config.github.api_url,
-    path: `/repos/${repo}/issues`,
-    method: 'POST',
-    body: issue,
-    headers: { 'User-Agent': 'frolicking tuba' },
-    auth: `${config.github.username}:${config.github.password}`
-  };
+  Integration.findOne()
+    .then((integration) => {
+      const options = {
+        url: `${config.github.api_url}/repos/${repo}/issues`,
+        method: 'POST',
+        body: issue,
+        headers: { Authorization: `token ${integration.meta}` }
+      };
 
-  request(options, console.log);
+      request(options, console.log);
+    });
 };
 
 module.exports.register = (req, res) => {
@@ -62,7 +63,7 @@ module.exports.repoList = (req, res) => {
     return;
   }
 
-  Integration.findOne({ where: { userId: req.session.id } })
+  Integration.findOne({ where: { userId: req.session.user.id } })
     .then((integration) => {
       const options = {
         url: `${config.github.api_url}/user/repos`,
