@@ -119,6 +119,8 @@ module.exports.repoList = (req, res) => {
         });
 
         githubRes.on('end', () => {
+          githubData = JSON.parse(githubData);
+          githubData = githubData.map((repo) => repo.full_name);
           res.json(githubData);
         });
       });
