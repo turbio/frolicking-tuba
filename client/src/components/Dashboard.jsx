@@ -6,12 +6,23 @@ import DashboardTable from './DashboardTable.jsx';
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.state = { keys: [] };
+    this.state = {
+      keys: [{
+        name: 'MyRow',
+        apiKey: 'somestring',
+        endpoint: 'somenedpoint'
+      },
+      {
+        name: 'MyRow2',
+        apiKey: 'somestring2',
+        endpoint: 'somenedpoint2'
+      }]
+    };
   }
 
-  componentDidMount() {
-    this.getApiKeys();
-  }
+  // componentDidMount() {
+  //   this.getApiKeys();
+  // }
 
   getApiKeys() {
     fetch('/api/keys', { credentials: 'same-origin' })
