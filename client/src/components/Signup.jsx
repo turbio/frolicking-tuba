@@ -14,6 +14,7 @@ class Signup extends Component {
       password: '',
       companyName: ''
     };
+    this.onClickHandler = this.onClickHandler.bind(this);
   }
 
   // handleUsernameChange(event) {
@@ -27,6 +28,11 @@ class Signup extends Component {
   // handleCompanyNameChange(event) {
   //   this.setState({ companyName: event.target.value });
   // }
+
+  onClickHandler(event) {
+    event.preventDefault();
+    this.props.handleAuthSubmit(this.state, 'signup', this);
+  }
 
   render() {
     return (
@@ -75,10 +81,7 @@ class Signup extends Component {
                 <div>
                   <Button
                     bsStyle="primary"
-                    onClick={(event) => {
-                      event.preventDefault();
-                      this.props.handleAuthSubmit(this.state, 'signup', this);
-                    }}
+                    onClick={this.onClickHandler}
                   >Submit</Button>
                 </div>
                 <Link to="/signin">Log In</Link>
