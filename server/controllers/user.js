@@ -82,3 +82,7 @@ module.exports.info = (req, res) => {
     res.status(400).json({ error: config.messages.not_logged_in });
   }
 };
+
+module.exports.signedin = (req, res) => {
+  res.json({ signedin: !!req.session.user });
+};
