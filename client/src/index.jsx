@@ -21,9 +21,6 @@ class App extends React.Component {
     super(props);
     this.state = { loggedIn: false };
   }
-  toggleLoggedIn() {
-    this.setState({ loggedIn: !this.state.loggedIn });
-  }
   handleAuthSubmit({ username, password, companyName }, endpoint) {
     const url = `/api/${endpoint}`;
     const data = {
@@ -58,7 +55,6 @@ class App extends React.Component {
         {this.props.children && React.cloneElement(
           this.props.children, {
             loggedIn: this.state.loggedIn,
-            toggleLoggedIn: this.state.toggleLoggedIn,
             handleAuthSubmit: this.handleAuthSubmit
           }
         )}
