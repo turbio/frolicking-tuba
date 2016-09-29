@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col, Grid, Button } from 'react-bootstrap';
+import DashboardTable from './DashboardTable.jsx';
 
 
 class Dashboard extends Component {
@@ -27,14 +28,13 @@ class Dashboard extends Component {
         <Row className="mainLanding">
           <Col xs={12} md={12}>
             <h3>YOUR SCRIPT TAG</h3>
-            <p>Copy and paste this into your html body.</p>
-            <span>
-              &lt;script src="getmarkup.com/script.js"&gt;&lt;/script&gt;
-            </span>
+            <p>Copy and paste the script tag below into your html body.</p>
+
             <span> Key Placeholder: {this.state.keys} </span>
             <p><Button bsStyle="primary">Learn more</Button></p>
           </Col>
         </Row>
+        <DashboardTable keys={this.state.keys} />
       </Grid>
     );
   }
