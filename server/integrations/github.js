@@ -97,3 +97,11 @@ module.exports.redirectTo = (req, res) => {
     `${config.github.auth_url}?client_id=${config.github.client_id}&scope=repo`
   );
 };
+
+module.exports.repoList = (req, res) => {
+  if (!req.session.user) {
+    res.status(400).json({ error: config.messages.not_logged_in });
+
+    return;
+  }
+};

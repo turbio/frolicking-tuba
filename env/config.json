@@ -3,7 +3,8 @@
     "username": "<USERNAME>",
     "password": "<PASSWORD>",
     "client_id": "562f07388003d99c712a",
-    "auth_url": "https://github.com/login/oauth/authorize"
+    "auth_url": "https://github.com/login/oauth/authorize",
+    "api_url": "https://api.github.com"
   },
   "server": {
     "port": "3000"
