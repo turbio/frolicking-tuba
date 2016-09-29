@@ -71,24 +71,14 @@ App.propTypes = {
 const AppWrapper = withRouter(App);
 
 // onEnter hook for Dashboard route
-const requireGithubAuth = (nextState, replace, callback) => {
-  // check if user has authorized github
-  fetch('/api/integrations', { credentials: 'same-origin' })
-  .then((response) => {
-    if (response.status === 400) {
-      console.log(response);
-      replace({ pathname: '/signin' });
-
-      return callback();
-    }
-
-    return response.json();
-  })
+const dashboardOnEnter = (nextState, replace, callback) => {
+  // check if authenticated
+  fetch('/api/users/signedin', { credentials: 'same-origin' })
+  .then((response) => response.json())
   .then((json) => {
-    // redirect to /welcome if no integration
-    if (json.length === 0) {
-      console.log('integrations:', json);
-      replace({ pathname: '/welcome' });
+    console.log(json);
+    if (!json.signedin) {
+      replace({ pathname: '/signin' });
     }
     callback();
   })
@@ -106,7 +96,7 @@ render(
         <Route
           path="/dashboard"
           component={Dashboard}
-          onEnter={requireGithubAuth}
+          onEnter={dashboardOnEnter}
         />
         <Route path="/documentation" component={Documentation} />
       </Route>
