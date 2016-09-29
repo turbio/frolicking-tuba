@@ -1,19 +1,30 @@
 const server = require('../server/server');
 const session = require('supertest-session');
 const User = require('../server/models/user');
+const Integration = require('../server/models/integration');
 
 describe('integrations', () => {
   let userRequest = null;
 
   before((done) => {
-    User.sync({ force: true }).then(() => {
-      userRequest = session(server);
-      userRequest
-        .post('/api/signup')
-        .send({ email: 'integrations-test-user', password: 'password' })
-        .expect(200)
-        .end(done);
+    Integration.sync({ force: true }).then(() => {
+      done();
     });
+  });
+
+  before((done) => {
+    User.sync({ force: true }).then(() => {
+      done();
+    });
+  });
+
+  before((done) => {
+    userRequest = session(server);
+    userRequest
+      .post('/api/signup')
+      .send({ email: 'integrations-test-user', password: 'password' })
+      .expect(200)
+      .end(done);
   });
 
   it('should show all integrations of a user', (done) => {

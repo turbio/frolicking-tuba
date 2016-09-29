@@ -29,7 +29,7 @@ module.exports.createKey = (req, res) => {
     console.log('associating with integration', JSON.stringify(integration));
 
     return Key.create({
-      integrationId: integration.id,
+      //integrationId: integration.id,
       userId: req.session.user.id,
       key: keyString
     })
