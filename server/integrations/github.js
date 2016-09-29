@@ -104,4 +104,18 @@ module.exports.repoList = (req, res) => {
 
     return;
   }
+
+  //temporary
+  res.json([]);
+};
+
+module.exports.repoSelect = (req, res) => {
+  if (!req.session.user) {
+    res.status(400).json({ error: config.messages.not_logged_in });
+
+    return;
+  }
+
+  //temporary
+  res.json({ error: null });
 };
