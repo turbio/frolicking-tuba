@@ -38,7 +38,7 @@ module.exports.createKey = (req, res) => {
         'key created',
         JSON.stringify(key),
         'going back to index');
-      res.redirect('/');
+      res.redirect('/create/github');
     });
   });
 };
