@@ -5,7 +5,7 @@ const Integration = require('../server/models/integration');
 const config = require('../env/config.json');
 const http = require('http');
 
-const mockhubToken = 'THISISATESTACCESSTOKEN';
+let mockhubToken = 'THISISATESTACCESSTOKEN';
 const mockhubCode = 'THISISATESTCODE';
 const mockhubRepos = [
   {
@@ -28,7 +28,6 @@ const queryParse = (str) =>
     .reduce((join, pair) => Object.assign(join, pair), {});
 
 const mockhubHandle = (req, res) => {
-  console.log(req.url);
   let body = '';
 
   req.on('data', (data) => {
@@ -47,10 +46,13 @@ const mockhubHandle = (req, res) => {
       res.end(`{ "access_token": "${mockhubToken}" }`);
     });
   } else if (req.url === '/api_url/user/repos') {
-    req.headers.authorization.should.eq(`token ${mockhubToken}`);
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify(mockhubRepos));
-
+    if (req.headers.authorization === `token ${mockhubToken}`) {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(mockhubRepos));
+    } else {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'not sure what error github shows' }));
+    }
   } else {
     throw new Error('should only access pre defined urls');
   }
@@ -157,6 +159,18 @@ describe('github integration', () => { // eslint-disable-line max-statements
         res.body.should.eql(
           [mockhubRepos[0].full_name,
           mockhubRepos[1].full_name]);
+        done(err);
+      });
+  });
+
+  it('should not show github repo list if token becomes incorrect', (done) => {
+    mockhubToken = 'NOLONGERVALID';
+
+    userRequest
+      .get('/api/integrations/github/repos')
+      .expect(400)
+      .end((err, res) => {
+        res.body.should.eql({ error: config.messages.github_no_auth });
         done(err);
       });
   });
