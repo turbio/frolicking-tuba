@@ -10,6 +10,7 @@ import Documentation from './components/Documentation.jsx';
 import Signin from './components/Signin.jsx';
 import Signup from './components/Signup.jsx';
 import Dashboard from './components/Dashboard.jsx';
+import Team from './components/Team.jsx';
 import Create from './components/Create.jsx';
 import CreateStart from './components/CreateStart.jsx';
 import CreateGithub from './components/CreateGithub.jsx';
@@ -76,6 +77,7 @@ render(
             path="github" component={CreateGithub} onEnter={githubOnEnter}
           />
         </Route>
+        <Route path="/team" component={Team} />
         <Route
           path="/dashboard" component={Dashboard} onEnter={dashboardOnEnter}
         />
