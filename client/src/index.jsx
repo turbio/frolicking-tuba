@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import { Router, Route, hashHistory, IndexRoute } from 'react-router';
+import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 
 import App from './components/App.jsx';
 import Landing from './components/Landing.jsx';
@@ -65,7 +65,7 @@ const githubOnEnter = (nextState, replace, callback) => {
 
 render(
   <Provider store={store}>
-    <Router history={hashHistory}>
+    <Router history={browserHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={Landing} />
         <Route path="/signup" component={Signup} />
