@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 
 const user = require('./controllers/user');
 const annotate = require('./controllers/annotate');
@@ -40,7 +41,8 @@ router.get('/script.js', script.get);
 
 router.use(express.static('./client/public'));
 router.get('*', (req, res) => {
-  res.sendfile('./client/public/index.html');
+  console.log();
+  res.sendFile(path.resolve(`${__dirname}/../client/public/index.html`));
 });
 
 module.exports = router;
