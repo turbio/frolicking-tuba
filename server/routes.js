@@ -1,12 +1,13 @@
-const router = require('express').Router();
+const express = require('express');
 
 const user = require('./controllers/user');
 const annotate = require('./controllers/annotate');
 const script = require('./controllers/script');
 const integration = require('./controllers/integration');
 const key = require('./controllers/key');
-
 const githubIntegration = require('./integrations/github');
+
+const router = express.Router();
 
 //deprecate this at some point...
 //DEPRECATED
@@ -36,5 +37,10 @@ router.post('/api/annotate', annotate.create);
 
 //special script serving
 router.get('/script.js', script.get);
+
+router.use(express.static('./client/public'));
+router.get('*', (req, res) => {
+  res.sendfile('./client/public/index.html');
+});
 
 module.exports = router;
