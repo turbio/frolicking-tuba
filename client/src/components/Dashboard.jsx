@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Row, Col, Grid, Button } from 'react-bootstrap';
-import DashboardTable from './DashboardTable.jsx';
+import { Link } from 'react-router';
 
+import DashboardTable from './DashboardTable.jsx';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -41,6 +42,7 @@ class Dashboard extends Component {
             <h3>YOUR SCRIPT TAG</h3>
             <p>Copy and paste the script tag below into your html body.</p>
             <p><Button bsStyle="primary">Learn more</Button></p>
+            <p><Link to="/create">Create Key</Link></p>
           </Col>
         </Row>
         <DashboardTable keys={this.state.keys} />
