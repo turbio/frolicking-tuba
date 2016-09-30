@@ -1,365 +1,441 @@
+
 # API endpoints
 
-| url | verb |
-| --- | ---- |
-| **users** | |
-| `/api/users/signup`  | POST |
-| `/api/users/signin`  | POST |
-| `/api/users/signout` | GET  |
-| **integrations** | |
-| `/api/integrations`  | GET  |
-| └ **github** | |
-| `/api/integrations/github` | GET |
-| `/api/integrations/github/auth` | GET |
-| **keys** | |
-| `/api/keys` | GET |
-| **annotation** | |
-| `/api/annotate` | POST |
+* [users](#users)
+  * [signedin](#signedin)
+  * [signup](#signup)
+  * [signin](#signin)
+  * [signout](#signout)
+* [integrations](#integrations)
+  * [list](#list)
+  * [github](#github)
+    * [initiate auth](#initiate-auth)
+    * [list repos](#list-repos)
+    * [set repos](#set-repos)
+    * [github auth](#github-auth)
+* [keys](#keys)
+  * [list keys](#list-keys)
+  * [create key](#create-key)
+* [annotation](#annotation)
+  * [create annotation](#create-annotation)
+
 
 ## users
+
 
 ### signedin
 
 check if a user is signed in
-
-* **url** `/api/users/signedin`
+* **url** /api/users/signedin
 * **verb** GET
 * **input**
- * 
- ```javascript
-       EMPTY
- ```
+    ```javascript
+        EMPTY
+    ```
+
 * **output**
- * 
-  ```javascript
+    ```javascript
         STATUS CODE 200
+    ```
+
+    ```javascript
         {
-          "signedin": Boolean
+          "signedin": "Boolean"
         }
-  ```
+    ```
+
 * **auth** NONE
 
 ### signup
 
-create a user given an email and password.  
-On success (200) a cookie storing the user's session is returned along with a
-json object with error being null.  
-On error the status code 400 is returned with a json object indicating the
-error in a string.  
-
-* **url** `/api/users/signup`
+create a user given an email and password.
+On success (200) a cookie storing the user's session is returned along with a json object with error being null.
+On error the status code 400 is returned with a json object indicating the error in a string.
+* **url** /api/users/signup
 * **verb** POST
 * **input**
- ```javascript
-       {
-         "email": String,
-         "password": String
-       }
- ```
+    ```javascript
+        {
+          "email": "String",
+          "password": "String"
+        }
+    ```
+
 * **output**
- * on **success**
-  ```javascript
-        STATUS CODE 200
-        {
-          "error": null
-        }
-  ```
- * on **error**
-  ```javascript
-        STATUS CODE 400
-        {
-          "error": String
-        }
-  ```
+  * **on success**
+      ```javascript
+            STATUS CODE 200
+      ```
+
+      ```javascript
+            {
+              "error": null
+            }
+      ```
+
+  * **on error**
+      ```javascript
+            STATUS CODE 400
+      ```
+
+      ```javascript
+            {
+              "error": "String"
+            }
+      ```
+
 * **auth** NONE
 
 ### signin
 
 sign in an existing user using an email and password.
-On success (200) a cookie storing the user's session is returned along with a
-json object with error being null.  
-On error the status code 400 is returned with a json object indicating the
-error in a string.  
-
-* **url** `/api/users/signin`
+On success (200) a cookie storing the user's session is returned along with a json object with error being null.
+On error the status code 400 is returned with a json object indicating the error in a string.
+* **url** /api/users/signin
 * **verb** POST
 * **input**
-  ```javascript
+    ```javascript
         {
-          "email": String,
-          "password": String
+          "email": "String",
+          "password": "String"
         }
-  ```
+    ```
+
 * **output**
- * on **success**
-  ```javascript
-        STATUS CODE 200
-        {
-          "error": null
-        }
-  ```
- * on **error**
-  ```javascript
-        STATUS CODE 400
-        {
-          "error": String
-        }
-  ```
+  * **on success**
+      ```javascript
+            STATUS CODE 200
+      ```
+
+      ```javascript
+            {
+              "error": null
+            }
+      ```
+
+  * **on error**
+      ```javascript
+            STATUS CODE 400
+      ```
+
+      ```javascript
+            {
+              "error": "String"
+            }
+      ```
+
 * **auth** NONE
 
 ### signout
 
 destroyes the current user's session if it exists always returns 200
-
-* **url** `/api/users/signout`
 * **verb** GET
 * **input**
-  ```javascript
+    ```javascript
         EMPTY
-  ```
+    ```
+
 * **output**
-  ```javascript
+    ```javascript
         EMPTY
-  ```
+    ```
+
 * **auth** NONE
 
 ## integrations
 
-### integrations
+
+### list
 
 get a list of the current user's integrations
-
-* **url** `/api/integrations`
+* **url** /api/integraions
 * **verb** GET
 * **input**
-  ```javascript
+    ```javascript
         EMPTY
-  ```
-* **output**
- * on **success**
-  ```javascript
-        STATUS CODE 200
-        [
-          String,
-          String...
-        ]
-  ```
- * on **error**
-  ```javascript
-        STATUS CODE 400
-        {
-          "error": String
-        }
-  ```
-* **auth** SESSION
+    ```
 
-### github go to auth
+* **output**
+  * **on success**
+      ```javascript
+            STATUS CODE 200
+      ```
+
+      ```javascript
+            [
+              "String",
+              "..."
+            ]
+      ```
+
+  * **on error**
+      ```javascript
+            STATUS CODE 400
+      ```
+
+      ```javascript
+            {
+              "error": "String"
+            }
+      ```
+
+
+### github
+
+
+#### initiate auth
 
 redirects the user to the correct github url to start authorization
-
-* **url** `/api/integrations/github`
+* **url** /api/integrations/github
 * **verb** GET
 * **input**
-  ```javascript
+    ```javascript
         EMPTY
-  ```
+    ```
+
 * **output**
-  ```javascript
+    ```javascript
         STATUS CODE 302
-  ```
+    ```
+
 * **auth** SESSION
 
-### github repos
+#### list repos
 
 list all repos of the currently logged in user
-
-* **url** `/api/integrations/github/repos`
+* **url** /api/integrations/github/repos
 * **verb** GET
 * **input**
-  ```javascript
+    ```javascript
         EMPTY
-  ```
+    ```
+
 * **output**
- * on success
-  ```javascript
-        STATUS CODE 200
-        [
-          String
-        ]
-  ```
- * on error
-  ```javascript
-        STATUS CODE 400
-        {
-          "error": String
-        }
-  ```
+  * **on success**
+      ```javascript
+            STATUS CODE 200
+      ```
+
+      ```javascript
+            [
+              "String",
+              "String",
+              "..."
+            ]
+      ```
+
+  * **on error**
+      ```javascript
+            STATUS CODE 400
+      ```
+
+      ```javascript
+            {
+              "error": "String"
+            }
+      ```
+
 * **auth** SESSION
 
-### github set repo
+#### set repos
 
 set the users github repo to post issues to
-
-* **url** `/api/integrations/github/repos`
+* **url** /api/integrations/github/repos
 * **verb** POST
 * **input**
-  ```javascript
+    ```javascript
         {
-          "name": String
+          "name": "String"
         }
-  ```
+    ```
+
 * **output**
- * on success
-  ```javascript
-        STATUS CODE 200
-        {
-          "error": null
-        }
-  ```
- * on error
-  ```javascript
-        STATUS CODE 400
-        {
-          "error": String
-        }
-  ```
+  * **on success**
+      ```javascript
+            STATUS CODE 200
+      ```
+
+      ```javascript
+            {
+              "error": null
+            }
+      ```
+
+  * **on error**
+      ```javascript
+            STATUS CODE 400
+      ```
+
+      ```javascript
+            {
+              "error": "String"
+            }
+      ```
+
 * **auth** SESSION
 
-### github auth
+#### github auth
 
-used by github to return auth token after user is verified. Returns user to `/`
-when auth is complete
-
-* **url** `/api/integrations/github/auth`
+used by github to return the auth token after user is verified. Redirects to `/create/github` when auth is complete.
+* **url** /api/integrations/github/auth
 * **verb** GET
 * **input**
-  ```javascript
+    ```javascript
         code=String&scope=String
-  ```
-* **output**
- * on **success**
-  ```javascript
-        STATUS CODE 302
+    ```
 
-  ```
- * on **error**
-  ```javascript
-        STATUS CODE 400
-        {
-          "error": String
-        }
-  ```
+* **output**
+  * **on success**
+      ```javascript
+            STATUS CODE 302
+      ```
+
+  * **on error**
+      ```javascript
+            STATUS CODE 400
+      ```
+
+      ```javascript
+            {
+              "error": "String"
+            }
+      ```
+
 * **auth** SESSION
 
 ## keys
 
-### keys
 
-get a list of user's keys
+### list keys
 
-* **url** `/api/keys`
+get a list of the user's keys
+* **url** /api/keys
 * **verb** GET
 * **input**
-  ```javascript
+    ```javascript
         EMPTY
-  ```
-* **output**
- * on **success**
-  ```javascript
-        [
-          {
-            "name": String (Optional),
-            "apiKey": String,
-            "endpoint": String
-          }...
-        ]
+    ```
 
-  ```
- * on **error**
-  ```javascript
-        STATUS CODE 400
-        {
-          "error": String
-        }
-  ```
+* **output**
+  * **on success**
+      ```javascript
+            STATUS CODE 200
+      ```
+
+      ```javascript
+            [
+              {
+                "name": "String (Optional)",
+                "api_key": "String",
+                "endpoint": "String"
+              }
+            ]
+      ```
+
+  * **on error**
+      ```javascript
+            STATUS CODE 400
+      ```
+
+      ```javascript
+            {
+              "error": "String"
+            }
+      ```
+
 * **auth** SESSION
 
-### create
+### create key
 
-create a new key
-
-* **url** `/api/keys`
+get a list of the user's keys
+* **url** /api/keys
 * **verb** POST
 * **input**
-  ```javascript
+    ```javascript
         EMPTY
-  ```
-* **output**
- * on **success**
-  ```javascript
-        {
-          "key": String
-        }
+    ```
 
-  ```
- * on **error**
-  ```javascript
-        STATUS CODE 400
-        {
-          "error": String
-        }
-  ```
+* **output**
+  * **on success**
+      ```javascript
+            STATUS CODE 200
+      ```
+
+      ```javascript
+            {
+              "key": "String"
+            }
+      ```
+
+  * **on error**
+      ```javascript
+            STATUS CODE 400
+      ```
+
+      ```javascript
+            {
+              "error": "String"
+            }
+      ```
+
 * **auth** SESSION
 
 ## annotation
 
-### annotate
 
-create a new annotation
+### create annotation
 
-* **url** `/api/annotate`
+create an annotation
+* **url** /api/annotate
 * **verb** POST
 * **input**
-  ```javascript
+    ```javascript
         {
-          "title": String,
-          "comment": String,
-          "to": String,
-          "from": String,
-          "selected": String
+          "title": "String",
+          "comment": "String",
+          "to": "String",
+          "from": "String",
+          "selected": "String",
           "element": {
-            "text": String,
-            "x": Number,
-            "y": Number,
-            "width": Number,
-            "height": Number,
+            "text": "String",
+            "x": "Number",
+            "y": "Number",
+            "width": "Number",
+            "height": "Number",
             "name": {
-                "text": String,
-                "nth": Number
+              "text": "String",
+              "nth": "Number"
             },
             "class": {
-                "text": String,
-                "nth": Number
+              "text": "String",
+              "nth": "Number"
             },
-            "id": String
+            "id": "String"
           }
         }
-  ```
+    ```
+
 * **output**
- * on **success**
-  ```javascript
-        STATUS CODE 200
-        {
-          "error": null
-        }
+  * **on success**
+      ```javascript
+            STATUS CODE 200
+      ```
 
-  ```
- * on **error**
-  ```javascript
-        STATUS CODE 400
-        {
-          "error": String
-        }
-  ```
-* **auth** SESSION
+      ```javascript
+            {
+              "error": null
+            }
+      ```
 
+  * **on error**
+      ```javascript
+            STATUS CODE 400
+      ```
+
+      ```javascript
+            {
+              "error": "String"
+            }
+      ```
+
+* **auth** NONE
