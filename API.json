@@ -1,0 +1,120 @@
+{
+  "title": "API endpoints",
+  "sections": [
+    {
+      "title": "users",
+      "sections": [
+        {
+          "title": "signedin",
+          "description": "check if a user is signed in",
+          "url": "/api/users/signedin",
+          "verb": "GET",
+          "input": { "code": "javascript", "text": "EMPTY" },
+          "output": {
+            "code": "javascript",
+            "text": "STATUS CODE 200",
+            "object": {  "signedin": "Boolean" }
+          },
+          "auth": "NONE"
+        },
+        {
+          "title": "signup",
+          "description": "create a user given an email and password.\nOn success (200) a cookie storing the user's session is returned along with a json object with error being null.\nOn error the status code 400 is returned with a json object indicating the error in a string.",
+          "url": "/api/users/signup",
+          "verb": "POST",
+          "input": {
+            "code": "javascript",
+            "object": { "email": "String", "password": "String"}
+          },
+          "output": {
+            "on success": {
+              "code": "javascript",
+              "text": "STATUS CODE 200",
+              "object": {  "error": null }
+            },
+            "on error": {
+              "code": "javascript",
+              "text": "STATUS CODE 400",
+              "object": {  "error": "String" }
+            }
+          },
+          "auth": "NONE"
+        },
+        {
+          "title": "signin",
+          "description": "sign in an existing user using an email and password.\nOn success (200) a cookie storing the user's session is returned along with a json object with error being null.\nOn error the status code 400 is returned with a json object indicating the error in a string.",
+          "url": "/api/users/signin",
+          "verb": "POST",
+          "input": {
+            "code": "javascript",
+            "object": { "email": "String", "password": "String" }
+          },
+          "output": {
+            "on success": {
+              "code": "javascript",
+              "text": "STATUS CODE 200",
+              "object": { "error": null }
+            },
+            "on error": {
+              "code": "javascript",
+              "text": "STATUS CODE 400",
+              "object": { "error": "String" }
+            }
+          },
+          "auth": "NONE"
+        },
+        {
+          "title": "signout",
+          "description": "destroyes the current user's session if it exists always returns 200",
+          "verb": "GET",
+          "input": { "code": "javascript", "text": "EMPTY" },
+          "output": { "code": "javascript", "text": "EMPTY" },
+          "auth": "NONE"
+        }
+      ]
+    },
+    {
+      "title": "integrations",
+      "sections": [
+        {
+          "title": "list",
+          "description": "get a list of the current user's integrations",
+          "verb": "GET",
+          "input": { "code": "javascript", "text": "EMPTY" },
+          "output": {
+            "on success": {
+              "code": "javascript",
+              "text": "STATUS CODE 200",
+              "object": [ "String", "..." ]
+            },
+            "on error": {
+              "code": "javascript",
+              "text": "STATUS CODE 400",
+              "object": { "error": "String" }
+            }
+          }
+        },
+        {
+          "title": "github",
+          "sections": [
+            {
+              "title": "initiate auth",
+              "description": "redirects the user to the correct github url to start authorization",
+              "url": "/api/integrations/github",
+              "verb": "GET",
+              "input": {
+                "code": "javascript",
+                "text": "EMPTY"
+              },
+              "output": {
+                "code": "javascript",
+                "text": "STATUS CODE 302"
+              },
+              "auth": "SESSION"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
