@@ -7,6 +7,18 @@ const http = require('http');
 
 const mockhubToken = 'THISISATESTACCESSTOKEN';
 const mockhubCode = 'THISISATESTCODE';
+const mockhubRepos = [
+  {
+    name: 'first-test-repo',
+    full_name: 'user/first-test-repo',
+    description: 'this is the first test repo\'s description'
+  },
+  {
+    name: 'second-test-repo',
+    full_name: 'organization/second-test-repo',
+    description: 'this is the second test repo\'s description'
+  }
+];
 
 const queryParse = (str) =>
   str
@@ -16,6 +28,7 @@ const queryParse = (str) =>
     .reduce((join, pair) => Object.assign(join, pair), {});
 
 const mockhubHandle = (req, res) => {
+  console.log(req.url);
   let body = '';
 
   req.on('data', (data) => {
@@ -33,6 +46,11 @@ const mockhubHandle = (req, res) => {
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(`{ "access_token": "${mockhubToken}" }`);
     });
+  } else if (req.url === '/api_url/user/repos') {
+    req.headers.authorization.should.eq(`token ${mockhubToken}`);
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(mockhubRepos));
+
   } else {
     throw new Error('should only access pre defined urls');
   }
@@ -64,6 +82,7 @@ describe('github integration', () => {
     const githubPort = 1337;
 
     config.github.token_url = `http://localhost:${githubPort}/token_url`;
+    config.github.api_url = `http://localhost:${githubPort}/api_url`;
     mockhub(githubPort);
 
     userRequest = session(server);
@@ -120,6 +139,17 @@ describe('github integration', () => {
       });
   });
 
-  it('should show github repo list');
+  it('should show github repo list', (done) => {
+    userRequest
+      .get('/api/integrations/github/repos')
+      .expect(200)
+      .end((err, res) => {
+        res.body.should.eql(
+          [mockhubRepos[0].full_name,
+          mockhubRepos[1].full_name]);
+        done(err);
+      });
+  });
+
   it('should allow users to select a repo');
 });
