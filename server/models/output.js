@@ -5,7 +5,7 @@ const Key = require('./key');
 
 const Output = db.define('output', { meta: Sequelize.STRING });
 
-Integration.belongsTo(Integration);
-Integration.belongsTo(Key);
+Output.belongsTo(Integration);
+Output.belongsTo(Key);
 
 module.exports = Output;
