@@ -26,9 +26,7 @@ class Signin extends Component {
   // }
 
   onClickHandler(event) {
-    console.log('this in onClickHandler:', this);
     event.preventDefault();
-    console.log(this);
     this.props.handleAuthSubmit(this.state, 'signin');
   }
 
