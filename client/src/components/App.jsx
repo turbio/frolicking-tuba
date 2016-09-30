@@ -1,13 +1,25 @@
 import React from 'react';
-import { withRouter } from 'react-router';
+import { withRouter, browserHistory } from 'react-router';
 import NavbarContainer from '../containers/NavbarContainer';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { loggedIn: false };
+    this.state = {
+      loggedIn: false,
+      alert: false,
+      alert_msg: 'test'
+    };
+    this.handleAuthSubmit = this.handleAuthSubmit.bind(this);
+    this.dismissAlert = this.dismissAlert.bind(this);
   }
+
+  dismissAlert() {
+    this.setState({ alert: false });
+  }
+
   handleAuthSubmit({ username, password, companyName }, endpoint) {
+    this.setState({ alert: false });
     const url = `/api/${endpoint}`;
     const data = {
       email: username,
@@ -28,8 +40,10 @@ class App extends React.Component {
     .then((json) => {
       if (json.error) {
         console.log(json);
+        this.setState({ alert: true });
+        this.setState({ alert_msg: json.error });
       } else {
-        this.router.push('/dashboard');
+        browserHistory.push('/dashboard');
       }
     })
     .catch((error) => console.log('fetch error:', error));
@@ -41,7 +55,10 @@ class App extends React.Component {
         {this.props.children && React.cloneElement(
           this.props.children, {
             loggedIn: this.state.loggedIn,
-            handleAuthSubmit: this.handleAuthSubmit
+            handleAuthSubmit: this.handleAuthSubmit,
+            alert: this.state.alert,
+            alert_msg: this.state.alert_msg,
+            dismissAlert: this.dismissAlert
           }
         )}
       </div>
