@@ -24,7 +24,8 @@
     "unique_email": "an account with that email already exists",
     "server_error": "oops... looks like something went wrong",
     "incorrect_cred": "email and password did not match",
-    "not_logged_in": "you must be logged in to do this"
+    "not_logged_in": "you must be logged in to do this",
+    "github_no_auth": "you have not authed with github"
   },
   "secret": "ONLY USE THIS IN DEV",
   "integrations": [
