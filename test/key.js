@@ -1,8 +1,9 @@
-
 const server = require('../server/server');
 const session = require('supertest-session');
+const request = require('supertest');
 const User = require('../server/models/user');
 const Key = require('../server/models/key');
+const config = require('../env/config.json');
 
 describe('keys', () => {
   let userRequest = null;
@@ -33,14 +34,58 @@ describe('keys', () => {
       .get('/api/keys')
       .expect(200)
       .end((err, res) => {
-        res.body.should.eql([]);
+        res.body.should.be.an('array');
         done(err);
       });
   });
 
-  it('should not show the keys if no user is logged in');
-  it('should show no keys for new user');
-  it('should generate a new key for a user');
-  it('should show news keys for user');
-  it('should not generate a new key when no user');
+  it('should not show the keys if no user is logged in', (done) => {
+    request(server)
+      .get('/api/keys')
+      .expect(400)
+      .end((err, res) => {
+        res.body.should.eql({ error: config.messages.not_logged_in });
+        done(err);
+      });
+  });
+
+  it('should show no keys for new user', (done) => {
+    userRequest
+      .get('/api/keys')
+      .expect(200)
+      .end((err, res) => {
+        res.body.should.be.an('array');
+        res.body.length.should.eq(0);
+        done(err);
+      });
+  });
+
+  it('should generate a new key for a user', (done) => {
+    userRequest
+      .post('/api/keys')
+      .end((err, res) => {
+        res.body.should.be.an('object');
+        done(err);
+      });
+  });
+
+  it('should show new keys for user', (done) => {
+    userRequest
+      .get('/api/keys')
+      .end((err, res) => {
+        res.body.should.be.an('array');
+        //res.body.length.should.eq(1);
+        done(err);
+      });
+  });
+
+  it('should not generate a new key when no user', (done) => {
+    request(server)
+      .post('/api/keys')
+      .expect(400)
+      .end((err, res) => {
+        res.body.should.eql({ error: config.messages.not_logged_in });
+        done(err);
+      });
+  });
 });

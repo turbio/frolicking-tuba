@@ -20,6 +20,12 @@ module.exports.getAll = (req, res) => {
 };
 
 module.exports.createKey = (req, res) => {
+  if (!req.session.user) {
+    res.status(400).json({ error: config.messages.not_logged_in });
+
+    return;
+  }
+
   console.log('starting keygen process');
   const entropy = `${req.session.user.name}ENTROPY!`;
   const keyString = hash(entropy);
