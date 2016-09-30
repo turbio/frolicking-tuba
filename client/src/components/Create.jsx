@@ -4,39 +4,21 @@ import { Row, Col, Grid } from 'react-bootstrap';
 class Create extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      test: 'test state',
-      githubAuth: false
-    };
-  }
-
-  componentDidMount() {
-    this.getGithubAuth();
-  }
-
-  getGithubAuth() {
-    fetch('/api/integrations/github/repos', { credentials: 'same-origin' })
-    .then((response) => response.json())
-    .then((json) => {
-      if (json.error) {
-        this.setState({ githubAuth: false });
-      } else {
-        this.setState({ githubAuth: true });
-      }
-    })
-    .catch((error) => console.log('fetch repos', error));
+    this.state = { test: 'test state' };
   }
 
   render() {
     return (
       <Grid>
         <Row className="mainLanding">
-          <Col xs={12} md={12}>
-            <h3>Create Key Page</h3>
-            {this.props.children && React.cloneElement(
-              this.props.children, { githubAuth: this.state.githubAuth }
-            )}
-          </Col>
+          <Row>
+            <Col xs={12} md={12}>
+              <h3>Create Key Page</h3>
+            </Col>
+          </Row>
+          {this.props.children && React.cloneElement(
+            this.props.children
+          )}
         </Row>
       </Grid>
     );
