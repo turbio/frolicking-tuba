@@ -2,7 +2,6 @@ const config = require('../../env/config.json');
 const request = require('request');
 const Integration = require('../models/integration');
 const key = require('../controllers/key');
-const Output = require('../models/output');
 
 module.exports.createIssue = (repo, issue) => {
   //this is just a place holder, it probably doesn't work
