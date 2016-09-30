@@ -41,7 +41,6 @@ router.get('/script.js', script.get);
 
 router.use(express.static('./client/public'));
 router.get('*', (req, res) => {
-  console.log();
   res.sendFile(path.resolve(`${__dirname}/../client/public/index.html`));
 });
 
