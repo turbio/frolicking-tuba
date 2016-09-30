@@ -5,8 +5,8 @@ const Integration = require('../server/models/integration');
 const config = require('../env/config.json');
 const http = require('http');
 
-const fakeGithubToken = 'THISISATESTACCESSTOKEN';
-const fakeGithubCode = 'THISISATESTCODE';
+const mockhubToken = 'THISISATESTACCESSTOKEN';
+const mockhubCode = 'THISISATESTCODE';
 
 const queryParse = (str) =>
   str
@@ -15,7 +15,7 @@ const queryParse = (str) =>
     .map((pair) => ({ [pair[0]]: pair[1] }))
     .reduce((join, pair) => Object.assign(join, pair), {});
 
-const fakeGithubHandle = (req, res) => {
+const mockhubHandle = (req, res) => {
   let body = '';
 
   req.on('data', (data) => {
@@ -27,19 +27,19 @@ const fakeGithubHandle = (req, res) => {
       const parsedBody = queryParse(body);
 
       parsedBody.should.contain.keys('client_secret', 'code', 'client_id');
-      parsedBody.code.should.eq(fakeGithubCode);
+      parsedBody.code.should.eq(mockhubCode);
 
 
       res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(`{ "access_token": "${fakeGithubToken}" }`);
+      res.end(`{ "access_token": "${mockhubToken}" }`);
     });
   } else {
     throw new Error('should only access pre defined urls');
   }
 };
 
-const fakeGithub = (port) => {
-  http.createServer(fakeGithubHandle).listen(port);
+const mockhub = (port) => {
+  http.createServer(mockhubHandle).listen(port);
 };
 
 describe('github integration', () => {
@@ -64,7 +64,7 @@ describe('github integration', () => {
     const githubPort = 1337;
 
     config.github.token_url = `http://localhost:${githubPort}/token_url`;
-    fakeGithub(githubPort);
+    mockhub(githubPort);
 
     userRequest = session(server);
     userRequest
@@ -98,7 +98,7 @@ describe('github integration', () => {
 
   it('should create a github integration from GET', (done) => {
     userRequest
-      .get(`/api/integrations/github/auth?code=${fakeGithubCode}`)
+      .get(`/api/integrations/github/auth?code=${mockhubCode}`)
       .expect(302)
       .end(() => {
         done();
@@ -111,7 +111,7 @@ describe('github integration', () => {
       .expect(200)
       .end((err, res) => {
         res.body.should.eql([{ type: 'github' }]);
-        Integration.findOne({ where: { meta: fakeGithubToken } })
+        Integration.findOne({ where: { meta: mockhubToken } })
           .then((integration) => {
             integration.should.not.be.null;
             integration.userId.should.eq(1);
