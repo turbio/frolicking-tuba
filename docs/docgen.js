@@ -3,40 +3,67 @@ const api = require('./api.json');
 const start = 1;
 const jsonIndent = 2;
 
-const bulletList = (list, depth = 0) => {
+const printer = {
+  code(language, text, depth) {
+    const indent = Array(depth + start + 1).join('  ');
+
+    console.log(`${indent}\`\`\`${language}`);
+    console.log(indent + indent + text);
+    console.log(`${indent}\`\`\`\n`);
+  },
+  bullet(text, depth) {
+    const indent = Array(depth).join('  ');
+
+    console.log(`${indent}* ${text}`);
+  },
+  heading(title, depth) {
+    console.log(`\n${Array(depth + start + 1).join('#')} ${title}\n`);
+  },
+  buildLink(as, to) {
+    return `[${as}](${to})`;
+  },
+  buildBold(str) {
+    return `**${str}**`;
+  }
+};
+
+const filterObject = (obj, ...rest) => {
+  const copy = Object.assign({}, obj);
+
+  rest.forEach((key) => {
+    Reflect.deleteProperty(copy, key);
+  });
+
+  return copy;
+};
+
+const bulletObj = (item, value, depth) => {
   const indent = Array(depth + start + 1).join('  ');
 
+  printer.bullet(printer.buildBold(item), depth);
+
+  if (value.code && value.text) {
+    const text = value.text.split('\n').join(`\n${indent}${indent}`);
+
+    printer.code(value.code, text, depth);
+  }
+
+  if (value.code && value.object) {
+    const text = JSON.stringify(value.object, null, jsonIndent)
+      .split('\n').join(`\n${indent}${indent}`);
+
+    printer.code(value.code, text, depth);
+  }
+};
+
+const bulletList = (list, depth = 0) => {
   Object.keys(list).forEach((key) => {
     if (typeof list[key] === 'object') {
-      console.log(`${Array(depth + 1).join(' ')}* **${key}**\n`);
-
-      if (list[key].code && list[key].text) {
-        const text = list[key].text.split('\n')
-          .join(`\n${indent}${indent}`);
-
-        console.log(`${indent}\`\`\`${list[key].code}`);
-        console.log(`${indent}${indent}${text}`);
-        console.log(`${indent}\`\`\`\n`);
-      }
-
-      if (list[key].code && list[key].object) {
-        const text = JSON.stringify(list[key].object, null, jsonIndent)
-          .split('\n').join(`\n${indent}${indent}`);
-
-        console.log(`${indent}\`\`\`${list[key].code}`);
-        console.log(indent + indent + text);
-        console.log(`${indent}\`\`\`\n`);
-      }
-
-      const sublist = Object.assign({}, list[key]);
-
-      Reflect.deleteProperty(sublist, 'object');
-      Reflect.deleteProperty(sublist, 'text');
-      Reflect.deleteProperty(sublist, 'code');
-      bulletList(sublist, depth + 1);
+      bulletObj(key, list[key], depth + 1);
+      bulletList(filterObject(list[key], 'object', 'text', 'code'), depth + 1);
 
     } else {
-      console.log(`${Array(depth + 1).join(' ')}* **${key}** ${list[key]}\n`);
+      printer.bullet(`${printer.buildBold(key)} ${list[key]}`);
     }
   });
 };
@@ -44,7 +71,11 @@ const bulletList = (list, depth = 0) => {
 const tableOfContents = (skele, depth = 0) => {
 
   if (depth !== 0) {
-    console.log(`${Array(depth).join('  ')}* [${skele.title}](#${skele.title.toLowerCase().replace(' ', '-')})`);
+    const link = printer.buildLink(
+    skele.title,
+    skele.title.toLowerCase().replace(' ', '-'));
+
+    printer.bullet(link, depth);
   }
 
   if (skele.sections) {
@@ -55,7 +86,7 @@ const tableOfContents = (skele, depth = 0) => {
 };
 
 const toMarkdown = (obj, depth = 0) => {
-  console.log(`${Array(depth + start + 1).join('#')} ${obj.title}\n`);
+  printer.heading(obj.title, depth);
 
   if (depth === 0) {
     tableOfContents(obj);
@@ -66,13 +97,7 @@ const toMarkdown = (obj, depth = 0) => {
     console.log(`${obj.description}\n`);
   }
 
-  const bullets = Object.assign({}, obj);
-
-  Reflect.deleteProperty(bullets, 'title');
-  Reflect.deleteProperty(bullets, 'description');
-  Reflect.deleteProperty(bullets, 'sections');
-
-  bulletList(bullets);
+  bulletList(filterObject(obj, 'title', 'description', 'sections'));
 
   if (obj.sections) {
     obj.sections.forEach((section) => {
