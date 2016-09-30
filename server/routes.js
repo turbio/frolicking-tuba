@@ -32,6 +32,7 @@ router.get('/api/integrations/github/auth', githubIntegration.register);
 
 //keys
 router.get('/api/keys', key.getAll);
+router.post('/api/keys', key.createKey);
 
 //annotations
 router.post('/api/annotate', annotate.create);
