@@ -1,4 +1,4 @@
-const api = require('./API.json');
+const api = require('./api.json');
 
 const start = 1;
 const jsonIndent = 2;
@@ -41,8 +41,26 @@ const bulletList = (list, depth = 0) => {
   });
 };
 
+const tableOfContents = (skele, depth = 0) => {
+
+  if (depth !== 0) {
+    console.log(`${Array(depth).join('  ')}* [${skele.title}](#${skele.title.toLowerCase().replace(' ', '-')})`);
+  }
+
+  if (skele.sections) {
+    skele.sections.forEach((sec) => {
+      tableOfContents(sec, depth + 1);
+    });
+  }
+};
+
 const toMarkdown = (obj, depth = 0) => {
   console.log(`${Array(depth + start + 1).join('#')} ${obj.title}\n`);
+
+  if (depth === 0) {
+    tableOfContents(obj);
+    console.log();
+  }
 
   if (obj.description) {
     console.log(`${obj.description}\n`);
