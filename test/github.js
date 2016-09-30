@@ -103,6 +103,16 @@ describe('github integration', () => {
       });
   });
 
+  it('should 400 when trying to get repos without github auth', (done) => {
+    userRequest
+      .get('/api/integrations/github/repos')
+      .expect(400)
+      .end((err, res) => {
+        res.body.should.eql({ error: config.messages.github_no_auth });
+        done(err);
+      });
+  });
+
   it('integration path should redirect to github auth url', (done) => {
     userRequest
       .get('/api/integrations/github')
