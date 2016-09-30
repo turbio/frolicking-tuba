@@ -75,7 +75,10 @@ module.exports.repoList = (req, res) => {
       const options = {
         url: `${config.github.api_url}/user/repos`,
         method: 'GET',
-        headers: { Authorization: `token ${integration.meta}` },
+        headers: {
+          Authorization: `token ${integration.meta}`,
+          'User-Agent': config.github.user_agent
+        },
         json: true
       };
 
