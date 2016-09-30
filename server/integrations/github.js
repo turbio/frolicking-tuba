@@ -79,8 +79,8 @@ module.exports.repoList = (req, res) => {
       };
 
       request(options, (err, githubRes, body) => {
-        if (err) {
-          res.status(400).json({ error: 'github auth error?' });
+        if (err || !body.map) {
+          res.status(400).json({ error: config.messages.github_no_auth });
         } else {
           res.json(body.map((repo) => repo.full_name));
         }
