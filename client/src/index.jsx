@@ -13,6 +13,7 @@ import Signin from './components/Signin.jsx';
 import Signup from './components/Signup.jsx';
 import Dashboard from './components/Dashboard.jsx';
 import Welcome from './components/Welcome.jsx';
+import Team from './components/Team.jsx';
 
 const store = createStore(myApp);
 
@@ -93,6 +94,7 @@ render(
         <Route path="/signup" component={Signup} />
         <Route path="/signin" component={Signin} />
         <Route path="/welcome" component={Welcome} />
+        <Route path="/team" component={Team} />
         <Route
           path="/dashboard"
           component={Dashboard}
