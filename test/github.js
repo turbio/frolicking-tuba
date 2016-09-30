@@ -60,7 +60,7 @@ const mockhub = (port) => {
   http.createServer(mockhubHandle).listen(port);
 };
 
-describe('github integration', () => {
+describe('github integration', () => { // eslint-disable-line max-statements
   let userRequest = null;
 
   before((done) => {
