@@ -66,6 +66,7 @@ module.exports.repoList = (req, res) => {
   Integration.findOne({ where: { userId: req.session.user.id } })
     .then((integration) => {
       if (!integration) {
+        console.log(integration);
         res.status(400).json({ error: config.messages.github_no_auth });
 
         return;
@@ -79,7 +80,8 @@ module.exports.repoList = (req, res) => {
       };
 
       request(options, (err, githubRes, body) => {
-        if (err || !body.map) {
+        if (err || !Array.isArray(body)) {
+          console.log(body);
           res.status(400).json({ error: config.messages.github_no_auth });
         } else {
           res.json(body.map((repo) => repo.full_name));
