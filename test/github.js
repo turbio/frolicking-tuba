@@ -8,9 +8,34 @@ const http = require('http');
 const fakeGithubToken = 'THISISATESTACCESSTOKEN';
 const fakeGithubCode = 'THISISATESTCODE';
 
+const queryParse = (str) =>
+  str
+    .split('&')
+    .map((pair) => pair.split('='))
+    .map((pair) => ({ [pair[0]]: pair[1] }))
+    .reduce((join, pair) => Object.assign(join, pair), {});
+
 const fakeGithubHandle = (req, res) => {
-  res.writeHead(200, { 'Content-Type': 'application/json' });
-  res.end(`{ "access_token": "${fakeGithubToken}" }`);
+  let body = '';
+
+  req.on('data', (data) => {
+    body += data;
+  });
+
+  if (req.url === '/token_url') {
+    req.on('end', () => {
+      const parsedBody = queryParse(body);
+
+      parsedBody.should.contain.keys('client_secret', 'code', 'client_id');
+      parsedBody.code.should.eq(fakeGithubCode);
+
+
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(`{ "access_token": "${fakeGithubToken}" }`);
+    });
+  } else {
+    throw new Error('should only access pre defined urls');
+  }
 };
 
 const fakeGithub = (port) => {
@@ -33,6 +58,14 @@ describe('github integration', () => {
   });
 
   before((done) => {
+    //temporarily highjack the github post url
+    //and start our owner server to mimick github
+    //...maybe this is a bit overboard
+    const githubPort = 1337;
+
+    config.github.token_url = `http://localhost:${githubPort}/token_url`;
+    fakeGithub(githubPort);
+
     userRequest = session(server);
     userRequest
       .post('/api/signup')
@@ -64,14 +97,6 @@ describe('github integration', () => {
   });
 
   it('should create a github integration from GET', (done) => {
-    //temporarily highjack the github post url
-    //and start our owner server to mimick github
-    //...maybe this is a bit overboard
-    const githubPort = 1337;
-
-    config.github.token_url = `http://localhost:${githubPort}`;
-    fakeGithub(githubPort);
-
     userRequest
       .get(`/api/integrations/github/auth?code=${fakeGithubCode}`)
       .expect(302)
@@ -94,4 +119,7 @@ describe('github integration', () => {
           });
       });
   });
+
+  it('should show github repo list');
+  it('should allow users to select a repo');
 });
