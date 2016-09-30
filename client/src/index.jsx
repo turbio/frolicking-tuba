@@ -12,6 +12,7 @@ import Signin from './components/Signin.jsx';
 import Signup from './components/Signup.jsx';
 import Dashboard from './components/Dashboard.jsx';
 import Welcome from './components/Welcome.jsx';
+import Team from './components/Team.jsx';
 import Create from './components/Create.jsx';
 import App from './components/App.jsx';
 
@@ -39,6 +40,7 @@ render(
         <Route path="/signup" component={Signup} />
         <Route path="/signin" component={Signin} />
         <Route path="/welcome" component={Welcome} />
+        <Route path="/team" component={Team} />
         <Route path="/create" component={Create} />
         <Route
           path="/dashboard"

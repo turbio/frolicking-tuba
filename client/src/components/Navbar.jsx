@@ -28,7 +28,7 @@ const NavbarComponent = () => (
           <Link to="/documentation">Documentation</Link>
         </NavItem>
         <NavItem eventKey={2} href="#">Pricing</NavItem>
-        <NavItem eventKey={3} href="#">Team</NavItem>
+        <NavItem eventKey={3}><Link to="/team">Team</Link></NavItem>
       </Nav>
       <Nav pullRight>
         <NavItem eventKey={1}><Link to="/signup">Sign Up</Link></NavItem>
