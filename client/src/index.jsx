@@ -18,7 +18,7 @@ import CreateStart from './components/CreateStart.jsx';
 import CreateGithub from './components/CreateGithub.jsx';
 import Welcome from './components/Welcome.jsx';
 import { auth } from './utils/auth';
-import { homeReducer } from './reducers/reducers';
+import homeReducer from './reducers/reducers';
 
 // Creates the Redux reducer with the redux-thunk middleware, which allows us
 // to do asynchronous things in the actions

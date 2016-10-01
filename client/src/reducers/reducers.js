@@ -1,4 +1,3 @@
-//import { combineReducers } from 'redux';
 import assign from 'object.assign';
 //import loggedin from './loggedin';
 import { auth } from '../utils/auth';
@@ -19,7 +18,13 @@ const initialState = {
 
 
 // Takes care of changing the application state
-export const homeReducer = (state = initialState, action) => {
+/**
+ * Registers a user in the system
+ * @param  {object}   state The sate of the app
+ * @param  {string}   action The passed in action
+ * @returns {object} Either default state or new state
+ */
+export default function homeReducer(state = initialState, action) {
   switch (action.type) {
   case CHANGE_FORM:
     return assign({}, state, { formState: action.newState });
@@ -30,9 +35,7 @@ export const homeReducer = (state = initialState, action) => {
   default:
     return state;
   }
-};
-
-//export default homeReducer;
+}
 
 // const myApp = combineReducers({ loggedin });
 // export default myApp;
