@@ -20,6 +20,7 @@ module.exports.create = (req, res) => {
     return;
   }
 
+  console.log('starting github issue creation', req);
   github.createIssue(
     req.body.key,
     {
