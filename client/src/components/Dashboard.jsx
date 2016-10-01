@@ -32,9 +32,8 @@ class Dashboard extends Component {
       const keys = json.map((key) => {
         const newKey = key;
 
-        newKey.api_key = `<script src="http://getmarkup.com/script.js?key=
-${key.api_key}
-"></script>`;
+        newKey.api_key = `<script src="http://getmarkup.com/script.js?key=\
+${key.api_key}"></script>`;
 
         return newKey;
       });
