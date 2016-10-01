@@ -10,8 +10,6 @@ Key.belongsTo(User);
 Key.hasOne(Output);
 
 Key.hook('beforeCreate', (instance) => {
-  console.log('starting keygen process');
-
   const modInstance = instance;
 
   modInstance.key = hash(`${new Date()}${instance.id}entropy!!!!`);

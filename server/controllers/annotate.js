@@ -19,5 +19,6 @@ module.exports.create = (req, res) => {
         + `#comment: ${req.body.comment}`
     });
 
+  res.header('Access-Control-Allow-Origin', '*');
   res.end();
 };
