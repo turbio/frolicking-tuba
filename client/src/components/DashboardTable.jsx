@@ -20,7 +20,7 @@ const DashboardTable = ({ keys }) => (
     striped
     bordered
     data={keys}
-    height="270"
+    height="270px"
     selectRow={selectRowProp}
   >
     <TableHeaderColumn dataField="name" >Name</TableHeaderColumn>

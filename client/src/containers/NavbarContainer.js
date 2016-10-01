@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { toggleLoggedin } from '../actions';
+import { toggleLoggedin } from '../actions/AppActions';
 import NavbarComponent from '../components/Navbar.jsx';
 
 const mapStateToProps = (state) => ({ loggedIn: state.loggedin });

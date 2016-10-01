@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 
 import App from './components/App.jsx';
@@ -15,71 +17,37 @@ import Create from './components/Create.jsx';
 import CreateStart from './components/CreateStart.jsx';
 import CreateGithub from './components/CreateGithub.jsx';
 import Welcome from './components/Welcome.jsx';
+import { auth } from './utils/auth';
+import { homeReducer } from './reducers/reducers';
 
-import myApp from './reducers';
-
-const store = createStore(myApp);
-
-const checkAuth = (callback) => {
-  fetch('/api/users/signedin', { credentials: 'same-origin' })
-  .then((response) => response.json())
-  .then((json) => {
-    callback(null, json.signedin);
-
-    return;
-  })
-  .catch((error) => console.log('fetch /api/me error:', error));
-};
-
-// onEnter hook for Dashboard route
-const dashboardOnEnter = (nextState, replace, callback) => {
-  // check if authenticated
-  checkAuth((err, signedin) => {
-    if (err) {
-      console.log(err);
-    }
-    if (!signedin) {
-      replace({ pathname: '/signin' });
-    }
-    callback();
-  });
-};
-
-const createOnEnter = (nextState, replace, callback) => {
-  // check if authenticated
-  checkAuth((err, signedin) => {
-    if (err) {
-      console.log(err);
-    }
-    if (!signedin) {
-      replace({ pathname: '/signin' });
-    }
-    callback();
-  });
-};
-
-const githubOnEnter = (nextState, replace, callback) => {
-  console.log('test githubOnEnter');
-  callback();
-};
+// Creates the Redux reducer with the redux-thunk middleware, which allows us
+// to do asynchronous things in the actions
+const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+//const store = createStoreWithMiddleware(homeReducer);
+const store = createStoreWithMiddleware(
+  homeReducer,
+  window.devToolsExtension && window.devToolsExtension()
+  );
 
 render(
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={App}>
-        <IndexRoute component={Landing} />
+      <Route component={App}>
+        <Route path="/" component={Landing} />
         <Route path="/signup" component={Signup} />
         <Route path="/signin" component={Signin} />
         <Route path="/welcome" component={Welcome} />
-        <Route path="/create" component={Create} onEnter={createOnEnter}>
+        <Route path="/create" component={Create} onEnter={auth.createOnEnter}>
           <IndexRoute component={CreateStart} />
           <Route
-            path="github" component={CreateGithub} onEnter={githubOnEnter}
+            path="github" component={CreateGithub} onEnter={auth.githubOnEnter}
           />
         </Route>
         <Route path="/team" component={Team} />
         <Route
-          path="/dashboard" component={Dashboard} onEnter={dashboardOnEnter}
+          path="/dashboard"
+          component={Dashboard}
+          onEnter={auth.dashboardOnEnter}
         />
         <Route path="/documentation" component={Documentation} />
       </Route>
