@@ -3,7 +3,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link, withRouter } from 'react-router';
 import {
-  FormGroup, FormControl, Jumbotron, Grid, Row, Col, Button
+  FormGroup, FormControl, Jumbotron, Grid, Row, Col, Button, Alert
 } from 'react-bootstrap';
 
 class Signup extends Component {
@@ -29,18 +29,33 @@ class Signup extends Component {
   //   this.setState({ companyName: event.target.value });
   // }
 
+  componentWillMount() {
+    this.props.dismissAlert();
+  }
+
   onClickHandler(event) {
     event.preventDefault();
     this.props.handleAuthSubmit(this.state, 'signup', this);
   }
 
   render() {
+    let alert = '';
+
+    if (this.props.alert) {
+      alert = (
+        <Alert bsStyle="danger">
+          <strong>Holy guacamole!</strong> {this.props.alert_msg}
+        </Alert>
+      );
+    }
+
     return (
       <Grid>
         <Row>
           <Col md={6} mdOffset={3}>
             <Jumbotron>
               <h1>Sign Up</h1>
+              {alert}
               <form>
                 <FormGroup
                   controlId="username"
@@ -94,6 +109,11 @@ class Signup extends Component {
   }
 }
 
-Signup.propTypes = { handleAuthSubmit: PropTypes.func };
+Signup.propTypes = {
+  handleAuthSubmit: PropTypes.func,
+  alert: PropTypes.bool,
+  alert_msg: PropTypes.string,
+  dismissAlert: PropTypes.func
+};
 
 export default withRouter(Signup);
