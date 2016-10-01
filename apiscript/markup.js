@@ -3,9 +3,8 @@
       %HTML%
     `;
   const modalCSS = `
-    <style>
       %CSS%
-    </style>`;
+    `;
   const apiEndpoint = 'http://localhost:3000/api/annotate';
 
   let modalElem = null;
@@ -74,8 +73,18 @@
     hideModal();
   };
 
+  const createModalEle = () => {
+    const modalEle = document.createElement('div');
+
+    modalEle.id = 'frolicking-tuba-modal';
+    modalEle.innerHTML = modalHTML;
+    console.log(modalEle);
+    document.body.appendChild(modalEle);
+  };
+
   const getElements = () => {
-    document.body.innerHTML += modalHTML;
+    //document.body.innerHTML += modalHTML;
+    createModalEle();
     modalElem = document.getElementById('frolicking-tuba-modal');
     formElem = document.getElementById('frolicking-tuba-modal-feedback');
     commentElem = document.getElementById('frolicking-tuba-modal-comment');
@@ -85,9 +94,17 @@
     formElem.onsubmit = submitForm;
   };
 
+  const createModalStyleEle = () => {
+    const modalStyleEle = document.createElement('style');
+
+    modalStyleEle.innerHTML = modalCSS;
+    document.body.appendChild(modalStyleEle);
+  };
+
   const showModal = (event) => {
     if (!cssAdded) {
-      document.body.innerHTML += modalCSS;
+      createModalStyleEle();
+      //document.body.innerHTML += modalCSS;
       cssAdded = true;
     }
 
