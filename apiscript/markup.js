@@ -67,7 +67,8 @@
       comment: commentElem.value,
       to: toElem.value,
       from: fromElem.value,
-      selected: selectedText
+      selected: selectedText,
+      key: '%KEY%'
     }));
 
     hideModal();
