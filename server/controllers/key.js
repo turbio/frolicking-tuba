@@ -1,11 +1,22 @@
 const config = require('../../env/config.json');
 const Key = require('../models/key');
+const Output = require('../models/output');
 
 module.exports.getAll = (req, res) => {
   if (req.session.user) {
-    Key.findAll({ where: { userId: req.session.user.id } })
+    Key.findAll({
+      where: { userId: req.session.user.id },
+      include: [Output]
+    })
     .then((keys) => {
-      res.status(200).json(keys);
+      // hacky way
+      const keysFormatted = keys.map((item) => ({
+        name: '',
+        api_key: item.key,
+        endpoint: item.output.meta
+      }));
+
+      res.status(200).json(keysFormatted);
     })
     .catch((err) => {
       res.status(500).json({ error: err });
@@ -32,4 +43,3 @@ module.exports.createKey = (req, res) => {
     res.redirect('/create/github');
   });
 };
-
