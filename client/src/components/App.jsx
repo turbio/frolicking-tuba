@@ -1,6 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+//import { connect } from 'react-redux';
+
 import NavbarContainer from '../containers/NavbarContainer';
 import { handleAuthSubmit } from '../actions/AppActions';
 
@@ -83,9 +84,9 @@ export default withRouter(App);
 // export default withRouter(App);
 
 // Which props do we want to inject, given the global state?
-const select = (state) => ({ data: state });
+//const select = (state) => ({ data: state });
 
 // Wrap the component to inject dispatch and state into it
 // export const AppContainer = connect(select)(App);
-const AppContainer = connect(select)(App);
+//const AppContainer = connect(select)(App);
 

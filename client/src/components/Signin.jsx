@@ -82,7 +82,6 @@ class Signin extends Component {
                 <div>
                   <Button
                     bsStyle="primary"
-                    type="submit"
                     onClick={this.onClickHandler}
                   >Log In</Button>
                 </div>
