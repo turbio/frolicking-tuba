@@ -1,12 +1,14 @@
 const github = require('../integrations/github');
 const config = require('../../env/config.json');
 
+const accessHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers':
+    'Origin, X-Requested-With, Content-Type, Accept'
+};
+
 module.exports.allowCORS = (req, res) => {
-  res.set({
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers':
-      'Origin, X-Requested-With, Content-Type, Accept'
-  });
+  res.set(accessHeaders);
 
   res.end();
 };
@@ -29,5 +31,6 @@ module.exports.create = (req, res) => {
         + `#comment: ${req.body.comment}`
     });
 
+  res.set(accessHeaders);
   res.end();
 };
