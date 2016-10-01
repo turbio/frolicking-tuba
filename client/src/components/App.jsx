@@ -12,7 +12,7 @@ class App extends React.Component {
       alert: false,
       alert_msg: 'test'
     };
-    this.handleAuthSubmit = this.handleAuthSubmit.bind(this);
+    //this.handleAuthSubmit = this.handleAuthSubmit.bind(this);
     this.dismissAlert = this.dismissAlert.bind(this);
   }
 
