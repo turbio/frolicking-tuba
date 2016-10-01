@@ -19,7 +19,7 @@ const NavbarComponent = () => (
   <Navbar fixedTop>
     <Navbar.Header>
       <Navbar.Brand>
-        <a href="#/">Frolicking Tuba</a>
+        <Link to="/">Frolicking Tuba</Link>
       </Navbar.Brand>
       <Navbar.Toggle />
     </Navbar.Header>

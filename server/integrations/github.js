@@ -1,7 +1,10 @@
 const config = require('../../env/config.json');
 const request = require('request');
-const Integration = require('../models/integration');
 const key = require('../controllers/key');
+
+const Integration = require('../models/integration');
+const Output = require('../models/output');
+const Key = require('../models/key');
 
 module.exports.createIssue = (repo, issue) => {
   //this is just a place holder, it probably doesn't work
@@ -66,6 +69,7 @@ module.exports.repoList = (req, res) => {
   Integration.findOne({ where: { userId: req.session.user.id } })
     .then((integration) => {
       if (!integration) {
+        console.log(integration);
         res.status(400).json({ error: config.messages.github_no_auth });
 
         return;
@@ -74,12 +78,16 @@ module.exports.repoList = (req, res) => {
       const options = {
         url: `${config.github.api_url}/user/repos`,
         method: 'GET',
-        headers: { Authorization: `token ${integration.meta}` },
+        headers: {
+          Authorization: `token ${integration.meta}`,
+          'User-Agent': config.github.user_agent
+        },
         json: true
       };
 
       request(options, (err, githubRes, body) => {
-        if (err || !body.map) {
+        if (err || !Array.isArray(body)) {
+          console.log(body);
           res.status(400).json({ error: config.messages.github_no_auth });
         } else {
           res.json(body.map((repo) => repo.full_name));
@@ -97,14 +105,16 @@ module.exports.repoSelect = (req, res) => {
   }
 
   Integration.findOne({ where: { userId: req.session.user.id } })
-    .then((integration) => {
-      const alteredIntegration = integration;
-
-      //yes... it's really fucking ugly and bad
-      alteredIntegration.meta += `|${req.body.name}`;
-      alteredIntegration.save();
+  .then((integration) => {
+    Key.findOne({ where: { userId: req.session.user.id } })
+    .then((kee) => {
+      Output.create({
+        integrationId: integration.id,
+        keyId: kee.id
+      });
 
       //temporary, i hope
       res.json({ error: null });
     });
+  });
 };
