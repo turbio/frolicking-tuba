@@ -14,9 +14,9 @@ module.exports.create = (req, res) => {
       title: req.body.title,
       body:
         `#to: ${req.body.to}\n`
-      + `#from: ${req.body.from}\n`
-      + `#selected text: ${req.body.selected}\n`
-      + `#comment: ${req.body.comment}`
+        + `#from: ${req.body.from}\n`
+        + `#selected text: ${req.body.selected}\n`
+        + `#comment: ${req.body.comment}`
     });
 
   res.end();

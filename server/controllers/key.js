@@ -1,8 +1,5 @@
 const config = require('../../env/config.json');
 const Key = require('../models/key');
-const Integration = require('../models/integration');
-
-const hash = require('js-md5');
 
 module.exports.getAll = (req, res) => {
   if (req.session.user) {
@@ -26,26 +23,13 @@ module.exports.createKey = (req, res) => {
     return;
   }
 
-  console.log('starting keygen process');
-  const entropy = `${req.session.user.name}ENTROPY!`;
-  const keyString = hash(entropy);
-
-  Integration.findOne({ where: { userId: req.session.user.id } })
-  .then((integration) => {
-    console.log('associating with integration', JSON.stringify(integration));
-
-    return Key.create({
-      //integrationId: integration.id,
-      userId: req.session.user.id,
-      key: keyString
-    })
-    .then((key) => {
-      console.log(
-        'key created',
-        JSON.stringify(key),
-        'going back to index');
-      res.redirect('/create/github');
-    });
+  Key.create({ userId: req.session.user.id })
+  .then((key) => {
+    console.log(
+      'key created',
+      JSON.stringify(key),
+      'going back to index');
+    res.redirect('/create/github');
   });
 };
 
