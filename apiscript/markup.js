@@ -68,7 +68,8 @@
       to: toElem.value,
       from: fromElem.value,
       selected: selectedText,
-      key: '%KEY%'
+      key: '%KEY%',
+      location: location.href
     }));
 
     hideModal();
