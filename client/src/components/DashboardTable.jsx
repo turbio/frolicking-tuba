@@ -24,7 +24,7 @@ const DashboardTable = ({ keys }) => (
     selectRow={selectRowProp}
   >
     <TableHeaderColumn dataField="name" >Name</TableHeaderColumn>
-    <TableHeaderColumn dataField="key"isKey >API Key</TableHeaderColumn>
+    <TableHeaderColumn dataField="api_key"isKey >API Key</TableHeaderColumn>
     <TableHeaderColumn dataField="endpoint" >Endpoint</TableHeaderColumn>
   </BootstrapTable>
 );
