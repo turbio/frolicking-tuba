@@ -1,11 +1,30 @@
 import React, { PropTypes } from 'react';
-// import { Table } from 'react-bootstrap';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 
+const onRowSelect = (row, isSelected) => {
+  console.log(row);
+  console.log(isSelected);
+};
+
+const selectRowProp = {
+  mode: 'radio',
+  clickToSelect: true,
+  bgColor: 'rgb(238, 193, 213)',
+  hideSelectColumn: true,
+  onSelect: onRowSelect
+};
+
 const DashboardTable = ({ keys }) => (
-  <BootstrapTable responsive striped bordered data={keys}>
+  <BootstrapTable
+    responsive
+    striped
+    bordered
+    data={keys}
+    height="270px"
+    selectRow={selectRowProp}
+  >
     <TableHeaderColumn dataField="name" >Name</TableHeaderColumn>
-    <TableHeaderColumn dataField="apiKey"isKey >API Key</TableHeaderColumn>
+    <TableHeaderColumn dataField="key"isKey >API Key</TableHeaderColumn>
     <TableHeaderColumn dataField="endpoint" >Endpoint</TableHeaderColumn>
   </BootstrapTable>
 );
@@ -16,26 +35,3 @@ DashboardTable.propTypes = {
 };
 
 export default DashboardTable;
-
-// <BootstrapTable responsive striped bordered>
-//   <thead>
-//     <tr>
-//       <TableHeaderColumn dataField={keys.name} >Name</TableHeaderColumn>
-//       <th>API Key</th>
-//       <th>Endpoint</th>
-//     </tr>
-//   </thead>
-//   <tbody>
-//     {keys.map((key) =>
-//       <tr>
-//         <td>{key.name}</td>
-//         <td>
-//           &lt;script src="getmarkup.com/script.js"&gt;&lt;/script&gt;
-//           {key.apiKey}
-//         </td>
-//         <td>{key.endpoint}</td>
-//       </tr>
-//     )}
-//   </tbody>
-// </BootstrapTable>
-
