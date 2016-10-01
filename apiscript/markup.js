@@ -5,7 +5,7 @@
   const modalCSS = `
       %CSS%
     `;
-  const apiEndpoint = 'http://localhost:3000/api/annotate';
+  const apiEndpoint = 'http://getmarkup.com/api/annotate';
 
   let modalElem = null;
   let formElem = null;
