@@ -74,7 +74,7 @@ describe('keys', () => {
       .get('/api/keys')
       .end((err, res) => {
         res.body.should.be.an('array');
-        //res.body.length.should.eq(1);
+        res.body.length.should.eq(1);
         done(err);
       });
   });
