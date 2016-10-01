@@ -11,24 +11,33 @@ module.exports.createIssue = (kee, issue) => {
   //yeah... it's ugly and i could really use an m:m sequelize for this
   Key.findOne({ where: { key: kee } })
   .then((fkee) => {
-    Output.findOne({ where: { keyId: fkee.id } })
+    Output.findOne({
+      where: { keyId: fkee.id },
+      include: [{ model: Integration, required: false }]
+    })
     .then((out) => {
       console.log('sending a issue request to github using:');
+      console.log('FROM KEY', fkee.key);
       console.log('REPO', out.meta);
-      console.log('KEY', out.key.key);
+      console.log('GITHUB KEY', out.integration.meta);
+      const options = {
+        url: `${config.github.api_url}/repos/${out.meta}/issues`,
+        method: 'POST',
+        headers: {
+          Authorization: `token ${out.integration.meta}`,
+          'User-Agent': config.github.user_agent
+        },
+        body: issue,
+        json: true
+      };
+
+      request(options, (err) => {
+        if (err) {
+          console.log(err);
+        }
+      });
     });
   });
-
-  //this is just a place holder, it probably doesn't work
-  //Integration.findOne()
-    //.then((integration) => {
-      //const options = {
-        //url: `${config.github.api_url}/repos/${repo}/issues`,
-        //method: 'POST',
-        //body: issue,
-        //headers: { Authorization: `token ${integration.meta}` }
-      //};
-    //});
 };
 
 module.exports.register = (req, res) => {
