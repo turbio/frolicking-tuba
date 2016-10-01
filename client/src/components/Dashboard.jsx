@@ -10,12 +10,12 @@ class Dashboard extends Component {
     this.state = {
       keys: [{
         name: 'MyRow',
-        key: 'somestring',
+        api_key: 'somestring',
         endpoint: 'somenedpoint'
       },
       {
         name: 'MyRow2',
-        key: 'somestring2',
+        api_key: 'somestring2',
         endpoint: 'somenedpoint2'
       }]
     };
@@ -29,7 +29,17 @@ class Dashboard extends Component {
     fetch('/api/keys', { credentials: 'same-origin' })
     .then((response) => response.json())
     .then((json) => {
-      this.setState({ keys: json });
+      const keys = json.map((key) => {
+        const newKey = key;
+
+        newKey.api_key = `<script src="http://getmarkup.com/script.js?key=
+${key.api_key}
+"></script>`;
+
+        return newKey;
+      });
+
+      this.setState({ keys });
     })
     .catch((error) => console.log('fetch /api/keys error:', error));
   }
