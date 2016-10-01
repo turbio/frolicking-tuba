@@ -32,6 +32,7 @@ router.get('/api/integrations/github/auth', githubIntegration.register);
 
 //keys
 router.get('/api/keys', key.getAll);
+router.post('/api/keys', key.createKey);
 
 //annotations
 router.post('/api/annotate', annotate.create);
@@ -41,7 +42,6 @@ router.get('/script.js', script.get);
 
 router.use(express.static('./client/public'));
 router.get('*', (req, res) => {
-  console.log();
   res.sendFile(path.resolve(`${__dirname}/../client/public/index.html`));
 });
 

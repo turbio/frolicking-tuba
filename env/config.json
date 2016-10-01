@@ -5,7 +5,8 @@
     "client_id": "562f07388003d99c712a",
     "auth_url": "https://github.com/login/oauth/authorize",
     "token_url": "https://github.com/login/oauth/access_token",
-    "api_url": "https://api.github.com"
+    "api_url": "https://api.github.com",
+    "user_agent": "frolicking tuba server"
   },
   "server": {
     "port": "3000"
@@ -25,7 +26,8 @@
     "server_error": "oops... looks like something went wrong",
     "incorrect_cred": "email and password did not match",
     "not_logged_in": "you must be logged in to do this",
-    "github_no_auth": "you have not authed with github"
+    "github_no_auth": "you have not authed with github",
+    "no_key": "no api key in request"
   },
   "secret": "ONLY USE THIS IN DEV",
   "integrations": [

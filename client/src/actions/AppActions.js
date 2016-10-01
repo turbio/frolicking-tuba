@@ -13,6 +13,7 @@ export const handleAuthSubmit
   = ({ username, password, companyName }, endpoint) => {
     // (dispatch) => {
     //   console.log(dispatch);
+    //this.setState({ alert: false });
     const url = `/api/${endpoint}`;
     const data = {
       email: username,
@@ -36,6 +37,8 @@ export const handleAuthSubmit
       //dispatch(setAuthState(!json));
       if (json.error) {
         console.log(json);
+        // this.setState({ alert: true });
+        // this.setState({ alert_msg: json.error });
       } else {
         //this.router.push('/dashboard');
         browserHistory.push('/dashboard');

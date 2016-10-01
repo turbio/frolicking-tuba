@@ -14,6 +14,7 @@ import { Navbar, Nav, NavItem } from 'react-bootstrap';
 //   </div>
 // );
 
+
 const NavbarComponent = () => (
   <Navbar fixedTop>
     <Navbar.Header>
