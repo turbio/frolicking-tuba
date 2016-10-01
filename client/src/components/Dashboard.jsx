@@ -10,20 +10,20 @@ class Dashboard extends Component {
     this.state = {
       keys: [{
         name: 'MyRow',
-        apiKey: 'somestring',
+        key: 'somestring',
         endpoint: 'somenedpoint'
       },
       {
         name: 'MyRow2',
-        apiKey: 'somestring2',
+        key: 'somestring2',
         endpoint: 'somenedpoint2'
       }]
     };
   }
 
-  // componentDidMount() {
-  //   this.getApiKeys();
-  // }
+  componentDidMount() {
+    this.getApiKeys();
+  }
 
   getApiKeys() {
     fetch('/api/keys', { credentials: 'same-origin' })
