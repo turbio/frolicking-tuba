@@ -8,8 +8,6 @@ const Key = db.define('key', { key: Sequelize.STRING });
 Key.belongsTo(User);
 
 Key.hook('beforeCreate', (instance) => {
-  console.log('starting keygen process');
-
   const modInstance = instance;
 
   modInstance.key = hash(`${new Date()}${instance.id}entropy!!!!`);
