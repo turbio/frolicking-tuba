@@ -35,6 +35,7 @@ router.get('/api/keys', key.getAll);
 router.post('/api/keys', key.createKey);
 
 //annotations
+router.options('/api/annotate', annotate.allowCORS);
 router.post('/api/annotate', annotate.create);
 
 //special script serving
