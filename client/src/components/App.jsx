@@ -1,5 +1,4 @@
 import React from 'react';
-//import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import NavbarContainer from '../containers/NavbarContainer';
 import { handleAuthSubmit } from '../actions/AppActions';
