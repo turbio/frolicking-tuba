@@ -5,6 +5,8 @@ let script = null;
 module.exports.get = (req, res) => {
   if (!req.query.key) {
     res.status(400).end('you must include a key');
+
+    return;
   }
 
   res.contentType('application/javascript');

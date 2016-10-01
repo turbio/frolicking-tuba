@@ -39,11 +39,17 @@ describe('server', () => {
   });
 
   describe('/script.js', () => {
-    it('should GET /script.js', (done) => {
+    it('should GET /script.js with a key', (done) => {
       request(server)
-        .get('/script.js')
+        .get('/script.js?key=thisisthekey')
         .expect('Content-Type', /javascript/)
         .expect(200)
+        .end(done);
+    });
+    it('should not GET /script.js without a key', (done) => {
+      request(server)
+        .get('/script.js')
+        .expect(400)
         .end(done);
     });
   });
