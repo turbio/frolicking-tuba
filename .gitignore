@@ -5,3 +5,4 @@
 /client/public/styles.css
 /env/config.json
 *.log
+dump.rdb
