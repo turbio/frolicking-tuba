@@ -25,10 +25,10 @@ const NavbarComponent = () => (
     </Navbar.Header>
     <Navbar.Collapse>
       <Nav>
-        <NavItem eventKey={1} href="#">
+        <NavItem eventKey={1}>
           <Link to="/documentation">Documentation</Link>
         </NavItem>
-        <NavItem eventKey={2} href="#">Pricing</NavItem>
+        <NavItem eventKey={2}>Pricing</NavItem>
         <NavItem eventKey={3}><Link to="/team">Team</Link></NavItem>
       </Nav>
       <Nav pullRight>
