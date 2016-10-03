@@ -74,7 +74,7 @@ const Landing = () => (
           <div className="main-area">
             <h3>Final CTA AREA</h3>
             <p>This is the Content.</p>
-            <p><Button bsStyle="secondary">Learn more</Button></p>
+            <p><Button bsStyle="primary">Learn more</Button></p>
           </div>
         </div>
       </Col>
