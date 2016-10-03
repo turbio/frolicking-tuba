@@ -5,7 +5,7 @@
   const modalCSS = `
       %CSS%
     `;
-  const apiEndpoint = 'http://localhost:3000/api/annotate';
+  const apiEndpoint = 'http://getmarkup.com/api/annotate';
 
   let modalElem = null;
   let formElem = null;
@@ -68,7 +68,8 @@
       to: toElem.value,
       from: fromElem.value,
       selected: selectedText,
-      key: '%KEY%'
+      key: '%KEY%',
+      location: location.href
     }));
 
     hideModal();

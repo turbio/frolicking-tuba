@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const redisStore = require('connect-redis')(session);
 
 const config = require('../env/config.json');
 const routes = require('./routes');
@@ -19,7 +20,8 @@ app.use(session({
     httpOnly: false,
     secure: false,
     maxAge: null
-  }
+  },
+  store: new redisStore()
 }));
 
 app.use(routes);
