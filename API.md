@@ -303,6 +303,85 @@ used by github to return the auth token after user is verified. Redirects to `/c
 
 * **auth** SESSION
 
+
+### URLs
+
+#### list URLs
+list all URLs of the currently logged in user
+
+* **url** /api/integrations/url/urls
+* **verb** GET
+* **input**
+    ```javascript
+        EMPTY
+    ```
+
+* **output**
+  * **on success**
+      ```javascript
+            STATUS CODE 200
+      ```
+
+      ```javascript
+            [
+              "String",
+              "String",
+              "..."
+            ]
+      ```
+
+  * **on error**
+      ```javascript
+            STATUS CODE 400
+      ```
+
+      ```javascript
+            {
+              "error": "String"
+            }
+      ```
+
+* **auth** SESSION
+
+
+#### set URL
+set the users URL to post comments to
+
+* **url** /api/integrations/url/urls
+* **verb** POST
+* **input**
+    ```javascript
+        {
+          "name": "String"
+        }
+    ```
+
+* **output**
+  * **on success**
+      ```javascript
+            STATUS CODE 200
+      ```
+
+      ```javascript
+            {
+              "error": null
+            }
+      ```
+
+  * **on error**
+      ```javascript
+            STATUS CODE 400
+      ```
+
+      ```javascript
+            {
+              "error": "String"
+            }
+      ```
+
+* **auth** SESSION
+
+
 ## keys
 
 
