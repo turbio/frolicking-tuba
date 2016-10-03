@@ -4,7 +4,7 @@ import NavbarComponent from '../components/Navbar.jsx';
 
 const mapStateToProps = (state) => ({ loggedIn: state.loggedin });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (loggedIn, dispatch) => ({
   onLoginClick: () => {
     dispatch(toggleLoggedin());
   }

@@ -1,47 +1,69 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
+//import { logout } from '../actions/AppActions';
+//import { SET_AUTH } from '../utils/AppConstants';
+import * as Actions from '../actions/AppActions';
 
-// const Navbar = ({ loggedIn }) => (
-//   <div className="headerBar">
-//     <div className="container">
-//       Navbar {loggedIn}
-//       <div id="rightMenu">
-//         <Link to="/signup">Sign Up</Link>
-//         <Link to="/login">Log In</Link>
-//       </div>
-//     </div>
-//   </div>
-// );
+class NavbarComponent extends React.Component {
 
+  runlogout() {
+    this.props.logout();
+  }
 
-const NavbarComponent = () => (
-  <Navbar fixedTop>
-    <Navbar.Header>
-      <Navbar.Brand>
-        <Link to="/">Frolicking Tuba</Link>
-      </Navbar.Brand>
-      <Navbar.Toggle />
-    </Navbar.Header>
-    <Navbar.Collapse>
-      <Nav>
+  renderAuthLinks() {
+    if (this.props.authenticated) {
+      return (<Nav pullRight>
         <NavItem eventKey={1}>
-          <Link to="/documentation">Documentation</Link>
+          <Link to="/" onClick={() => this.runlogout()}>Log Out</Link>
         </NavItem>
-        <NavItem eventKey={2}>Pricing</NavItem>
-        <NavItem eventKey={3}><Link to="/team">Team</Link></NavItem>
-      </Nav>
-      <Nav pullRight>
+      </Nav>);
+    } else {
+      return (<Nav pullRight>
         <NavItem eventKey={1}><Link to="/signup">Sign Up</Link></NavItem>
         <NavItem eventKey={2}><Link to="/signin">Log In</Link></NavItem>
-      </Nav>
-    </Navbar.Collapse>
-  </Navbar>
+      </Nav>);
+    }
+  }
+
+
+  render() {
+    return (
+      <Navbar fixedTop>
+        <Navbar.Header>
+          <Navbar.Brand>
+            <Link to="/">Frolicking Tuba</Link>
+          </Navbar.Brand>
+          <Navbar.Toggle />
+        </Navbar.Header>
+        <Navbar.Collapse>
+          <Nav>
+            <NavItem eventKey={1}>
+              <Link to="/documentation">Documentation</Link>
+            </NavItem>
+            <NavItem eventKey={2}>Pricing</NavItem>
+            <NavItem eventKey={3}><Link to="/team">Team</Link></NavItem>
+          </Nav>
+          { this.renderAuthLinks() }
+        </Navbar.Collapse>
+      </Navbar>
+      );
+  }
+
+}
+
+
+NavbarComponent.propTypes = {
+  authenticated: PropTypes.boolean,
+  logout: PropTypes.func
+};
+
+const mapStateToProps = (state) => (
+  { authenticated: state.auth.authenticated }
 );
 
-NavbarComponent.propTypes = { loggedIn: PropTypes.bool };
-
-export default NavbarComponent;
+export default connect(mapStateToProps, Actions)(NavbarComponent);
 
 //Add code back in when wanting to show active page states in nav
 //<li className="active"><a href="#">Link <span className="sr-only">
