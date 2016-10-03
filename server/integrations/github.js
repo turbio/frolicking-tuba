@@ -59,6 +59,7 @@ module.exports.register = (req, res) => {
       }
       if (!body.access_token) {
         console.log('No access_token in the body of Response');
+        console.log('Response body:', body);
       }
       res.status(400).json({ error: 'failed to authenticate with github' });
 
