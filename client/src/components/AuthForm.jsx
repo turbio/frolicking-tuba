@@ -22,13 +22,14 @@ const validate = (values) => {
 
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
   <fieldset className={`form-group ${touched && error ? 'has-error' : ''}`}>
-    <label htmlFor="control-label">{label}</label>
+    <label className="control-label" htmlFor="control-label">{label}</label>
     <div>
       <input
         {...input}
         placeholder={label} className="form-control" type={type}
       />
-      {touched && error && <div className="help-block">{error}</div>}
+      {touched && error
+        && <div className="help-block">{error}</div>}
     </div>
   </fieldset>
 );
@@ -47,22 +48,18 @@ class AuthForm extends Component {
   }
 
   renderAuthenticationError() {
-    if (this.props.authenticationError) {
+    if (typeof this.props.authenticationError === 'string') {
       return (<div className="alert alert-danger">
         { this.props.authenticationError }
       </div>);
     }
 
-    return <div />;
+    return <span />;
+    // return <div />;
   }
 
   render() {
     const { handleSubmit } = this.props;
-
-    // const handleFormSubmit = (values) => {
-    //   console.log(values,"Test",this);
-    //   this.props.signInUser(values, 'signin');
-    // };
 
     return (
       <div className="container">
@@ -99,19 +96,16 @@ class AuthForm extends Component {
 
 AuthForm.propTypes = {
   signInUser: PropTypes.func,
-  authenticationError: PropTypes.oneOfType({
-    optionalBool: React.PropTypes.bool,
-    optionalArray: React.PropTypes.array
-  }),
+  authenticationError: PropTypes.oneOfType([null, React.PropTypes.string]),
   handleSubmit: PropTypes.func
 };
 
-// renderField.propTypes = {
-//   input: PropTypes.object,
-//   label: PropTypes.string,
-//   type: PropTypes.string,
-//   meta: PropTypes.object
-// };
+renderField.propTypes = {
+  input: PropTypes.objectOf(PropTypes.any),
+  label: PropTypes.string,
+  type: PropTypes.string,
+  meta: PropTypes.objectOf(PropTypes.any)
+};
 
 const mapStateToProps = (state) => (
   { authenticationError: state.auth.error }

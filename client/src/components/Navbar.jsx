@@ -9,7 +9,7 @@ import * as Actions from '../actions/AppActions';
 class NavbarComponent extends React.Component {
 
   runlogout() {
-    this.props.logout();
+    this.props.logOut();
   }
 
   renderAuthLinks() {
@@ -19,12 +19,13 @@ class NavbarComponent extends React.Component {
           <Link to="/" onClick={() => this.runlogout()}>Log Out</Link>
         </NavItem>
       </Nav>);
-    } else {
-      return (<Nav pullRight>
-        <NavItem eventKey={1}><Link to="/signup">Sign Up</Link></NavItem>
-        <NavItem eventKey={2}><Link to="/signin">Log In</Link></NavItem>
-      </Nav>);
     }
+
+    return (<Nav pullRight>
+      <NavItem eventKey={1}><Link to="/signup">Sign Up</Link></NavItem>
+      <NavItem eventKey={2}><Link to="/signin">Log In</Link></NavItem>
+    </Nav>);
+
   }
 
 
@@ -55,8 +56,8 @@ class NavbarComponent extends React.Component {
 
 
 NavbarComponent.propTypes = {
-  authenticated: PropTypes.boolean,
-  logout: PropTypes.func
+  authenticated: PropTypes.oneOfType([PropTypes.func, PropTypes.boolean]),
+  logOut: PropTypes.func
 };
 
 const mapStateToProps = (state) => (

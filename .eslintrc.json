@@ -79,7 +79,7 @@
         "guard-for-in": "error",
         "handle-callback-err": "error",
         "id-blacklist": "error",
-        "id-length": ["error", {"exceptions": ["$"]}], 
+        "id-length": ["error", {"exceptions": ["$"]}],
         "id-match": "error",
         "indent": [
             "error",
@@ -238,7 +238,7 @@
             "single"
         ],
         "radix": "error",
-        "require-jsdoc": "error",
+        "require-jsdoc": "off",
         "rest-spread-spacing": "error",
         "semi": "error",
         "semi-spacing": "error",
@@ -264,7 +264,7 @@
             "error",
             "never"
         ],
-        "valid-jsdoc": "error",
+        "valid-jsdoc": "off",
         "vars-on-top": "error",
         "wrap-iife": "error",
         "wrap-regex": "error",

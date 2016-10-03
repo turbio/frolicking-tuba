@@ -11,6 +11,7 @@ const initialState = {
 
 
 export default function authReducer(state = initialState, action) {
+  //console.log(state, action, 'testrud');
   switch (action.type) {
   case AUTH_USER:
     return {
