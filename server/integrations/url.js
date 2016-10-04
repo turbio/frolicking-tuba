@@ -6,7 +6,7 @@ module.exports.urlList = (req, res) => {
 
     return;
   }
-}
+};
 
 module.exports.urlSelect = (req, res) => {
   if (!req.session.user) {
@@ -14,4 +14,4 @@ module.exports.urlSelect = (req, res) => {
 
     return;
   }
-}
+};

@@ -32,7 +32,7 @@ router.get('/api/integrations/github/repos', githubIntegration.repoList);
 router.post('/api/integrations/github/repos', githubIntegration.repoSelect);
 router.get('/api/integrations/github/auth', githubIntegration.register);
 
-router.get('/api/integrations/url/urls', urlIntegration.listList);
+router.get('/api/integrations/url/urls', urlIntegration.urlList);
 router.post('/api/integrations/url/urls', urlIntegration.urlSelect);
 
 //keys
