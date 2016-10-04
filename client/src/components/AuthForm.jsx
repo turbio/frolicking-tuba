@@ -42,9 +42,7 @@ class AuthForm extends Component {
   }
 
   handleFormSubmit(values) {
-
     this.props.signInUser(values, window.location.pathname);
-
   }
 
   renderAuthenticationError() {
@@ -55,7 +53,6 @@ class AuthForm extends Component {
     }
 
     return <span />;
-    // return <div />;
   }
 
   render() {
