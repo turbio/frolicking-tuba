@@ -89,7 +89,12 @@ module.exports.repoList = (req, res) => {
     return;
   }
 
-  Integration.findOne({ where: { userId: req.session.user.id } })
+  Integration.findOne({
+    where: {
+      userId: req.session.user.id,
+      type: 'github'
+    }
+  })
     .then((integration) => {
       if (!integration) {
         res.status(400).json({ error: config.messages.github_no_auth });
