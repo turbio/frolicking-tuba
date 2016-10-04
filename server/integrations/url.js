@@ -40,21 +40,11 @@ module.exports.urlSelect = (req, res) => {
 
   let newIntegrationId = false;
 
-  Integration.findOne({
+  Integration.findOrCreate({
     where: {
       userId: req.session.user.id,
       type: 'url'
     }
-  })
-  .then((integration) => {
-    if (!integration) {
-      return Integration.create({
-        userId: req.session.user.id,
-        type: 'url'
-      });
-    }
-
-    return integration;
   })
   .then((integration) => {
     newIntegrationId = integration.id;
