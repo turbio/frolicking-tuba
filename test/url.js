@@ -47,7 +47,7 @@ describe('url integration', () => { // eslint-disable-line max-statements
   it('should create a url integration', (done) => {
     userRequest
       .post('/api/integrations/urls')
-      .post({ name: 'http://example.com' })
+      .send({ name: 'http://example.com' })
       .expect(200)
       .end(() => {
         done();
