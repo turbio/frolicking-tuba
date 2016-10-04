@@ -4,6 +4,8 @@
 
 $background-Maincolor:black;
 
+body { padding-top: 70px; }
+
 .table {
   margin-bottom: 0px;
 }
@@ -46,35 +48,3 @@ $background-Maincolor:black;
   height:50vh;
   background:orange;
 }
-// .landingBackground {
-//   z-index:-1000;
-//   position:absolute;
-//   width: 100%;
-//   height: 100%;
-//   overflow: hidden;
-//   -webkit-transform: skewY(-12deg);
-//   transform: skewY(-12deg);
-//   -webkit-transform-origin: 0;
-//   transform-origin: 0;
-//   background: -webkit-linear-gradient(300deg,#53f 15%,#05d5ff 70%,#a6ffcb 94%);
-//   background: linear-gradient(150deg,#53f 15%,#05d5ff 70%,#a6ffcb 94%);
-// }
-
-// .main-area {
-//   @extend .row;
-// }
-// .column {
-//   @extend .col-md-4;
-// }
-// .content {
-//   @extend .col-xs-6;
-//   @extend .col-sm-6;
-// }
-// .sidebar {
-//   @extend .col-xs-4;
-//   @extend .col-sm-4;
-// }
-// .side-nav {
-//   @extend .col-sm-2;
-//   @extend .col-sm-2;
-// }
