@@ -10,7 +10,6 @@ class App extends Component {
     this.props = this.props;
   }
 
-
   render() {
     return (
       <div>
@@ -20,7 +19,6 @@ class App extends Component {
     );
   }
 }
-
 
 App.propTypes = {
   children: React.PropTypes.oneOfType([

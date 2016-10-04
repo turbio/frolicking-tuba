@@ -1,5 +1,6 @@
 import { browserHistory } from 'react-router';
-import { SIGN_OUT_USER, AUTH_USER, AUTH_ERROR } from '../utils/AppConstants';
+import { SIGN_OUT_USER,
+  AUTH_USER, AUTH_ERROR, FETCH_KEYS } from '../utils/AppConstants';
 
 
 export const authUser = () => ({ type: AUTH_USER });
@@ -7,19 +8,21 @@ export const authError = (error) => ({
   type: AUTH_ERROR,
   payload: error
 });
-export const signOut = () => ({ type: SIGN_OUT_USER });
+export const authRemove = () => ({ type: SIGN_OUT_USER });
+
+export const requestKeys = (keys) => ({
+  type: FETCH_KEYS,
+  payload: keys
+});
+
 
 export const signInUser = (credentials, endpoint) => (
   (dispatch) => {
     const url = `/api${endpoint}`;
-
-    console.log(url);
     const data = {
       email: credentials.email,
       password: credentials.password
     };
-
-    console.log(data, 'the data');
     const headers = new Headers();
 
     headers.append('Content-Type', 'application/json');
@@ -36,7 +39,6 @@ export const signInUser = (credentials, endpoint) => (
       if (json.error) {
         dispatch(authError(json.error));
       } else {
-        //this.router.push('/dashboard');
         dispatch(authUser());
         browserHistory.push('/dashboard');
       }
@@ -53,9 +55,31 @@ export const logOut = () => (
   (dispatch) => {
     fetch('/api/users/signout', { credentials: 'same-origin' })
     .then(() => {
-      dispatch(signOut());
+      dispatch(authRemove());
       browserHistory.replace('/');
     })
     .catch((error) => console.log('fetch error:', error));
   }
  );
+
+export const getApiKeys = () => {
+  (dispatch) => {
+    fetch('/api/keys', { credentials: 'same-origin' })
+    .then((response) => response.json())
+    .then((json) => {
+
+      const keys = json.map((key) => {
+        const newKey = key;
+
+        newKey.api_key = `<script src="http://getmarkup.com/script.js?key=\
+                          ${key.api_key}"></script>`;
+
+        return newKey;
+      });
+
+      dispatch(requestKeys(keys));
+      //this.setState({ keys });
+    })
+    .catch((error) => console.log('fetch /api/keys error:', error));
+  };
+};
