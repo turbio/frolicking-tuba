@@ -7,6 +7,7 @@ const script = require('./controllers/script');
 const integration = require('./controllers/integration');
 const key = require('./controllers/key');
 const githubIntegration = require('./integrations/github');
+const urlIntegration = require('./integrations/url');
 
 const router = express.Router();
 
@@ -25,10 +26,14 @@ router.get('/api/users/signedin', user.signedin);
 
 //integrations
 router.get('/api/integrations', integration.getAll);
+
 router.get('/api/integrations/github', githubIntegration.redirectTo);
 router.get('/api/integrations/github/repos', githubIntegration.repoList);
 router.post('/api/integrations/github/repos', githubIntegration.repoSelect);
 router.get('/api/integrations/github/auth', githubIntegration.register);
+
+router.get('/api/integrations/url/urls', urlIntegration.listList);
+router.post('/api/integrations/url/urls', urlIntegration.urlSelect);
 
 //keys
 router.get('/api/keys', key.getAll);
