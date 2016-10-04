@@ -148,7 +148,7 @@ destroyes the current user's session if it exists always returns 200
 ### list
 
 get a list of the current user's integrations
-* **url** /api/integraions
+* **url** /api/integrations
 * **verb** GET
 * **input**
     ```javascript
