@@ -11,5 +11,7 @@ module.exports.getAll = (req, res) => {
   Integration.findAll({
     where: { userId: req.session.user.id },
     attributes: ['type']
-  }).then((integrations) => res.json(integrations));
+  })
+  .then((integrations) => res.json(integrations))
+  .catch((err) => res.send(err));
 };
