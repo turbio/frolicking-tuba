@@ -1,25 +1,28 @@
 import { browserHistory } from 'react-router';
-import { SET_AUTH } from '../utils/AppConstants';
-
-// Sets the authentication state of the application
-// @param {boolean} newState True means a user is
-// logged in, false means no user is logged in
-
-export const setAuthState = (newState) =>
-  ({ type: SET_AUTH, newState });
+import { SIGN_OUT_USER,
+  AUTH_USER, AUTH_ERROR, FETCH_KEYS } from '../utils/AppConstants';
 
 
-export const handleAuthSubmit
-  = ({ username, password, companyName }, endpoint) => {
-    // (dispatch) => {
-    //   console.log(dispatch);
-    //this.setState({ alert: false });
-    const url = `/api/${endpoint}`;
+export const authUser = () => ({ type: AUTH_USER });
+export const authError = (error) => ({
+  type: AUTH_ERROR,
+  payload: error
+});
+export const authRemove = () => ({ type: SIGN_OUT_USER });
+
+export const requestKeys = (keys) => ({
+  type: FETCH_KEYS,
+  payload: keys
+});
+
+
+export const signInUser = (credentials, endpoint) => (
+  (dispatch) => {
+    const url = `/api${endpoint}`;
     const data = {
-      email: username,
-      password
+      email: credentials.email,
+      password: credentials.password
     };
-
     const headers = new Headers();
 
     headers.append('Content-Type', 'application/json');
@@ -32,22 +35,51 @@ export const handleAuthSubmit
     })
     .then((response) => response.json())
     .then((json) => {
-      console.log(json, 'This is the json variable');
-      //if response is success, !json will produce true
-      //dispatch(setAuthState(!json));
+      console.log(json, 'json');
       if (json.error) {
-        console.log(json);
-        // this.setState({ alert: true });
-        // this.setState({ alert_msg: json.error });
+        dispatch(authError(json.error));
       } else {
-        //this.router.push('/dashboard');
+        dispatch(authUser());
         browserHistory.push('/dashboard');
       }
     })
+    .catch((error) => {
+      console.log('fetch error:', error);
+      dispatch(authError(error));
+    });
+  }
+);
+
+
+export const logOut = () => (
+  (dispatch) => {
+    fetch('/api/users/signout', { credentials: 'same-origin' })
+    .then(() => {
+      dispatch(authRemove());
+      browserHistory.replace('/');
+    })
     .catch((error) => console.log('fetch error:', error));
+  }
+ );
+
+export const getApiKeys = () => {
+  (dispatch) => {
+    fetch('/api/keys', { credentials: 'same-origin' })
+    .then((response) => response.json())
+    .then((json) => {
+
+      const keys = json.map((key) => {
+        const newKey = key;
+
+        newKey.api_key = `<script src="http://getmarkup.com/script.js?key=\
+                          ${key.api_key}"></script>`;
+
+        return newKey;
+      });
+
+      dispatch(requestKeys(keys));
+      //this.setState({ keys });
+    })
+    .catch((error) => console.log('fetch /api/keys error:', error));
   };
-  // };
-
-export const toggleLoggedin = () => ({ type: 'TOGGLE_LOGGEDIN' });
-
-export const someOtherFunction = () => ({ type: 'SOME_ACTION' });
+};

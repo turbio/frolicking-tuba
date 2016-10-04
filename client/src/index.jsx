@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+// import { createStore, applyMiddleware, compose } from 'redux';
+import { persistStore } from 'redux-persist';
+// import thunk from 'redux-thunk';
 
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 
@@ -18,16 +19,21 @@ import CreateStart from './components/CreateStart.jsx';
 import CreateGithub from './components/CreateGithub.jsx';
 import Welcome from './components/Welcome.jsx';
 import { auth } from './utils/auth';
-import homeReducer from './reducers/reducers';
+import configureStore from './store/configureStore';
+
 
 // Creates the Redux reducer with the redux-thunk middleware, which allows us
 // to do asynchronous things in the actions
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+//const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 //const store = createStoreWithMiddleware(homeReducer);
-const store = createStoreWithMiddleware(
-  homeReducer,
-  window.devToolsExtension && window.devToolsExtension()
-  );
+// const store = createStoreWithMiddleware(
+//   homeReducer,
+//   window.devToolsExtension && window.devToolsExtension()
+//   );
+
+const store = configureStore();
+
+persistStore(store);
 
 render(
   <Provider store={store}>

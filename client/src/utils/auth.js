@@ -48,6 +48,11 @@ export const auth = {
     return !!localStorage.token;
   }
 
+  // logout(callback) {
+  //   fetch('/api/users/signout', { credentials: 'same-origin' })
+  //   .then(() => callback(true)
+  //   );
+  // }
 };
 
 export default checkAuth;
