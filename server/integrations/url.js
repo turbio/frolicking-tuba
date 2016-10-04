@@ -46,6 +46,13 @@ module.exports.urlSelect = (req, res) => {
       type: 'url'
     }
   })
+  .spread((integration, created) => {
+    if (created) {
+      console.log('created new integration');
+    }
+
+    return integration;
+  })
   .then((integration) => {
     newIntegrationId = integration.id;
 
