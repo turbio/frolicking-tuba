@@ -7,7 +7,7 @@ const Output = require('../models/output');
 const Key = require('../models/key');
 
 module.exports.createIssue = (params, body) => {
-  console.log('PARAMS', params, 'ISSUE', body);
+  // console.log('PARAMS', params, 'ISSUE', body);
 
   const options = {
     url: `${config.github.api_url}/repos/${params.output_meta}/issues`,
