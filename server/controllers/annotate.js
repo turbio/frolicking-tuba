@@ -1,4 +1,5 @@
 const github = require('../integrations/github');
+const url = require('../integrations/url');
 const config = require('../../env/config.json');
 
 const Integration = require('../models/integration');
@@ -46,9 +47,9 @@ module.exports.create = (req, res) => {
     if (integration.type === 'github') {
       github.createIssue(params, req.body);
     }
-    // if (integration.type === 'url') {
-    //   url.postToUrl(params, req.body);
-    // }
+    if (integration.type === 'url') {
+      url.postToUrl(params, req.body);
+    }
 
     res.set(accessHeaders);
     res.end();
