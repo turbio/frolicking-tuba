@@ -5,8 +5,10 @@
   const modalCSS = `
       %CSS%
     `;
-  const apiEndpoint = 'http://getmarkup.com/api/annotate';
+  const apiEndpoint = '/api/annotate';
 
+  let frolickingTubaSelectedFile = null;
+  let fileInputEle = null;
   let modalElem = null;
   let formElem = null;
   let commentElem = null;
@@ -69,7 +71,8 @@
       from: fromElem.value,
       selected: selectedText,
       key: '%KEY%',
-      location: location.href
+      location: location.href,
+      file: frolickingTubaSelectedFile
     }));
 
     hideModal();
@@ -84,6 +87,16 @@
     document.body.appendChild(modalEle);
   };
 
+  const handleFileInput = (event) => {
+    //check to see if user's browser can handle the file input method
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+      frolickingTubaSelectedFile = event.target.files[0];
+      console.log('selected file is: ', frolickingTubaSelectedFile);
+    } else {
+      console.log('File input is not fully supported by your browser.');
+    }
+  };
+
   const getElements = () => {
     //document.body.innerHTML += modalHTML;
     createModalEle();
@@ -93,6 +106,8 @@
     toElem = document.getElementById('frolicking-tuba-modal-enterTo');
     fromElem = document.getElementById('frolicking-tuba-modal-enterFrom');
     titleElem = document.getElementById('frolicking-tuba-modal-enterTitle');
+    fileInputEle = document.getElementById('frolicking-tuba-modal-attachment');
+    fileInputEle.addEventListener('change', handleFileInput);
     formElem.onsubmit = submitForm;
   };
 
@@ -129,6 +144,8 @@
       hideModal();
     }
   };
+
+  //fileInputEle.addEventListener('change', handleFileInput);
 
   document.addEventListener('mouseup', clicked);
 })();
