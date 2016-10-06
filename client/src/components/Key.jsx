@@ -28,7 +28,7 @@ const Key = ({ title, endpoint, keyString }) => (
     <FormGroup>
       <ControlLabel>API Key</ControlLabel>
       <InputGroup>
-        <FormControl type="text" value={keyString} />
+        <FormControl type="text" defaultValue={keyString} />
         <InputGroup.Button><Button>Copy</Button></InputGroup.Button>
       </InputGroup>
     </FormGroup>

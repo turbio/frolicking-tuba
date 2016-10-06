@@ -1,14 +1,18 @@
-import React, { Component, PropTypes } from 'react';
-import { Row, Col, Grid, Button } from 'react-bootstrap';
+import React, { PropTypes } from 'react';
+import { Row, Grid } from 'react-bootstrap';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 
 import Key from './Key.jsx';
 import * as Actions from '../actions/AppActions';
 
-const Dashboard = () => (
+const Dashboard = ({ keys }) => (
   <Grid>
     <Row>
+      {
+        keys.map((key) => key.name)
+      }
+      {console.log(keys)}
       <p><Link to="/create">Create Key</Link></p>
     </Row>
     <Row>
@@ -19,8 +23,4 @@ const Dashboard = () => (
 
 Dashboard.propTypes = { keys: PropTypes.arrayOf(PropTypes.object) };
 
-
-const mapStateToProps = (state) => ({ keys: state.apiKeys.keys });
-
-//export default Dashboard;
-export default connect(mapStateToProps, Actions)(Dashboard);
+export default connect((state) => ({ keys: state.keys }))(Dashboard);

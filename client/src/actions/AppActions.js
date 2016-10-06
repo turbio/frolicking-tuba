@@ -1,6 +1,10 @@
 import { browserHistory } from 'react-router';
-import { SIGN_OUT_USER,
-  AUTH_USER, AUTH_ERROR, FETCH_KEYS } from '../utils/AppConstants';
+import {
+  SIGN_OUT_USER,
+  AUTH_USER,
+  AUTH_ERROR,
+  FETCH_KEYS
+} from '../utils/AppConstants';
 
 
 export const authUser = () => ({ type: AUTH_USER });
@@ -78,7 +82,6 @@ export const getApiKeys = () => {
       });
 
       dispatch(requestKeys(keys));
-      //this.setState({ keys });
     })
     .catch((error) => console.log('fetch /api/keys error:', error));
   };
