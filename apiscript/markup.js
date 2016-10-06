@@ -11,12 +11,12 @@
   let fileInputEle = null;
   let modalElem = null;
   let formElem = null;
-  let commentElem = null;
-  let toElem = null;
-  let fromElem = null;
-  let titleElem = null;
   let cssAdded = false;
   let selectedText = '';
+  // let commentElem = null;
+  // let toElem = null;
+  // let fromElem = null;
+  // let titleElem = null;
 
   const half = 2;
   const arrowHeight = 20;
@@ -59,22 +59,12 @@
   const submitForm = (event) => {
     event.preventDefault();
 
+    const dataForm = new FormData(formElem);
     const request = new XMLHttpRequest();
 
+    dataForm.append('selectedText', selectedText);
     request.open('POST', apiEndpoint, true);
-    request.setRequestHeader('Content-Type', 'application/json');
-
-    request.send(JSON.stringify({
-      title: titleElem.value,
-      comment: commentElem.value,
-      to: toElem.value,
-      from: fromElem.value,
-      selected: selectedText,
-      key: '%KEY%',
-      location: location.href,
-      file: frolickingTubaSelectedFile
-    }));
-
+    request.send(dataForm);
     hideModal();
   };
 
@@ -102,10 +92,10 @@
     createModalEle();
     modalElem = document.getElementById('frolicking-tuba-modal');
     formElem = document.getElementById('frolicking-tuba-modal-feedback');
-    commentElem = document.getElementById('frolicking-tuba-modal-comment');
-    toElem = document.getElementById('frolicking-tuba-modal-enterTo');
-    fromElem = document.getElementById('frolicking-tuba-modal-enterFrom');
-    titleElem = document.getElementById('frolicking-tuba-modal-enterTitle');
+    // commentElem = document.getElementById('frolicking-tuba-modal-comment');
+    // toElem = document.getElementById('frolicking-tuba-modal-enterTo');
+    // fromElem = document.getElementById('frolicking-tuba-modal-enterFrom');
+    // titleElem = document.getElementById('frolicking-tuba-modal-enterTitle');
     fileInputEle = document.getElementById('frolicking-tuba-modal-attachment');
     fileInputEle.addEventListener('change', handleFileInput);
     formElem.onsubmit = submitForm;
