@@ -1,5 +1,10 @@
 const github = require('../integrations/github');
+const url = require('../integrations/url');
 const config = require('../../env/config.json');
+
+const Integration = require('../models/integration');
+const Output = require('../models/output');
+const Key = require('../models/key');
 
 const accessHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -40,6 +45,33 @@ module.exports.create = (req, res) => {
   //       + `#comment: ${req.body.comment}`
   //   });
 
-  res.set(accessHeaders);
-  res.end();
+  const params = {
+    type: '',
+    integration_meta: '',
+    output_meta: ''
+  };
+
+  Key.findOne({
+    where: { key: req.body.key },
+    include: [Output]
+  })
+  .then((key) => {
+    params.output_meta = key.output.meta;
+
+    return Integration.findOne({ where: { id: key.output.integrationId } });
+  })
+  .then((integration) => {
+    params.type = integration.type;
+    params.integration_meta = integration.meta;
+
+    if (integration.type === 'github') {
+      github.createIssue(params, req.body);
+    }
+    if (integration.type === 'url') {
+      url.postToUrl(params, req.body);
+    }
+
+    res.set(accessHeaders);
+    res.end();
+  });
 };

@@ -6,37 +6,31 @@ const Integration = require('../models/integration');
 const Output = require('../models/output');
 const Key = require('../models/key');
 
-module.exports.createIssue = (kee, issue) => {
-  console.log('KEY', kee, 'ISSUE', issue);
-  //yeah... it's ugly and i could really use an m:m sequelize for this
-  Key.findOne({ where: { key: kee } })
-  .then((fkee) => {
-    Output.findOne({
-      where: { keyId: fkee.id },
-      include: [{ model: Integration, required: false }]
-    })
-    .then((out) => {
-      console.log('sending a issue request to github using:');
-      console.log('FROM KEY', fkee.key);
-      console.log('REPO', out.meta);
-      console.log('GITHUB KEY', out.integration.meta);
-      const options = {
-        url: `${config.github.api_url}/repos/${out.meta}/issues`,
-        method: 'POST',
-        headers: {
-          Authorization: `token ${out.integration.meta}`,
-          'User-Agent': config.github.user_agent
-        },
-        body: issue,
-        json: true
-      };
+module.exports.createIssue = (params, body) => {
+  // console.log('PARAMS', params, 'ISSUE', body);
 
-      request(options, (err) => {
-        if (err) {
-          console.log(err);
-        }
-      });
-    });
+  const options = {
+    url: `${config.github.api_url}/repos/${params.output_meta}/issues`,
+    method: 'POST',
+    headers: {
+      Authorization: `token ${params.integration_meta}`,
+      'User-Agent': config.github.user_agent
+    },
+    body: {
+      title: body.title,
+      body:
+        `#to: ${body.to}\n`
+        + `#from: ${body.from}\n`
+        + `#selected text: ${body.selected}\n`
+        + `#comment: ${body.comment}`
+    },
+    json: true
+  };
+
+  request(options, (err) => {
+    if (err) {
+      console.log(err);
+    }
   });
 };
 
