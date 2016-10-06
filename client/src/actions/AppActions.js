@@ -1,6 +1,8 @@
 import { browserHistory } from 'react-router';
 import { SIGN_OUT_USER,
-  AUTH_USER, AUTH_ERROR, FETCH_KEYS } from '../utils/AppConstants';
+  AUTH_USER, AUTH_ERROR,
+  FETCH_KEYS, OPEN_MODAL,
+  CLOSE_MODAL } from '../utils/AppConstants';
 
 
 export const authUser = () => ({ type: AUTH_USER });
@@ -14,6 +16,8 @@ export const requestKeys = (keys) => ({
   type: FETCH_KEYS,
   payload: keys
 });
+export const showModal = () => ({ type: OPEN_MODAL });
+export const hideModal = () => ({ type: CLOSE_MODAL });
 
 
 export const signInUser = (credentials, endpoint) => (
@@ -83,3 +87,26 @@ export const getApiKeys = () => {
     .catch((error) => console.log('fetch /api/keys error:', error));
   };
 };
+
+export const fetchEndpoints = () => {
+  (dispatch) => {
+
+  };
+};
+
+export const handleEndpointSubmit = () => {
+  //if url do one thing, if github repo do another
+};
+
+export const setKeyWithGithub = () => {
+  (dispatch) => {
+
+  };
+};
+
+export const setKeyWithUrl = () => {
+  (dispatch) => {
+
+  };
+};
+

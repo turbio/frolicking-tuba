@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 
 import DashboardTable from './DashboardTable.jsx';
+import CreateKeyModal from './CreateKeyModal.jsx';
 import * as Actions from '../actions/AppActions';
 
 class Dashboard extends Component {
@@ -25,6 +26,10 @@ class Dashboard extends Component {
 
   componentDidMount() {
     this.props.getApiKeys();
+  }
+
+  showModalWindow() {
+    this.props.showModal();
   }
 
   // getApiKeys() {
@@ -54,6 +59,14 @@ class Dashboard extends Component {
             <p>Copy and paste the script tag below into your html body.</p>
             <p><Button bsStyle="primary">Learn more</Button></p>
             <p><Link to="/create">Create Key</Link></p>
+            <p>
+              <Button
+                bsStyle="link"
+                onClick={() => this.showModalWindow()}
+              >Create API Key
+              </Button>
+            </p>
+            <CreateKeyModal />
           </Col>
         </Row>
         <DashboardTable keys={this.props.keys} />
@@ -64,7 +77,8 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
   getApiKeys: PropTypes.func,
-  keys: PropTypes.arrayOf(PropTypes.object)
+  keys: PropTypes.arrayOf(PropTypes.object),
+  showModal: PropTypes.func
 };
 
 
