@@ -1,3 +1,5 @@
+const multiparty = require('multiparty');
+
 const github = require('../integrations/github');
 const url = require('../integrations/url');
 const config = require('../../env/config.json');
@@ -26,19 +28,14 @@ module.exports.allowCORS = (req, res) => {
 };
 
 module.exports.create = (req, res) => {
-  const receivedForm = new multiparty.Form();
   let destPath = 'clientUploads/';
+  const body = {};
+  const form = new multiparty.Form();
 
-  receivedForm.on('field', (name, value) => {
-    if (name === 'key') {
-      destPath += value;
-    }
-  });
-
-  receivedForm.on('part', (part) => {
+  form.on('part', (part) => {
     s3Client.putObject({
       Bucket: bucket,
-      Key: destPath,
+      Key: destPath += body.key,
       ACL: 'public-read',
       Body: part,
       ContentLength: part.byteCount
@@ -48,43 +45,50 @@ module.exports.create = (req, res) => {
     });
   });
 
-  receivedForm.parse(req);
-
-  if (!req.body.key) {
-    res.status(400).json({ error: config.messages.no_key });
-
-    return;
-  }
-
-  console.log('request is: ', req.body);
-
   const params = {
     type: '',
     integration_meta: '',
     output_meta: ''
   };
 
-  Key.findOne({
-    where: { key: req.body.key },
-    include: [Output]
-  })
-  .then((key) => {
-    params.output_meta = key.output.meta;
-
-    return Integration.findOne({ where: { id: key.output.integrationId } });
-  })
-  .then((integration) => {
-    params.type = integration.type;
-    params.integration_meta = integration.meta;
-
-    if (integration.type === 'github') {
-      github.createIssue(params, req.body);
-    }
-    if (integration.type === 'url') {
-      url.postToUrl(params, req.body);
-    }
-
-    res.set(accessHeaders);
-    res.end();
+  form.on('error', (err) => {
+    console.log(`Error parsing form: ${err.stack}`);
   });
+  form.on('field', (name, value) => {
+    body[name] = value;
+  });
+  form.on('close', () => {
+    if (!body.key) {
+      res.status(400).json({ error: config.messages.no_key });
+
+      return;
+    }
+
+    Key.findOne({
+      where: { key: body.key },
+      include: [Output]
+    })
+    .then((key) => {
+      params.output_meta = key.output.meta;
+
+      return Integration.findOne({ where: { id: key.output.integrationId } });
+    })
+    .then((integration) => {
+      params.type = integration.type;
+      params.integration_meta = integration.meta;
+
+      if (integration.type === 'github') {
+        github.createIssue(params, body);
+      }
+      if (integration.type === 'url') {
+        url.postToUrl(params, body);
+      }
+      res.set(accessHeaders);
+      res.end();
+    });
+  });
+
+  form.parse(req);
+
+
 };

@@ -63,6 +63,7 @@
     const request = new XMLHttpRequest();
 
     dataForm.append('selectedText', selectedText);
+    dataForm.append('key', '%KEY%');
     request.open('POST', apiEndpoint, true);
     request.send(dataForm);
     hideModal();
