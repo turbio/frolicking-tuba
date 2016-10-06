@@ -5,6 +5,13 @@ const config = require('../../env/config.json');
 const Integration = require('../models/integration');
 const Output = require('../models/output');
 const Key = require('../models/key');
+const multiparty = require('multiparty');
+const AWS = require('aws-sdk');
+const bucket = process.env.S3_BUCKET;
+const s3Client = new AWS.S3({
+  accessKeyId: process.env.S3_KEY,
+  secretAccessKey: process.env.S3_SECRET
+});
 
 const accessHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -19,7 +26,29 @@ module.exports.allowCORS = (req, res) => {
 };
 
 module.exports.create = (req, res) => {
-  console.log('start of "create" in annotate');
+  const receivedForm = new multiparty.Form();
+  let destPath = 'clientUploads/';
+
+  receivedForm.on('field', (name, value) => {
+    if (name === 'key') {
+      destPath += value;
+    }
+  });
+
+  receivedForm.on('part', (part) => {
+    s3Client.putObject({
+      Bucket: bucket,
+      Key: destPath,
+      ACL: 'public-read',
+      Body: part,
+      ContentLength: part.byteCount
+    }, (err, data) => {
+      if (err) throw err;
+      console.log('done', data);
+    });
+  });
+
+  receivedForm.parse(req);
 
   if (!req.body.key) {
     res.status(400).json({ error: config.messages.no_key });
@@ -28,22 +57,6 @@ module.exports.create = (req, res) => {
   }
 
   console.log('request is: ', req.body);
-
-  //UN-COMMENT THE TEXT BELOW WHEN READY TO TEST WITH GITHUB
-  // github.createIssue(
-  //   req.body.key,
-  //   {
-  //     title: req.body.title,
-  //     body:
-  //       //here --> consider using markdown to embed the image in the body...
-  //         //look up embedding images in markdown
-  //       //look at the syntax here...
-  //         //what markdown expects for header styling for example
-  //       `#`to: ${req.body.to}\n`
-  //       + `#from: ${req.body.from}\n`
-  //       + `#selected text: ${req.body.selected}\n`
-  //       + `#comment: ${req.body.comment}`
-  //   });
 
   const params = {
     type: '',
