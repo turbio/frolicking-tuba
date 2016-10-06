@@ -98,6 +98,11 @@ describe('annotation', () => { // eslint-disable-line max-statements
   it('should not POST to /annotate without key', (done) => {
     request(server)
       .post('/api/annotate')
+      .field('title', 'a test annotation')
+      .field('to', 'to user')
+      .field('from', 'from user')
+      .field('selected', 'this would be the selected text')
+      .field('comment', 'this is the comment')
       .expect(400)
       .end(done);
   });
@@ -105,14 +110,12 @@ describe('annotation', () => { // eslint-disable-line max-statements
   it('should POST to /annotate with Github key', (done) => {
     request(server)
       .post('/api/annotate')
-      .send({
-        key: apiKeyGithub,
-        title: 'a test annotation',
-        to: 'to user',
-        from: 'from user',
-        selected: 'this would be the selected text',
-        comment: 'this is the comment'
-      })
+      .field('key', apiKeyGithub)
+      .field('title', 'a test annotation')
+      .field('to', 'to user')
+      .field('from', 'from user')
+      .field('selected', 'this would be the selected text')
+      .field('comment', 'this is the comment')
       .expect(200)
       .end(done);
   });
@@ -128,18 +131,14 @@ describe('annotation', () => { // eslint-disable-line max-statements
   });
 
   it('should POST to /annotate with URL key', (done) => {
-    console.log('apiKeyGithub:', apiKeyGithub);
-    console.log('apiKeyURL:', apiKeyURL);
     request(server)
       .post('/api/annotate')
-      .send({
-        key: apiKeyURL,
-        title: 'a test annotation',
-        to: 'to user',
-        from: 'from user',
-        selected: 'this would be the selected text',
-        comment: 'this is the comment'
-      })
+      .field('key', apiKeyURL)
+      .field('title', 'a test annotation')
+      .field('to', 'to user')
+      .field('from', 'from user')
+      .field('selected', 'this would be the selected text')
+      .field('comment', 'this is the comment')
       .expect(200)
       .end(done);
   });
