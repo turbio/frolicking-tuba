@@ -95,7 +95,7 @@ describe('annotation', () => { // eslint-disable-line max-statements
     });
   });
 
-  it('should not POST to /annotate without key', (done) => {
+  xit('should not POST to /annotate without key', (done) => {
     request(server)
       .post('/api/annotate')
       .field('title', 'a test annotation')
@@ -107,7 +107,25 @@ describe('annotation', () => { // eslint-disable-line max-statements
       .end(done);
   });
 
-  it('should POST to /annotate with Github key', (done) => {
+  const timeout1 = 5000;
+
+  xit('should POST with attachment to /annotate with Github key', function(done) { // eslint-disable-line 
+    this.timeout(timeout1); // eslint-disable-line no-invalid-this
+    request(server)
+      .post('/api/annotate')
+      .field('key', apiKeyGithub)
+      .field('title', 'a test annotation')
+      .field('to', 'to user')
+      .field('from', 'from user')
+      .field('selected', 'this would be the selected text')
+      .field('comment', 'this is the comment')
+      .attach('file', `${__dirname}/dog.txt`)
+      .expect(200)
+      .end(done);
+  });
+
+  it('should POST without attachment to /annotate with Github key', function(done) { // eslint-disable-line 
+    this.timeout(timeout1); // eslint-disable-line no-invalid-this
     request(server)
       .post('/api/annotate')
       .field('key', apiKeyGithub)
@@ -125,6 +143,7 @@ describe('annotation', () => { // eslint-disable-line max-statements
       .get(githubMockPath)
       .expect(200)
       .end((err, res) => {
+        console.log('response.body: ', res.body);
         res.body[0].title.should.eql('a test annotation');
         done(err);
       });
