@@ -96,6 +96,7 @@ module.exports.create = (req, res) => {
 
       if (promise1) {
         promise1.then((data) => {
+          console.log('inside promise1.then');
           if (integration.type === 'github') {
             body.url = data.fileUrl;
             github.createIssue(params, body);
@@ -105,7 +106,8 @@ module.exports.create = (req, res) => {
           }
           res.set(accessHeaders);
           res.end();
-        });
+        })
+        .catch((err) => { console.log(err); });
       } else {
         if (integration.type === 'github') {
           github.createIssue(params, body);
