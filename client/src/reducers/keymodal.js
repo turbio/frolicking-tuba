@@ -12,7 +12,7 @@ const initialState = {
 };
 
 export default function keyModalReducer(state = initialState, action) {
-  console.log(action, 'this action');
+  console.log(action, 'keyModalReducer');
   switch (action.type) {
   case OPEN_MODAL:
     return assign({}, state, { showModal: true });

@@ -54,8 +54,6 @@ class CreateKeyModal extends Component {
 
     const { handleSubmit } = this.props;
 
-    console.log(this.props, 'these props');
-
     return (
       <Modal show={this.props.keymodal} onHide={() => this.close()}>
         <Modal.Header closeButton />
@@ -94,7 +92,7 @@ class CreateKeyModal extends Component {
 }
 
 CreateKeyModal.propTypes = {
-  keymodal: PropTypes.boolean,
+  keymodal: PropTypes.bool,
   hideModal: PropTypes.func,
   handleSubmit: PropTypes.func,
   handleEndpointSubmit: PropTypes.func

@@ -13,7 +13,7 @@ export const authRemove = () => ({ type: SIGN_OUT_USER });
 
 export const requestKeys = (keys) => ({
   type: FETCH_KEYS,
-  keys
+  payload: keys
 });
 export const showModal = () => ({ type: OPEN_MODAL });
 export const hideModal = () => ({ type: CLOSE_MODAL });
@@ -41,11 +41,15 @@ export const signInUser = (credentials, endpoint) => (
     })
     .then((response) => response.json())
     .then((json) => {
-      console.log(json, 'json');
       if (json.error) {
         dispatch(authError(json.error));
       } else {
+        // console.log(json,'signedin')
+        localStorage.token = true;
+
         dispatch(authUser());
+
+        console.log('prior to auth dispatch');
         browserHistory.push('/dashboard');
       }
     })
@@ -61,8 +65,13 @@ export const logOut = () => (
   (dispatch) => {
     fetch('/api/users/signout', { credentials: 'same-origin' })
     .then(() => {
+      //localStorage.token = false;
+      //delete localStorage.token;
+      Reflect.deleteProperty(localStorage, 'token');
+
       dispatch(authRemove());
       browserHistory.replace('/');
+
     })
     .catch((error) => console.log('fetch error:', error));
   }
@@ -70,6 +79,8 @@ export const logOut = () => (
 
 export const getApiKeys = () => {
   (dispatch) => {
+    console.log('reach get apikeys');
+
     fetch('/api/keys', { credentials: 'same-origin' })
     .then((response) => response.json())
     .then((json) => {
@@ -89,35 +100,54 @@ export const getApiKeys = () => {
   };
 };
 
-export const fetchEndpoints = () => {
-  (dispatch) => {
-    let githubrepos = [];
 
-    console.log('this gets called');
-    fetch('/api/integrations/github/repos', { credentials: 'same-origin' })
-    .then((response) => response.json())
-    .then((fetchedgithubrepos) => {
-      githubrepos = fetchedgithubrepos;
-      console.log(fetchedgithubrepos, 'repos');
+// export const checkAuth = () => {
+//   (dispatch) => {
+//     fetch('/api/users/signedin', { credentials: 'same-origin' })
+//     .then((response) => response.json())
+//     .then((json) => {
+//       console.log(json, 'testing json return for checkAuth');
 
-      return fetch('/api/integrations/urls/urls',
-        { credentials: 'same-origin' });
-    })
-    .then((response) => response.json())
-    .then((urls) => {
-      console.log('json:', githubrepos, urls, githubrepos.concat(urls));
-      dispatch({
-        type: FETCH_ENDPOINTS,
-        payload: githubrepos.concat(urls)
-      });
-        //this.setState({ githubRepos: json });
-        //this.setState({ sel_repo: json[0] });
-    })
-    .catch((error) => console.log('fetch repos', error));
+//       if (json.signedin) {
+//         localStorage.token = true;
+//         dispatch(authUser());
+//       } else {
+//         dispatch(logOut());
+//       }
+//     });
+//   };
+// };
 
-  };
 
-};
+// export const fetchEndpoints = () => {
+//   (dispatch) => {
+//     let githubrepos = [];
+
+//     console.log('this gets called');
+//     fetch('/api/integrations/github/repos', { credentials: 'same-origin' })
+//     .then((response) => response.json())
+//     .then((fetchedgithubrepos) => {
+//       githubrepos = fetchedgithubrepos;
+//       console.log(fetchedgithubrepos, 'repos');
+
+//       return fetch('/api/integrations/urls/urls',
+//         { credentials: 'same-origin' });
+//     })
+//     .then((response) => response.json())
+//     .then((urls) => {
+//       console.log('json:', githubrepos, urls, githubrepos.concat(urls));
+//       dispatch({
+//         type: FETCH_ENDPOINTS,
+//         payload: githubrepos.concat(urls)
+//       });
+//         //this.setState({ githubRepos: json });
+//         //this.setState({ sel_repo: json[0] });
+//     })
+//     .catch((error) => console.log('fetch repos', error));
+
+//   };
+
+// };
 
 // export const setKeyWithGithub = () => {
 //   (dispatch) => {
@@ -125,18 +155,18 @@ export const fetchEndpoints = () => {
 //   };
 // };
 
-export const setKeyWithUrl = (values) => {
-  console.log(values, 'reached here');
-  // (dispatch) => {
+// export const setKeyWithUrl = (values) => {
+//   console.log(values, 'reached here');
+//   // (dispatch) => {
 
-  // };
-};
+//   // };
+// };
 
-export const handleEndpointSubmit = (values) => {
-  //if url do one thing, if github repo do another
-  if (values.endpoint.includes('url:')) {
-    console.log('we reached setkey');
-    setKeyWithUrl(values);
-  }
-};
+// export const handleEndpointSubmit = (values) => {
+//   //if url do one thing, if github repo do another
+//   if (values.endpoint.includes('url:')) {
+//     console.log('we reached setkey');
+//     setKeyWithUrl(values);
+//   }
+// };
 
