@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 
 import Key from './Key.jsx';
-import * as Actions from '../actions/AppActions';
+import { requestKeys } from '../actions/AppActions';
 
 const Dashboard = ({ keys }) => (
   <Grid>
@@ -23,4 +23,12 @@ const Dashboard = ({ keys }) => (
 
 Dashboard.propTypes = { keys: PropTypes.arrayOf(PropTypes.object) };
 
-export default connect((state) => ({ keys: state.keys }))(Dashboard);
+const mapStateToProps = (state) => ({ keys: state.keys });
+
+const mapDispatchToProps = (dispatch) => ({
+  getKeys() {
+    dispatch(requestKeys());
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

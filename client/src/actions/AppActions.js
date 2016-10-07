@@ -16,9 +16,8 @@ export const authRemove = () => ({ type: SIGN_OUT_USER });
 
 export const requestKeys = (keys) => ({
   type: FETCH_KEYS,
-  payload: keys
+  keys
 });
-
 
 export const signInUser = (credentials, endpoint) => (
   (dispatch) => {
