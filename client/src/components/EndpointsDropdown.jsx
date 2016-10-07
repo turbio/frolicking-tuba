@@ -7,11 +7,10 @@ const EndpointsDropdown = ({ input, label }) => (
       <select
         {...input}
         className="form-control"
-        onChange={(el) => console.log(el.target.value, 'test')}
       >
         <option disabled selected> Select an Endpoint</option>
         <option value="ff0000">Red</option>
-        <option value="00ff00">Green</option>
+        <option value="url:http://localhost:3000/dashboard">Green</option>
         <option value="0000ff">Blue</option>
         <hr />
         <option
@@ -29,3 +28,5 @@ EndpointsDropdown.propTypes = {
 };
 
 export default EndpointsDropdown;
+
+//onChange={(el) => console.log(el.target.value, 'test')}

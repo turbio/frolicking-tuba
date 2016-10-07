@@ -2,30 +2,26 @@ import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
+
 import EndpointsDropdown from './EndpointsDropdown.jsx';
+import AddNewEndpoint from './AddNewEndpoint.jsx';
+import { renderTextField, validate } from './FormHelpers.jsx';
+
 
 import * as Actions from '../actions/AppActions';
 
 
-const renderNameField = ({ input, label, type }) => (
-  <fieldset className="form-group">
-    <label className="control-label" htmlFor="control-label">{label}</label>
-    <div>
-      <input
-        {...input}
-        placeholder={label} className="form-control" type={type}
-      />
-    </div>
-  </fieldset>
-);
-
 const renderEndpointsField = ({ input, label }) => {
-  // placeholder check - replace with whether or not user has any endpoints first
+  // placeholder check
+  //replace with whether or not user has any endpoints first
+  // OR if selected "addendpoint" === true in store
   if (window.location.pathname.length < 4) {
-    return (<select />);
+    return (<AddNewEndpoint input={input} label={label} />);
   }
 
-  return (<EndpointsDropdown select={input} label={label} />);
+  //return (<EndpointsDropdown input={input} label={label} />);
+  return (<AddNewEndpoint input={input} label={label} />);
+
 };
 
 
@@ -33,11 +29,20 @@ class CreateKeyModal extends Component {
   constructor(props) {
     super(props);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    //this.close = this.close.bind(this);
+
+  }
+
+  componentDidMount() {
+    //fetch endpoints
+    //chechk github auth
+    console.log('complifecycle', this.props);
+    this.props.fetchEndpoints();
   }
 
   handleFormSubmit(values) {
     console.log(values, this.props, 'test');
-    //this.props.handleEndpointSubmit()
+    this.props.handleEndpointSubmit(values);
     //this.props.signInUser(values, window.location.pathname);
   }
 
@@ -45,13 +50,11 @@ class CreateKeyModal extends Component {
     this.props.hideModal();
   }
 
-  open() {
-    this.props.showModal();
-  }
-
   render() {
 
     const { handleSubmit } = this.props;
+
+    console.log(this.props, 'these props');
 
     return (
       <Modal show={this.props.keymodal} onHide={() => this.close()}>
@@ -62,7 +65,7 @@ class CreateKeyModal extends Component {
 
             <Field
               name="keyname"
-              component={renderNameField}
+              component={renderTextField}
               className="form-control"
               type="text"
               label="Key Name"
@@ -80,7 +83,7 @@ class CreateKeyModal extends Component {
               action="submit"
               className="btn btn-primary"
             >
-              Sign In
+              Create Key
             </button>
           </form>
 
@@ -91,17 +94,13 @@ class CreateKeyModal extends Component {
 }
 
 CreateKeyModal.propTypes = {
-  keymodal: PropTypes.objectOf(PropTypes.any),
-  showModal: PropTypes.func,
+  keymodal: PropTypes.boolean,
   hideModal: PropTypes.func,
-  handleSubmit: PropTypes.func
+  handleSubmit: PropTypes.func,
+  handleEndpointSubmit: PropTypes.func,
+  fetchEndpoints: PropTypes.func,
 };
 
-renderNameField.propTypes = {
-  input: PropTypes.objectOf(PropTypes.any),
-  label: PropTypes.string,
-  type: PropTypes.string
-};
 
 renderEndpointsField.propTypes = {
   input: PropTypes.objectOf(PropTypes.any),
@@ -110,6 +109,7 @@ renderEndpointsField.propTypes = {
 
 const mapStateToProps = (state) => ({ keymodal: state.keymodal.showModal });
 
+
 export default connect(mapStateToProps, Actions)(reduxForm(
-  { form: 'endpoint' })(CreateKeyModal));
+  { form: 'endpoint', validate })(CreateKeyModal));
 

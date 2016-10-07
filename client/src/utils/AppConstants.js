@@ -4,3 +4,6 @@ export const AUTH_USER = 'AUTH_USER';
 export const FETCH_KEYS = 'FETCH_KEYS';
 export const OPEN_MODAL = 'OPEN_MODAL';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
+export const OPEN_MODAL_EDIT = 'OPEN_MODAL_EDIT';
+export const ADD_NEW_ENDPOINT = 'ADD_NEW_ENDPOINT';
+export const FETCH_ENDPOINTS = 'FETCH_ENDPOINTS';

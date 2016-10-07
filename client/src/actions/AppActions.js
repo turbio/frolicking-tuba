@@ -2,8 +2,7 @@ import { browserHistory } from 'react-router';
 import { SIGN_OUT_USER,
   AUTH_USER, AUTH_ERROR,
   FETCH_KEYS, OPEN_MODAL,
-  CLOSE_MODAL } from '../utils/AppConstants';
-
+  CLOSE_MODAL, FETCH_ENDPOINTS } from '../utils/AppConstants';
 
 export const authUser = () => ({ type: AUTH_USER });
 export const authError = (error) => ({
@@ -18,6 +17,10 @@ export const requestKeys = (keys) => ({
 });
 export const showModal = () => ({ type: OPEN_MODAL });
 export const hideModal = () => ({ type: CLOSE_MODAL });
+// export const fetchEndpts = (endpoints) => ({
+//   type: FETCH_ENDPOINTS,
+//   payload: endpoints
+// });
 
 
 export const signInUser = (credentials, endpoint) => (
@@ -82,7 +85,6 @@ export const getApiKeys = () => {
       });
 
       dispatch(requestKeys(keys));
-      //this.setState({ keys });
     })
     .catch((error) => console.log('fetch /api/keys error:', error));
   };
@@ -90,23 +92,52 @@ export const getApiKeys = () => {
 
 export const fetchEndpoints = () => {
   (dispatch) => {
+    let githubrepos = [];
+
+    console.log('this gets called');
+    fetch('/api/integrations/github/repos', { credentials: 'same-origin' })
+    .then((response) => response.json())
+    .then((fetchedgithubrepos) => {
+      githubrepos = fetchedgithubrepos;
+      console.log(fetchedgithubrepos, 'repos');
+
+      return fetch('/api/integrations/urls/urls',
+        { credentials: 'same-origin' });
+    })
+    .then((response) => response.json())
+    .then((urls) => {
+      console.log('json:', githubrepos, urls, githubrepos.concat(urls));
+      dispatch({
+        type: FETCH_ENDPOINTS,
+        payload: githubrepos.concat(urls)
+      });
+        //this.setState({ githubRepos: json });
+        //this.setState({ sel_repo: json[0] });
+    })
+    .catch((error) => console.log('fetch repos', error));
 
   };
+
 };
 
-export const handleEndpointSubmit = () => {
+// export const setKeyWithGithub = () => {
+//   (dispatch) => {
+
+//   };
+// };
+
+export const setKeyWithUrl = (values) => {
+  console.log(values, 'reached here');
+  // (dispatch) => {
+
+  // };
+};
+
+export const handleEndpointSubmit = (values) => {
   //if url do one thing, if github repo do another
-};
-
-export const setKeyWithGithub = () => {
-  (dispatch) => {
-
-  };
-};
-
-export const setKeyWithUrl = () => {
-  (dispatch) => {
-
-  };
+  if (values.endpoint.includes('url:')) {
+    console.log('we reached setkey');
+    setKeyWithUrl(values);
+  }
 };
 
