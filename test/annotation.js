@@ -109,7 +109,7 @@ describe('annotation', () => { // eslint-disable-line max-statements
 
   const timeout1 = 5000;
 
-  it('should POST to /annotate with Github key', function(done) { // eslint-disable-line 
+  xit('should POST with attachment to /annotate with Github key', function(done) { // eslint-disable-line 
     this.timeout(timeout1); // eslint-disable-line no-invalid-this
     request(server)
       .post('/api/annotate')
@@ -120,6 +120,20 @@ describe('annotation', () => { // eslint-disable-line max-statements
       .field('selected', 'this would be the selected text')
       .field('comment', 'this is the comment')
       .attach('file', `${__dirname}/dog.txt`)
+      .expect(200)
+      .end(done);
+  });
+
+  it('should POST without attachment to /annotate with Github key', function(done) { // eslint-disable-line 
+    this.timeout(timeout1); // eslint-disable-line no-invalid-this
+    request(server)
+      .post('/api/annotate')
+      .field('key', apiKeyGithub)
+      .field('title', 'a test annotation')
+      .field('to', 'to user')
+      .field('from', 'from user')
+      .field('selected', 'this would be the selected text')
+      .field('comment', 'this is the comment')
       .expect(200)
       .end(done);
   });
