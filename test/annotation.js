@@ -143,7 +143,6 @@ describe('annotation', () => { // eslint-disable-line max-statements
       .get(githubMockPath)
       .expect(200)
       .end((err, res) => {
-        console.log('response.body: ', res.body);
         res.body[0].title.should.eql('a test annotation');
         done(err);
       });

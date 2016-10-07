@@ -33,5 +33,9 @@
   "integrations": [
     "github",
     "url"
-  ]
+  ],
+  "aws": {
+    "accessKeyId": "enter key here",
+    "secretAccessKey": "enter key here"
+  }
 }
