@@ -7,10 +7,12 @@ const Key = require('../models/key');
 const multiparty = require('multiparty');
 const AWS = require('aws-sdk');
 
+let fileUrl = 'https://s3-us-west-1.amazonaws.com/tuba-images-bucket/';
+
 //prefer using environment variables versus hard-coding values here
 AWS.config.update({
-  accessKeyId: '',
-  secretAccessKey: ''
+  accessKeyId: 'config.aws.accessKeyId',
+  secretAccessKey: 'config.aws.secretAccessKey'
 });
 const s3Client = new AWS.S3();
 
@@ -31,24 +33,28 @@ module.exports.create = (req, res) => {
   const body = {};
   const form = new multiparty.Form();
   let promise1 = null;
+  let fileKey = Date.now();
 
   form.on('part', (part) => {
     promise1 = new Promise(
     (resolve, reject) => {
       //do async thing here
-      console.log('part.filename is: ', part.filename);
+      fileKey += part.filename;
       s3Client.putObject({
         Bucket: 'tuba-images-bucket',
-        Key: 'filename123.txt',
+        Key: fileKey,
         ACL: 'public-read',
         Body: part,
         ContentLength: part.byteCount
       }, (err, data) => {
         if (err) reject(err);
         if (data) {
-          resolve(data);
+          fileUrl += fileKey;
+          const result = data;
+
+          result.fileUrl = fileUrl;
+          resolve(result);
         }
-        console.log('done and data', data);
       });
     });
   });
@@ -66,7 +72,6 @@ module.exports.create = (req, res) => {
     body[name] = value;
   });
   form.on('close', () => {
-    console.log('body body is: ', body);
     if (!body.key) {
       res.status(400).json({ error: config.messages.no_key });
 
@@ -78,7 +83,6 @@ module.exports.create = (req, res) => {
       include: [Output]
     })
     .then((key) => {
-      console.log('inside .then in Key.findOne');
       params.output_meta = key.output.meta;
 
       return Integration.findOne({ where: { id: key.output.integrationId } });
@@ -90,7 +94,7 @@ module.exports.create = (req, res) => {
       if (promise1) {
         promise1.then((data) => {
           if (integration.type === 'github') {
-            body.file = data.ETag;
+            body.url = data.fileUrl;
             github.createIssue(params, body);
           }
           if (integration.type === 'url') {

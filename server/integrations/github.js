@@ -19,11 +19,13 @@ module.exports.createIssue = (params, body) => {
     body: {
       title: body.title,
       body:
-        `#to: ${body.to}\n`
+        `## Annotation\n`
+        + `* to: ${body.to}\n`
         + `* from: ${body.from}\n`
         + `* selected text: ${body.selected}\n`
-        + `* comment: ${body.comment}`
-        + `* url: ${body.file}`
+        + `* comment: ${body.comment}\n`
+        + `* file url (if attachment included): ${body.url}\n`
+        + `![alt text](${body.url})`
     },
     json: true
   };
