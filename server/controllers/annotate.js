@@ -11,8 +11,8 @@ let fileUrl = 'https://s3-us-west-1.amazonaws.com/tuba-images-bucket/';
 
 //prefer using environment variables versus hard-coding values here
 AWS.config.update({
-  accessKeyId: 'config.aws.accessKeyId',
-  secretAccessKey: 'config.aws.secretAccessKey'
+  accessKeyId: config.aws.accessKeyId,
+  secretAccessKey: config.aws.secretAccessKey
 });
 const s3Client = new AWS.S3();
 
