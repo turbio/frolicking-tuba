@@ -1,3 +1,6 @@
+/*eslint max-statements: "off"*/
+/*eslint quotes: "off"*/
+
 let modalElem = null;
 let formElem = null;
 let commentInputElem = null;
