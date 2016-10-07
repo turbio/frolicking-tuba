@@ -13,7 +13,7 @@ export const authRemove = () => ({ type: SIGN_OUT_USER });
 
 export const requestKeys = (keys) => ({
   type: FETCH_KEYS,
-  payload: keys
+  keys
 });
 export const showModal = () => ({ type: OPEN_MODAL });
 export const hideModal = () => ({ type: CLOSE_MODAL });
@@ -21,7 +21,6 @@ export const hideModal = () => ({ type: CLOSE_MODAL });
 //   type: FETCH_ENDPOINTS,
 //   payload: endpoints
 // });
-
 
 export const signInUser = (credentials, endpoint) => (
   (dispatch) => {

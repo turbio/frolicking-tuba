@@ -1,11 +1,12 @@
 import React, { PropTypes } from 'react';
 import { Row, Grid, Button } from 'react-bootstrap';
 import { Link } from 'react-router';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Key from './Key.jsx';
 import * as Actions from '../actions/AppActions';
 import CreateKeyModal from './CreateKeyModal.jsx';
-
+//import { requestKeys } from '../actions/AppActions';
 
 const Dashboard = ({ keys, showModal }) => (
   <Grid>
@@ -35,8 +36,10 @@ Dashboard.propTypes = {
   showModal: PropTypes.func
 };
 
-const mapStateToProps = (state) => (
-  { keys: state.keys }
-);
+const mapStateToProps = (state) => ({ keys: state.keys });
 
-export default connect(mapStateToProps, Actions)(Dashboard);
+const mapDispatchToProps
+  = (dispatch) => ({ actions: bindActionCreators(Actions, dispatch) });
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+

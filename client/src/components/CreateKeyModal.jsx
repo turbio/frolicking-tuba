@@ -15,12 +15,12 @@ const renderEndpointsField = ({ input, label }) => {
   // placeholder check
   //replace with whether or not user has any endpoints first
   // OR if selected "addendpoint" === true in store
-  if (window.location.pathname.length < 4) {
+  if (window.location.pathname.length < label.length) {
     return (<AddNewEndpoint input={input} label={label} />);
   }
 
-  //return (<EndpointsDropdown input={input} label={label} />);
-  return (<AddNewEndpoint input={input} label={label} />);
+  return (<EndpointsDropdown input={input} label={label} />);
+  //return (<AddNewEndpoint input={input} label={label} />);
 
 };
 
@@ -33,12 +33,12 @@ class CreateKeyModal extends Component {
 
   }
 
-  componentDidMount() {
-    //fetch endpoints
-    //chechk github auth
-    console.log('complifecycle', this.props);
-    this.props.fetchEndpoints();
-  }
+  // componentDidMount() {
+  //   //fetch endpoints
+  //   //chechk github auth
+  //   console.log('complifecycle', this.props);
+  //   this.props.fetchEndpoints();
+  // }
 
   handleFormSubmit(values) {
     console.log(values, this.props, 'test');
@@ -97,8 +97,8 @@ CreateKeyModal.propTypes = {
   keymodal: PropTypes.boolean,
   hideModal: PropTypes.func,
   handleSubmit: PropTypes.func,
-  handleEndpointSubmit: PropTypes.func,
-  fetchEndpoints: PropTypes.func,
+  handleEndpointSubmit: PropTypes.func
+  //fetchEndpoints: PropTypes.func,
 };
 
 
