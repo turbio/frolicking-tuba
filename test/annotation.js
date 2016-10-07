@@ -109,7 +109,7 @@ describe('annotation', () => { // eslint-disable-line max-statements
 
   const timeout1 = 5000;
 
-  it('should POST with attachment to /annotate with Github key', function(done) { // eslint-disable-line 
+  xit('should POST with attachment to /annotate with Github key', function(done) { // eslint-disable-line 
     this.timeout(timeout1); // eslint-disable-line no-invalid-this
     request(server)
       .post('/api/annotate')
