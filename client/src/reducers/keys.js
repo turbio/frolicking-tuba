@@ -1,19 +1,12 @@
 import { FETCH_KEYS } from '../utils/AppConstants';
 
-const assign = Object.assign;
+const initialState = [];
 
-const initialState = { keys: [] };
-
-export default function apiKeysReducer(state = initialState, action) {
+export default function keysReducer(state = initialState, action) {
   switch (action.type) {
   case FETCH_KEYS:
-    return assign({}, state, { keys: action.payload });
+    return ['first', 'second', 'third'];
   default:
     return state;
   }
 }
-
-
-// return assign({}, state, {
-//   formState: action.newState
-// });
