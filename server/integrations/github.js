@@ -20,9 +20,10 @@ module.exports.createIssue = (params, body) => {
       title: body.title,
       body:
         `#to: ${body.to}\n`
-        + `#from: ${body.from}\n`
-        + `#selected text: ${body.selected}\n`
-        + `#comment: ${body.comment}`
+        + `* from: ${body.from}\n`
+        + `* selected text: ${body.selected}\n`
+        + `* comment: ${body.comment}`
+        + `* url: ${body.file}`
     },
     json: true
   };
