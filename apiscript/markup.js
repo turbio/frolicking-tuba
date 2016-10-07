@@ -62,7 +62,7 @@
     const dataForm = new FormData(formElem);
     const request = new XMLHttpRequest();
 
-    dataForm.append('selectedText', selectedText);
+    dataForm.append('selected', selectedText);
     dataForm.append('key', '%KEY%');
     request.open('POST', apiEndpoint, true);
     request.send(dataForm);

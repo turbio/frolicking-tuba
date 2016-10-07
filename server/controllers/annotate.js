@@ -69,9 +69,12 @@ module.exports.create = (req, res) => {
     console.log(`Error parsing form: ${err.stack}`);
   });
   form.on('field', (name, value) => {
+    console.log('form.on field happened');
     body[name] = value;
   });
   form.on('close', () => {
+    console.log('form.on close happened');
+    console.log('body is currently: ', body);
     if (!body.key) {
       res.status(400).json({ error: config.messages.no_key });
 
