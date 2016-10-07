@@ -1,142 +1,147 @@
-(() => { // eslint-disable-line max-statements
-  const modalHTML = `
-      %HTML%
-    `;
-  const modalCSS = `
-      %CSS%
-    `;
-  const apiEndpoint = '/api/annotate';
+/*eslint max-statements: "off"*/
+/*eslint quotes: "off"*/
 
-  let frolickingTubaSelectedFile = null;
-  let fileInputEle = null;
-  let modalElem = null;
-  let formElem = null;
-  let cssAdded = false;
-  let selectedText = '';
-  // let commentElem = null;
-  // let toElem = null;
-  // let fromElem = null;
-  // let titleElem = null;
+let modalElem = null;
+let formElem = null;
+let commentInputElem = null;
+let toInputElem = null;
+let fromInputElem = null;
+let titleInputElem = null;
+let buttonElem = null;
+let selectedText = '';
 
-  const half = 2;
-  const arrowHeight = 20;
-  const padding = 20;
+const apiEndpoint = 'http://getmarkup.com/api/annotate';
 
+const half = 2;
+const arrowHeight = 20;
+const padding = 20;
+const elemPrefix = 'frolicking-tuba-modal';
 
-  const getSelectedText = () => {
-    const selection = window.getSelection();
+const hideModal = () => {
+  modalElem.parentNode.removeChild(modalElem);
+  modalElem = null;
+  formElem = null;
+};
 
-    if (selection.toString()) {
-      return selection.toString();
-    }
+const submitForm = (event) => {
+  event.preventDefault();
 
-    return false;
-  };
+  const request = new XMLHttpRequest();
 
-  const setupModal = (event) => {
-    let xpos = event.pageX - (modalElem.clientWidth / half);
-    let ypos = event.pageY
-      - (modalElem.clientHeight + arrowHeight + padding);
-    const mw = 328;
+  request.open('POST', apiEndpoint, true);
+  request.setRequestHeader('Content-Type', 'application/json');
 
-    ypos = ypos < 0 ? 0 : ypos;
-    xpos = xpos < 0 ? 0 : xpos;
-    xpos = xpos > window.innerWidth - mw ? window.innerWidth - mw : xpos;
+  request.send(JSON.stringify({
+    title: titleInputElem.value,
+    comment: commentInputElem.value,
+    to: toInputElem.value,
+    from: fromInputElem.value,
+    selected: selectedText,
+    key: '%KEY%',
+    location: location.href
+  }));
 
-    modalElem.style.top = `${ypos}px`;
-    modalElem.style.left = `${xpos}px`;
+  hideModal();
+};
 
-    modalElem.style.opacity = 1;
-    modalElem.style.transform = 'translate(0, 0)';
-  };
+const buildButton = () => {
+  buttonElem = document.createElement('div');
+  buttonElem.id = 'frolicking-tuba-open-button';
 
-  const hideModal = () => {
-    modalElem.parentNode.removeChild(modalElem);
-    modalElem = null;
-    formElem = null;
-  };
+  return buttonElem;
+};
 
-  const submitForm = (event) => {
-    event.preventDefault();
+const buildModal = () => {
+  modalElem = document.createElement('div');
+  modalElem.id = elemPrefix;
 
-    const dataForm = new FormData(formElem);
-    const request = new XMLHttpRequest();
+  formElem = document.createElement('form');
+  formElem.id = `${elemPrefix}-feedback`;
 
-    dataForm.append('selected', selectedText);
-    dataForm.append('key', '%KEY%');
-    request.open('POST', apiEndpoint, true);
-    request.send(dataForm);
+  titleInputElem = document.createElement('input');
+  titleInputElem.id = `${elemPrefix}-title-input`;
+  titleInputElem.type = 'text';
+  titleInputElem.minlength = 1;
+  titleInputElem.placeholder = 'Title';
+
+  commentInputElem = document.createElement('textarea');
+  commentInputElem.id = `${elemPrefix}-comment`;
+  commentInputElem.minlength = 1;
+  commentInputElem.placeholder = 'Enter your comments here';
+
+  toInputElem = document.createElement('input');
+  toInputElem.id = `${elemPrefix}-to-input`;
+  toInputElem.type = 'text';
+  toInputElem.minlength = 1;
+  toInputElem.placeholder = 'Message to';
+
+  fromInputElem = document.createElement('input');
+  fromInputElem.id = `${elemPrefix}-from-input`;
+  fromInputElem.type = 'text';
+  fromInputElem.minlength = 1;
+  fromInputElem.placeholder = 'Message from';
+
+  const submitElem = document.createElement('input');
+
+  submitElem.id = `${elemPrefix}-submit`;
+  submitElem.type = 'submit';
+  submitElem.value = 'send';
+
+  modalElem.appendChild(formElem);
+  formElem.appendChild(titleInputElem);
+  formElem.appendChild(commentInputElem);
+  formElem.appendChild(toInputElem);
+  formElem.appendChild(fromInputElem);
+  formElem.appendChild(submitElem);
+
+  formElem.onsubmit = submitForm;
+
+  return modalElem;
+};
+
+const positionModal = (event) => {
+  let xpos = event.pageX - (modalElem.clientWidth / half);
+  let ypos = event.pageY
+    - (modalElem.clientHeight + arrowHeight + padding);
+  const mw = 328;
+
+  ypos = ypos < 0 ? 0 : ypos;
+  xpos = xpos < 0 ? 0 : xpos;
+  xpos = xpos > window.innerWidth - mw ? window.innerWidth - mw : xpos;
+
+  modalElem.style.top = `${ypos}px`;
+  modalElem.style.left = `${xpos}px`;
+
+  modalElem.style.opacity = 1;
+  modalElem.style.transform = 'translate(0, 0)';
+};
+
+const showModal = (event) => {
+  if (!modalElem) {
+    document.body.appendChild(buildModal());
+  }
+
+  positionModal(event);
+};
+
+const clicked = (event) => {
+  const selection = window.getSelection();
+
+  if (selection) {
+    selectedText = selection;
+    showModal(event);
+  } else if (modalElem && !event.target.id.startsWith(elemPrefix)) {
     hideModal();
-  };
+  }
+};
 
-  const createModalEle = () => {
-    const modalEle = document.createElement('div');
+document.addEventListener('mouseup', clicked);
 
-    modalEle.id = 'frolicking-tuba-modal';
-    modalEle.innerHTML = modalHTML;
-    console.log(modalEle);
-    document.body.appendChild(modalEle);
-  };
+document.addEventListener('DOMContentLoaded', () => {
+  const modalStyleEle = document.createElement('style');
 
-  const handleFileInput = (event) => {
-    //check to see if user's browser can handle the file input method
-    if (window.File && window.FileReader && window.FileList && window.Blob) {
-      frolickingTubaSelectedFile = event.target.files[0];
-      console.log('selected file is: ', frolickingTubaSelectedFile);
-    } else {
-      console.log('File input is not fully supported by your browser.');
-    }
-  };
+  modalStyleEle.innerHTML = `%CSS%`;
+  document.body.appendChild(modalStyleEle);
 
-  const getElements = () => {
-    //document.body.innerHTML += modalHTML;
-    createModalEle();
-    modalElem = document.getElementById('frolicking-tuba-modal');
-    formElem = document.getElementById('frolicking-tuba-modal-feedback');
-    // commentElem = document.getElementById('frolicking-tuba-modal-comment');
-    // toElem = document.getElementById('frolicking-tuba-modal-enterTo');
-    // fromElem = document.getElementById('frolicking-tuba-modal-enterFrom');
-    // titleElem = document.getElementById('frolicking-tuba-modal-enterTitle');
-    fileInputEle = document.getElementById('frolicking-tuba-modal-attachment');
-    fileInputEle.addEventListener('change', handleFileInput);
-    formElem.onsubmit = submitForm;
-  };
-
-  const createModalStyleEle = () => {
-    const modalStyleEle = document.createElement('style');
-
-    modalStyleEle.innerHTML = modalCSS;
-    document.body.appendChild(modalStyleEle);
-  };
-
-  const showModal = (event) => {
-    if (!cssAdded) {
-      createModalStyleEle();
-      //document.body.innerHTML += modalCSS;
-      cssAdded = true;
-    }
-
-    if (!modalElem) {
-      getElements();
-    }
-
-    setupModal(event);
-  };
-
-  const clicked = (event) => {
-    const selection = getSelectedText();
-
-    if (selection) {
-      selectedText = selection;
-      showModal(event);
-    } else if (
-        modalElem
-        && !event.target.id.startsWith('frolicking-tuba-modal')) {
-      hideModal();
-    }
-  };
-
-  //fileInputEle.addEventListener('change', handleFileInput);
-
-  document.addEventListener('mouseup', clicked);
-})();
+  document.body.appendChild(buildButton());
+});
