@@ -31,6 +31,11 @@
   },
   "secret": "ONLY USE THIS IN DEV",
   "integrations": [
-    "github"
-  ]
+    "github",
+    "url"
+  ],
+  "aws": {
+    "accessKeyId": "enter key here",
+    "secretAccessKey": "enter key here"
+  }
 }

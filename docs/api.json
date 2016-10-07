@@ -80,7 +80,7 @@
         {
           "title": "list",
           "description": "get a list of the current user's integrations",
-          "url": "/api/integraions",
+          "url": "/api/integrations",
           "verb": "GET",
           "input": { "code": "javascript", "text": "EMPTY" },
           "output": {
@@ -169,6 +169,53 @@
                 "on success": {
                   "code": "javascript",
                   "text": "STATUS CODE 302"
+                },
+                "on error": {
+                  "code": "javascript",
+                  "text": "STATUS CODE 400",
+                  "object": { "error": "String" }
+                }
+              },
+              "auth": "SESSION"
+            }
+          ]
+        },
+        {
+          "title": "URLs",
+          "sections": [
+            {
+              "title": "list URLs",
+              "description": "list all URLs of the currently logged in user",
+              "url": "/api/integrations/url/urls",
+              "verb": "GET",
+              "input": { "code": "javascript", "text": "EMPTY" },
+              "output": {
+                "on success": {
+                  "code": "javascript",
+                  "text": "STATUS CODE 200",
+                  "object": [ "String", "String", "..."]
+                },
+                "on error": {
+                  "code": "javascript",
+                  "text": "STATUS CODE 400",
+                  "object": { "error": "String" }
+                }
+              },
+              "auth": "SESSION"
+            },
+            {
+              "title": "set URL",
+              "description": "set the users URL to post comments to",
+              "url": "/api/integrations/url/urls",
+              "verb": "POST",
+              "input": {
+                "code": "javascript", "object": { "name": "String" }
+              },
+              "output": {
+                "on success": {
+                  "code": "javascript",
+                  "text": "STATUS CODE 200",
+                  "object": { "error": null }
                 },
                 "on error": {
                   "code": "javascript",

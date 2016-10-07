@@ -12,7 +12,7 @@ Key.hasOne(Output);
 Key.hook('beforeCreate', (instance) => {
   const modInstance = instance;
 
-  modInstance.key = hash(`${new Date()}${instance.id}entropy!!!!`);
+  modInstance.key = hash(`${Date.now()}${instance.id}entropy!!!!`);
 });
 
 module.exports = Key;
