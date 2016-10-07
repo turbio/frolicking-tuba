@@ -7,15 +7,40 @@ let titleInputElem = null;
 let cssAdded = false;
 let selectedText = '';
 
-const modalCSS = `
-    %CSS%
-  `;
+const modalCSS = '%CSS%';
 
 const apiEndpoint = 'http://getmarkup.com/api/annotate';
 
 const half = 2;
 const arrowHeight = 20;
 const padding = 20;
+
+const hideModal = () => {
+  modalElem.parentNode.removeChild(modalElem);
+  modalElem = null;
+  formElem = null;
+};
+
+const submitForm = (event) => {
+  event.preventDefault();
+
+  const request = new XMLHttpRequest();
+
+  request.open('POST', apiEndpoint, true);
+  request.setRequestHeader('Content-Type', 'application/json');
+
+  request.send(JSON.stringify({
+    title: titleInputElem.value,
+    comment: commentInputElem.value,
+    to: toInputElem.value,
+    from: fromInputElem.value,
+    selected: selectedText,
+    key: '%KEY%',
+    location: location.href
+  }));
+
+  hideModal();
+};
 
 const buildModal = () => {
   modalElem = document.createElement('div');
@@ -92,33 +117,6 @@ const setupModal = (event) => {
   modalElem.style.transform = 'translate(0, 0)';
 };
 
-const hideModal = () => {
-  modalElem.parentNode.removeChild(modalElem);
-  modalElem = null;
-  formElem = null;
-};
-
-const submitForm = (event) => {
-  event.preventDefault();
-
-  const request = new XMLHttpRequest();
-
-  request.open('POST', apiEndpoint, true);
-  request.setRequestHeader('Content-Type', 'application/json');
-
-  request.send(JSON.stringify({
-    title: titleInputElem.value,
-    comment: commentInputElem.value,
-    to: toInputElem.value,
-    from: fromInputElem.value,
-    selected: selectedText,
-    key: '%KEY%',
-    location: location.href
-  }));
-
-  hideModal();
-};
-
 const createModalStyleEle = () => {
   const modalStyleEle = document.createElement('style');
 
@@ -129,7 +127,6 @@ const createModalStyleEle = () => {
 const showModal = (event) => {
   if (!cssAdded) {
     createModalStyleEle();
-    //document.body.innerHTML += modalCSS;
     cssAdded = true;
   }
 

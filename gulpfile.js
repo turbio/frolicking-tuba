@@ -10,6 +10,7 @@ const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 const insert = require('gulp-file-insert');
 const minCss = require('gulp-minify-css');
+const iife = require('gulp-iife');
 
 gulp.task('apiscript-sass', () =>
     gulp.src('./apiscript/style.scss')
@@ -20,6 +21,7 @@ gulp.task('apiscript-sass', () =>
 
 gulp.task('apiscript', ['apiscript-sass'], () =>
   gulp.src('./apiscript/markup.js')
+    .pipe(iife())
     .pipe(insert({ '%CSS%': './apiscript/style.min.css' }))
     .pipe(babel({ presets: ['es2015'] }))
     .pipe(rename({ suffix: '.min' }))
