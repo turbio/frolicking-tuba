@@ -1,0 +1,73 @@
+#frolicking-tuba-modal{
+  background: white;
+  border: 2px #ccc solid;
+  position: absolute;
+  font-family: Helvetica,sans-serif;
+  opacity: 0;
+  transform: translate(0, 10px);
+  transition: all .25s;
+  border-radius: 10px;
+  width: 316px;
+  z-index: 99999999999999;
+  padding: 2px 6px 6px 6px;
+
+  &:after, &:before {
+    top: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+  }
+  &:after {
+    border-top-color: #fff;
+    border-width: 20px;
+    margin-left: -20px;
+  }
+  &:before{
+    border-top-color: #ccc;
+    border-width: 22px;
+    margin-left: -22px;
+  }
+
+  &-comment{
+    height: 100px;
+    width: 300px;
+    padding: 8px;
+    resize: none;
+    font-family: Helvetica,sans-serif;
+    font-size: 12px;
+    margin-top: 5px;
+    margin-bottom: -5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  &-title-input,
+  &-to-input,
+  &-from-input {
+    padding: 8px;
+    margin-top: 5px;
+    font-family: Helvetica,sans-serif;
+    font-size: 12px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  &-submit{
+    cursor: pointer;
+    background: #a7d4f6;
+    border: none;
+    color: white;
+    font-size: 15px;
+    margin: 12px auto 4px auto;
+    float: right;
+    border-radius: 4px;
+    padding: 5px 10px;
+
+    &:hover{
+      background: #95bedd;
+    }
+  }
+}

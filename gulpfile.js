@@ -9,14 +9,18 @@ const rename = require('gulp-rename');
 const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 const insert = require('gulp-file-insert');
+const minCss = require('gulp-minify-css');
 
+gulp.task('apiscript-sass', () =>
+    gulp.src('./apiscript/style.scss')
+      .pipe(sass())
+      .pipe(minCss())
+      .pipe(rename({ suffix: '.min' }))
+      .pipe(gulp.dest('./apiscript')));
 
-gulp.task('apiscript', () =>
+gulp.task('apiscript', ['apiscript-sass'], () =>
   gulp.src('./apiscript/markup.js')
-    .pipe(insert({
-      '%HTML%': './apiscript/modal.html',
-      '%CSS%': './apiscript/style.css'
-    }))
+    .pipe(insert({ '%CSS%': './apiscript/style.min.css' }))
     .pipe(babel({ presets: ['es2015'] }))
     .pipe(rename({ suffix: '.min' }))
     .pipe(uglify())

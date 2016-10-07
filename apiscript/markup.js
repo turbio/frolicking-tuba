@@ -1,134 +1,156 @@
-(() => { // eslint-disable-line max-statements
-  const modalHTML = `
-      %HTML%
-    `;
-  const modalCSS = `
-      %CSS%
-    `;
-  const apiEndpoint = 'http://getmarkup.com/api/annotate';
+let modalElem = null;
+let formElem = null;
+let commentInputElem = null;
+let toInputElem = null;
+let fromInputElem = null;
+let titleInputElem = null;
+let cssAdded = false;
+let selectedText = '';
 
-  let modalElem = null;
-  let formElem = null;
-  let commentElem = null;
-  let toElem = null;
-  let fromElem = null;
-  let titleElem = null;
-  let cssAdded = false;
-  let selectedText = '';
+const modalCSS = `
+    %CSS%
+  `;
 
-  const half = 2;
-  const arrowHeight = 20;
-  const padding = 20;
+const apiEndpoint = 'http://getmarkup.com/api/annotate';
 
+const half = 2;
+const arrowHeight = 20;
+const padding = 20;
 
-  const getSelectedText = () => {
-    const selection = window.getSelection();
+const buildModal = () => {
+  modalElem = document.createElement('div');
+  modalElem.id = 'frolicking-tuba-modal';
 
-    if (selection.toString()) {
-      return selection.toString();
-    }
+  formElem = document.createElement('form');
+  formElem.id = 'frolicking-tuba-modal-feedback';
 
-    return false;
-  };
+  titleInputElem = document.createElement('input');
+  titleInputElem.id = 'frolicking-tuba-modal-title-input';
+  titleInputElem.type = 'text';
+  titleInputElem.minlength = 1;
+  titleInputElem.placeholder = 'Title';
 
-  const setupModal = (event) => {
-    let xpos = event.pageX - (modalElem.clientWidth / half);
-    let ypos = event.pageY
-      - (modalElem.clientHeight + arrowHeight + padding);
-    const mw = 328;
+  commentInputElem = document.createElement('textarea');
+  commentInputElem.id = 'frolicking-tuba-modal-comment';
+  commentInputElem.minlength = 1;
+  commentInputElem.placeholder = 'Enter your comments here';
 
-    ypos = ypos < 0 ? 0 : ypos;
-    xpos = xpos < 0 ? 0 : xpos;
-    xpos = xpos > window.innerWidth - mw ? window.innerWidth - mw : xpos;
+  toInputElem = document.createElement('input');
+  toInputElem.id = 'frolicking-tuba-modal-to-input';
+  toInputElem.type = 'text';
+  toInputElem.minlength = 1;
+  toInputElem.placeholder = 'Message to';
 
-    modalElem.style.top = `${ypos}px`;
-    modalElem.style.left = `${xpos}px`;
+  fromInputElem = document.createElement('input');
+  fromInputElem.id = 'frolicking-tuba-modal-from-input';
+  fromInputElem.type = 'text';
+  fromInputElem.minlength = 1;
+  fromInputElem.placeholder = 'Message from';
 
-    modalElem.style.opacity = 1;
-    modalElem.style.transform = 'translate(0, 0)';
-  };
+  const submitElem = document.createElement('input');
 
-  const hideModal = () => {
-    modalElem.parentNode.removeChild(modalElem);
-    modalElem = null;
-    formElem = null;
-  };
+  submitElem.id = 'frolicking-tuba-modal-submit';
+  submitElem.type = 'submit';
+  submitElem.value = 'send';
 
-  const submitForm = (event) => {
-    event.preventDefault();
+  modalElem.appendChild(formElem);
+  formElem.appendChild(titleInputElem);
+  formElem.appendChild(commentInputElem);
+  formElem.appendChild(toInputElem);
+  formElem.appendChild(fromInputElem);
+  formElem.appendChild(submitElem);
 
-    const request = new XMLHttpRequest();
+  formElem.onsubmit = submitForm;
 
-    request.open('POST', apiEndpoint, true);
-    request.setRequestHeader('Content-Type', 'application/json');
+  return modalElem;
+};
 
-    request.send(JSON.stringify({
-      title: titleElem.value,
-      comment: commentElem.value,
-      to: toElem.value,
-      from: fromElem.value,
-      selected: selectedText,
-      key: '%KEY%',
-      location: location.href
-    }));
+const getSelectedText = () => {
+  const selection = window.getSelection();
 
+  if (selection.toString()) {
+    return selection.toString();
+  }
+
+  return false;
+};
+
+const setupModal = (event) => {
+  let xpos = event.pageX - (modalElem.clientWidth / half);
+  let ypos = event.pageY
+    - (modalElem.clientHeight + arrowHeight + padding);
+  const mw = 328;
+
+  ypos = ypos < 0 ? 0 : ypos;
+  xpos = xpos < 0 ? 0 : xpos;
+  xpos = xpos > window.innerWidth - mw ? window.innerWidth - mw : xpos;
+
+  modalElem.style.top = `${ypos}px`;
+  modalElem.style.left = `${xpos}px`;
+
+  modalElem.style.opacity = 1;
+  modalElem.style.transform = 'translate(0, 0)';
+};
+
+const hideModal = () => {
+  modalElem.parentNode.removeChild(modalElem);
+  modalElem = null;
+  formElem = null;
+};
+
+const submitForm = (event) => {
+  event.preventDefault();
+
+  const request = new XMLHttpRequest();
+
+  request.open('POST', apiEndpoint, true);
+  request.setRequestHeader('Content-Type', 'application/json');
+
+  request.send(JSON.stringify({
+    title: titleInputElem.value,
+    comment: commentInputElem.value,
+    to: toInputElem.value,
+    from: fromInputElem.value,
+    selected: selectedText,
+    key: '%KEY%',
+    location: location.href
+  }));
+
+  hideModal();
+};
+
+const createModalStyleEle = () => {
+  const modalStyleEle = document.createElement('style');
+
+  modalStyleEle.innerHTML = modalCSS;
+  document.body.appendChild(modalStyleEle);
+};
+
+const showModal = (event) => {
+  if (!cssAdded) {
+    createModalStyleEle();
+    //document.body.innerHTML += modalCSS;
+    cssAdded = true;
+  }
+
+  if (!modalElem) {
+    document.body.appendChild(buildModal());
+  }
+
+  setupModal(event);
+};
+
+const clicked = (event) => {
+  const selection = getSelectedText();
+
+  if (selection) {
+    selectedText = selection;
+    showModal(event);
+  } else if (
+      modalElem
+      && !event.target.id.startsWith('frolicking-tuba-modal')) {
     hideModal();
-  };
+  }
+};
 
-  const createModalEle = () => {
-    const modalEle = document.createElement('div');
-
-    modalEle.id = 'frolicking-tuba-modal';
-    modalEle.innerHTML = modalHTML;
-    console.log(modalEle);
-    document.body.appendChild(modalEle);
-  };
-
-  const getElements = () => {
-    //document.body.innerHTML += modalHTML;
-    createModalEle();
-    modalElem = document.getElementById('frolicking-tuba-modal');
-    formElem = document.getElementById('frolicking-tuba-modal-feedback');
-    commentElem = document.getElementById('frolicking-tuba-modal-comment');
-    toElem = document.getElementById('frolicking-tuba-modal-enterTo');
-    fromElem = document.getElementById('frolicking-tuba-modal-enterFrom');
-    titleElem = document.getElementById('frolicking-tuba-modal-enterTitle');
-    formElem.onsubmit = submitForm;
-  };
-
-  const createModalStyleEle = () => {
-    const modalStyleEle = document.createElement('style');
-
-    modalStyleEle.innerHTML = modalCSS;
-    document.body.appendChild(modalStyleEle);
-  };
-
-  const showModal = (event) => {
-    if (!cssAdded) {
-      createModalStyleEle();
-      //document.body.innerHTML += modalCSS;
-      cssAdded = true;
-    }
-
-    if (!modalElem) {
-      getElements();
-    }
-
-    setupModal(event);
-  };
-
-  const clicked = (event) => {
-    const selection = getSelectedText();
-
-    if (selection) {
-      selectedText = selection;
-      showModal(event);
-    } else if (
-        modalElem
-        && !event.target.id.startsWith('frolicking-tuba-modal')) {
-      hideModal();
-    }
-  };
-
-  document.addEventListener('mouseup', clicked);
-})();
+document.addEventListener('mouseup', clicked);
