@@ -8,14 +8,14 @@
   transition: all .25s;
   border-radius: 10px;
   width: 316px;
-  z-index: 99999999999999;
+  z-index: 99999999;
   padding: 2px 6px 6px 6px;
 
   &:after, &:before {
     top: 100%;
     left: 50%;
     border: solid transparent;
-    content: " ";
+    content: "";
     height: 0;
     width: 0;
     position: absolute;
@@ -44,6 +44,7 @@
     border: 1px solid #ccc;
     border-radius: 4px;
   }
+
   &-title-input,
   &-to-input,
   &-from-input {
@@ -55,6 +56,7 @@
     border: 1px solid #ccc;
     border-radius: 4px;
   }
+
   &-submit{
     cursor: pointer;
     background: #a7d4f6;
@@ -69,5 +71,32 @@
     &:hover{
       background: #95bedd;
     }
+  }
+}
+
+#frolicking-tuba-open-button{
+  bottom: 0;
+  right: 0;
+  position: fixed;
+
+  margin: 1em;
+
+  width: 45px;
+  height: 45px;
+
+  border-radius: 100%;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, .25);
+
+  background-color: rgb(230, 0, 230);
+  background-image: url("data:image/svg+xml;utf8,<svg fill=\"#ffffff\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 9h-2V5h2v6zm0 4h-2v-2h2v2z\"/></svg>");
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+
+  transition: all .5s;
+
+  &:hover, &:active{
+    background-color: rgb(255, 0, 255);
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, .25);
   }
 }
