@@ -1,5 +1,6 @@
 /node_modules
 /apiscript/markup.min.js
+/apiscript/style.min.css
 .DS_Store
 /client/public/bundle.js
 /client/public/styles.css

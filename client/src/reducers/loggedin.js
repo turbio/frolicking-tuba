@@ -1,37 +1,17 @@
-//import assign from 'object.assign';
-//import { auth } from '../utils/auth';
 import { AUTH_USER, SIGN_OUT_USER, AUTH_ERROR } from '../utils/AppConstants';
-//const assign = Object.assign || require('object.assign');
 
 // The initial application state
-const initialState = {
-  authenticated: false,
-  error: null
-};
-
+const initialState = { authenticated: false };
 
 export default function authReducer(state = initialState, action) {
-  //console.log(state, action, 'testrud');
   switch (action.type) {
   case AUTH_USER:
-    return {
-      state,
-      authenticated: true,
-      error: null
-    };
+    return { authenticated: true };
   case SIGN_OUT_USER:
-    return {
-      state,
-      authenticated: false,
-      error: null
-    };
+    return { authenticated: false };
   case AUTH_ERROR:
-    return {
-      state,
-      error: action.payload
-    };
+    return { authenticated: false, error: action.payload };
   default:
     return state;
   }
 }
-
