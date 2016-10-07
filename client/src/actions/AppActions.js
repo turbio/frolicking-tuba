@@ -17,10 +17,10 @@ export const requestKeys = (keys) => ({
 });
 export const showModal = () => ({ type: OPEN_MODAL });
 export const hideModal = () => ({ type: CLOSE_MODAL });
-// export const fetchEndpts = (endpoints) => ({
-//   type: FETCH_ENDPOINTS,
-//   payload: endpoints
-// });
+export const fetchEndpts = (keys) => ({
+  type: FETCH_ENDPOINTS,
+  payload: keys
+});
 
 export const signInUser = (credentials, endpoint) => (
   (dispatch) => {
@@ -46,10 +46,7 @@ export const signInUser = (credentials, endpoint) => (
       } else {
         // console.log(json,'signedin')
         localStorage.token = true;
-
         dispatch(authUser());
-
-        console.log('prior to auth dispatch');
         browserHistory.push('/dashboard');
       }
     })
@@ -78,7 +75,9 @@ export const logOut = () => (
  );
 
 export const getApiKeys = () => {
-  (dispatch) => {
+  console.log('it reaches here');
+
+  return (dispatch) => {
     console.log('reach get apikeys');
 
     fetch('/api/keys', { credentials: 'same-origin' })
@@ -94,12 +93,20 @@ export const getApiKeys = () => {
         return newKey;
       });
 
+      console.log(json, 'the keys');
+
       dispatch(requestKeys(keys));
+      //dispatch(fetchEndpts({ name: 'sean' }));
+
     })
-    .catch((error) => console.log('fetch /api/keys error:', error));
+    .catch((error) => dispatch(authError(error)));
   };
 };
 
+// export const fetchEndpts = () => ({
+//   type: FETCH_ENDPOINTS,
+//   payload: getApiKeys()
+// });
 
 // export const checkAuth = () => {
 //   (dispatch) => {

@@ -3,15 +3,33 @@ import { Row, Grid, Button } from 'react-bootstrap';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Key from './Key.jsx';
 import * as Actions from '../actions/AppActions';
+
+import Key from './Key.jsx';
 import CreateKeyModal from './CreateKeyModal.jsx';
 //import { requestKeys } from '../actions/AppActions';
 
 class Dashboard extends Component {
-  componentDidMount() {
-    console.log('testing comp will mount', this.props.actions.getApiKeys);
+  componentWillMount() {
+    console.log('testing comp will mount', this.props.actions);
     this.props.actions.getApiKeys();
+  }
+
+  returnKeys() {
+    if (this.props.keys) {
+      return (
+         this.props.keys.map((key) => (
+           <Key
+             title={key.name}
+             endpoint={key.endpoint}
+             keyString={key.api_key}
+           />
+         )
+        )
+      );
+    }
+
+    return <div />;
   }
 
   render() {
@@ -32,14 +50,15 @@ class Dashboard extends Component {
         <Row>
 
           {
-            this.props.keys.map((key) => (
-              <Key
-                title={key.name}
-                endpoint={key.endpoint}
-                keyString={key.api_key}
-              />
-            )
-           )
+            this.returnKeys()
+           //  this.props.keys.map((key) => (
+           //    <Key
+           //      title={key.name}
+           //      endpoint={key.endpoint}
+           //      keyString={key.api_key}
+           //    />
+           //  )
+           // )
           }
         </Row>
       </Grid>
@@ -53,7 +72,13 @@ Dashboard.propTypes = {
   actions: PropTypes.objectOf(PropTypes.any)
 };
 
-const mapStateToProps = (state) => ({ keys: state.keys.data });
+// const mapStateToProps = (state) => ({ keys: state.keys.data });
+const mapStateToProps = (state) => {
+  console.log(state, ' map state to props');
+
+  return { keys: state.keys.data };
+};
+
 
 const mapDispatchToProps
   = (dispatch) => ({ actions: bindActionCreators(Actions, dispatch) });
