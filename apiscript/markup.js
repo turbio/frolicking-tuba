@@ -8,7 +8,11 @@ let toInputElem = null;
 let fromInputElem = null;
 let titleInputElem = null;
 let buttonElem = null;
-let selectedText = '';
+let overlayElem = null;
+let bgImageElem = null;
+let clipAreaElem = null;
+
+let bgImage = '';
 
 const apiEndpoint = 'https://getmarkup.com/api/annotate';
 const elemPrefix = 'frolicking-tuba-modal';
@@ -16,6 +20,18 @@ const elemPrefix = 'frolicking-tuba-modal';
 const hideModal = () => {
   modalElem.parentNode.removeChild(modalElem);
   modalElem = null;
+
+  overlayElem.parentNode.removeChild(overlayElem);
+  overlayElem = null;
+
+  bgImageElem.parentNode.removeChild(bgImageElem);
+  bgImageElem = null;
+
+  if (clipAreaElem) {
+    clipAreaElem.parentNode.removeChild(clipAreaElem);
+    clipAreaElem = null;
+  }
+
   formElem = null;
 };
 
@@ -32,12 +48,29 @@ const submitForm = (event) => {
     comment: commentInputElem.value,
     to: toInputElem.value,
     from: fromInputElem.value,
-    selected: selectedText,
     key: '%KEY%',
+    screenshot: bgImage,
     location: location.href
   }));
 
   hideModal();
+};
+
+const buildBgImage = (url) => {
+  bgImage = url;
+
+  bgImageElem = document.createElement('img');
+  bgImageElem.id = `${elemPrefix}-bg-image`;
+  bgImageElem.src = url;
+
+  return bgImageElem;
+};
+
+const buildOverlay = () => {
+  overlayElem = document.createElement('div');
+  overlayElem.id = `${elemPrefix}-overlay`;
+
+  return overlayElem;
 };
 
 const buildModal = () => {
@@ -88,25 +121,108 @@ const buildModal = () => {
   return modalElem;
 };
 
-const showModal = () => {
-  if (!modalElem) {
-    document.body.appendChild(buildModal());
-  }
+const takeShot = (cb) => {
+  const shotData = {
+    html: document.documentElement.innerHTML,
+    browserWidth: window.innerWidth,
+    browserHeight: window.innerHeight,
+    url: location.href,
+    clipX: window.scrollX,
+    clipY: window.scrollY,
+    clipWidth: window.innerWidth,
+    clipHeight: window.innerHeight,
+    userAgent: navigator.userAgent
+  };
 
-  setTimeout(() => {
-    modalElem.style.opacity = 1;
-    modalElem.style.transform = 'translate(0, 0)';
+  const req = new Request('http://52.43.21.187:3000', {
+    method: 'POST',
+    body: JSON.stringify(shotData)
   });
+
+  fetch(req)
+    .then((response) => response.text())
+    .then((response) => cb(response));
 };
 
-const clicked = (event) => {
-  const selection = window.getSelection();
+const startDrag = (event) => {
+  if (event.which !== 1) {
+    return;
+  }
 
-  if (selection) {
-    selectedText = selection;
-    showModal(event);
-  } else if (modalElem && !event.target.id.startsWith(elemPrefix)) {
+  event.preventDefault();
+
+  let xPos = 0;
+  let yPos = 0;
+  let width = 0;
+  let height = 0;
+
+  if (!clipAreaElem) {
+    clipAreaElem = document.createElement('div');
+    clipAreaElem.style['background-image'] = `url("${bgImage}")`;
+    clipAreaElem.id = `${elemPrefix}-clip-area`;
+
+    document.body.appendChild(clipAreaElem);
+  }
+
+  const updateDim = () => {
+    clipAreaElem.style.width = `${width}px`;
+    clipAreaElem.style.height = `${height}px`;
+    clipAreaElem.style.left = `${xPos}px`;
+    clipAreaElem.style.top = `${yPos}px`;
+  };
+
+  const dragMove = (moveEvent) => {
+    const xdiff = moveEvent.pageX - event.pageX;
+    const ydiff = moveEvent.pageY - event.pageY;
+
+    xPos = (xdiff < 0) ? moveEvent.pageX : event.pageX;
+    yPos = (ydiff < 0) ? moveEvent.pageY : event.pageY;
+
+    width = Math.abs(xdiff);
+    height = Math.abs(ydiff);
+
+    updateDim();
+  };
+
+  const dragDone = () => {
+    document.removeEventListener('mouseup', dragDone);
+    document.removeEventListener('mousemove', dragMove);
+
+    modalElem.style.top = `${yPos}px`;
+    modalElem.style.left = `${xPos + width}px`;
+
+    modalElem.style.opacity = 1;
+    modalElem.style.transform = 'translate(0, 0)';
+  };
+
+  document.addEventListener('mouseup', dragDone);
+  document.addEventListener('mousemove', dragMove);
+};
+
+const showModal = () => {
+  takeShot((url) => {
+    document.body.appendChild(buildBgImage(url));
+
+    setTimeout(() => {
+      bgImageElem.style.opacity = 1;
+    });
+  });
+
+  document.body.appendChild(buildOverlay());
+  document.body.appendChild(buildModal());
+
+  setTimeout(() => {
+    overlayElem.style.opacity = 1;
+  });
+
+  overlayElem.addEventListener('mousedown', startDrag);
+};
+
+const clicked = () => {
+  if (modalElem) {
     hideModal();
+  } else {
+    showModal();
   }
 };
 
