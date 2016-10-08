@@ -136,21 +136,6 @@ describe('github integration', () => { // eslint-disable-line max-statements
       });
   });
 
-  it('should show github integration after creation', (done) => {
-    userRequest
-      .get('/api/integrations')
-      .expect(200)
-      .end((err, res) => {
-        res.body.should.eql([{ type: 'github' }]);
-        Integration.findOne({ where: { meta: mockhubToken } })
-          .then((integration) => {
-            integration.should.not.be.null;
-            integration.userId.should.eq(1);
-            done(err);
-          });
-      });
-  });
-
   it('should update user.ghtoken field after creation', (done) => {
     User.findOne({ where: { email: 'github-test-user' } })
     .then((user) => {
