@@ -22,6 +22,10 @@ export const fetchEndpts = (keys) => ({
   payload: keys
 });
 
+const headers = new Headers();
+
+headers.append('Content-Type', 'application/json');
+
 export const signInUser = (credentials, endpoint) => (
   (dispatch) => {
     const url = `/api${endpoint}`;
@@ -29,9 +33,6 @@ export const signInUser = (credentials, endpoint) => (
       email: credentials.email,
       password: credentials.password
     };
-    const headers = new Headers();
-
-    headers.append('Content-Type', 'application/json');
 
     fetch(url, {
       method: 'POST',
@@ -74,12 +75,9 @@ export const logOut = () => (
   }
  );
 
-export const getApiKeys = () => {
-  console.log('it reaches here');
-
-  return (dispatch) => {
+export const getApiKeys = () => (
+  (dispatch) => {
     console.log('reach get apikeys');
-
     fetch('/api/keys', { credentials: 'same-origin' })
     .then((response) => response.json())
     .then((json) => {
@@ -87,7 +85,7 @@ export const getApiKeys = () => {
       const keys = json.map((key) => {
         const newKey = key;
 
-        newKey.api_key = `<script src="http://getmarkup.com/script.js?key=\
+        newKey.api_key = `<script src="https://getmarkup.com/script.js?key=\
 ${key.api_key}"></script>`;
 
         return newKey;
@@ -100,13 +98,110 @@ ${key.api_key}"></script>`;
 
     })
     .catch((error) => dispatch(authError(error)));
-  };
-};
+  }
+);
 
-// export const fetchEndpts = () => ({
-//   type: FETCH_ENDPOINTS,
-//   payload: getApiKeys()
-// });
+
+//*******Modal Related Actions*******//
+
+export const fetchEndpoints = () => (
+  (dispatch) => {
+    let githubrepos = [];
+
+    fetch('/api/user', { credentials: 'same-origin' })
+    .then((response) => response.json())
+    .then((auth) => {
+      if (auth.github) {
+        return fetch(
+          '/api/github/repos', { credentials: 'same-origin' }
+          );
+      }
+
+      return [];
+    })
+    .then((response) => response.json())
+    .then((repos) => {
+      githubrepos = repos;
+
+      return fetch('/api/urls',
+        { credentials: 'same-origin' });
+    })
+    .then((response) => response.json())
+    .then((urls) => {
+      console.log('json:', githubrepos, urls, githubrepos.concat(urls));
+      dispatch({
+        type: FETCH_ENDPOINTS,
+        payload: githubrepos.concat(urls)
+      });
+    })
+    .catch((error) => console.log('fetchEndoints error', error));
+  }
+);
+
+export const createNewUrl = (urlObject) => (
+ fetch('/api/keys', {
+   method: 'POST',
+   headers,
+   credentials: 'same-origin',
+   body: JSON.stringify(urlObject)
+ })
+);
+
+export const updateKey = (requestBody) => (
+  (dispatch) => {
+
+    fetch('/api/keys', {
+      method: 'PUT',
+      headers,
+      credentials: 'same-origin',
+      body: JSON.stringify(requestBody)
+    })
+    .then((response) => response.json())
+    .then(() => {
+      dispatch();
+    })
+    .catch((error) => {
+      console.log('error in updateKey:', error);
+      dispatch(error);
+    });
+  }
+);
+
+export const createNewKey = (name, type, endpoint) => (
+  (dispatch) => {
+    let requestBody = {};
+
+    //make the API Key
+    fetch('/api/keys', {
+      method: 'POST',
+      headers,
+      credentials: 'same-origin'
+    })
+    .then((response) => response.json())
+    .then((key) => {
+      requestBody = {
+        name,
+        key,
+        type,
+        endpoint
+      };
+
+      if (type === 'url') {
+        return createNewUrl({ url: endpoint });
+      }
+
+      return null;
+    })
+    .then(() => {
+      updateKey(requestBody);
+    })
+    .catch((error) => {
+      console.log('error in createnewkey:', error);
+      dispatch(error);
+    });
+  }
+);
+
 
 // export const checkAuth = () => {
 //   (dispatch) => {
@@ -125,36 +220,6 @@ ${key.api_key}"></script>`;
 //   };
 // };
 
-
-// export const fetchEndpoints = () => {
-//   (dispatch) => {
-//     let githubrepos = [];
-
-//     console.log('this gets called');
-//     fetch('/api/integrations/github/repos', { credentials: 'same-origin' })
-//     .then((response) => response.json())
-//     .then((fetchedgithubrepos) => {
-//       githubrepos = fetchedgithubrepos;
-//       console.log(fetchedgithubrepos, 'repos');
-
-//       return fetch('/api/integrations/urls/urls',
-//         { credentials: 'same-origin' });
-//     })
-//     .then((response) => response.json())
-//     .then((urls) => {
-//       console.log('json:', githubrepos, urls, githubrepos.concat(urls));
-//       dispatch({
-//         type: FETCH_ENDPOINTS,
-//         payload: githubrepos.concat(urls)
-//       });
-//         //this.setState({ githubRepos: json });
-//         //this.setState({ sel_repo: json[0] });
-//     })
-//     .catch((error) => console.log('fetch repos', error));
-
-//   };
-
-// };
 
 // export const setKeyWithGithub = () => {
 //   (dispatch) => {

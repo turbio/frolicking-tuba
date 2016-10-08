@@ -6,9 +6,6 @@ const assign = Object.assign;
 
 
 export default function authReducer(state = initialState, action) {
-  console.log(action, 'authReducer');
-
-
   switch (action.type) {
   case AUTH_USER:
     return assign({}, state, { authenticated: true });

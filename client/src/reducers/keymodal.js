@@ -1,14 +1,19 @@
 import { OPEN_MODAL,
   CLOSE_MODAL, OPEN_MODAL_EDIT,
-  ADD_NEW_ENDPOINT, FETCH_ENDPOINTS } from '../utils/AppConstants';
+  ADD_NEW_ENDPOINT, FETCH_ENDPOINTS,
+  UPDATE_GITHUB_AUTH } from '../utils/AppConstants';
 
 const assign = Object.assign;
 
 const initialState = {
   showModal: false,
+  endpoints: null,
+  githubAuthStatus: false,
   addingNewEndpoint: false,
   isEditing: false,
-  endpoints: null
+  associatedKey: null
+  //associated key will have a value when isEditing is true,
+  //value of key being edited
 };
 
 export default function keyModalReducer(state = initialState, action) {
@@ -21,7 +26,13 @@ export default function keyModalReducer(state = initialState, action) {
   case OPEN_MODAL_EDIT:
     return assign({}, state, {
       showModal: true,
-      isEditing: true
+      isEditing: true,
+      associatedKey: action.payload
+    });
+  case UPDATE_GITHUB_AUTH:
+    return assign({}, state, {
+      githubAuthStatus: true,
+      addingNewEndpoint: false
     });
   case ADD_NEW_ENDPOINT:
     return assign({}, state, { addingNewEndpoint: true });

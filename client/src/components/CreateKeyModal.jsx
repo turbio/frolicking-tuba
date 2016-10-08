@@ -11,43 +11,43 @@ import { renderTextField, validate } from './FormHelpers.jsx';
 import * as Actions from '../actions/AppActions';
 
 
-const renderEndpointsField = ({ input, label }) => {
-  // placeholder check
-  //replace with whether or not user has any endpoints first
-  // OR if selected "addendpoint" === true in store
-  if (window.location.pathname.length < label.length) {
-    return (<AddNewEndpoint input={input} label={label} />);
-  }
-
-  return (<EndpointsDropdown input={input} label={label} />);
-  //return (<AddNewEndpoint input={input} label={label} />);
-
-};
-
-
 class CreateKeyModal extends Component {
   constructor(props) {
     super(props);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     //this.close = this.close.bind(this);
-
+    this.renderEndpointsField = this.renderEndpointsField.bind(this);
   }
 
-  // componentDidMount() {
-  //   //fetch endpoints
-  //   //chechk github auth
-  //   console.log('complifecycle', this.props);
-  //   this.props.fetchEndpoints();
-  // }
+  componentDidMount() {
+    //fetch endpoints
+    //chechk github auth
+    console.log('complifecycle', this.props);
+    this.props.fetchEndpoints();
+  }
 
   handleFormSubmit(values) {
     console.log(values, this.props, 'test');
-    this.props.handleEndpointSubmit(values);
+    // call this.props.createNewKey(values.name, values.type, values.endpoint)
+    //this.props.handleEndpointSubmit(values);
     //this.props.signInUser(values, window.location.pathname);
   }
 
   close() {
     this.props.hideModal();
+  }
+
+  renderEndpointsField({ input, label }) {
+    //console.log(this.props.endpoints, 'keymodal');
+    // placeholder check
+    // replace with whether or not user has any endpoints first
+    // OR if selected "addendpoint" === true in store
+    if (!this.props.endpoints) {
+      return (<AddNewEndpoint input={input} label={label} />);
+    }
+
+    return (<EndpointsDropdown input={input} label={label} />);
+    //return (<AddNewEndpoint input={input} label={label} />);
   }
 
   render() {
@@ -71,7 +71,7 @@ class CreateKeyModal extends Component {
             />
             <Field
               name="endpoint"
-              component={renderEndpointsField}
+              component={this.renderEndpointsField}
               className="form-control"
               type="text"
               label="Endpoint"
@@ -95,17 +95,21 @@ CreateKeyModal.propTypes = {
   keymodal: PropTypes.bool,
   hideModal: PropTypes.func,
   handleSubmit: PropTypes.func,
-  handleEndpointSubmit: PropTypes.func
-  //fetchEndpoints: PropTypes.func,
+  //handleEndpointSubmit: PropTypes.func,
+  fetchEndpoints: PropTypes.func,
+  endpoints: PropTypes.oneOfType([null, React.PropTypes.array])
 };
 
 
-renderEndpointsField.propTypes = {
-  input: PropTypes.objectOf(PropTypes.any),
-  label: PropTypes.string
-};
+// renderEndpointsField.propTypes = {
+//   input: PropTypes.objectOf(PropTypes.any),
+//   label: PropTypes.string
+// };
 
-const mapStateToProps = (state) => ({ keymodal: state.keymodal.showModal });
+const mapStateToProps = (state) => ({
+  keymodal: state.keymodal.showModal,
+  endpoints: state.keymodal.endpoints
+});
 
 
 export default connect(mapStateToProps, Actions)(reduxForm(
