@@ -8,6 +8,7 @@ let toInputElem = null;
 let fromInputElem = null;
 let titleInputElem = null;
 let buttonElem = null;
+let fileAttachElem = null;
 let overlayElem = null;
 let bgImageElem = null;
 let clipAreaElem = null;
@@ -38,20 +39,16 @@ const hideModal = () => {
 const submitForm = (event) => {
   event.preventDefault();
 
+  const dataForm = new FormData(formElem);
   const request = new XMLHttpRequest();
 
   request.open('POST', apiEndpoint, true);
-  request.setRequestHeader('Content-Type', 'application/json');
 
-  request.send(JSON.stringify({
-    title: titleInputElem.value,
-    comment: commentInputElem.value,
-    to: toInputElem.value,
-    from: fromInputElem.value,
-    key: '%KEY%',
-    screenshot: bgImage,
-    location: location.href
-  }));
+  dataForm.append('key', '%KEY%');
+  dataForm.append('screenshot', bgImage);
+  dataForm.append('location', location.href);
+  request.open('POST', apiEndpoint, true);
+  request.send(dataForm);
 
   hideModal();
 };
@@ -83,30 +80,40 @@ const buildModal = () => {
   titleInputElem = document.createElement('input');
   titleInputElem.id = `${elemPrefix}-title-input`;
   titleInputElem.type = 'text';
+  titleInputElem.name = 'title';
   titleInputElem.minlength = 1;
   titleInputElem.placeholder = 'Title';
 
   commentInputElem = document.createElement('textarea');
   commentInputElem.id = `${elemPrefix}-comment`;
+  commentInputElem.name = 'comment';
   commentInputElem.minlength = 1;
   commentInputElem.placeholder = 'Enter your comments here';
 
   toInputElem = document.createElement('input');
   toInputElem.id = `${elemPrefix}-to-input`;
   toInputElem.type = 'text';
+  toInputElem.name = 'to';
   toInputElem.minlength = 1;
   toInputElem.placeholder = 'Message to';
 
   fromInputElem = document.createElement('input');
   fromInputElem.id = `${elemPrefix}-from-input`;
   fromInputElem.type = 'text';
+  fromInputElem.name = 'from';
   fromInputElem.minlength = 1;
   fromInputElem.placeholder = 'Message from';
+
+  fileAttachElem = document.createElement('input');
+  fileAttachElem.id = `${elemPrefix}-fileAttach-input`;
+  fileAttachElem.type = 'file';
+  fileAttachElem.name = 'modalAttachment';
 
   const submitElem = document.createElement('input');
 
   submitElem.id = `${elemPrefix}-submit`;
   submitElem.type = 'submit';
+  submitElem.name = 'modalSubmit';
   submitElem.value = 'send';
 
   modalElem.appendChild(formElem);
@@ -114,6 +121,7 @@ const buildModal = () => {
   formElem.appendChild(commentInputElem);
   formElem.appendChild(toInputElem);
   formElem.appendChild(fromInputElem);
+  formElem.appendChild(fileAttachElem);
   formElem.appendChild(submitElem);
 
   formElem.onsubmit = submitForm;
