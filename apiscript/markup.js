@@ -8,7 +8,6 @@ let toInputElem = null;
 let fromInputElem = null;
 let titleInputElem = null;
 let buttonElem = null;
-let selectedText = '';
 let fileAttachElem = null;
 let overlayElem = null;
 let bgImageElem = null;
