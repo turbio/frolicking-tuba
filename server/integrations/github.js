@@ -25,7 +25,7 @@ module.exports.createIssue = (params, body) => {
         + `* selected text: ${body.selected}\n`
         + `* comment: ${body.comment}\n`
         + `* file url (if attachment included): ${body.url}\n`
-        + `![alt text](${body.url})`
+        + `![alt text](${body.url} 'attachment')`
     },
     json: true
   };
