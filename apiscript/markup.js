@@ -11,10 +11,6 @@ let buttonElem = null;
 let selectedText = '';
 
 const apiEndpoint = 'http://getmarkup.com/api/annotate';
-
-const half = 2;
-const arrowHeight = 20;
-const padding = 20;
 const elemPrefix = 'frolicking-tuba-modal';
 
 const hideModal = () => {
@@ -23,24 +19,25 @@ const hideModal = () => {
   formElem = null;
 };
 
-const clicked = (event) => {
-  const selection = window.getSelection();
+const submitForm = (event) => {
+  event.preventDefault();
 
-  if (selection) {
-    selectedText = selection;
-    showModal(event);
-  } else if (modalElem && !event.target.id.startsWith(elemPrefix)) {
-    hideModal();
-  }
-};
+  const request = new XMLHttpRequest();
 
-const buildButton = () => {
-  buttonElem = document.createElement('div');
-  buttonElem.id = 'frolicking-tuba-open-button';
+  request.open('POST', apiEndpoint, true);
+  request.setRequestHeader('Content-Type', 'application/json');
 
-  buttonElem.addEventListener('click', clicked);
+  request.send(JSON.stringify({
+    title: titleInputElem.value,
+    comment: commentInputElem.value,
+    to: toInputElem.value,
+    from: fromInputElem.value,
+    selected: selectedText,
+    key: '%KEY%',
+    location: location.href
+  }));
 
-  return buttonElem;
+  hideModal();
 };
 
 const buildModal = () => {
@@ -91,27 +88,6 @@ const buildModal = () => {
   return modalElem;
 };
 
-const submitForm = (event) => {
-  event.preventDefault();
-
-  const request = new XMLHttpRequest();
-
-  request.open('POST', apiEndpoint, true);
-  request.setRequestHeader('Content-Type', 'application/json');
-
-  request.send(JSON.stringify({
-    title: titleInputElem.value,
-    comment: commentInputElem.value,
-    to: toInputElem.value,
-    from: fromInputElem.value,
-    selected: selectedText,
-    key: '%KEY%',
-    location: location.href
-  }));
-
-  hideModal();
-};
-
 const showModal = () => {
   if (!modalElem) {
     document.body.appendChild(buildModal());
@@ -121,6 +97,26 @@ const showModal = () => {
     modalElem.style.opacity = 1;
     modalElem.style.transform = 'translate(0, 0)';
   });
+};
+
+const clicked = (event) => {
+  const selection = window.getSelection();
+
+  if (selection) {
+    selectedText = selection;
+    showModal(event);
+  } else if (modalElem && !event.target.id.startsWith(elemPrefix)) {
+    hideModal();
+  }
+};
+
+const buildButton = () => {
+  buttonElem = document.createElement('div');
+  buttonElem.id = 'frolicking-tuba-open-button';
+
+  buttonElem.addEventListener('click', clicked);
+
+  return buttonElem;
 };
 
 document.addEventListener('DOMContentLoaded', () => {
