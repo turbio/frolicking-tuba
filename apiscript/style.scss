@@ -120,9 +120,10 @@
 
 #frolicking-tuba-modal-clip-area{
   position: absolute;
-  background: rgba(255, 255, 255, .25);
-  border: dashed 1px rgba(255, 255, 255, .5);
-  z-index: 99999;
+  border: dashed 1px #555;
+  background-attachment: fixed;
+  background-color: #fff;
+  z-index: 999999;
 }
 
 #frolicking-tuba-modal-bg-image{

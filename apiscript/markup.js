@@ -10,6 +10,9 @@ let titleInputElem = null;
 let buttonElem = null;
 let overlayElem = null;
 let bgImageElem = null;
+let clipAreaElem = null;
+
+let bgImage = '';
 
 const apiEndpoint = 'http://getmarkup.com/api/annotate';
 const elemPrefix = 'frolicking-tuba-modal';
@@ -41,6 +44,8 @@ const submitForm = (event) => {
 };
 
 const buildBgImage = (url) => {
+  bgImage = url;
+
   bgImageElem = document.createElement('img');
   bgImageElem.id = `${elemPrefix}-bg-image`;
   bgImageElem.src = url;
@@ -127,6 +132,10 @@ const takeShot = (cb) => {
 };
 
 const startDrag = (event) => {
+  if (event.which !== 1) {
+    return;
+  }
+
   event.preventDefault();
 
   let xPos = 0;
@@ -134,13 +143,16 @@ const startDrag = (event) => {
   let width = 0;
   let height = 0;
 
-  const selectionElem = document.createElement('div');
+  if (!clipAreaElem) {
+    clipAreaElem = document.createElement('div');
 
-  selectionElem.id = `${elemPrefix}-clip-area`;
+    clipAreaElem.id = `${elemPrefix}-clip-area`;
+    clipAreaElem.style['background-image'] = `url("${bgImage}")`;
 
-  document.body.appendChild(selectionElem);
+    document.body.appendChild(clipAreaElem);
+  }
 
-  document.addEventListener('mousemove', (moveEvent) => {
+  const dragMove = (moveEvent) => {
     const xdiff = moveEvent.pageX - event.pageX;
     const ydiff = moveEvent.pageY - event.pageY;
 
@@ -150,16 +162,22 @@ const startDrag = (event) => {
     width = Math.abs(xdiff);
     height = Math.abs(ydiff);
 
-    selectionElem.style.width = `${width}px`;
-    selectionElem.style.height = `${height}px`;
-    selectionElem.style.left = `${xPos}px`;
-    selectionElem.style.top = `${yPos}px`;
-  });
+    clipAreaElem.style.width = `${width}px`;
+    clipAreaElem.style.height = `${height}px`;
+    clipAreaElem.style.left = `${xPos}px`;
+    clipAreaElem.style.top = `${yPos}px`;
+  };
 
-  document.addEventListener('mouseup', () => {
-    document.body.removeChild(selectionElem);
-    //takeShot({ xoffset: xPos, yoffset: yPos, width, height });
-  });
+  const dragDone = () => {
+    document.body.removeChild(clipAreaElem);
+    clipAreaElem = null;
+
+    document.removeEventListener('mouseup', dragDone);
+    document.removeEventListener('mousemove', dragMove);
+  };
+
+  document.addEventListener('mouseup', dragDone);
+  document.addEventListener('mousemove', dragMove);
 };
 
 const showModal = () => {
@@ -179,7 +197,7 @@ const showModal = () => {
     modalElem.style.transform = 'translate(0, 0)';
   });
 
-  document.addEventListener('mousedown', startDrag);
+  overlayElem.addEventListener('mousedown', startDrag);
 };
 
 const clicked = () => {
