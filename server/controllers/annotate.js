@@ -36,7 +36,6 @@ module.exports.create = (req, res) => {
   let fileKey = Date.now();
 
   form.on('part', (part) => {
-    console.log(part.headers);
     promise1 = new Promise(
     (resolve, reject) => {
       //do async thing here
@@ -46,7 +45,7 @@ module.exports.create = (req, res) => {
         Key: fileKey,
         ACL: 'public-read',
         Body: part,
-        ContentType: 'image/jpeg',
+        ContentType: part.headers['content-type'],
         ContentLength: part.byteCount
       }, (err, data) => {
         if (err) reject(err);
