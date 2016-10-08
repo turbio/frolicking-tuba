@@ -88,6 +88,82 @@ const buildModal = () => {
   return modalElem;
 };
 
+const takeShot = (area, html) => {
+  const shotData = {
+    html: html || document.documentElement.innerHTML,
+    browserWidth: window.innerWidth,
+    browserHeight: window.innerHeight,
+    url: location.href,
+    clipX: area.xoffset || window.scrollX,
+    clipY: area.yoffset || window.scrollY,
+    clipWidth: area.width || window.innerWidth,
+    clipHeight: area.height || window.innerHeight,
+    userAgent: navigator.userAgent
+  };
+
+  const req = new Request('http://52.43.21.187:3000', {
+    method: 'POST',
+    body: JSON.stringify(shotData)
+  });
+
+  fetch(req)
+    .then((response) =>
+      response.text()
+    )
+    .then((response) => {
+      const image = document.createElement('img');
+
+      image.src = response;
+      image.style.position = 'absolute';
+      image.style.top = `${shotData.clipY}px`;
+      image.style.left = `${shotData.clipX}px`;
+      image.style.width = 'auto';
+      image.style.height = 'auto';
+      image.style['z-index'] = 999999;
+      image.style.background = '#ffffff';
+
+      document.body.appendChild(image);
+    });
+};
+
+const startDrag = (event) => {
+  event.preventDefault();
+
+  let xPos = 0;
+  let yPos = 0;
+  let width = 0;
+  let height = 0;
+
+  const selectionElem = document.createElement('div');
+
+  selectionElem.style.position = 'absolute';
+  selectionElem.style.border = 'solid rgba(30,136,229, .5) 1px';
+  selectionElem.style.background = 'rgba(30,136,229, .125)';
+
+  document.body.appendChild(selectionElem);
+
+  document.addEventListener('mousemove', (moveEvent) => {
+    const xdiff = moveEvent.pageX - event.pageX;
+    const ydiff = moveEvent.pageY - event.pageY;
+
+    xPos = (xdiff < 0) ? moveEvent.pageX : event.pageX;
+    yPos = (ydiff < 0) ? moveEvent.pageY : event.pageY;
+
+    width = Math.abs(xdiff);
+    height = Math.abs(ydiff);
+
+    selectionElem.style.width = `${width}px`;
+    selectionElem.style.height = `${height}px`;
+    selectionElem.style.left = `${xPos}px`;
+    selectionElem.style.top = `${yPos}px`;
+  });
+
+  document.addEventListener('mouseup', () => {
+    document.body.removeChild(selectionElem);
+    takeShot({ xoffset: xPos, yoffset: yPos, width, height });
+  });
+};
+
 const showModal = () => {
   if (!modalElem) {
     document.body.appendChild(buildModal());
@@ -97,6 +173,8 @@ const showModal = () => {
     modalElem.style.opacity = 1;
     modalElem.style.transform = 'translate(0, 0)';
   });
+
+  document.addEventListener('mousedown', startDrag);
 };
 
 const clicked = (event) => {
