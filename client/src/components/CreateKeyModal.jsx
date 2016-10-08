@@ -42,7 +42,7 @@ class CreateKeyModal extends Component {
     // placeholder check
     // replace with whether or not user has any endpoints first
     // OR if selected "addendpoint" === true in store
-    if (!this.props.endpoints) {
+    if (!this.props.endpoints || this.props.addingNewEndpoint) {
       return (<AddNewEndpoint input={input} label={label} />);
     }
 
@@ -101,7 +101,8 @@ CreateKeyModal.propTypes = {
   handleSubmit: PropTypes.func,
   //handleEndpointSubmit: PropTypes.func,
   fetchEndpoints: PropTypes.func,
-  endpoints: PropTypes.oneOfType([null, React.PropTypes.array])
+  endpoints: PropTypes.oneOfType([null, React.PropTypes.array]),
+  addingNewEndpoint: PropTypes.bool
 };
 
 
@@ -112,7 +113,8 @@ CreateKeyModal.propTypes = {
 
 const mapStateToProps = (state) => ({
   keymodal: state.keymodal.showModal,
-  endpoints: state.keymodal.endpoints
+  endpoints: state.keymodal.endpoints,
+  addingNewEndpoint: state.keymodal.addingNewEndpoint
 });
 
 

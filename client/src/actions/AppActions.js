@@ -108,7 +108,7 @@ export const fetchEndpoints = () => (
   (dispatch) => {
     let githubrepos = [];
 
-    fetch('/api/user', { credentials: 'same-origin' })
+    fetch('/api/user/hasgithub', { credentials: 'same-origin' })
     .then((response) => response.json())
     .then((auth) => {
       if (auth.github) {
