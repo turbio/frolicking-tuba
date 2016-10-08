@@ -20,6 +20,18 @@ const elemPrefix = 'frolicking-tuba-modal';
 const hideModal = () => {
   modalElem.parentNode.removeChild(modalElem);
   modalElem = null;
+
+  overlayElem.parentNode.removeChild(overlayElem);
+  overlayElem = null;
+
+  bgImageElem.parentNode.removeChild(bgImageElem);
+  bgImageElem = null;
+
+  if (clipAreaElem) {
+    clipAreaElem.parentNode.removeChild(clipAreaElem);
+    clipAreaElem = null;
+  }
+
   formElem = null;
 };
 
@@ -180,9 +192,6 @@ const startDrag = (event) => {
 
     modalElem.style.opacity = 1;
     modalElem.style.transform = 'translate(0, 0)';
-
-    //document.body.removeChild(clipAreaElem);
-    //clipAreaElem = null;
   };
 
   document.addEventListener('mouseup', dragDone);
@@ -200,6 +209,10 @@ const showModal = () => {
 
   document.body.appendChild(buildOverlay());
   document.body.appendChild(buildModal());
+
+  setTimeout(() => {
+    overlayElem.style.opacity = 1;
+  });
 
   overlayElem.addEventListener('mousedown', startDrag);
 };
