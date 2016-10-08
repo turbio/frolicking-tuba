@@ -11,10 +11,6 @@ let buttonElem = null;
 let selectedText = '';
 
 const apiEndpoint = 'http://getmarkup.com/api/annotate';
-
-const half = 2;
-const arrowHeight = 20;
-const padding = 20;
 const elemPrefix = 'frolicking-tuba-modal';
 
 const hideModal = () => {
@@ -42,13 +38,6 @@ const submitForm = (event) => {
   }));
 
   hideModal();
-};
-
-const buildButton = () => {
-  buttonElem = document.createElement('div');
-  buttonElem.id = 'frolicking-tuba-open-button';
-
-  return buttonElem;
 };
 
 const buildModal = () => {
@@ -99,29 +88,15 @@ const buildModal = () => {
   return modalElem;
 };
 
-const positionModal = (event) => {
-  let xpos = event.pageX - (modalElem.clientWidth / half);
-  let ypos = event.pageY
-    - (modalElem.clientHeight + arrowHeight + padding);
-  const mw = 328;
-
-  ypos = ypos < 0 ? 0 : ypos;
-  xpos = xpos < 0 ? 0 : xpos;
-  xpos = xpos > window.innerWidth - mw ? window.innerWidth - mw : xpos;
-
-  modalElem.style.top = `${ypos}px`;
-  modalElem.style.left = `${xpos}px`;
-
-  modalElem.style.opacity = 1;
-  modalElem.style.transform = 'translate(0, 0)';
-};
-
-const showModal = (event) => {
+const showModal = () => {
   if (!modalElem) {
     document.body.appendChild(buildModal());
   }
 
-  positionModal(event);
+  setTimeout(() => {
+    modalElem.style.opacity = 1;
+    modalElem.style.transform = 'translate(0, 0)';
+  });
 };
 
 const clicked = (event) => {
@@ -135,13 +110,20 @@ const clicked = (event) => {
   }
 };
 
-document.addEventListener('mouseup', clicked);
+const buildButton = () => {
+  buttonElem = document.createElement('div');
+  buttonElem.id = 'frolicking-tuba-open-button';
+
+  buttonElem.addEventListener('click', clicked);
+
+  return buttonElem;
+};
 
 document.addEventListener('DOMContentLoaded', () => {
-  const modalStyleEle = document.createElement('style');
+  const modalStyleElem = document.createElement('style');
 
-  modalStyleEle.innerHTML = `%CSS%`;
-  document.body.appendChild(modalStyleEle);
+  modalStyleElem.innerHTML = `%CSS%`;
+  document.body.appendChild(modalStyleElem);
 
   document.body.appendChild(buildButton());
 });

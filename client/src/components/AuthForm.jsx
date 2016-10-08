@@ -2,37 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import * as Actions from '../actions/AppActions';
-
-const validate = (values) => {
-  const errors = {};
-
-  if (!values.email) {
-    errors.email = 'Please enter an email.';
-  } else if
-  (!(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i).test(values.email)) {
-    errors.email = 'Invalid email address';
-  }
-
-  if (!values.password) {
-    errors.password = 'Please enter a password.';
-  }
-
-  return errors;
-};
-
-const renderField = ({ input, label, type, meta: { touched, error } }) => (
-  <fieldset className={`form-group ${touched && error ? 'has-error' : ''}`}>
-    <label className="control-label" htmlFor="control-label">{label}</label>
-    <div>
-      <input
-        {...input}
-        placeholder={label} className="form-control" type={type}
-      />
-      {touched && error
-        && <div className="help-block">{error}</div>}
-    </div>
-  </fieldset>
-);
+import { renderTextField, validate } from './FormHelpers.jsx';
 
 
 class AuthForm extends Component {
@@ -65,14 +35,14 @@ class AuthForm extends Component {
         <form onSubmit={handleSubmit(this.handleFormSubmit)}>
           <Field
             name="email"
-            component={renderField}
+            component={renderTextField}
             className="form-control"
             type="text"
             label="Email"
           />
           <Field
             name="password"
-            component={renderField}
+            component={renderTextField}
             className="form-control"
             type="password"
             label="Password"
@@ -97,12 +67,6 @@ AuthForm.propTypes = {
   handleSubmit: PropTypes.func
 };
 
-renderField.propTypes = {
-  input: PropTypes.objectOf(PropTypes.any),
-  label: PropTypes.string,
-  type: PropTypes.string,
-  meta: PropTypes.objectOf(PropTypes.any)
-};
 
 const mapStateToProps = (state) => (
   { authenticationError: state.auth.error }

@@ -18,8 +18,10 @@ import Create from './components/Create.jsx';
 import CreateStart from './components/CreateStart.jsx';
 import CreateGithub from './components/CreateGithub.jsx';
 import Welcome from './components/Welcome.jsx';
-import { auth } from './utils/auth';
+import RequireAuth from './components/RequireAuth.jsx';
+//import { requireAuth, auth } from './utils/auth';
 import configureStore from './store/configureStore';
+//import { requireAuth } from './actions/AppActions';
 
 
 // Creates the Redux reducer with the redux-thunk middleware, which allows us
@@ -43,17 +45,18 @@ render(
         <Route path="/signup" component={Signup} />
         <Route path="/signin" component={Signin} />
         <Route path="/welcome" component={Welcome} />
-        <Route path="/create" component={Create} onEnter={auth.createOnEnter}>
+        <Route path="/create" component={RequireAuth(Create)}>
           <IndexRoute component={CreateStart} />
           <Route
-            path="github" component={CreateGithub} onEnter={auth.githubOnEnter}
+            path="github" component={RequireAuth(CreateGithub)}
           />
         </Route>
         <Route path="/team" component={Team} />
         <Route
           path="/dashboard"
-          component={Dashboard}
-          onEnter={auth.dashboardOnEnter}
+          component={RequireAuth(Dashboard)}
+          // onEnter={auth.requireAuth}
+          //onEnter={requireAuth}
         />
         <Route path="/documentation" component={Documentation} />
       </Route>
