@@ -5,6 +5,7 @@ const key = require('../controllers/key');
 const Integration = require('../models/integration');
 const Output = require('../models/output');
 const Key = require('../models/key');
+const User = require('../models/user');
 
 module.exports.createIssue = (params, body) => {
   // console.log('PARAMS', params, 'ISSUE', body);
@@ -48,6 +49,7 @@ module.exports.register = (req, res) => {
           + `&code=${req.query.code}`
   };
 
+  // eslint-disable-next-line max-statements
   request(options, (err, githubRes, body) => {
     if (!body.access_token || !req.session.user || err) {
       console.log('POST to get github access_token error:');
@@ -69,6 +71,13 @@ module.exports.register = (req, res) => {
       userId: req.session.user.id
     }).then(() => {
       key.createKey(req, res);
+    });
+
+    User.update(
+      { ghtoken: body.access_token },
+      { where: { id: req.session.user.id } }
+    ).then(() => {
+      console.log('ghtoken updated!');
     });
   });
 };

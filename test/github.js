@@ -151,6 +151,14 @@ describe('github integration', () => { // eslint-disable-line max-statements
       });
   });
 
+  it('should update user.ghtoken field after creation', (done) => {
+    User.findOne({ where: { email: 'github-test-user' } })
+    .then((user) => {
+      user.ghtoken.should.eq(mockhubToken);
+      done();
+    });
+  });
+
   it('should show github repo list', (done) => {
     userRequest
       .get('/api/integrations/github/repos')
