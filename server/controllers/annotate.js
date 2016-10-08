@@ -36,6 +36,7 @@ module.exports.create = (req, res) => {
   let fileKey = Date.now();
 
   form.on('part', (part) => {
+    console.log(part.headers);
     promise1 = new Promise(
     (resolve, reject) => {
       //do async thing here
