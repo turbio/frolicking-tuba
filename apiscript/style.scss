@@ -118,6 +118,14 @@
   cursor: crosshair;
 }
 
+#frolicking-tuba-modal-clip-area-selected{
+  position: absolute;
+  border: solid 1px #555;
+  background-attachment: fixed;
+  background-color: #fff;
+  z-index: 999999;
+}
+
 #frolicking-tuba-modal-clip-area{
   position: absolute;
   border: dashed 1px #555;

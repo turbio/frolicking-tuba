@@ -146,11 +146,12 @@ const startDrag = (event) => {
   if (!clipAreaElem) {
     clipAreaElem = document.createElement('div');
 
-    clipAreaElem.id = `${elemPrefix}-clip-area`;
     clipAreaElem.style['background-image'] = `url("${bgImage}")`;
 
     document.body.appendChild(clipAreaElem);
   }
+
+  clipAreaElem.id = `${elemPrefix}-clip-area`;
 
   const dragMove = (moveEvent) => {
     const xdiff = moveEvent.pageX - event.pageX;
@@ -169,11 +170,12 @@ const startDrag = (event) => {
   };
 
   const dragDone = () => {
-    document.body.removeChild(clipAreaElem);
-    clipAreaElem = null;
-
     document.removeEventListener('mouseup', dragDone);
     document.removeEventListener('mousemove', dragMove);
+
+    //document.body.removeChild(clipAreaElem);
+    //clipAreaElem = null;
+    clipAreaElem.id = 'frolicking-tuba-modal-clip-area-selected';
   };
 
   document.addEventListener('mouseup', dragDone);
