@@ -49,6 +49,7 @@ const submitForm = (event) => {
     to: toInputElem.value,
     from: fromInputElem.value,
     key: '%KEY%',
+    screenshot: bgImage,
     location: location.href
   }));
 
