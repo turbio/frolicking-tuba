@@ -111,6 +111,8 @@ export const fetchEndpoints = () => (
     fetch('/api/user/hasgithub', { credentials: 'same-origin' })
     .then((response) => response.json())
     .then((auth) => {
+      console.log(auth, 'thegithubauth status');
+
       if (auth.github) {
         return fetch(
           '/api/github/repos', { credentials: 'same-origin' }
@@ -121,6 +123,7 @@ export const fetchEndpoints = () => (
     })
     .then((response) => response.json())
     .then((repos) => {
+      console.log(repos, 'thegithub repos');
       githubrepos = repos;
 
       return fetch('/api/urls',
