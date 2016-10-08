@@ -1,30 +1,19 @@
 const config = require('../../env/config.json');
 const Key = require('../models/key');
-const Output = require('../models/output');
 
 module.exports.getAll = (req, res) => {
   if (req.session.user) {
-    Key.findAll({
-      where: { userId: req.session.user.id },
-      include: [Output]
-    })
+    Key.findAll({ where: { userId: req.session.user.id } })
     .then((keys) => {
-      // hacky way
-      const keysFormatted = keys.map((item) => ({
-        name: '',
-        api_key: item.key,
-        endpoint: item.output.meta
-      }));
-
-      res.status(200).json(keysFormatted);
+      res.status(200).json(keys);
     })
     .catch((err) => {
-      res.status(500).json({ error: err });
+      console.log(err);
+      res.status(500).json({ error: config.messages.server_error });
     });
   } else {
     res.status(400).json({ error: config.messages.not_logged_in });
   }
-  console.log(req.session.user);
 };
 
 module.exports.createKey = (req, res) => {
@@ -34,12 +23,19 @@ module.exports.createKey = (req, res) => {
     return;
   }
 
-  Key.create({ userId: req.session.user.id })
-  .then((key) => {
-    console.log(
-      'key created',
-      JSON.stringify(key),
-      'going back to index');
-    res.redirect('/create/github');
-  });
+  if (req.body.key) {
+    Key.update({
+      name: req.body.name,
+      type: req.body.type,
+      endpoint: req.body.endpoint
+    }, { where: { key: req.body.key } })
+    .then((result) => {
+      res.status(200).json({ rowsUpdated: result[0] });
+    });
+  } else {
+    Key.create({ userId: req.session.user.id })
+    .then((key) => {
+      res.status(200).json(key);
+    });
+  }
 };
