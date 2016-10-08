@@ -1,6 +1,5 @@
 const config = require('../../env/config.json');
 const request = require('request');
-const key = require('../controllers/key');
 
 const Integration = require('../models/integration');
 const Output = require('../models/output');
@@ -8,8 +7,6 @@ const Key = require('../models/key');
 const User = require('../models/user');
 
 module.exports.createIssue = (params, body) => {
-  // console.log('PARAMS', params, 'ISSUE', body);
-
   const options = {
     url: `${config.github.api_url}/repos/${params.output_meta}/issues`,
     method: 'POST',
@@ -65,19 +62,12 @@ module.exports.register = (req, res) => {
       return;
     }
 
-    Integration.create({
-      type: 'github',
-      meta: body.access_token,
-      userId: req.session.user.id
-    }).then(() => {
-      key.createKey(req, res);
-    });
-
     User.update(
       { ghtoken: body.access_token },
       { where: { id: req.session.user.id } }
     ).then(() => {
       console.log('ghtoken updated!');
+      res.redirect('/create/github');
     });
   });
 };
