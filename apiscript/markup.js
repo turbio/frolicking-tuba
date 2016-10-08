@@ -8,7 +8,8 @@ let toInputElem = null;
 let fromInputElem = null;
 let titleInputElem = null;
 let buttonElem = null;
-let selectedText = '';
+let overlayElem = null;
+let bgImageElem = null;
 
 const apiEndpoint = 'http://getmarkup.com/api/annotate';
 const elemPrefix = 'frolicking-tuba-modal';
@@ -32,12 +33,26 @@ const submitForm = (event) => {
     comment: commentInputElem.value,
     to: toInputElem.value,
     from: fromInputElem.value,
-    selected: selectedText,
     key: '%KEY%',
     location: location.href
   }));
 
   hideModal();
+};
+
+const buildBgImage = (url) => {
+  bgImageElem = document.createElement('img');
+  bgImageElem.id = `${elemPrefix}-bg-image`;
+  bgImageElem.src = url;
+
+  return bgImageElem;
+};
+
+const buildOverlay = () => {
+  overlayElem = document.createElement('div');
+  overlayElem.id = `${elemPrefix}-overlay`;
+
+  return overlayElem;
 };
 
 const buildModal = () => {
@@ -88,16 +103,16 @@ const buildModal = () => {
   return modalElem;
 };
 
-const takeShot = (area, html) => {
+const takeShot = (cb) => {
   const shotData = {
-    html: html || document.documentElement.innerHTML,
+    html: document.documentElement.innerHTML,
     browserWidth: window.innerWidth,
     browserHeight: window.innerHeight,
     url: location.href,
-    clipX: area.xoffset || window.scrollX,
-    clipY: area.yoffset || window.scrollY,
-    clipWidth: area.width || window.innerWidth,
-    clipHeight: area.height || window.innerHeight,
+    clipX: window.scrollX,
+    clipY: window.scrollY,
+    clipWidth: window.innerWidth,
+    clipHeight: window.innerHeight,
     userAgent: navigator.userAgent
   };
 
@@ -107,23 +122,8 @@ const takeShot = (area, html) => {
   });
 
   fetch(req)
-    .then((response) =>
-      response.text()
-    )
-    .then((response) => {
-      const image = document.createElement('img');
-
-      image.src = response;
-      image.style.position = 'absolute';
-      image.style.top = `${shotData.clipY}px`;
-      image.style.left = `${shotData.clipX}px`;
-      image.style.width = 'auto';
-      image.style.height = 'auto';
-      image.style['z-index'] = 999999;
-      image.style.background = '#ffffff';
-
-      document.body.appendChild(image);
-    });
+    .then((response) => response.text())
+    .then((response) => cb(response));
 };
 
 const startDrag = (event) => {
@@ -136,9 +136,7 @@ const startDrag = (event) => {
 
   const selectionElem = document.createElement('div');
 
-  selectionElem.style.position = 'absolute';
-  selectionElem.style.border = 'solid rgba(30,136,229, .5) 1px';
-  selectionElem.style.background = 'rgba(30,136,229, .125)';
+  selectionElem.id = `${elemPrefix}-clip-area`;
 
   document.body.appendChild(selectionElem);
 
@@ -160,14 +158,21 @@ const startDrag = (event) => {
 
   document.addEventListener('mouseup', () => {
     document.body.removeChild(selectionElem);
-    takeShot({ xoffset: xPos, yoffset: yPos, width, height });
+    //takeShot({ xoffset: xPos, yoffset: yPos, width, height });
   });
 };
 
 const showModal = () => {
-  if (!modalElem) {
-    document.body.appendChild(buildModal());
-  }
+  takeShot((url) => {
+    document.body.appendChild(buildBgImage(url));
+
+    setTimeout(() => {
+      bgImageElem.style.opacity = 1;
+    });
+  });
+
+  document.body.appendChild(buildOverlay());
+  document.body.appendChild(buildModal());
 
   setTimeout(() => {
     modalElem.style.opacity = 1;
@@ -177,14 +182,11 @@ const showModal = () => {
   document.addEventListener('mousedown', startDrag);
 };
 
-const clicked = (event) => {
-  const selection = window.getSelection();
-
-  if (selection) {
-    selectedText = selection;
-    showModal(event);
-  } else if (modalElem && !event.target.id.startsWith(elemPrefix)) {
+const clicked = () => {
+  if (modalElem) {
     hideModal();
+  } else {
+    showModal();
   }
 };
 
