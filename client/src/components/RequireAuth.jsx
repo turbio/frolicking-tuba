@@ -11,9 +11,9 @@ export default function(WrappedComponent) {
 
         if (localStorage.token) {
           hasLocalStorageUser = true;
+          // need to also dispatch something that sets auth
+          //in store to true
         }
-
-        console.log(hasLocalStorageUser, localStorage.token, 'haslocalstorage');
 
         // for (let key in localStorage) {
         //   if (key.startsWith("firebase:authUser:")) {
