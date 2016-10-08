@@ -45,6 +45,7 @@ module.exports.create = (req, res) => {
         Key: fileKey,
         ACL: 'public-read',
         Body: part,
+        ContentType: 'image/jpeg',
         ContentLength: part.byteCount
       }, (err, data) => {
         if (err) reject(err);
