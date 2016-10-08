@@ -88,12 +88,12 @@ export const getApiKeys = () => {
         const newKey = key;
 
         newKey.api_key = `<script src="http://getmarkup.com/script.js?key=\
-                          ${key.api_key}"></script>`;
+${key.api_key}"></script>`;
 
         return newKey;
       });
 
-      console.log(json, 'the keys');
+      console.log(keys, 'the keys');
 
       dispatch(requestKeys(keys));
       //dispatch(fetchEndpts({ name: 'sean' }));
