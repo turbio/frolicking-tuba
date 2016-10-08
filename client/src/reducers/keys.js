@@ -1,9 +1,7 @@
 import { FETCH_KEYS } from '../utils/AppConstants';
 
 
-const initialState = {
-  data: []
-};
+const initialState = { data: [] };
 const assign = Object.assign;
 
 
