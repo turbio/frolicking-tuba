@@ -23,6 +23,7 @@ router.post('/api/users/signup', user.signup);
 router.post('/api/users/signin', user.signin);
 router.get('/api/users/signout', user.signout);
 router.get('/api/users/signedin', user.signedin);
+router.get('/api/users/hasgithub', user.hasGithub);
 
 //integrations
 router.get('/api/integrations', integration.getAll);
