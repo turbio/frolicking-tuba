@@ -1,7 +1,11 @@
 #frolicking-tuba-modal{
   background: white;
   border: 2px #ccc solid;
-  position: absolute;
+  position: fixed;
+
+  bottom: 45px * 2;
+  right: 10px;
+
   font-family: Helvetica,sans-serif;
   opacity: 0;
   transform: translate(0, 10px);
@@ -13,7 +17,7 @@
 
   &:after, &:before {
     top: 100%;
-    left: 50%;
+    left: 90%;
     border: solid transparent;
     content: "";
     height: 0;
@@ -79,7 +83,7 @@
   right: 0;
   position: fixed;
 
-  margin: 1em;
+  margin: 15px;
 
   width: 45px;
   height: 45px;
