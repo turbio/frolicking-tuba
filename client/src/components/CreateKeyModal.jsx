@@ -46,7 +46,11 @@ class CreateKeyModal extends Component {
       return (<AddNewEndpoint input={input} label={label} />);
     }
 
-    return (<EndpointsDropdown input={input} label={label} />);
+    return (<EndpointsDropdown
+      input={input}
+      label={label}
+      endpoints={this.state.props.endpoints}
+    />);
     //return (<AddNewEndpoint input={input} label={label} />);
   }
 
