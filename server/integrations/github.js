@@ -95,38 +95,32 @@ module.exports.repoList = (req, res) => {
     return;
   }
 
-  Integration.findOne({
-    where: {
-      userId: req.session.user.id,
-      type: 'github'
+  User.findOne({ where: { id: req.session.user.id } })
+  .then((user) => {
+    if (user.ghtoken === null) {
+      res.status(400).json({ error: config.messages.github_no_auth });
+
+      return;
     }
-  })
-    .then((integration) => {
-      if (!integration) {
+
+    const options = {
+      url: `${config.github.api_url}/user/repos`,
+      method: 'GET',
+      headers: {
+        Authorization: `token ${user.ghtoken}`,
+        'User-Agent': config.github.user_agent
+      },
+      json: true
+    };
+
+    request(options, (err, githubRes, body) => {
+      if (err || !Array.isArray(body)) {
         res.status(400).json({ error: config.messages.github_no_auth });
-
-        return;
+      } else {
+        res.json(body.map((repo) => repo.full_name));
       }
-
-      const options = {
-        url: `${config.github.api_url}/user/repos`,
-        method: 'GET',
-        headers: {
-          Authorization: `token ${integration.meta}`,
-          'User-Agent': config.github.user_agent
-        },
-        json: true
-      };
-
-      request(options, (err, githubRes, body) => {
-        if (err || !Array.isArray(body)) {
-          res.status(400).json({ error: config.messages.github_no_auth });
-        } else {
-          res.json(body.map((repo) => repo.full_name));
-        }
-      });
-
     });
+  });
 };
 
 module.exports.repoSelect = (req, res) => {
