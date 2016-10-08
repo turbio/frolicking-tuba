@@ -10,7 +10,7 @@ let titleInputElem = null;
 let buttonElem = null;
 let selectedText = '';
 
-const apiEndpoint = 'http://getmarkup.com/api/annotate';
+const apiEndpoint = 'https://getmarkup.com/api/annotate';
 const elemPrefix = 'frolicking-tuba-modal';
 
 const hideModal = () => {
