@@ -1,9 +1,6 @@
 const config = require('../../env/config.json');
 const request = require('request');
 
-const Integration = require('../models/integration');
-const Output = require('../models/output');
-const Key = require('../models/key');
 const User = require('../models/user');
 
 module.exports.createIssue = (params, body) => {
@@ -109,29 +106,6 @@ module.exports.repoList = (req, res) => {
       } else {
         res.json(body.map((repo) => repo.full_name));
       }
-    });
-  });
-};
-
-module.exports.repoSelect = (req, res) => {
-  if (!req.session.user) {
-    res.status(400).json({ error: config.messages.not_logged_in });
-
-    return;
-  }
-
-  Integration.findOne({ where: { userId: req.session.user.id } })
-  .then((integration) => {
-    Key.findOne({ where: { userId: req.session.user.id } })
-    .then((kee) => {
-      Output.create({
-        meta: req.body.name,
-        integrationId: integration.id,
-        keyId: kee.id
-      });
-
-      //temporary, i hope
-      res.json({ error: null });
     });
   });
 };

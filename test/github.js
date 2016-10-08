@@ -167,6 +167,4 @@ describe('github integration', () => { // eslint-disable-line max-statements
         done(err);
       });
   });
-
-  it('should allow users to select a repo');
 });
