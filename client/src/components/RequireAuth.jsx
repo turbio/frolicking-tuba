@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
+import { authUser } from '../actions/AppActions';
 
 export default function(WrappedComponent) {
   class Auth extends React.Component {
@@ -11,6 +12,8 @@ export default function(WrappedComponent) {
 
         if (localStorage.token) {
           hasLocalStorageUser = true;
+          //dispatch(authUser());
+          authUser();
           // need to also dispatch something that sets auth
           //in store to true
         }
@@ -38,6 +41,6 @@ export default function(WrappedComponent) {
   const mapStateToProps
     = (state) => ({ authenticated: state.auth.authenticated });
 
-  return connect(mapStateToProps)(Auth);
+  return connect(mapStateToProps, authUser)(Auth);
 }
 

@@ -14,7 +14,7 @@ const EndpointsDropdown = ({ input, label, endpoints }) => (
             <option value={endpoint}>{endpoint}</option>
           )
         }
-        <option value="ff0000">Red</option>
+        <option value="ff0000">TestingRed</option>
         <option value="url:http://localhost:3000/dashboard">Green</option>
         <option value="0000ff">Blue</option>
         <hr />
