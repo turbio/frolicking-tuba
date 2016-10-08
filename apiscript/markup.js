@@ -23,30 +23,22 @@ const hideModal = () => {
   formElem = null;
 };
 
-const submitForm = (event) => {
-  event.preventDefault();
+const clicked = (event) => {
+  const selection = window.getSelection();
 
-  const request = new XMLHttpRequest();
-
-  request.open('POST', apiEndpoint, true);
-  request.setRequestHeader('Content-Type', 'application/json');
-
-  request.send(JSON.stringify({
-    title: titleInputElem.value,
-    comment: commentInputElem.value,
-    to: toInputElem.value,
-    from: fromInputElem.value,
-    selected: selectedText,
-    key: '%KEY%',
-    location: location.href
-  }));
-
-  hideModal();
+  if (selection) {
+    selectedText = selection;
+    showModal(event);
+  } else if (modalElem && !event.target.id.startsWith(elemPrefix)) {
+    hideModal();
+  }
 };
 
 const buildButton = () => {
   buttonElem = document.createElement('div');
   buttonElem.id = 'frolicking-tuba-open-button';
+
+  buttonElem.addEventListener('click', clicked);
 
   return buttonElem;
 };
@@ -99,49 +91,43 @@ const buildModal = () => {
   return modalElem;
 };
 
-const positionModal = (event) => {
-  let xpos = event.pageX - (modalElem.clientWidth / half);
-  let ypos = event.pageY
-    - (modalElem.clientHeight + arrowHeight + padding);
-  const mw = 328;
+const submitForm = (event) => {
+  event.preventDefault();
 
-  ypos = ypos < 0 ? 0 : ypos;
-  xpos = xpos < 0 ? 0 : xpos;
-  xpos = xpos > window.innerWidth - mw ? window.innerWidth - mw : xpos;
+  const request = new XMLHttpRequest();
 
-  modalElem.style.top = `${ypos}px`;
-  modalElem.style.left = `${xpos}px`;
+  request.open('POST', apiEndpoint, true);
+  request.setRequestHeader('Content-Type', 'application/json');
 
-  modalElem.style.opacity = 1;
-  modalElem.style.transform = 'translate(0, 0)';
+  request.send(JSON.stringify({
+    title: titleInputElem.value,
+    comment: commentInputElem.value,
+    to: toInputElem.value,
+    from: fromInputElem.value,
+    selected: selectedText,
+    key: '%KEY%',
+    location: location.href
+  }));
+
+  hideModal();
 };
 
-const showModal = (event) => {
+const showModal = () => {
   if (!modalElem) {
     document.body.appendChild(buildModal());
   }
 
-  positionModal(event);
+  setTimeout(() => {
+    modalElem.style.opacity = 1;
+    modalElem.style.transform = 'translate(0, 0)';
+  });
 };
-
-const clicked = (event) => {
-  const selection = window.getSelection();
-
-  if (selection) {
-    selectedText = selection;
-    showModal(event);
-  } else if (modalElem && !event.target.id.startsWith(elemPrefix)) {
-    hideModal();
-  }
-};
-
-document.addEventListener('mouseup', clicked);
 
 document.addEventListener('DOMContentLoaded', () => {
-  const modalStyleEle = document.createElement('style');
+  const modalStyleElem = document.createElement('style');
 
-  modalStyleEle.innerHTML = `%CSS%`;
-  document.body.appendChild(modalStyleEle);
+  modalStyleElem.innerHTML = `%CSS%`;
+  document.body.appendChild(modalStyleElem);
 
   document.body.appendChild(buildButton());
 });
