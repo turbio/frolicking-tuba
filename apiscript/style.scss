@@ -3,9 +3,6 @@
   border: 2px #ccc solid;
   position: fixed;
 
-  bottom: 45px * 2;
-  right: 10px;
-
   font-family: Helvetica,sans-serif;
   opacity: 0;
   transform: translate(0, 10px);
@@ -14,27 +11,7 @@
   width: 316px;
   z-index: 9999999;
   padding: 2px 6px 6px 6px;
-
-  &:after, &:before {
-    top: 100%;
-    left: 90%;
-    border: solid transparent;
-    content: "";
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
-  }
-  &:after {
-    border-top-color: #fff;
-    border-width: 20px;
-    margin-left: -20px;
-  }
-  &:before{
-    border-top-color: #ccc;
-    border-width: 22px;
-    margin-left: -22px;
-  }
+  margin-left: 10px;
 
   &-comment{
     height: 100px;
@@ -80,7 +57,7 @@
 
 #frolicking-tuba-open-button{
   bottom: 0;
-  right: 0;
+  left: 0;
   position: fixed;
 
   margin: 15px;
@@ -118,20 +95,13 @@
   cursor: crosshair;
 }
 
-#frolicking-tuba-modal-clip-area-selected{
-  position: absolute;
-  border: solid 1px #555;
-  background-attachment: fixed;
-  background-color: #fff;
-  z-index: 999999;
-}
-
 #frolicking-tuba-modal-clip-area{
   position: absolute;
   border: dashed 1px #555;
   background-attachment: fixed;
   background-color: #fff;
   z-index: 999999;
+  cursor: crosshair;
 }
 
 #frolicking-tuba-modal-bg-image{

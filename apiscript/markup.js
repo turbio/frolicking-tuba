@@ -145,13 +145,18 @@ const startDrag = (event) => {
 
   if (!clipAreaElem) {
     clipAreaElem = document.createElement('div');
-
     clipAreaElem.style['background-image'] = `url("${bgImage}")`;
+    clipAreaElem.id = `${elemPrefix}-clip-area`;
 
     document.body.appendChild(clipAreaElem);
   }
 
-  clipAreaElem.id = `${elemPrefix}-clip-area`;
+  const updateDim = () => {
+    clipAreaElem.style.width = `${width}px`;
+    clipAreaElem.style.height = `${height}px`;
+    clipAreaElem.style.left = `${xPos}px`;
+    clipAreaElem.style.top = `${yPos}px`;
+  };
 
   const dragMove = (moveEvent) => {
     const xdiff = moveEvent.pageX - event.pageX;
@@ -163,19 +168,21 @@ const startDrag = (event) => {
     width = Math.abs(xdiff);
     height = Math.abs(ydiff);
 
-    clipAreaElem.style.width = `${width}px`;
-    clipAreaElem.style.height = `${height}px`;
-    clipAreaElem.style.left = `${xPos}px`;
-    clipAreaElem.style.top = `${yPos}px`;
+    updateDim();
   };
 
   const dragDone = () => {
     document.removeEventListener('mouseup', dragDone);
     document.removeEventListener('mousemove', dragMove);
 
+    modalElem.style.top = `${yPos}px`;
+    modalElem.style.left = `${xPos + width}px`;
+
+    modalElem.style.opacity = 1;
+    modalElem.style.transform = 'translate(0, 0)';
+
     //document.body.removeChild(clipAreaElem);
     //clipAreaElem = null;
-    clipAreaElem.id = 'frolicking-tuba-modal-clip-area-selected';
   };
 
   document.addEventListener('mouseup', dragDone);
@@ -193,11 +200,6 @@ const showModal = () => {
 
   document.body.appendChild(buildOverlay());
   document.body.appendChild(buildModal());
-
-  setTimeout(() => {
-    modalElem.style.opacity = 1;
-    modalElem.style.transform = 'translate(0, 0)';
-  });
 
   overlayElem.addEventListener('mousedown', startDrag);
 };
