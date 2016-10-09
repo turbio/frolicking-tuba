@@ -1,11 +1,22 @@
 import React, { PropTypes } from 'react';
 
-const EndpointsDropdown = ({ input, label, endpoints }) => (
+const EndpointsDropdown = ({ input, label, endpoints, runFunc }) => (
   <fieldset className="form-group">
     <label className="control-label" htmlFor="control-label">{label}</label>
     <div>
       <select
         {...input}
+        id="endpointsdropdown"
+        onChange={(el) => {
+          if (el.target.value === 'useNewEndpoint') {
+            console.log(el.target.value, 'test');
+            //this.props.actions.addNewEndpt();
+            runFunc();
+          } else {
+            input.onChange(el);
+          }
+        }
+        }
         className="form-control"
       >
         <option disabled selected> Select an Endpoint</option>
@@ -19,7 +30,7 @@ const EndpointsDropdown = ({ input, label, endpoints }) => (
         <option value="0000ff">Blue</option>
         <hr />
         <option
-          value="0000ff"
+          value="useNewEndpoint"
         >Use New Endpoint
         </option>
       </select>
@@ -30,9 +41,9 @@ const EndpointsDropdown = ({ input, label, endpoints }) => (
 EndpointsDropdown.propTypes = {
   input: PropTypes.objectOf(PropTypes.any),
   label: PropTypes.string,
-  endpoints: PropTypes.arrayOf(PropTypes.string)
+  endpoints: PropTypes.arrayOf(PropTypes.string),
+  runFunc: PropTypes.func
 };
 
 export default EndpointsDropdown;
 
-//onChange={(el) => console.log(el.target.value, 'test')}

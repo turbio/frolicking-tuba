@@ -17,6 +17,7 @@ class CreateKeyModal extends Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     //this.close = this.close.bind(this);
     this.renderEndpointsField = this.renderEndpointsField.bind(this);
+    this.addingnewendpoint = this.addingnewendpoint.bind(this);
   }
 
   componentDidMount() {
@@ -27,10 +28,15 @@ class CreateKeyModal extends Component {
   }
 
   handleFormSubmit(values) {
-    console.log(values, this.props, 'test');
+    console.log('values submitted are:', values);
     // call this.props.createNewKey(values.name, values.type, values.endpoint)
     //this.props.handleEndpointSubmit(values);
     //this.props.signInUser(values, window.location.pathname);
+  }
+
+  addingnewendpoint() {
+    console.log('does it reach here?');
+    this.props.addNewEndpt();
   }
 
   close() {
@@ -42,14 +48,25 @@ class CreateKeyModal extends Component {
     // placeholder check
     // replace with whether or not user has any endpoints first
     // OR if selected "addendpoint" === true in store
-    if (!this.props.endpoints || this.props.addingNewEndpoint) {
+    // if (!this.props.endpoints || this.props.addingNewEndpoint) {
+    if (this.props.addingNewEndpoint) {
+
       return (<AddNewEndpoint input={input} label={label} />);
+      // return (<EndpointsDropdown
+      //   input={input}
+      //   label={label}
+      //   //endpoints={this.state.props.endpoints}
+      //   endpoints={['string1', 'string2']}
+      //   runFunc={this.addingnewendpoint}
+      // />);
     }
 
     return (<EndpointsDropdown
       input={input}
       label={label}
-      endpoints={this.state.props.endpoints}
+      //   //endpoints={this.state.props.endpoints}
+      endpoints={['string1', 'string2']}
+      runFunc={this.addingnewendpoint}
     />);
     //return (<AddNewEndpoint input={input} label={label} />);
   }
@@ -101,6 +118,7 @@ CreateKeyModal.propTypes = {
   handleSubmit: PropTypes.func,
   //handleEndpointSubmit: PropTypes.func,
   fetchEndpoints: PropTypes.func,
+  addNewEndpt: PropTypes.func,
   endpoints: PropTypes.oneOfType([null, React.PropTypes.array]),
   addingNewEndpoint: PropTypes.bool
 };

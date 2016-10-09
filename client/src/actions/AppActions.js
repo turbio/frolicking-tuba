@@ -2,7 +2,8 @@ import { browserHistory } from 'react-router';
 import { SIGN_OUT_USER,
   AUTH_USER, AUTH_ERROR,
   FETCH_KEYS, OPEN_MODAL,
-  CLOSE_MODAL, FETCH_ENDPOINTS } from '../utils/AppConstants';
+  CLOSE_MODAL, FETCH_ENDPOINTS,
+  ADD_NEW_ENDPOINT } from '../utils/AppConstants';
 
 export const authUser = () => ({ type: AUTH_USER });
 export const authError = (error) => ({
@@ -21,6 +22,9 @@ export const fetchEndpts = (keys) => ({
   type: FETCH_ENDPOINTS,
   payload: keys
 });
+
+export const addNewEndpt = () => ({ type: ADD_NEW_ENDPOINT });
+
 
 const headers = new Headers();
 
