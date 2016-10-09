@@ -6,7 +6,8 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     unique: true
   },
-  hash: { type: Sequelize.STRING }
+  hash: { type: Sequelize.STRING },
+  ghtoken: { type: Sequelize.STRING }
 });
 
 module.exports = User;
