@@ -98,24 +98,6 @@ describe('annotation', () => { // eslint-disable-line max-statements
     .then(() => done());
   });
 
-  // before((done) => {
-  //   // create URL test key
-
-  //   Key.create().then((key) => {
-  //     Integration.create({
-  //       meta: 'URLKEYHERE',
-  //       type: 'url'
-  //     }).then((integration) => {
-  //       apiKeyURL = key.key;
-  //       Output.create({
-  //         keyId: key.id,
-  //         integrationId: integration.id,
-  //         meta: `${mockServerUrl}/url`
-  //       }).then(() => done());
-  //     });
-  //   });
-  // });
-
   xit('should not POST to /annotate without key', (done) => {
     request(server)
       .post('/api/annotate')
