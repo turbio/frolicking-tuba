@@ -4,7 +4,12 @@ const db = require('../db');
 const User = require('./user');
 const Output = require('./output');
 
-const Key = db.define('key', { key: Sequelize.STRING });
+const Key = db.define('key', {
+  key: Sequelize.STRING,
+  name: Sequelize.STRING,
+  type: Sequelize.STRING,
+  endpoint: Sequelize.STRING
+});
 
 Key.belongsTo(User);
 Key.hasOne(Output);

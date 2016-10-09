@@ -23,13 +23,14 @@ router.post('/api/users/signup', user.signup);
 router.post('/api/users/signin', user.signin);
 router.get('/api/users/signout', user.signout);
 router.get('/api/users/signedin', user.signedin);
+router.get('/api/users/hasgithub', user.hasGithub);
 
 //integrations
 router.get('/api/integrations', integration.getAll);
 
 router.get('/api/integrations/github', githubIntegration.redirectTo);
 router.get('/api/integrations/github/repos', githubIntegration.repoList);
-router.post('/api/integrations/github/repos', githubIntegration.repoSelect);
+// router.post('/api/integrations/github/repos', githubIntegration.repoSelect);
 router.get('/api/integrations/github/auth', githubIntegration.register);
 
 router.get('/api/integrations/url/urls', urlIntegration.urlList);

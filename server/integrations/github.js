@@ -1,14 +1,9 @@
 const config = require('../../env/config.json');
 const request = require('request');
-const key = require('../controllers/key');
 
-const Integration = require('../models/integration');
-const Output = require('../models/output');
-const Key = require('../models/key');
+const User = require('../models/user');
 
 module.exports.createIssue = (params, body) => {
-  // console.log('PARAMS', params, 'ISSUE', body);
-
   const options = {
     url: `${config.github.api_url}/repos/${params.output_meta}/issues`,
     method: 'POST',
@@ -48,6 +43,7 @@ module.exports.register = (req, res) => {
           + `&code=${req.query.code}`
   };
 
+  // eslint-disable-next-line max-statements
   request(options, (err, githubRes, body) => {
     if (!body.access_token || !req.session.user || err) {
       console.log('POST to get github access_token error:');
@@ -63,12 +59,12 @@ module.exports.register = (req, res) => {
       return;
     }
 
-    Integration.create({
-      type: 'github',
-      meta: body.access_token,
-      userId: req.session.user.id
-    }).then(() => {
-      key.createKey(req, res);
+    User.update(
+      { ghtoken: body.access_token },
+      { where: { id: req.session.user.id } }
+    ).then(() => {
+      console.log('ghtoken updated!');
+      res.redirect('/create/github');
     });
   });
 };
@@ -86,59 +82,30 @@ module.exports.repoList = (req, res) => {
     return;
   }
 
-  Integration.findOne({
-    where: {
-      userId: req.session.user.id,
-      type: 'github'
+  User.findOne({ where: { id: req.session.user.id } })
+  .then((user) => {
+    if (user.ghtoken === null) {
+      res.status(400).json({ error: config.messages.github_no_auth });
+
+      return;
     }
-  })
-    .then((integration) => {
-      if (!integration) {
+
+    const options = {
+      url: `${config.github.api_url}/user/repos`,
+      method: 'GET',
+      headers: {
+        Authorization: `token ${user.ghtoken}`,
+        'User-Agent': config.github.user_agent
+      },
+      json: true
+    };
+
+    request(options, (err, githubRes, body) => {
+      if (err || !Array.isArray(body)) {
         res.status(400).json({ error: config.messages.github_no_auth });
-
-        return;
+      } else {
+        res.json(body.map((repo) => repo.full_name));
       }
-
-      const options = {
-        url: `${config.github.api_url}/user/repos`,
-        method: 'GET',
-        headers: {
-          Authorization: `token ${integration.meta}`,
-          'User-Agent': config.github.user_agent
-        },
-        json: true
-      };
-
-      request(options, (err, githubRes, body) => {
-        if (err || !Array.isArray(body)) {
-          res.status(400).json({ error: config.messages.github_no_auth });
-        } else {
-          res.json(body.map((repo) => repo.full_name));
-        }
-      });
-
-    });
-};
-
-module.exports.repoSelect = (req, res) => {
-  if (!req.session.user) {
-    res.status(400).json({ error: config.messages.not_logged_in });
-
-    return;
-  }
-
-  Integration.findOne({ where: { userId: req.session.user.id } })
-  .then((integration) => {
-    Key.findOne({ where: { userId: req.session.user.id } })
-    .then((kee) => {
-      Output.create({
-        meta: req.body.name,
-        integrationId: integration.id,
-        keyId: kee.id
-      });
-
-      //temporary, i hope
-      res.json({ error: null });
     });
   });
 };

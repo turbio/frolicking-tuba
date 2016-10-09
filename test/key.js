@@ -8,6 +8,7 @@ const config = require('../env/config.json');
 // eslint-disable-next-line max-statements
 describe('keys', () => {
   let userRequest = null;
+  let key = '';
 
   before((done) => {
     Key.sync({ force: true }).then(() => {
@@ -67,6 +68,24 @@ describe('keys', () => {
       .post('/api/keys')
       .end((err, res) => {
         res.body.should.be.an('object');
+        res.body.key.should.be.a('string');
+        key = res.body.key;
+        done(err);
+      });
+  });
+
+  it('should update a key for a user', (done) => {
+    userRequest
+      .post('/api/keys')
+      .send({
+        key,
+        name: 'newname',
+        type: 'github',
+        endpoint: 'user/repo'
+      })
+      .end((err, res) => {
+        res.body.should.be.an('object');
+        res.body.rowsUpdated.should.eq(1);
         done(err);
       });
   });
@@ -85,7 +104,7 @@ describe('keys', () => {
     userRequest
       .get('/api/keys')
       .end((err, res) => {
-        res.body[0].name.should.be.a('string');
+        res.body[0].name.should.eq('newname');
         done(err);
       });
   });
@@ -94,7 +113,7 @@ describe('keys', () => {
     userRequest
       .get('/api/keys')
       .end((err, res) => {
-        res.body[0].api_key.should.be.a('string');
+        res.body[0].key.should.eq(key);
         done(err);
       });
   });
@@ -103,7 +122,7 @@ describe('keys', () => {
     userRequest
       .get('/api/keys')
       .end((err, res) => {
-        res.body[0].endpoint.should.be.a('string');
+        res.body[0].endpoint.should.eq('user/repo');
         done(err);
       });
   });
