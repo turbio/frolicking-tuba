@@ -3,38 +3,15 @@
   border: 2px #ccc solid;
   position: fixed;
 
-  bottom: 45px * 2;
-  right: 10px;
-
   font-family: Helvetica,sans-serif;
   opacity: 0;
   transform: translate(0, 10px);
   transition: all .25s;
   border-radius: 10px;
   width: 316px;
-  z-index: 99999999;
+  z-index: 9999998;
   padding: 2px 6px 6px 6px;
-
-  &:after, &:before {
-    top: 100%;
-    left: 90%;
-    border: solid transparent;
-    content: "";
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
-  }
-  &:after {
-    border-top-color: #fff;
-    border-width: 20px;
-    margin-left: -20px;
-  }
-  &:before{
-    border-top-color: #ccc;
-    border-width: 22px;
-    margin-left: -22px;
-  }
+  margin-left: 10px;
 
   &-comment{
     height: 100px;
@@ -51,7 +28,8 @@
 
   &-title-input,
   &-to-input,
-  &-from-input {
+  &-from-input,
+  &-fileAttach-input {
     padding: 8px;
     margin-top: 5px;
     font-family: Helvetica,sans-serif;
@@ -80,7 +58,7 @@
 
 #frolicking-tuba-open-button{
   bottom: 0;
-  right: 0;
+  left: 0;
   position: fixed;
 
   margin: 15px;
@@ -91,16 +69,52 @@
   border-radius: 100%;
   box-shadow: 1px 1px 10px rgba(0, 0, 0, .25);
 
-  background-color: rgb(230, 0, 230);
+  background-color: #ee433d;
+
   background-image: url("data:image/svg+xml;utf8,<svg fill=\"#ffffff\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 9h-2V5h2v6zm0 4h-2v-2h2v2z\"/></svg>");
   background-repeat: no-repeat;
   background-position: center;
   cursor: pointer;
 
-  transition: all .5s;
+  z-index: 9999999;
+
+  transition: all .25s;
 
   &:hover, &:active{
-    background-color: rgb(255, 0, 255);
+    background-color: #ec2c51;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, .25);
   }
+}
+
+#frolicking-tuba-modal-overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, .25);
+  z-index: 9999996;
+  cursor: crosshair;
+  opacity: 0;
+
+  transition: all .25s;
+}
+
+#frolicking-tuba-modal-clip-area{
+  position: absolute;
+  border: dashed 1px #555;
+  background-attachment: fixed;
+  background-color: #fff;
+  z-index: 9999997;
+  cursor: crosshair;
+}
+
+#frolicking-tuba-modal-bg-image{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999995;
+  background-color: #fff;
+  opacity: 0;
+  transition: opacity 1s;
 }

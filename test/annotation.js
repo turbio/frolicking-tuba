@@ -140,7 +140,7 @@ describe('annotation', () => { // eslint-disable-line max-statements
       .field('from', 'from user')
       .field('selected', 'this would be the selected text')
       .field('comment', 'this is the comment')
-      .attach('file', `${__dirname}/dog.txt`)
+      .attach('file', `${__dirname}/T1.png`)
       .expect(200)
       .end(done);
   });
