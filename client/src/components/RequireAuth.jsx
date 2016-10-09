@@ -13,7 +13,7 @@ export default function(WrappedComponent) {
         if (localStorage.token) {
           hasLocalStorageUser = true;
           //dispatch(authUser());
-          authUser();
+          (dispatch) => dispatch(authUser());
           // need to also dispatch something that sets auth
           //in store to true
         }
