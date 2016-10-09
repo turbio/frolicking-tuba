@@ -1,8 +1,7 @@
 const github = require('../integrations/github');
 const url = require('../integrations/url');
 const config = require('../../env/config.json');
-const Integration = require('../models/integration');
-const Output = require('../models/output');
+const User = require('../models/user');
 const Key = require('../models/key');
 const multiparty = require('multiparty');
 const AWS = require('aws-sdk');
@@ -70,39 +69,32 @@ module.exports.create = (req, res) => {
     console.log(`Error parsing form: ${err.stack}`);
   });
   form.on('field', (name, value) => {
-    console.log('form.on field happened');
     body[name] = value;
   });
   form.on('close', () => {
-    console.log('form.on close happened');
-    console.log('body is currently: ', body);
     if (!body.key) {
       res.status(400).json({ error: config.messages.no_key });
 
       return;
     }
-
-    Key.findOne({
-      where: { key: body.key },
-      include: [Output]
-    })
+    Key.findOne({ where: { key: body.key } })
     .then((key) => {
-      params.output_meta = key.output.meta;
+      params.type = key.type;
+      params.output_meta = key.endpoint;
 
-      return Integration.findOne({ where: { id: key.output.integrationId } });
+      return User.findOne({ where: { id: key.userId } });
     })
-    .then((integration) => {
-      params.type = integration.type;
-      params.integration_meta = integration.meta;
+    .then((user) => {
+      params.integration_meta = user.ghtoken;
 
       if (promise1) {
         promise1.then((data) => {
           console.log('inside promise1.then');
-          if (integration.type === 'github') {
+          if (params.type === 'github') {
             body.url = data.fileUrl;
             github.createIssue(params, body);
           }
-          if (integration.type === 'url') {
+          if (params.type === 'url') {
             url.postToUrl(params, body);
           }
           res.set(accessHeaders);
@@ -110,10 +102,10 @@ module.exports.create = (req, res) => {
         })
         .catch((err) => { console.log(err); });
       } else {
-        if (integration.type === 'github') {
+        if (params.type === 'github') {
           github.createIssue(params, body);
         }
-        if (integration.type === 'url') {
+        if (params.type === 'url') {
           url.postToUrl(params, body);
         }
         res.set(accessHeaders);

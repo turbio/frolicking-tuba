@@ -86,3 +86,23 @@ module.exports.info = (req, res) => {
 module.exports.signedin = (req, res) => {
   res.json({ signedin: !!req.session.user });
 };
+
+module.exports.hasGithub = (req, res) => {
+  if (!req.session.user) {
+    res.status(400).json({ error: config.messages.not_logged_in });
+
+    return;
+  }
+  User.findOne({ where: { id: req.session.user.id } })
+  .then((user) => {
+    if (user.ghtoken === null) {
+      res.json({ github: false });
+    } else {
+      res.json({ github: true });
+    }
+  })
+  .catch((err) => {
+    console.log(err);
+    res.status(500).json({ error: config.messages.server_error });
+  });
+};
