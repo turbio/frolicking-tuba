@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-const EndpointsDropdown = ({ input, label }) => (
+const EndpointsDropdown = ({ input, label, endpoints }) => (
   <fieldset className="form-group">
     <label className="control-label" htmlFor="control-label">{label}</label>
     <div>
@@ -9,7 +9,12 @@ const EndpointsDropdown = ({ input, label }) => (
         className="form-control"
       >
         <option disabled selected> Select an Endpoint</option>
-        <option value="ff0000">Red</option>
+        {
+          endpoints.map((endpoint) =>
+            <option value={endpoint}>{endpoint}</option>
+          )
+        }
+        <option value="ff0000">TestingRed</option>
         <option value="url:http://localhost:3000/dashboard">Green</option>
         <option value="0000ff">Blue</option>
         <hr />
@@ -24,7 +29,8 @@ const EndpointsDropdown = ({ input, label }) => (
 
 EndpointsDropdown.propTypes = {
   input: PropTypes.objectOf(PropTypes.any),
-  label: PropTypes.string
+  label: PropTypes.string,
+  endpoints: PropTypes.arrayOf(PropTypes.string)
 };
 
 export default EndpointsDropdown;
