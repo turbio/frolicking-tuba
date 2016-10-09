@@ -42,8 +42,6 @@ const submitForm = (event) => {
   const dataForm = new FormData(formElem);
   const request = new XMLHttpRequest();
 
-  request.open('POST', apiEndpoint, true);
-
   dataForm.append('key', '%KEY%');
   dataForm.append('screenshot', bgImage);
   dataForm.append('location', location.href);
