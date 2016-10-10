@@ -26,7 +26,7 @@ class CreateKeyModal extends Component {
   }
 
   handleFormSubmit(values) {
-    console.log('values submitted are:', values, values.endpoint, this.props);
+    console.log('values submitted are:', values, this.props);
     //this.props.createNewKey(values.name, values.type, values.endpoint);
   }
 
@@ -42,6 +42,9 @@ class CreateKeyModal extends Component {
     // placeholder check
     // replace with whether or not user has any endpoints first
     // OR if selected "addendpoint" === true in store
+    console.log('renderendpointsfield',
+      this.props, this.props.endpoints, this.props.addingNewEndpoint);
+
     if (!this.props.endpoints || this.props.addingNewEndpoint) {
       return (<AddNewEndpoint
         input={input}
@@ -53,9 +56,9 @@ class CreateKeyModal extends Component {
     return (<EndpointsDropdown
       input={input}
       label={label}
-      endpoints={this.state.props.endpoints}
+      endpoints={this.props.endpoints}
       //endpoints={['string1', 'string2']}
-      useNewEndpoint={this.addingnewendpoint}
+      useNewEndpoint={this.props.addingNewEndpoint}
     />);
   }
 

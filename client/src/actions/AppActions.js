@@ -162,7 +162,7 @@ export const fetchEndpoints = () => (
         payload: mappedrepos.concat(mappedurls)
       });
     })
-    .catch((error) => console.log('updated fetchEndpoints error', error));
+    .catch((error) => console.log('fetchEndpoints error', error));
   }
 );
 
