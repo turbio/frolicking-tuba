@@ -8,10 +8,6 @@ module.exports.postToUrl = (params, body) => {
   const options = {
     url: params.output_meta,
     method: 'POST',
-    // headers: {
-    //   Authorization: `token ${params.integration_meta}`,
-    //   'User-Agent': config.github.user_agent
-    // },
     body: {
       title: body.title,
       body:
@@ -23,9 +19,11 @@ module.exports.postToUrl = (params, body) => {
     json: true
   };
 
+  console.log('making url post request using', options, '---');
+
   request(options, (err) => {
     if (err) {
-      console.log(err);
+      console.log('ERROR POSTING TO SERVER', err);
     }
   });
 };
