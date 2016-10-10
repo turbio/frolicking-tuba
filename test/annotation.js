@@ -1,6 +1,4 @@
 const Key = require('../server/models/key');
-const Integration = require('../server/models/integration');
-const Output = require('../server/models/output');
 const User = require('../server/models/user');
 const server = require('../server/server');
 const request = require('supertest');
@@ -10,13 +8,6 @@ const http = require('http');
 describe('annotation', () => { // eslint-disable-line max-statements
   let apiKeyGithub = '';
   let apiKeyURL = '';
-
-  before((done) => {
-    Output.sync({ force: true })
-      .then(() => Key.sync({ force: true }))
-      .then(() => Integration.sync({ force: true }))
-      .then(() => done());
-  });
 
   const mockServerPort = 1338;
   const mockServerUrl = `http://localhost:${mockServerPort}`;

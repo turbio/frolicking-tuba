@@ -2,7 +2,8 @@ import { browserHistory } from 'react-router';
 import { SIGN_OUT_USER,
   AUTH_USER, AUTH_ERROR,
   FETCH_KEYS, OPEN_MODAL,
-  CLOSE_MODAL, FETCH_ENDPOINTS } from '../utils/AppConstants';
+  CLOSE_MODAL, FETCH_ENDPOINTS,
+  ADD_NEW_ENDPOINT } from '../utils/AppConstants';
 
 export const authUser = () => ({ type: AUTH_USER });
 export const authError = (error) => ({
@@ -21,6 +22,9 @@ export const fetchEndpts = (keys) => ({
   type: FETCH_ENDPOINTS,
   payload: keys
 });
+
+export const addNewEndpt = () => ({ type: ADD_NEW_ENDPOINT });
+
 
 const headers = new Headers();
 
@@ -108,8 +112,14 @@ export const fetchEndpoints = () => (
   (dispatch) => {
     let githubrepos = [];
 
+    console.log('reached fetch endpoints');
+
     fetch('/api/user/hasgithub', { credentials: 'same-origin' })
-    .then((response) => response.json())
+    .then((response) => {
+      console.log(response, 'response fromgithub');
+
+      response.json();
+    })
     .then((auth) => {
       console.log(auth, 'thegithubauth status');
 
@@ -137,7 +147,7 @@ export const fetchEndpoints = () => (
         payload: githubrepos.concat(urls)
       });
     })
-    .catch((error) => console.log('fetchEndoints error', error));
+    .catch((error) => console.log('fetchEndpoints error', error));
   }
 );
 

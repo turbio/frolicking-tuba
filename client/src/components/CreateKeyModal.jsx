@@ -15,43 +15,48 @@ class CreateKeyModal extends Component {
   constructor(props) {
     super(props);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    //this.close = this.close.bind(this);
     this.renderEndpointsField = this.renderEndpointsField.bind(this);
+    this.addingnewendpoint = this.addingnewendpoint.bind(this);
   }
 
   componentDidMount() {
     //fetch endpoints
     //chechk github auth
-    console.log('complifecycle', this.props);
     this.props.fetchEndpoints();
   }
 
   handleFormSubmit(values) {
-    console.log(values, this.props, 'test');
+    console.log('values submitted are:', values, this.props);
     // call this.props.createNewKey(values.name, values.type, values.endpoint)
-    //this.props.handleEndpointSubmit(values);
-    //this.props.signInUser(values, window.location.pathname);
+  }
+
+  addingnewendpoint() {
+    this.props.addNewEndpt();
   }
 
   close() {
     this.props.hideModal();
   }
 
-  renderEndpointsField({ input, label }) {
-    //console.log(this.props.endpoints, 'keymodal');
+  renderEndpointsField({ input, label, type }) {
     // placeholder check
     // replace with whether or not user has any endpoints first
     // OR if selected "addendpoint" === true in store
     if (!this.props.endpoints || this.props.addingNewEndpoint) {
-      return (<AddNewEndpoint input={input} label={label} />);
+      return (<AddNewEndpoint
+        input={input}
+        label={label}
+        type={type}
+      />);
     }
 
     return (<EndpointsDropdown
       input={input}
       label={label}
       endpoints={this.state.props.endpoints}
+      //endpoints={['string1', 'string2']}
+      useNewEndpoint={this.addingnewendpoint}
     />);
-    //return (<AddNewEndpoint input={input} label={label} />);
   }
 
   render() {
@@ -101,15 +106,11 @@ CreateKeyModal.propTypes = {
   handleSubmit: PropTypes.func,
   //handleEndpointSubmit: PropTypes.func,
   fetchEndpoints: PropTypes.func,
+  addNewEndpt: PropTypes.func,
   endpoints: PropTypes.oneOfType([null, React.PropTypes.array]),
   addingNewEndpoint: PropTypes.bool
 };
 
-
-// renderEndpointsField.propTypes = {
-//   input: PropTypes.objectOf(PropTypes.any),
-//   label: PropTypes.string
-// };
 
 const mapStateToProps = (state) => ({
   keymodal: state.keymodal.showModal,
