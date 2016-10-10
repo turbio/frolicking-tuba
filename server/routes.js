@@ -30,11 +30,10 @@ router.get('/api/integrations', integration.getAll);
 
 router.get('/api/integrations/github', githubIntegration.redirectTo);
 router.get('/api/integrations/github/repos', githubIntegration.repoList);
-// router.post('/api/integrations/github/repos', githubIntegration.repoSelect);
 router.get('/api/integrations/github/auth', githubIntegration.register);
 
-router.get('/api/integrations/url/urls', urlIntegration.urlList);
-router.post('/api/integrations/url/urls', urlIntegration.urlSelect);
+router.get('/api/urls', urlIntegration.urlList);
+router.post('/api/urls', urlIntegration.urlSelect);
 
 //keys
 router.get('/api/keys', key.getAll);
