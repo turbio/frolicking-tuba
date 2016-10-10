@@ -39,8 +39,6 @@ class CreateKeyModal extends Component {
   }
 
   componentWillMount() {
-    //fetch endpoints
-    //chechk github auth
     this.props.fetchEndpoints();
   }
 
@@ -48,9 +46,6 @@ class CreateKeyModal extends Component {
     const results = parseValue(values.endpoint);
     const endpointtype = results[0];
     const endpointname = results[1];
-
-    console.log('values submitted are:',
-      values.keyname, endpointtype, endpointname);
 
     this.props.createNewKey(values.keyname, endpointtype, endpointname);
   }
@@ -70,8 +65,6 @@ class CreateKeyModal extends Component {
     // placeholder check
     // replace with whether or not user has any endpoints first
     // OR if selected "addendpoint" === true in store
-    console.log('renderendpointsfield',
-      this.props, this.props.endpoints, this.props.addingNewEndpoint);
 
     if (!this.props.endpoints || this.props.addingNewEndpoint) {
       return (<AddNewEndpoint
