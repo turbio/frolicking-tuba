@@ -2,7 +2,8 @@ import { browserHistory } from 'react-router';
 import { SIGN_OUT_USER,
   AUTH_USER, AUTH_ERROR,
   FETCH_KEYS, OPEN_MODAL,
-  CLOSE_MODAL, FETCH_ENDPOINTS } from '../utils/AppConstants';
+  CLOSE_MODAL, FETCH_ENDPOINTS,
+  ADD_NEW_ENDPOINT } from '../utils/AppConstants';
 
 export const authUser = () => ({ type: AUTH_USER });
 export const authError = (error) => ({
@@ -21,6 +22,9 @@ export const fetchEndpts = (keys) => ({
   type: FETCH_ENDPOINTS,
   payload: keys
 });
+
+export const addNewEndpt = () => ({ type: ADD_NEW_ENDPOINT });
+
 
 const headers = new Headers();
 
@@ -108,20 +112,26 @@ export const fetchEndpoints = () => (
   (dispatch) => {
     let githubrepos = [];
 
+    console.log('reached fetch endpoints');
+
     fetch('/api/user/hasgithub', { credentials: 'same-origin' })
-    .then((response) => response.json())
+    .then((response) => {
+      console.log(response, 'response fromgithub');
+
+      return response.json();
+    })
     .then((auth) => {
       console.log(auth, 'thegithubauth status');
 
       if (auth.github) {
         return fetch(
           '/api/github/repos', { credentials: 'same-origin' }
-          );
+          )
+        .then((response) => response.json());
       }
 
       return [];
     })
-    .then((response) => response.json())
     .then((repos) => {
       console.log(repos, 'thegithub repos');
       githubrepos = repos;
@@ -131,13 +141,31 @@ export const fetchEndpoints = () => (
     })
     .then((response) => response.json())
     .then((urls) => {
-      console.log('json:', githubrepos, urls, githubrepos.concat(urls));
+      const mappedrepos = githubrepos.map((repo) => {
+        const obj = {};
+
+        obj.type = 'github';
+        obj.name = repo;
+
+        return obj;
+      });
+
+      const mappedurls = urls.map((url) => {
+        const obj = {};
+
+        obj.type = 'url';
+        obj.name = url.url;
+
+        return obj;
+      });
+
+      console.log('json:', githubrepos, urls, mappedrepos.concat(mappedurls));
       dispatch({
         type: FETCH_ENDPOINTS,
-        payload: githubrepos.concat(urls)
+        payload: mappedrepos.concat(mappedurls)
       });
     })
-    .catch((error) => console.log('fetchEndoints error', error));
+    .catch((error) => console.log('updated fetchEndpoints error', error));
   }
 );
 
