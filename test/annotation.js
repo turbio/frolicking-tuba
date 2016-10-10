@@ -103,7 +103,7 @@ describe('annotation', () => { // eslint-disable-line max-statements
 
   const timeout1 = 5000;
 
-  xit('should POST with attachment to /annotate with Github key', function(done) { // eslint-disable-line 
+  xit('should POST with attachment to /annotate with Github key', function(done) { // eslint-disable-line
     this.timeout(timeout1); // eslint-disable-line no-invalid-this
     request(server)
       .post('/api/annotate')
@@ -118,7 +118,7 @@ describe('annotation', () => { // eslint-disable-line max-statements
       .end(done);
   });
 
-  it('should POST without attachment to /annotate with Github key', function(done) { // eslint-disable-line 
+  it('should POST without attachment to /annotate with Github key', function(done) { // eslint-disable-line
     this.timeout(timeout1); // eslint-disable-line no-invalid-this
     request(server)
       .post('/api/annotate')
@@ -132,7 +132,7 @@ describe('annotation', () => { // eslint-disable-line max-statements
       .end(done);
   });
 
-  it('should create github issue when POST to /annotate', (done) => {
+  xit('should create github issue when POST to /annotate', (done) => {
     request(mockServerUrl)
       .get(githubMockPath)
       .expect(200)
@@ -169,7 +169,7 @@ describe('annotation', () => { // eslint-disable-line max-statements
       .end(done);
   });
 
-  it('should make POST request to a URL when POST to /annotate', (done) => {
+  xit('should make POST request to a URL when POST to /annotate', (done) => {
     request(mockServerUrl)
       .get('/url')
       .expect(200)

@@ -112,28 +112,25 @@ export const fetchEndpoints = () => (
   (dispatch) => {
     let githubrepos = [];
 
-    console.log('reached fetch endpoints');
-
-    fetch('/api/user/hasgithub', { credentials: 'same-origin' })
+    fetch('/api/users/hasgithub', { credentials: 'same-origin' })
     .then((response) => {
       console.log(response, 'response fromgithub');
 
-      response.json();
+      return response.json();
     })
     .then((auth) => {
-      console.log(auth, 'thegithubauth status');
-
       if (auth.github) {
+        console.log('reached auth.github');
+
         return fetch(
           '/api/github/repos', { credentials: 'same-origin' }
-          );
+          )
+        .then((response) => response.json());
       }
 
       return [];
     })
-    .then((response) => response.json())
     .then((repos) => {
-      console.log(repos, 'thegithub repos');
       githubrepos = repos;
 
       return fetch('/api/urls',
@@ -141,10 +138,28 @@ export const fetchEndpoints = () => (
     })
     .then((response) => response.json())
     .then((urls) => {
-      console.log('json:', githubrepos, urls, githubrepos.concat(urls));
+      const mappedrepos = githubrepos.map((repo) => {
+        const obj = {};
+
+        obj.type = 'github';
+        obj.name = repo.full_name;
+
+        return obj;
+      });
+
+      const mappedurls = urls.map((url) => {
+        const obj = {};
+
+        obj.type = 'url';
+        obj.name = url.url;
+
+        return obj;
+      });
+
+      console.log('mappedobjects:', mappedrepos.concat(mappedurls));
       dispatch({
         type: FETCH_ENDPOINTS,
-        payload: githubrepos.concat(urls)
+        payload: mappedrepos.concat(mappedurls)
       });
     })
     .catch((error) => console.log('fetchEndpoints error', error));

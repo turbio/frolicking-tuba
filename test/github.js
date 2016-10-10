@@ -149,9 +149,10 @@ describe('github integration', () => { // eslint-disable-line max-statements
       .get('/api/github/repos')
       .expect(200)
       .end((err, res) => {
-        res.body.should.eql(
-          [mockhubRepos[0].full_name,
-          mockhubRepos[1].full_name]);
+        res.body.should.eql([
+          { full_name: mockhubRepos[0].full_name },
+          { full_name: mockhubRepos[1].full_name }
+        ]);
         done(err);
       });
   });
