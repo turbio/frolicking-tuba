@@ -11,7 +11,6 @@ import CreateKeyModal from './CreateKeyModal.jsx';
 
 class Dashboard extends Component {
   componentWillMount() {
-    console.log('testing comp will mount', this.props.actions);
     this.props.actions.getApiKeys();
   }
 
@@ -36,7 +35,7 @@ class Dashboard extends Component {
     return (
       <Grid>
         <Row>
-          {console.log(this.props.keys, 'keys')}
+
           <p><Link to="/create">Create Key</Link></p>
           <p>
             <Button
@@ -72,12 +71,10 @@ Dashboard.propTypes = {
   actions: PropTypes.objectOf(PropTypes.any)
 };
 
-// const mapStateToProps = (state) => ({ keys: state.keys.data });
-const mapStateToProps = (state) => {
-  console.log(state, ' map state to props');
-
-  return { keys: state.keys.data };
-};
+const mapStateToProps = (state) => ({ keys: state.keys.data });
+// const mapStateToProps = (state) => {
+//   return { keys: state.keys.data };
+// };
 
 
 const mapDispatchToProps
