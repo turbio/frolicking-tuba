@@ -6,7 +6,7 @@ const Key = require('../models/key');
 const multiparty = require('multiparty');
 const AWS = require('aws-sdk');
 
-let fileUrl = 'https://s3-us-west-1.amazonaws.com/tuba-images-bucket/';
+const AWS_BUCKET_URL = 'https://s3-us-west-1.amazonaws.com/tuba-images-bucket/';
 
 //prefer using environment variables versus hard-coding values here
 AWS.config.update({
@@ -27,37 +27,32 @@ module.exports.allowCORS = (req, res) => {
   res.end();
 };
 
-module.exports.create = (req, res) => {
-  // let destPath = 'clientUploads/';
-  const body = {};
-  const form = new multiparty.Form();
-  let promise1 = null;
-  let fileKey = Date.now();
+const uploadFile = (part) => new Promise((resolve, reject) => {
+  const fileKey = Date.now() + part.filename;
 
-  form.on('part', (part) => {
-    promise1 = new Promise(
-    (resolve, reject) => {
-      //do async thing here
-      fileKey += part.filename;
-      s3Client.putObject({
-        Bucket: 'tuba-images-bucket',
-        Key: fileKey,
-        ACL: 'public-read',
-        Body: part,
-        ContentType: part.headers['content-type'],
-        ContentLength: part.byteCount
-      }, (err, data) => {
-        if (err) reject(err);
-        if (data) {
-          fileUrl += fileKey;
-          const result = data;
-
-          result.fileUrl = fileUrl;
-          resolve(result);
-        }
-      });
-    });
+  s3Client.putObject({
+    Bucket: 'tuba-images-bucket',
+    Key: fileKey,
+    ACL: 'public-read',
+    Body: part,
+    ContentType: part.headers['content-type'],
+    ContentLength: part.byteCount
+  }, (err) => {
+    if (err) {
+      reject(err);
+    } else {
+      resolve(AWS_BUCKET_URL + fileKey);
+    }
   });
+});
+
+const sendAnnotation = (body) => new Promise((resolve, reject) => {
+  console.log('SENDING ANNOTATION WITH DATA', body);
+  if (!body || !body.key) {
+    reject(config.messages.no_key);
+
+    return;
+  }
 
   const params = {
     type: '',
@@ -65,55 +60,56 @@ module.exports.create = (req, res) => {
     output_meta: ''
   };
 
-  form.on('error', (err) => {
-    console.log(`Error parsing form: ${err.stack}`);
-  });
-  form.on('field', (name, value) => {
-    body[name] = value;
-  });
-  form.on('close', () => {
-    if (!body.key) {
-      res.status(400).json({ error: config.messages.no_key });
+  Key.findOne({ where: { key: body.key } })
+  .then((key) => {
+    console.log('found key!', key.type);
+    params.type = key.type;
+    params.output_meta = key.endpoint;
 
-      return;
+    return User.findOne({ where: { id: key.userId } });
+  })
+  .then((user) => {
+    console.log('GOT BODY', body);
+    params.integration_meta = user.ghtoken;
+
+    if (params.type === 'github') {
+      github.createIssue(params, body);
     }
-    Key.findOne({ where: { key: body.key } })
-    .then((key) => {
-      params.type = key.type;
-      params.output_meta = key.endpoint;
+    if (params.type === 'url') {
+      url.postToUrl(params, body);
+    }
+    resolve();
+  });
+});
 
-      return User.findOne({ where: { id: key.userId } });
-    })
-    .then((user) => {
-      params.integration_meta = user.ghtoken;
+module.exports.create = (req, res) => {
+  console.log('STARTED KEY CREATION');
+  const reqBody = {};
+  const form = new multiparty.Form();
+  const promise = Promise.resolve();
 
-      if (promise1) {
-        promise1.then((data) => {
-          console.log('inside promise1.then');
-          if (params.type === 'github') {
-            body.url = data.fileUrl;
-            github.createIssue(params, body);
-          }
-          if (params.type === 'url') {
-            url.postToUrl(params, body);
-          }
-          res.set(accessHeaders);
-          res.end();
-        })
-        .catch((err) => { console.log(err); });
-      } else {
-        if (params.type === 'github') {
-          github.createIssue(params, body);
-        }
-        if (params.type === 'url') {
-          url.postToUrl(params, body);
-        }
+  form.on('part', (part) =>
+    promise.then(uploadFile(part)));
+
+  form.on('error', (err) =>
+    console.log(`Error parsing form: ${err.stack}`));
+
+  form.on('field', (name, value) => {
+    reqBody[name] = value;
+  });
+
+  form.on('close', () => {
+    promise
+      .then(sendAnnotation(reqBody))
+      .then(() => {
+        console.log('CREATED KEY...!?');
         res.set(accessHeaders);
         res.end();
-      }
-    });
+      }).catch((error) => {
+        console.log('ERROR WHILE CREATING KEY', error);
+        res.status(400).json({ error });
+      });
   });
 
   form.parse(req);
-
 };
