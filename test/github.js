@@ -1,7 +1,7 @@
 const server = require('../server/server');
 const session = require('supertest-session');
 const User = require('../server/models/user');
-const Integration = require('../server/models/integration');
+const Key = require('../server/models/key');
 const config = require('../env/config.json');
 const http = require('http');
 
@@ -66,13 +66,13 @@ describe('github integration', () => { // eslint-disable-line max-statements
   let userRequest = null;
 
   before((done) => {
-    Integration.sync({ force: true }).then(() => {
+    User.sync({ force: true }).then(() => {
       done();
     });
   });
 
   before((done) => {
-    User.sync({ force: true }).then(() => {
+    Key.sync({ force: true }).then(() => {
       done();
     });
   });
@@ -97,7 +97,7 @@ describe('github integration', () => { // eslint-disable-line max-statements
 
   it('should start users with no itegrations', (done) => {
     userRequest
-      .get('/api/integrations')
+      .get('/api/keys')
       .expect(200)
       .end((err, res) => {
         res.body.should.eql([]);
@@ -107,7 +107,7 @@ describe('github integration', () => { // eslint-disable-line max-statements
 
   it('should 400 when trying to get repos without github auth', (done) => {
     userRequest
-      .get('/api/integrations/github/repos')
+      .get('/api/github/repos')
       .expect(400)
       .end((err, res) => {
         res.body.should.eql({ error: config.messages.github_no_auth });
@@ -146,7 +146,7 @@ describe('github integration', () => { // eslint-disable-line max-statements
 
   it('should show github repo list', (done) => {
     userRequest
-      .get('/api/integrations/github/repos')
+      .get('/api/github/repos')
       .expect(200)
       .end((err, res) => {
         res.body.should.eql(
@@ -160,7 +160,7 @@ describe('github integration', () => { // eslint-disable-line max-statements
     mockhubToken = 'NOLONGERVALID';
 
     userRequest
-      .get('/api/integrations/github/repos')
+      .get('/api/github/repos')
       .expect(400)
       .end((err, res) => {
         res.body.should.eql({ error: config.messages.github_no_auth });

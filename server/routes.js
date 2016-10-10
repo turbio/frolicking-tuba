@@ -4,7 +4,6 @@ const path = require('path');
 const user = require('./controllers/user');
 const annotate = require('./controllers/annotate');
 const script = require('./controllers/script');
-const integration = require('./controllers/integration');
 const key = require('./controllers/key');
 const githubIntegration = require('./integrations/github');
 const urlIntegration = require('./integrations/url');
@@ -26,10 +25,9 @@ router.get('/api/users/signedin', user.signedin);
 router.get('/api/users/hasgithub', user.hasGithub);
 
 //integrations
-router.get('/api/integrations', integration.getAll);
 
 router.get('/api/integrations/github', githubIntegration.redirectTo);
-router.get('/api/integrations/github/repos', githubIntegration.repoList);
+router.get('/api/github/repos', githubIntegration.repoList);
 router.get('/api/integrations/github/auth', githubIntegration.register);
 
 router.get('/api/urls', urlIntegration.urlList);
