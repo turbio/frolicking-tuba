@@ -28,8 +28,6 @@ const EndpointsDropdown = ({ input, label, endpoints, useNewEndpoint }) => (
             >{endpoint.name}</option>
           )
         }
-        <option value="ff0000">TestingRed</option>
-        <option value="0000ff">Blue</option>
         <hr />
         <option
           value="useNewEndpoint"

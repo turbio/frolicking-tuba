@@ -91,16 +91,12 @@ export const getApiKeys = () => (
         const newKey = key;
 
         newKey.api_key = `<script src="https://getmarkup.com/script.js?key=\
-${key.api_key}"></script>`;
+${key.key}"></script>`;
 
         return newKey;
       });
 
-      console.log(keys, 'the keys');
-
       dispatch(requestKeys(keys));
-      //dispatch(fetchEndpts({ name: 'sean' }));
-
     })
     .catch((error) => dispatch(authError(error)));
   }
@@ -158,7 +154,6 @@ export const fetchEndpoints = () => (
         return obj;
       });
 
-      console.log('mappedobjects:', mappedrepos.concat(mappedurls));
       dispatch({
         type: FETCH_ENDPOINTS,
         payload: mappedrepos.concat(mappedurls)
@@ -212,7 +207,6 @@ export const createNewKey = (name, type, endpoint) => (
     })
     .then((response) => response.json())
     .then((key) => {
-      console.log(key, 'createdkey');
 
       requestBody = {
         name,
@@ -228,7 +222,6 @@ export const createNewKey = (name, type, endpoint) => (
       return null;
     })
     .then(() => {
-      console.log('reached here', requestBody);
 
       updateKey(requestBody);
       dispatch(hideModal());
