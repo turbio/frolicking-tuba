@@ -46,14 +46,6 @@ module.exports.register = (req, res) => {
   // eslint-disable-next-line max-statements
   request(options, (err, githubRes, body) => {
     if (!body.access_token || !req.session.user || err) {
-      console.log('POST to get github access_token error:');
-      if (err) {
-        console.log('Response error:', err);
-      }
-      if (!body.access_token) {
-        console.log('No access_token in the body of Response');
-        console.log('Response body:', body);
-      }
       res.status(400).json({ error: 'failed to authenticate with github' });
 
       return;
@@ -63,7 +55,6 @@ module.exports.register = (req, res) => {
       { ghtoken: body.access_token },
       { where: { id: req.session.user.id } }
     ).then(() => {
-      console.log('ghtoken updated!');
       res.redirect('/create/github');
     });
   });

@@ -3,15 +3,9 @@ const config = require('../../env/config.json');
 const Url = require('../models/url');
 
 module.exports.postToUrl = (params, body) => {
-  console.log('PARAMS', params, 'BODY', body);
-
   const options = {
     url: params.output_meta,
     method: 'POST',
-    // headers: {
-    //   Authorization: `token ${params.integration_meta}`,
-    //   'User-Agent': config.github.user_agent
-    // },
     body: {
       title: body.title,
       body:
