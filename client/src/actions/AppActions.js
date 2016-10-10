@@ -118,7 +118,7 @@ export const fetchEndpoints = () => (
     .then((response) => {
       console.log(response, 'response fromgithub');
 
-      response.json();
+      return response.json();
     })
     .then((auth) => {
       console.log(auth, 'thegithubauth status');
@@ -126,12 +126,12 @@ export const fetchEndpoints = () => (
       if (auth.github) {
         return fetch(
           '/api/github/repos', { credentials: 'same-origin' }
-          );
+          )
+        .then((response) => response.json());
       }
 
       return [];
     })
-    .then((response) => response.json())
     .then((repos) => {
       console.log(repos, 'thegithub repos');
       githubrepos = repos;
@@ -141,13 +141,31 @@ export const fetchEndpoints = () => (
     })
     .then((response) => response.json())
     .then((urls) => {
-      console.log('json:', githubrepos, urls, githubrepos.concat(urls));
+      const mappedrepos = githubrepos.map((repo) => {
+        const obj = {};
+
+        obj.type = 'github';
+        obj.name = repo;
+
+        return obj;
+      });
+
+      const mappedurls = urls.map((url) => {
+        const obj = {};
+
+        obj.type = 'url';
+        obj.name = url.url;
+
+        return obj;
+      });
+
+      console.log('json:', githubrepos, urls, mappedrepos.concat(mappedurls));
       dispatch({
         type: FETCH_ENDPOINTS,
-        payload: githubrepos.concat(urls)
+        payload: mappedrepos.concat(mappedurls)
       });
     })
-    .catch((error) => console.log('fetchEndpoints error', error));
+    .catch((error) => console.log('updated fetchEndpoints error', error));
   }
 );
 
