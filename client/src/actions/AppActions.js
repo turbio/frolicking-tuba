@@ -3,7 +3,7 @@ import { SIGN_OUT_USER,
   AUTH_USER, AUTH_ERROR,
   FETCH_KEYS, OPEN_MODAL,
   CLOSE_MODAL, FETCH_ENDPOINTS,
-  ADD_NEW_ENDPOINT } from '../utils/AppConstants';
+  ADD_NEW_ENDPOINT, UPDATE_GITHUB_AUTH } from '../utils/AppConstants';
 
 export const authUser = () => ({ type: AUTH_USER });
 export const authError = (error) => ({
@@ -24,6 +24,7 @@ export const fetchEndpts = (keys) => ({
 });
 
 export const addNewEndpt = () => ({ type: ADD_NEW_ENDPOINT });
+export const updateGitHubAuth = () => ({ type: UPDATE_GITHUB_AUTH });
 
 
 const headers = new Headers();
@@ -121,6 +122,7 @@ export const fetchEndpoints = () => (
     .then((auth) => {
       if (auth.github) {
         console.log('reached auth.github');
+        dispatch(updateGitHubAuth());
 
         return fetch(
           '/api/github/repos', { credentials: 'same-origin' }
@@ -176,23 +178,26 @@ export const createNewUrl = (urlObject) => (
 );
 
 export const updateKey = (requestBody) => (
-  (dispatch) => {
+  // (dispatch) => {
+  //console.log('inupdatekey');
 
     fetch('/api/keys', {
-      method: 'PUT',
+      method: 'POST',
       headers,
       credentials: 'same-origin',
       body: JSON.stringify(requestBody)
     })
     .then((response) => response.json())
     .then(() => {
-      dispatch();
+      console.log('in updateKey');
+
+      //dispatch(hideModal());
     })
     .catch((error) => {
       console.log('error in updateKey:', error);
-      dispatch(error);
-    });
-  }
+      //dispatch(error);
+    })
+  // }
 );
 
 export const createNewKey = (name, type, endpoint) => (
@@ -207,9 +212,11 @@ export const createNewKey = (name, type, endpoint) => (
     })
     .then((response) => response.json())
     .then((key) => {
+      console.log(key, 'createdkey');
+
       requestBody = {
         name,
-        key,
+        key: key.key,
         type,
         endpoint
       };
@@ -221,7 +228,10 @@ export const createNewKey = (name, type, endpoint) => (
       return null;
     })
     .then(() => {
+      console.log('reached here', requestBody);
+
       updateKey(requestBody);
+      dispatch(hideModal());
     })
     .catch((error) => {
       console.log('error in createnewkey:', error);

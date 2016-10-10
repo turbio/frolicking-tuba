@@ -5,7 +5,8 @@ import {
   InputGroup,
   ControlLabel,
   FormControl,
-  Button
+  Button,
+  Well
 } from 'react-bootstrap';
 
 const Title = ({ text }) => (
@@ -18,11 +19,7 @@ const Key = ({ title, endpoint, keyString }) => (
   <Panel header={<Title text={title} />}>
     <FormGroup>
       <ControlLabel>Endpoint</ControlLabel>
-      <FormControl componentClass="select">
-        <option>{endpoint}</option>
-        <option>{endpoint}</option>
-        <option>{endpoint}</option>
-      </FormControl>
+      <Well bsSize="small">{endpoint}</Well>
     </FormGroup>
 
     <FormGroup>
