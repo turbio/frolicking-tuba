@@ -89,7 +89,7 @@ describe('annotation', () => { // eslint-disable-line max-statements
     .then(() => done());
   });
 
-  xit('should not POST to /annotate without key', (done) => {
+  it('should not POST to /annotate without key', (done) => {
     request(server)
       .post('/api/annotate')
       .field('title', 'a test annotation')
@@ -98,13 +98,11 @@ describe('annotation', () => { // eslint-disable-line max-statements
       .field('selected', 'this would be the selected text')
       .field('comment', 'this is the comment')
       .expect(400)
-      .end(done);
+      .end(done)
+      .catch(() => done());
   });
 
-  const timeout1 = 5000;
-
-  xit('should POST with attachment to /annotate with Github key', function(done) { // eslint-disable-line
-    this.timeout(timeout1); // eslint-disable-line no-invalid-this
+  it('should POST with attachment to /annotate with Github key', (done) => {
     request(server)
       .post('/api/annotate')
       .field('key', apiKeyGithub)
@@ -113,13 +111,12 @@ describe('annotation', () => { // eslint-disable-line max-statements
       .field('from', 'from user')
       .field('selected', 'this would be the selected text')
       .field('comment', 'this is the comment')
-      .attach('file', `${__dirname}/T1.png`)
+      .attach('file', `${__dirname}/testfile`)
       .expect(200)
       .end(done);
   });
 
-  it('should POST without attachment to /annotate with Github key', function(done) { // eslint-disable-line
-    this.timeout(timeout1); // eslint-disable-line no-invalid-this
+  it('should POST without attachment to /annotate with Github key', (done) => {
     request(server)
       .post('/api/annotate')
       .field('key', apiKeyGithub)
@@ -132,7 +129,7 @@ describe('annotation', () => { // eslint-disable-line max-statements
       .end(done);
   });
 
-  xit('should create github issue when POST to /annotate', (done) => {
+  it('should create github issue', (done) => {
     request(mockServerUrl)
       .get(githubMockPath)
       .expect(200)
@@ -155,21 +152,7 @@ describe('annotation', () => { // eslint-disable-line max-statements
       .end(done);
   });
 
-  xit('should should be able to POST to mock server /url', (done) => {
-    request(mockServerUrl)
-      .post('/url')
-      .send({
-        title: 'a test annotation',
-        to: 'to user',
-        from: 'from user',
-        selected: 'this would be the selected text',
-        comment: 'this is the comment'
-      })
-      .expect(200)
-      .end(done);
-  });
-
-  xit('should make POST request to a URL when POST to /annotate', (done) => {
+  it('should make POST request to a URL', (done) => {
     request(mockServerUrl)
       .get('/url')
       .expect(200)
