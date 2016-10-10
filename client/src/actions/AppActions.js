@@ -112,8 +112,14 @@ export const fetchEndpoints = () => (
   (dispatch) => {
     let githubrepos = [];
 
+    console.log('reached fetch endpoints');
+
     fetch('/api/user/hasgithub', { credentials: 'same-origin' })
-    .then((response) => response.json())
+    .then((response) => {
+      console.log(response, 'response fromgithub');
+
+      response.json();
+    })
     .then((auth) => {
       console.log(auth, 'thegithubauth status');
 
@@ -141,7 +147,7 @@ export const fetchEndpoints = () => (
         payload: githubrepos.concat(urls)
       });
     })
-    .catch((error) => console.log('fetchEndoints error', error));
+    .catch((error) => console.log('fetchEndpoints error', error));
   }
 );
 
