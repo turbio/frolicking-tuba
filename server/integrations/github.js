@@ -64,7 +64,8 @@ module.exports.register = (req, res) => {
       { where: { id: req.session.user.id } }
     ).then(() => {
       console.log('ghtoken updated!');
-      res.redirect('/create/github');
+      //res.redirect('/create/github');
+      res.redirect('/dashboard');
     });
   });
 };
