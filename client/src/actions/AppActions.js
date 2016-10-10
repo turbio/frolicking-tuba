@@ -118,17 +118,21 @@ export const fetchEndpoints = () => (
     .then((response) => {
       console.log(response, 'response fromgithub');
 
-      return response.json();
+      return response.text();
     })
     .then((auth) => {
       console.log(auth, 'thegithubauth status');
 
       if (auth.github) {
+        console.log('reached auth.github');
+
         return fetch(
           '/api/github/repos', { credentials: 'same-origin' }
           )
         .then((response) => response.json());
       }
+
+      console.log('reached bottom of auth');
 
       return [];
     })
@@ -145,7 +149,7 @@ export const fetchEndpoints = () => (
         const obj = {};
 
         obj.type = 'github';
-        obj.name = repo;
+        obj.name = repo.full_name;
 
         return obj;
       });
