@@ -112,8 +112,6 @@ export const fetchEndpoints = () => (
   (dispatch) => {
     let githubrepos = [];
 
-    console.log('reached fetch endpoints');
-
     fetch('/api/users/hasgithub', { credentials: 'same-origin' })
     .then((response) => {
       console.log(response, 'response fromgithub');
@@ -121,8 +119,6 @@ export const fetchEndpoints = () => (
       return response.json();
     })
     .then((auth) => {
-      console.log(auth, 'thegithubauth status');
-
       if (auth.github) {
         console.log('reached auth.github');
 
@@ -132,12 +128,9 @@ export const fetchEndpoints = () => (
         .then((response) => response.json());
       }
 
-      console.log('reached bottom of auth');
-
       return [];
     })
     .then((repos) => {
-      console.log(repos, 'thegithub repos');
       githubrepos = repos;
 
       return fetch('/api/urls',
@@ -163,7 +156,7 @@ export const fetchEndpoints = () => (
         return obj;
       });
 
-      console.log('json:', githubrepos, urls, mappedrepos.concat(mappedurls));
+      console.log('mappedobjects:', mappedrepos.concat(mappedurls));
       dispatch({
         type: FETCH_ENDPOINTS,
         payload: mappedrepos.concat(mappedurls)

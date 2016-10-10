@@ -22,7 +22,12 @@ export default function keyModalReducer(state = initialState, action) {
   case OPEN_MODAL:
     return assign({}, state, { showModal: true });
   case CLOSE_MODAL:
-    return assign({}, state, initialState);
+    return assign({}, state, {
+      showModal: false,
+      addingNewEndpoint: false,
+      isEditing: false,
+      associatedKey: null
+    });
   case OPEN_MODAL_EDIT:
     return assign({}, state, {
       showModal: true,

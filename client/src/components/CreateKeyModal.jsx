@@ -26,8 +26,8 @@ class CreateKeyModal extends Component {
   }
 
   handleFormSubmit(values) {
-    console.log('values submitted are:', values, this.props);
-    // call this.props.createNewKey(values.name, values.type, values.endpoint)
+    console.log('values submitted are:', values, values.endpoint, this.props);
+    //this.props.createNewKey(values.name, values.type, values.endpoint);
   }
 
   addingnewendpoint() {

@@ -9,7 +9,7 @@ const EndpointsDropdown = ({ input, label, endpoints, useNewEndpoint }) => (
         id="endpointsdropdown"
         onChange={(el) => {
           if (el.target.value === 'useNewEndpoint') {
-            console.log(el.target.value, 'test');
+            console.log(el.target.value, el.target.text, 'test');
             useNewEndpoint();
             //change so that the useNewEndpoint is not the default selection
           } else {
@@ -22,7 +22,7 @@ const EndpointsDropdown = ({ input, label, endpoints, useNewEndpoint }) => (
         <option disabled selected> Select an Endpoint</option>
         {
           endpoints.map((endpoint) =>
-            <option value={endpoint}>{endpoint}</option>
+            <option value={endpoint.type}>{endpoint.name}</option>
           )
         }
         <option value="ff0000">TestingRed</option>
