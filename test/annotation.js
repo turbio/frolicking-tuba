@@ -1,6 +1,7 @@
 const Key = require('../server/models/key');
 const Integration = require('../server/models/integration');
 const Output = require('../server/models/output');
+const User = require('../server/models/user');
 const server = require('../server/server');
 const request = require('supertest');
 const config = require('../env/config.json');
@@ -62,37 +63,39 @@ describe('annotation', () => { // eslint-disable-line max-statements
 
   //ooh, a pyramid
   before((done) => {
-    // create Github test key
-    Key.create().then((key) => {
-      Integration.create({
-        meta: 'GITHUBKEYHERE',
-        type: 'github'
-      }).then((integration) => {
-        apiKeyGithub = key.key;
-        Output.create({
-          keyId: key.id,
-          integrationId: integration.id,
-          meta: 'user/repo'
-        }).then(() => done());
-      });
-    });
-  });
+    // create test user and API keys
+    let testUserId = null;
 
-  before((done) => {
-    // create URL test key
-    Key.create().then((key) => {
-      Integration.create({
-        meta: 'URLKEYHERE',
-        type: 'url'
-      }).then((integration) => {
-        apiKeyURL = key.key;
-        Output.create({
-          keyId: key.id,
-          integrationId: integration.id,
-          meta: `${mockServerUrl}/url`
-        }).then(() => done());
-      });
-    });
+    User.create({
+      email: 'testemail',
+      password: 'testpass',
+      ghtoken: 'GITHUBKEYHERE'
+    })
+    .then((user) => {
+      testUserId = user.id;
+
+      return Key.create({ userId: testUserId });
+    })
+    .then((key) => {
+      apiKeyGithub = key.key;
+
+      return Key.update({
+        name: 'githubkey',
+        type: 'github',
+        endpoint: 'user/repo'
+      }, { where: { key: apiKeyGithub } });
+    })
+    .then(() => Key.create({ userId: testUserId }))
+    .then((key) => {
+      apiKeyURL = key.key;
+
+      return Key.update({
+        name: 'urlkey',
+        type: 'url',
+        endpoint: `${mockServerUrl}/url`
+      }, { where: { key: apiKeyURL } });
+    })
+    .then(() => done());
   });
 
   xit('should not POST to /annotate without key', (done) => {
