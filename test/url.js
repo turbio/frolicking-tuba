@@ -1,26 +1,19 @@
 const server = require('../server/server');
 const session = require('supertest-session');
 const User = require('../server/models/user');
-const Integration = require('../server/models/integration');
-const Output = require('../server/models/output');
+const Url = require('../server/models/url');
 
 describe('url integration', () => { // eslint-disable-line max-statements
   let userRequest = null;
 
   before((done) => {
-    Integration.sync({ force: true }).then(() => {
-      done();
-    });
-  });
-
-  before((done) => {
-    Output.sync({ force: true }).then(() => {
-      done();
-    });
-  });
-
-  before((done) => {
     User.sync({ force: true }).then(() => {
+      done();
+    });
+  });
+
+  before((done) => {
+    Url.sync({ force: true }).then(() => {
       done();
     });
   });
@@ -36,7 +29,7 @@ describe('url integration', () => { // eslint-disable-line max-statements
 
   it('should start users with no itegrations', (done) => {
     userRequest
-      .get('/api/integrations')
+      .get('/api/urls')
       .expect(200)
       .end((err, res) => {
         res.body.should.eql([]);
@@ -44,33 +37,21 @@ describe('url integration', () => { // eslint-disable-line max-statements
       });
   });
 
-  it('should create a url integration', (done) => {
+  it('should create a url', (done) => {
     userRequest
-      .post('/api/integrations/url/urls')
-      .send({ name: 'http://example.com' })
+      .post('/api/urls')
+      .send({ url: 'http://example.com' })
       .expect(200)
       .end(done);
   });
 
-  it('should show url integration after creation', (done) => {
-    userRequest
-      .get('/api/integrations')
-      .expect(200)
-      .end((err, res) => {
-        res.body.should.eql([{ type: 'url' }]);
-        done(err);
-      });
-  });
-
   it('should show url output list', (done) => {
     userRequest
-      .get('/api/integrations/url/urls')
+      .get('/api/urls')
       .expect(200)
       .end((err, res) => {
-        res.body.should.eql(['http://example.com']);
+        res.body[0].url.should.eq('http://example.com');
         done(err);
       });
   });
-
-  it('should allow users to select a url');
 });
