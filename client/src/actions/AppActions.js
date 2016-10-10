@@ -95,6 +95,7 @@ ${key.key}"></script>`;
 
         return newKey;
       });
+
       dispatch(requestKeys(keys));
     })
     .catch((error) => dispatch(authError(error)));
