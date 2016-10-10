@@ -164,7 +164,7 @@ export const fetchEndpoints = () => (
 );
 
 export const createNewUrl = (urlObject) => (
- fetch('/api/keys', {
+ fetch('/api/urls', {
    method: 'POST',
    headers,
    credentials: 'same-origin',
