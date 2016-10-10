@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-const EndpointsDropdown = ({ input, label, endpoints, runFunc }) => (
+const EndpointsDropdown = ({ input, label, endpoints, useNewEndpoint }) => (
   <fieldset className="form-group">
     <label className="control-label" htmlFor="control-label">{label}</label>
     <div>
@@ -10,8 +10,8 @@ const EndpointsDropdown = ({ input, label, endpoints, runFunc }) => (
         onChange={(el) => {
           if (el.target.value === 'useNewEndpoint') {
             console.log(el.target.value, 'test');
-            //this.props.actions.addNewEndpt();
-            runFunc();
+            useNewEndpoint();
+            //change so that the useNewEndpoint is not the default selection
           } else {
             input.onChange(el);
           }
@@ -42,7 +42,7 @@ EndpointsDropdown.propTypes = {
   input: PropTypes.objectOf(PropTypes.any),
   label: PropTypes.string,
   endpoints: PropTypes.arrayOf(PropTypes.string),
-  runFunc: PropTypes.func
+  useNewEndpoint: PropTypes.func
 };
 
 export default EndpointsDropdown;
