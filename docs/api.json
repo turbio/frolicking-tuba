@@ -247,8 +247,9 @@
               "text": "STATUS CODE 200",
               "object": [
                 {
-                  "name": "String (Optional)",
-                  "api_key": "String",
+                  "name": "String",
+                  "key": "String",
+                  "type": "String",
                   "endpoint": "String"
                 }
               ]
@@ -265,7 +266,7 @@
         },
         {
           "title": "create key",
-          "description": "get a list of the user's keys",
+          "description": "create a new key",
           "url": "/api/keys",
           "verb": "POST",
           "input": {
@@ -279,6 +280,35 @@
               "object": {
                 "key": "String"
               }
+            },
+            "on error": {
+              "code": "javascript",
+              "text": "STATUS CODE 400",
+              "object": {
+                "error": "String"
+              }
+            }
+          },
+          "auth": "SESSION"
+        },
+        {
+          "title": "update key",
+          "description": "update key data",
+          "url": "/api/keys",
+          "verb": "POST",
+          "input": {
+            "code": "javascript", "object": { 
+              "key": "String",
+              "name": "String",
+              "type": "String",
+              "endpoint": "String"
+            }
+          },
+          "output": {
+            "on success": {
+              "code": "javascript",
+              "text": "STATUS CODE 200",
+              "object": { "rowsUpdated": "Number" }
             },
             "on error": {
               "code": "javascript",
