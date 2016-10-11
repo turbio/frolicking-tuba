@@ -8,7 +8,6 @@ module.exports.getAll = (req, res) => {
       res.status(200).json(keys);
     })
     .catch((err) => {
-      console.log(err);
       res.status(500).json({ error: config.messages.server_error });
     });
   } else {
