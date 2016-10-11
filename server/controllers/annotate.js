@@ -86,26 +86,10 @@ const sendAnnotation = (body) => new Promise((resolve, reject) => {
 
     return Promise.resolve();
   })
-  .then(() => {
 
-    if (params.type === 'github') {
-      console.log('=== sending to github ===');
+  .then(() => github.createIssue(params, body))
+  .then(() => url.postToUrl(params, body))
 
-      return github.createIssue(params, body);
-    }
-
-    return Promise.resolve();
-
-  })
-  .then(() => {
-    if (params.type === 'url') {
-      console.log('=== sending to url ===');
-
-      return url.postToUrl(params, body);
-    }
-
-    return Promise.resolve();
-  })
   .then(() => resolve())
   .catch((err) => reject(err));
 });

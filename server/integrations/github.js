@@ -4,6 +4,12 @@ const request = require('request');
 const User = require('../models/user');
 
 const createIssue = (params, body) => new Promise((resolve, reject) => {
+  if (params.type !== 'github') {
+    resolve();
+
+    return;
+  }
+
   console.log('=== starting gh issue creation process ===');
 
   const options = {

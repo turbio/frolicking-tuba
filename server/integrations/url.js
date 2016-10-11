@@ -3,6 +3,12 @@ const config = require('../../env/config.json');
 const Url = require('../models/url');
 
 module.exports.postToUrl = (params, body) => new Promise((resolve, reject) => {
+  if (params.type !== 'url') {
+    resolve();
+
+    return;
+  }
+
   console.log('=== building http post to url ===');
 
   const options = {
