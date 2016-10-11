@@ -122,7 +122,7 @@ export const fetchEndpoints = () => (
     .then((auth) => {
       console.log(auth.github, 'reached auth.github');
 
-      if (!!auth.github) {
+      if (auth.github) {
         console.log(auth, 'auth true');
 
         dispatch(updateGitHubAuth());
