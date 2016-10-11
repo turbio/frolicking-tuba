@@ -25,7 +25,11 @@ class NavbarComponent extends React.Component {
       <NavItem eventKey={2}><Link to="/signin">Log In</Link></NavItem>
     </Nav>);
     const profileDropdown = (<Nav pullRight>
-      <NavDropdown eventKey={3} title={this.props.email} id="basic-nav-dropdown">
+      <NavDropdown
+        eventKey={3}
+        title={this.props.email}
+        id="basic-nav-dropdown"
+      >
         <MenuItem eventKey={3.1}>Profile</MenuItem>
         <MenuItem divider />
         <MenuItem eventKey={3.2}>
@@ -63,7 +67,8 @@ class NavbarComponent extends React.Component {
 
 NavbarComponent.propTypes = {
   authenticated: PropTypes.oneOfType([PropTypes.func, PropTypes.boolean]),
-  logOut: PropTypes.func
+  logOut: PropTypes.func,
+  email: PropTypes.string
 };
 
 const mapStateToProps = (state) => (
