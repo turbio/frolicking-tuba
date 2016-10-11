@@ -48,7 +48,6 @@ class CreateGithub extends React.Component {
     fetch('/api/integrations/github/repos', { credentials: 'same-origin' })
     .then((response) => response.json())
     .then((json) => {
-      console.log('json:', json);
       this.setState({ githubRepos: json });
       this.setState({ sel_repo: json[0] });
     })
@@ -84,7 +83,6 @@ class CreateGithub extends React.Component {
   }
 
   render() {
-    console.log('this.state.githubAuth in CreateGithub', this.state.githubAuth);
     const dropdownSelect = (
       <form>
         <FormGroup>

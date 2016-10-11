@@ -3,7 +3,7 @@ import { SIGN_OUT_USER,
   AUTH_USER, AUTH_ERROR,
   FETCH_KEYS, OPEN_MODAL,
   CLOSE_MODAL, FETCH_ENDPOINTS,
-  ADD_NEW_ENDPOINT } from '../utils/AppConstants';
+  ADD_NEW_ENDPOINT, UPDATE_GITHUB_AUTH } from '../utils/AppConstants';
 
 export const authUser = () => ({ type: AUTH_USER });
 export const authError = (error) => ({
@@ -24,6 +24,7 @@ export const fetchEndpts = (keys) => ({
 });
 
 export const addNewEndpt = () => ({ type: ADD_NEW_ENDPOINT });
+export const updateGitHubAuth = () => ({ type: UPDATE_GITHUB_AUTH });
 
 
 const headers = new Headers();
@@ -81,7 +82,6 @@ export const logOut = () => (
 
 export const getApiKeys = () => (
   (dispatch) => {
-    console.log('reach get apikeys');
     fetch('/api/keys', { credentials: 'same-origin' })
     .then((response) => response.json())
     .then((json) => {
@@ -89,17 +89,17 @@ export const getApiKeys = () => (
       const keys = json.map((key) => {
         const newKey = key;
 
-        newKey.api_key = `<script src="https://getmarkup.com/script.js?key=\
-${key.api_key}"></script>`;
+        newKey.api_key
+          = `<script src="http://d1p3e8i5yp3axf.cloudfront.net/?key=\
+${key.key}"></script>`;
+
+//         newKey.api_key = `<script src="https://getmarkup.com/script.js?key=\
+// ${key.key}"></script>`;
 
         return newKey;
       });
 
-      console.log(keys, 'the keys');
-
       dispatch(requestKeys(keys));
-      //dispatch(fetchEndpts({ name: 'sean' }));
-
     })
     .catch((error) => dispatch(authError(error)));
   }
@@ -120,7 +120,7 @@ export const fetchEndpoints = () => (
     })
     .then((auth) => {
       if (auth.github) {
-        console.log('reached auth.github');
+        dispatch(updateGitHubAuth());
 
         return fetch(
           '/api/github/repos', { credentials: 'same-origin' }
@@ -156,7 +156,6 @@ export const fetchEndpoints = () => (
         return obj;
       });
 
-      console.log('mappedobjects:', mappedrepos.concat(mappedurls));
       dispatch({
         type: FETCH_ENDPOINTS,
         payload: mappedrepos.concat(mappedurls)
@@ -167,7 +166,7 @@ export const fetchEndpoints = () => (
 );
 
 export const createNewUrl = (urlObject) => (
- fetch('/api/keys', {
+ fetch('/api/urls', {
    method: 'POST',
    headers,
    credentials: 'same-origin',
@@ -176,43 +175,45 @@ export const createNewUrl = (urlObject) => (
 );
 
 export const updateKey = (requestBody) => (
-  (dispatch) => {
+  // (dispatch) => {
+  //console.log('inupdatekey');
 
     fetch('/api/keys', {
-      method: 'PUT',
+      method: 'POST',
       headers,
       credentials: 'same-origin',
       body: JSON.stringify(requestBody)
     })
     .then((response) => response.json())
     .then(() => {
-      dispatch();
+      console.log('in updateKey');
+
+      //dispatch(hideModal());
     })
     .catch((error) => {
       console.log('error in updateKey:', error);
-      dispatch(error);
-    });
-  }
+      //dispatch(error);
+    })
+  // }
 );
 
 export const createNewKey = (name, type, endpoint) => (
   (dispatch) => {
-    let requestBody = {};
+    const requestBody = {
+      name,
+      type,
+      endpoint
+    };
 
     //make the API Key
     fetch('/api/keys', {
       method: 'POST',
       headers,
-      credentials: 'same-origin'
+      credentials: 'same-origin',
+      body: JSON.stringify(requestBody)
     })
-    .then((response) => response.json())
-    .then((key) => {
-      requestBody = {
-        name,
-        key,
-        type,
-        endpoint
-      };
+    //.then((response) => response.json())
+    .then(() => {
 
       if (type === 'url') {
         return createNewUrl({ url: endpoint });
@@ -221,7 +222,7 @@ export const createNewKey = (name, type, endpoint) => (
       return null;
     })
     .then(() => {
-      updateKey(requestBody);
+      dispatch(hideModal());
     })
     .catch((error) => {
       console.log('error in createnewkey:', error);

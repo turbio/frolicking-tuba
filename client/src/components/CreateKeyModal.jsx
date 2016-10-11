@@ -10,6 +10,25 @@ import { renderTextField, validate } from './FormHelpers.jsx';
 
 import * as Actions from '../actions/AppActions';
 
+const parseValue = (value) => {
+  let type = '';
+  let endpointname = '';
+
+  if (value.substring(0, value.indexOf(':')) === 'github') {
+    type = 'github';
+    endpointname = value.substring(value.indexOf(':') + 1, value.length);
+  } else {
+    type = 'url';
+    if (value.indexOf(':') < 0) {
+      endpointname = value;
+    } else {
+      endpointname
+        = value.substring(value.indexOf(':') + 1, value.length);
+    }
+  }
+
+  return [type, endpointname];
+};
 
 class CreateKeyModal extends Component {
   constructor(props) {
@@ -19,19 +38,23 @@ class CreateKeyModal extends Component {
     this.addingnewendpoint = this.addingnewendpoint.bind(this);
   }
 
-  componentDidMount() {
-    //fetch endpoints
-    //chechk github auth
+  componentWillMount() {
     this.props.fetchEndpoints();
   }
 
   handleFormSubmit(values) {
-    console.log('values submitted are:', values, this.props);
-    //this.props.createNewKey(values.name, values.type, values.endpoint);
+    const results = parseValue(values.endpoint);
+    const endpointtype = results[0];
+    const endpointname = results[1];
+
+    this.props.createNewKey(values.keyname, endpointtype, endpointname);
   }
+
 
   addingnewendpoint() {
     this.props.addNewEndpt();
+    this.forceUpdate();
+
   }
 
   close() {
@@ -42,14 +65,12 @@ class CreateKeyModal extends Component {
     // placeholder check
     // replace with whether or not user has any endpoints first
     // OR if selected "addendpoint" === true in store
-    console.log('renderendpointsfield',
-      this.props, this.props.endpoints, this.props.addingNewEndpoint);
-
-    if (!this.props.endpoints || this.props.addingNewEndpoint) {
+    if (this.props.endpoints.length < 1 || this.props.addingNewEndpoint) {
       return (<AddNewEndpoint
         input={input}
         label={label}
         type={type}
+        githubAuthState={this.props.githubAuthState}
       />);
     }
 
@@ -58,7 +79,7 @@ class CreateKeyModal extends Component {
       label={label}
       endpoints={this.props.endpoints}
       //endpoints={['string1', 'string2']}
-      useNewEndpoint={this.props.addingNewEndpoint}
+      useNewEndpoint={this.addingnewendpoint}
     />);
   }
 
@@ -107,18 +128,20 @@ CreateKeyModal.propTypes = {
   keymodal: PropTypes.bool,
   hideModal: PropTypes.func,
   handleSubmit: PropTypes.func,
-  //handleEndpointSubmit: PropTypes.func,
+  createNewKey: PropTypes.func,
   fetchEndpoints: PropTypes.func,
   addNewEndpt: PropTypes.func,
   endpoints: PropTypes.oneOfType([null, React.PropTypes.array]),
-  addingNewEndpoint: PropTypes.bool
+  addingNewEndpoint: PropTypes.bool,
+  githubAuthState: PropTypes.bool
 };
 
 
 const mapStateToProps = (state) => ({
   keymodal: state.keymodal.showModal,
   endpoints: state.keymodal.endpoints,
-  addingNewEndpoint: state.keymodal.addingNewEndpoint
+  addingNewEndpoint: state.keymodal.addingNewEndpoint,
+  githubAuthState: state.keymodal.githubAuthStatus
 });
 
 
