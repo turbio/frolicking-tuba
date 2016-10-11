@@ -65,8 +65,8 @@ class CreateKeyModal extends Component {
     // placeholder check
     // replace with whether or not user has any endpoints first
     // OR if selected "addendpoint" === true in store
-
-    if (!this.props.endpoints || this.props.addingNewEndpoint) {
+    console.log(this.props.endpoints, this.props.endpoints.length, 'ren')
+    if (this.props.endpoints.length < 1 || this.props.addingNewEndpoint) {
       return (<AddNewEndpoint
         input={input}
         label={label}

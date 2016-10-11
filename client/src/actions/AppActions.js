@@ -120,8 +120,11 @@ export const fetchEndpoints = () => (
       return response.json();
     })
     .then((auth) => {
-      if (auth.github) {
-        console.log('reached auth.github');
+      console.log(auth.github, 'reached auth.github');
+
+      if (!!auth.github) {
+        console.log(auth, 'auth true');
+
         dispatch(updateGitHubAuth());
 
         return fetch(
@@ -201,23 +204,21 @@ export const updateKey = (requestBody) => (
 
 export const createNewKey = (name, type, endpoint) => (
   (dispatch) => {
-    let requestBody = {};
+    const requestBody = {
+      name,
+      type,
+      endpoint
+    };
 
     //make the API Key
     fetch('/api/keys', {
       method: 'POST',
       headers,
-      credentials: 'same-origin'
+      credentials: 'same-origin',
+      body: JSON.stringify(requestBody)
     })
-    .then((response) => response.json())
-    .then((key) => {
-
-      requestBody = {
-        name,
-        key: key.key,
-        type,
-        endpoint
-      };
+    //.then((response) => response.json())
+    .then(() => {
 
       if (type === 'url') {
         return createNewUrl({ url: endpoint });
@@ -226,8 +227,6 @@ export const createNewKey = (name, type, endpoint) => (
       return null;
     })
     .then(() => {
-
-      updateKey(requestBody);
       dispatch(hideModal());
     })
     .catch((error) => {
