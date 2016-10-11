@@ -8,17 +8,11 @@ const EndpointsDropdown = ({ input, label, endpoints, useNewEndpoint }) => (
         {...input}
         id="endpointsdropdown"
         onChange={(el) => {
-          console.log(el.target.value, el.target, 'test');
-
           if (el.target.value === 'useNewEndpoint') {
             useNewEndpoint();
-            input.onChange(el);
-            //change so that the useNewEndpoint is not the default selection
-          } else {
-            input.onChange(el);
           }
-        }
-        }
+          input.onChange(el);
+        }}
         className="form-control"
       >
         <option disabled selected> Select an Endpoint</option>

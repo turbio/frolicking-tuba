@@ -16,7 +16,7 @@ export const renderTextField
     </fieldset>
 );
 
-export const validate = (values) => {
+export const validateAuthForm = (values) => {
   const errors = {};
 
   //used to validate signin form
@@ -31,9 +31,19 @@ export const validate = (values) => {
     errors.password = 'Please enter a password.';
   }
 
+  return errors;
+};
+
+export const validateModal = (values) => {
+  const errors = {};
+
   //used to validate api key modal
   if (!values.keyname) {
     errors.keyname = 'Please enter an API keyname.';
+  }
+
+  if (!values.endpoint) {
+    errors.keyname = 'Please enter an an endpoint.';
   }
 
   return errors;

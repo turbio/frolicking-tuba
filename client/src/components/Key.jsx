@@ -5,8 +5,7 @@ import {
   InputGroup,
   ControlLabel,
   FormControl,
-  Button,
-  Well
+  Button
 } from 'react-bootstrap';
 
 const Title = ({ text }) => (
@@ -26,14 +25,16 @@ const Key = ({ title, endpoint, keyString }) => (
   >
     <FormGroup>
       <ControlLabel>Endpoint</ControlLabel>
-      <Well bsSize="small">{endpoint}</Well>
+      <FormControl type="text" disabled defaultValue={endpoint} />
     </FormGroup>
 
     <FormGroup>
       <ControlLabel>API Key</ControlLabel>
       <InputGroup>
-        <FormControl type="text" defaultValue={keyString} />
-        <InputGroup.Button><Button>Copy</Button></InputGroup.Button>
+        <FormControl type="text" disabled defaultValue={keyString} />
+        <InputGroup.Button>
+          <Button>Copy</Button>
+        </InputGroup.Button>
       </InputGroup>
     </FormGroup>
   </Panel>
