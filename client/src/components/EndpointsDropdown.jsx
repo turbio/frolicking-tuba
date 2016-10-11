@@ -12,6 +12,7 @@ const EndpointsDropdown = ({ input, label, endpoints, useNewEndpoint }) => (
 
           if (el.target.value === 'useNewEndpoint') {
             useNewEndpoint();
+            input.onChange(el);
             //change so that the useNewEndpoint is not the default selection
           } else {
             input.onChange(el);

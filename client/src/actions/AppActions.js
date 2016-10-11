@@ -5,7 +5,10 @@ import { SIGN_OUT_USER,
   CLOSE_MODAL, FETCH_ENDPOINTS,
   ADD_NEW_ENDPOINT, UPDATE_GITHUB_AUTH } from '../utils/AppConstants';
 
-export const authUser = () => ({ type: AUTH_USER });
+export const authUser = (email) => ({
+  type: AUTH_USER,
+  email
+});
 export const authError = (error) => ({
   type: AUTH_ERROR,
   payload: error
@@ -52,7 +55,7 @@ export const signInUser = (credentials, endpoint) => (
       } else {
         // console.log(json,'signedin')
         localStorage.token = true;
-        dispatch(authUser());
+        dispatch(authUser(credentials.email));
         browserHistory.push('/dashboard');
       }
     })
@@ -90,7 +93,7 @@ export const getApiKeys = () => (
         const newKey = key;
 
         newKey.api_key
-          = `<script src="http://d1p3e8i5yp3axf.cloudfront.net/?key=\
+          = `<script src="https://d1p3e8i5yp3axf.cloudfront.net/?key=\
 ${key.key}"></script>`;
 
 //         newKey.api_key = `<script src="https://getmarkup.com/script.js?key=\

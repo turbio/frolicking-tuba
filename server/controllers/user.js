@@ -101,8 +101,7 @@ module.exports.hasGithub = (req, res) => {
       res.json({ github: true });
     }
   })
-  .catch((err) => {
-    console.log(err);
+  .catch(() => {
     res.status(500).json({ error: config.messages.server_error });
   });
 };

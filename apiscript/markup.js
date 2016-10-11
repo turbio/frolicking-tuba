@@ -140,7 +140,7 @@ const takeShot = (cb) => {
     userAgent: navigator.userAgent
   };
 
-  const req = new Request('http://52.43.21.187:3000', {
+  const req = new Request('https://getmarkup.com/docshot', {
     method: 'POST',
     body: JSON.stringify(shotData)
   });

@@ -53,8 +53,6 @@ class CreateKeyModal extends Component {
 
   addingnewendpoint() {
     this.props.addNewEndpt();
-    this.forceUpdate();
-
   }
 
   close() {
@@ -78,7 +76,6 @@ class CreateKeyModal extends Component {
       input={input}
       label={label}
       endpoints={this.props.endpoints}
-      //endpoints={['string1', 'string2']}
       useNewEndpoint={this.addingnewendpoint}
     />);
   }
