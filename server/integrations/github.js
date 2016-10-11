@@ -24,10 +24,9 @@ const createIssue = (params, body) => new Promise((resolve, reject) => {
         + `## Annotation\n`
         + `* to: ${body.to}\n`
         + `* from: ${body.from}\n`
-        + `* selected text: ${body.selected}\n`
         + `* comment: ${body.comment}\n`
-        + `* file url (if attachment included): ${body.url}\n`
-        + `![alt text](${body.url} 'attachment')`
+        + `* file url (if attachment included): ${body.url} `
+        + `![attachment](${body.attachment})`
     },
     json: true
   };

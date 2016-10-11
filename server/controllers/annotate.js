@@ -4,7 +4,7 @@ const config = require('../../env/config.json');
 const User = require('../models/user');
 const Key = require('../models/key');
 const multiparty = require('multiparty');
-//const AWS = require('aws-sdk');
+const aws = require('aws-sdk');
 
 const accessHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -18,34 +18,38 @@ module.exports.allowCORS = (req, res) => {
   res.end();
 };
 
-//const AWS_BUCKET_URL =
-//'https://s3-us-west-1.amazonaws.com/tuba-images-bucket/';
+aws.config.update({
+  accessKeyId: config.aws.access_key_id,
+  secretAccessKey: config.aws.secret_access_key
+});
 
-//prefer using environment variables versus hard-coding values here
-//AWS.config.update({
-  //accessKeyId: config.aws.accessKeyId,
-  //secretAccessKey: config.aws.secretAccessKey
-//});
-//const s3Client = new AWS.S3();
+const s3 = new aws.S3();
 
-//const uploadFile = (part) => new Promise((resolve, reject) => {
-  //const fileKey = Date.now() + part.filename;
+const uploadFile = (stream) => new Promise((resolve, reject) => {
+  //if (!stream) {
+    //reject();
+  //}
+  //stream.resume();
+  //resolve();
 
-  //s3Client.putObject({
-    //Bucket: 'tuba-images-bucket',
-    //Key: fileKey,
-    //ACL: 'public-read',
-    //Body: part,
-    //ContentType: part.headers['content-type'],
-    //ContentLength: part.byteCount
-  //}, (err) => {
-    //if (err) {
-      //reject(err);
-    //} else {
-      //resolve(AWS_BUCKET_URL + fileKey);
-    //}
-  //});
-//});
+  //make the filename a little bit safer
+  const fileKey = Date.now() + stream.filename.replace(/[^\w]/g, '');
+
+  s3.putObject({
+    Bucket: config.aws.s3_bucket,
+    Key: fileKey,
+    ACL: 'public-read',
+    Body: stream,
+    ContentType: stream.headers['content-type'],
+    ContentLength: stream.byteCount
+  }, (err) => {
+    if (err) {
+      reject(err);
+    } else {
+      resolve(`${config.aws.s3_url}${config.aws.s3_bucket}/${fileKey}`);
+    }
+  });
+});
 
 const sendAnnotation = (body) => new Promise((resolve, reject) => {
   if (!body || !body.key) {
@@ -89,9 +93,13 @@ module.exports.create = (req, res) => {
   const form = new multiparty.Form();
   const promise = Promise.resolve();
 
-  //form.on('part', (part) => promise.then(uploadFile(part)));
-  form.on('part', (part) => part.resume());
   form.on('field', (name, value) => (reqBody[name] = value));
+
+  form.on('part', (part) => {
+    promise
+    .then(() => uploadFile(part))
+    .then((accessor) => (reqBody.attachment = accessor));
+  });
 
   form.on('close', () => {
     promise
