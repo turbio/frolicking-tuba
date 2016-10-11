@@ -8,25 +8,32 @@ $background-Maincolor:black;
 
 $logoFont: 'Cabin';
 $logoSize: 26px;
-$logoWeight: 'Medium';
+$logoWeight: medium;
 
-$H3Font: 'Droid Sans';
-$H3Size: 19px;
-$H3Weight: 'Bold';
+$h3Font: 'Droid Sans';
+$h3Size: 19px;
+$h3Weight: normal;
+
+$homeHeaderSize: 26px;
+$homeParaSize: 19px;
+$homeParaWeight: normal;
 
 $labelsFont: 'Cabin';
 $labelsSize: 16px;
-$labelsWeight: 'Bold';
+$labelsWeight: bold;
 
 $headerFont: 'Cabin';
 $headerSize: 16px;
-$headerWeight: 'SemiBold';
+$headerWeight: semibold;
 
 $textFont: 'Cabin';
-$textSize: 'Regular';
-$textWeight: 12px;
+$textSize: 12px;
+$textWeight: normal;
 
-$textOverColor: 'white';
+$textOverColor: white;
+$redTextColor: #ec314c;
+
+$bigButtonWidth: 182px;
 
 body { 
   font-family: $textFont;
@@ -37,12 +44,58 @@ body {
 .navbarLoggedOut {
   background: transparent;
   color: $textOverColor;
+  text-decoration: none;
 }
 
 h3 {
-  font-family: $H3Font;
-  font-size: $H3Size;
-  font-weight: $H3Weight;
+  font-family: $h3Font;
+  font-size: $h3Size;
+  font-weight: $h3Weight;
+}
+
+.homeHeader {
+  font-family: $h3Font;
+  font-size: $homeHeaderSize;
+  font-weight: $homeParaWeight;
+  color: $textOverColor;
+  width: 445px;
+  margin-bottom: 35px;
+}
+
+.homePara {
+  font-family: $h3Font;
+  font-size: $homeParaSize;
+  color: $textOverColor;
+  width: 445px;
+  line-height: 1.4;
+}
+
+.button1, .button2 {
+  font-weight: $h3Weight;
+  font-size: $h3Size;
+  font-family: $headerFont;
+  height: 42px;
+  border-radius: 12px;
+  margin-top: 24px;
+}
+
+.button1 {
+  color: $redTextColor;
+  background-color: white;
+  border: transparent;
+  width: $bigButtonWidth;
+  margin-right: 25px;
+}
+
+.button2 {
+  color: $textOverColor;
+  background: transparent;
+  border: 2px solid white;
+  width: $bigButtonWidth;
+}
+
+.mainLandingImg {
+  margin-top: 130px;
 }
 
 .table {
@@ -65,32 +118,26 @@ h3 {
 
 .mainLanding {
   padding-top:70px;
-  background: $background-Maincolor;
+  background: transparent;
   height:100vh;
   color: $textOverColor;
 }
 
-// .swoosh {
-//   background: linear-gradient(150deg,#53f 15%,#05d5ff 70%,#a6ffcb 94%);
-//     background-image: linear-gradient(150deg, #ee433d 15%, #ec3846 50%, #ec2c51 94%);
-//     background-position-x: initial;
-//     background-position-y: initial;
-//     background-size: initial;
-//     background-repeat-x: initial;
-//     background-repeat-y: initial;
-//     background-attachment: initial;
-//     background-origin: initial;
-//     background-clip: initial;
-//     background-color: initial;
-// }
+.landingPageGrid {
+  z-index: 1;
+}
 
 .swoosh {
-  width: 105%;
-  height: 100%;
+  position: absolute;
+  top: 0;
+  right: -10;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
 }
 
 .section1 {
-  height:50vh;
+  height:100vh;
   background:gray;
 }
 
