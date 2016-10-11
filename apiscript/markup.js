@@ -15,7 +15,7 @@ let clipAreaElem = null;
 
 let bgImage = '';
 
-const apiEndpoint = 'localhost:3000/api/annotate';
+const apiEndpoint = 'https://getmarkup.com/api/annotate';
 const elemPrefix = 'frolicking-tuba-modal';
 
 const hideModal = () => {
