@@ -1,7 +1,7 @@
 import { OPEN_MODAL,
   CLOSE_MODAL, OPEN_MODAL_EDIT,
   ADD_NEW_ENDPOINT, FETCH_ENDPOINTS,
-  UPDATE_GITHUB_AUTH } from '../utils/AppConstants';
+  UPDATE_GITHUB_AUTH, SIGN_OUT_USER } from '../utils/AppConstants';
 
 const assign = Object.assign;
 
@@ -17,7 +17,6 @@ const initialState = {
 };
 
 export default function keyModalReducer(state = initialState, action) {
-  console.log(action, 'keyModalReducer');
   switch (action.type) {
   case OPEN_MODAL:
     return assign({}, state, { showModal: true });
@@ -43,6 +42,8 @@ export default function keyModalReducer(state = initialState, action) {
     return assign({}, state, { addingNewEndpoint: true });
   case FETCH_ENDPOINTS:
     return assign({}, state, { endpoints: action.payload });
+  case SIGN_OUT_USER:
+    return assign({}, state, initialState);
   default:
     return state;
   }
