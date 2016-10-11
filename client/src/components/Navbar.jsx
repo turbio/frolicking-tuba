@@ -30,6 +30,10 @@ class NavbarComponent extends React.Component {
 
 
   render() {
+    const pricingLink = (<NavItem eventKey={2}>Pricing</NavItem>);
+    const teamLink = (<NavItem eventKey={3}><Link to="/team">Team</Link></NavItem>);
+    const dashboardLink = (<NavItem eventKey={3}><Link to="/dashboard">Dashboard</Link></NavItem>)
+
     return (
       <Navbar fixedTop>
         <Navbar.Header>
@@ -43,8 +47,9 @@ class NavbarComponent extends React.Component {
             <NavItem eventKey={1}>
               <Link to="/documentation">Documentation</Link>
             </NavItem>
-            <NavItem eventKey={2}>Pricing</NavItem>
-            <NavItem eventKey={3}><Link to="/team">Team</Link></NavItem>
+            {this.props.authenticated ? '' : pricingLink}
+            {this.props.authenticated ? '' : teamLink}
+            {this.props.authenticated ? dashboardLink : ''}
           </Nav>
           { this.renderAuthLinks() }
         </Navbar.Collapse>
