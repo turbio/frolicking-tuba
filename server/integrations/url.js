@@ -9,8 +9,6 @@ module.exports.postToUrl = (params, body) => new Promise((resolve, reject) => {
     return;
   }
 
-  console.log('=== building http post to url ===');
-
   const options = {
     url: params.output_meta,
     method: 'POST',
@@ -18,15 +16,10 @@ module.exports.postToUrl = (params, body) => new Promise((resolve, reject) => {
     json: true
   };
 
-  console.log('=== request has been built ===');
-  console.log('=== url', options.url, '===');
-
   request(options, (err) => {
     if (err) {
       reject(err);
     }
-
-    console.log('=== request complete ===');
 
     resolve();
   });
