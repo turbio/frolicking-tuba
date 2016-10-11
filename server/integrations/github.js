@@ -22,7 +22,8 @@ const createIssue = (params, body) => new Promise((resolve, reject) => {
     body: {
       title: body.title,
       body:
-        `## Annotation\n`
+        `![alt text](${body.screenshot})\n`
+        + `## Annotation\n`
         + `* to: ${body.to}\n`
         + `* from: ${body.from}\n`
         + `* selected text: ${body.selected}\n`

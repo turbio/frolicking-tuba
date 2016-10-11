@@ -1,18 +1,62 @@
-// @import url(https://fonts.googleapis.com/css?family=Lato);
 // $font-family-sans-serif: 'Lato', sans-serif;
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import url(https://fonts.googleapis.com/css?family=Lato);
+@import url(https://fonts.googleapis.com/css?family=Cabin:400,500,600,700);
+@import url(https://fonts.googleapis.com/css?family=Droid+Sans);
 
 $background-Maincolor:black;
 
+$logoFont: 'Cabin';
+$logoSize: 26px;
+$logoWeight: 'Medium';
 
-body { padding-top: 70px; }
+$H3Font: 'Droid Sans';
+$H3Size: 19px;
+$H3Weight: 'Bold';
+
+$labelsFont: 'Cabin';
+$labelsSize: 16px;
+$labelsWeight: 'Bold';
+
+$headerFont: 'Cabin';
+$headerSize: 16px;
+$headerWeight: 'SemiBold';
+
+$textFont: 'Cabin';
+$textSize: 'Regular';
+$textWeight: 12px;
+
+$textOverColor: 'white';
+
+body { 
+  font-family: $textFont;
+  font-weight: $textWeight;
+  font-size: $textSize;
+}
+
+.navbarLoggedOut {
+  background: transparent;
+  color: $textOverColor;
+}
+
+h3 {
+  font-family: $H3Font;
+  font-size: $H3Size;
+  font-weight: $H3Weight;
+}
 
 .table {
   margin-bottom: 0px;
 }
 
 .teamProfiles {
-  margin-top: 200px;
+  margin-top: 100px;
+}
+
+.profileImage {
+  border-radius: 50%;
+  margin-top: 30px;
+  padding: 5px;
 }
 
 .table {
@@ -23,7 +67,28 @@ body { padding-top: 70px; }
   padding-top:70px;
   background: $background-Maincolor;
   height:100vh;
+  color: $textOverColor;
 }
+
+// .swoosh {
+//   background: linear-gradient(150deg,#53f 15%,#05d5ff 70%,#a6ffcb 94%);
+//     background-image: linear-gradient(150deg, #ee433d 15%, #ec3846 50%, #ec2c51 94%);
+//     background-position-x: initial;
+//     background-position-y: initial;
+//     background-size: initial;
+//     background-repeat-x: initial;
+//     background-repeat-y: initial;
+//     background-attachment: initial;
+//     background-origin: initial;
+//     background-clip: initial;
+//     background-color: initial;
+// }
+
+.swoosh {
+  width: 105%;
+  height: 100%;
+}
+
 .section1 {
   height:50vh;
   background:gray;
