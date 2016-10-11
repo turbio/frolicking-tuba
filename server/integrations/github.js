@@ -3,7 +3,15 @@ const request = require('request');
 
 const User = require('../models/user');
 
-module.exports.createIssue = (params, body) => {
+const createIssue = (params, body) => new Promise((resolve, reject) => {
+  if (params.type !== 'github') {
+    resolve();
+
+    return;
+  }
+
+  console.log('=== starting gh issue creation process ===');
+
   const options = {
     url: `${config.github.api_url}/repos/${params.output_meta}/issues`,
     method: 'POST',
@@ -25,12 +33,22 @@ module.exports.createIssue = (params, body) => {
     json: true
   };
 
+  console.log('=== built github request object ===');
+  console.log('=== url', options.url, '===');
+  console.log('=== key', options.headers.Authorization, '===');
+
   request(options, (err) => {
     if (err) {
-      console.log(err);
+      reject(err);
     }
+
+    console.log('=== github issue request has been completed ===');
+
+    resolve();
   });
-};
+});
+
+module.exports.createIssue = createIssue;
 
 module.exports.register = (req, res) => {
   const options = {
@@ -43,7 +61,6 @@ module.exports.register = (req, res) => {
           + `&code=${req.query.code}`
   };
 
-  // eslint-disable-next-line max-statements
   request(options, (err, githubRes, body) => {
     if (!body.access_token || !req.session.user || err) {
       res.status(400).json({ error: 'failed to authenticate with github' });
@@ -55,8 +72,6 @@ module.exports.register = (req, res) => {
       { ghtoken: body.access_token },
       { where: { id: req.session.user.id } }
     ).then(() => {
-      console.log('ghtoken updated!');
-      //res.redirect('/create/github');
       res.redirect('/dashboard');
     });
   });
