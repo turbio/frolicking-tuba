@@ -6,12 +6,13 @@ const Team = () => (
   <Grid className="teamProfiles">
     <Row>
       <Col xs={12} sm={12} md={12}>
-        <h1>Tuba Team</h1>
+        <h1>Markup Team</h1>
       </Col>
     </Row>
     <Row>
       <Col xs={12} sm={6} md={3}>
         <img
+          className="profileImage"
           width="250"
           role="presentation"
           src={`https://s3-us-west-1.amazonaws.com/
@@ -24,6 +25,7 @@ Super duper paratrooper.  Tuba!
       </Col>
       <Col xs={12} sm={6} md={3}>
         <img
+          className="profileImage"
           width="250"
           role="presentation"
           src={`https://s3-us-west-1.amazonaws.com/
@@ -36,6 +38,7 @@ Super duper paratrooper.  Tuba!
       </Col>
       <Col xs={12} sm={6} md={3}>
         <img
+          className="profileImage"
           width="250"
           role="presentation"
           src={`https://s3-us-west-1.amazonaws.com/
@@ -48,6 +51,7 @@ Super duper paratrooper.  Tuba!
       </Col>
       <Col xs={12} sm={6} md={3}>
         <img
+          className="profileImage"
           width="250"
           role="presentation"
           src={`https://s3-us-west-1.amazonaws.com/

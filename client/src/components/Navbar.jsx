@@ -34,7 +34,7 @@ class NavbarComponent extends React.Component {
       <Navbar fixedTop>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/">Frolicking Tuba</Link>
+            <Link to="/">Markup</Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
