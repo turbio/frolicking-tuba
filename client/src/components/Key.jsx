@@ -16,7 +16,14 @@ const Title = ({ text }) => (
 Title.propTypes = { text: PropTypes.string };
 
 const Key = ({ title, endpoint, keyString }) => (
-  <Panel header={<Title text={title} />}>
+  <Panel
+    header={
+      <div>
+        <Title text={title} />
+        <Button bsStyle="link">Settings</Button>
+      </div>
+    }
+  >
     <FormGroup>
       <ControlLabel>Endpoint</ControlLabel>
       <Well bsSize="small">{endpoint}</Well>
