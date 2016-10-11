@@ -93,7 +93,7 @@ export const getApiKeys = () => (
         const newKey = key;
 
         newKey.api_key
-          = `<script src="http://d1p3e8i5yp3axf.cloudfront.net/?key=\
+          = `<script src="https://d1p3e8i5yp3axf.cloudfront.net/?key=\
 ${key.key}"></script>`;
 
 //         newKey.api_key = `<script src="https://getmarkup.com/script.js?key=\
