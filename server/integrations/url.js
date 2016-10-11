@@ -2,23 +2,29 @@ const request = require('request');
 const config = require('../../env/config.json');
 const Url = require('../models/url');
 
-module.exports.postToUrl = (params, body) => {
+module.exports.postToUrl = (params, body) => new Promise((resolve, reject) => {
+  console.log('=== building http post to url ===');
+
   const options = {
     url: params.output_meta,
     method: 'POST',
-    body: {
-      title: body.title,
-      body:
-        `#to: ${body.to}\n`
-        + `#from: ${body.from}\n`
-        + `#selected text: ${body.selected}\n`
-        + `#comment: ${body.comment}`
-    },
+    body,
     json: true
   };
 
-  request(options, () => { });
-};
+  console.log('=== request has been built ===');
+  console.log('=== url', options.url, '===');
+
+  request(options, (err) => {
+    if (err) {
+      reject(err);
+    }
+
+    console.log('=== request complete ===');
+
+    resolve();
+  });
+});
 
 module.exports.urlList = (req, res) => {
   if (!req.session.user) {
@@ -28,9 +34,9 @@ module.exports.urlList = (req, res) => {
   }
 
   Url.findAll({ where: { userId: req.session.user.id } })
-  .then((urls) => {
-    res.status(200).json(urls);
-  });
+    .then((urls) => {
+      res.status(200).json(urls);
+    });
 };
 
 module.exports.urlSelect = (req, res) => {

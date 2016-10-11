@@ -116,12 +116,13 @@ describe('annotation', () => { // eslint-disable-line max-statements
       .expect(400)
       .end((err, res) => {
         res.body.error.should.eq(config.messages.no_key);
+        mockServer.recieved.length.should.eq(0);
         mockServer.has('this should be rejected').should.eq(false);
         done(err);
       });
   });
 
-  xit('should POST with attachment to /annotate with Github key', (done) => {
+  it('should POST with attachment to /annotate with Github key', (done) => {
     mockServer.clear();
     request(server)
       .post('/api/annotate')
@@ -134,12 +135,13 @@ describe('annotation', () => { // eslint-disable-line max-statements
       .attach('file', `${__dirname}/testfile`)
       .expect(200)
       .end((err) => {
+        mockServer.recieved.length.should.eq(1);
         mockServer.has('github').should.eq(true);
         done(err);
       });
   });
 
-  xit('should POST without attachment to /annotate with Github key', (done) => {
+  it('should POST without attachment to /annotate with Github key', (done) => {
     mockServer.clear();
     request(server)
       .post('/api/annotate')
@@ -151,12 +153,13 @@ describe('annotation', () => { // eslint-disable-line max-statements
       .field('comment', 'this is the comment')
       .expect(200)
       .end((err) => {
+        mockServer.recieved.length.should.eq(1);
         mockServer.has('github').should.eq(true);
         done(err);
       });
   });
 
-  xit('should POST to /annotate with URL key', (done) => {
+  it('should POST to /annotate with URL key', (done) => {
     mockServer.clear();
     request(server)
       .post('/api/annotate')
@@ -169,7 +172,7 @@ describe('annotation', () => { // eslint-disable-line max-statements
       .expect(200)
       .end((err) => {
         mockServer.recieved.length.should.eq(1);
-        mockServer.has('github').should.eq(true);
+        //mockServer.has('github').should.eq(true);
         done(err);
       });
   });

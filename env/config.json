@@ -27,7 +27,8 @@
     "incorrect_cred": "email and password did not match",
     "not_logged_in": "you must be logged in to do this",
     "github_no_auth": "you have not authed with github",
-    "no_key": "no api key in request"
+    "no_key": "no api key in request",
+    "bad_key": "incorrect key"
   },
   "secret": "ONLY USE THIS IN DEV",
   "integrations": [

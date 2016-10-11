@@ -3,7 +3,9 @@ const request = require('request');
 
 const User = require('../models/user');
 
-module.exports.createIssue = (params, body) => {
+const createIssue = (params, body) => new Promise((resolve, reject) => {
+  console.log('=== starting gh issue creation process ===');
+
   const options = {
     url: `${config.github.api_url}/repos/${params.output_meta}/issues`,
     method: 'POST',
@@ -25,8 +27,22 @@ module.exports.createIssue = (params, body) => {
     json: true
   };
 
-  request(options, () => { });
-};
+  console.log('=== built github request object ===');
+  console.log('=== url', options.url, '===');
+  console.log('=== key', options.headers.Authorization, '===');
+
+  request(options, (err) => {
+    if (err) {
+      reject(err);
+    }
+
+    console.log('=== github issue request has been completed ===');
+
+    resolve();
+  });
+});
+
+module.exports.createIssue = createIssue;
 
 module.exports.register = (req, res) => {
   const options = {
