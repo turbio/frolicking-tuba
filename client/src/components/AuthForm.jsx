@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import * as Actions from '../actions/AppActions';
-import { renderTextField, validate } from './FormHelpers.jsx';
+import { renderTextField, validateAuthForm } from './FormHelpers.jsx';
 
 
 class AuthForm extends Component {
@@ -75,5 +75,5 @@ const mapStateToProps = (state) => (
 
 export default connect(mapStateToProps, Actions)(reduxForm({
   form: 'login',
-  validate
+  validateAuthForm
 })(AuthForm));

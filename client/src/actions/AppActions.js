@@ -96,9 +96,6 @@ export const getApiKeys = () => (
           = `<script src="https://d1p3e8i5yp3axf.cloudfront.net/?key=\
 ${key.key}"></script>`;
 
-//         newKey.api_key = `<script src="https://getmarkup.com/script.js?key=\
-// ${key.key}"></script>`;
-
         return newKey;
       });
 
@@ -215,9 +212,7 @@ export const createNewKey = (name, type, endpoint) => (
       credentials: 'same-origin',
       body: JSON.stringify(requestBody)
     })
-    //.then((response) => response.json())
     .then(() => {
-
       if (type === 'url') {
         return createNewUrl({ url: endpoint });
       }
@@ -250,27 +245,5 @@ export const createNewKey = (name, type, endpoint) => (
 //       }
 //     });
 //   };
-// };
-
-
-// export const setKeyWithGithub = () => {
-//   (dispatch) => {
-
-//   };
-// };
-
-// export const setKeyWithUrl = (values) => {
-//   console.log(values, 'reached here');
-//   // (dispatch) => {
-
-//   // };
-// };
-
-// export const handleEndpointSubmit = (values) => {
-//   //if url do one thing, if github repo do another
-//   if (values.endpoint.includes('url:')) {
-//     console.log('we reached setkey');
-//     setKeyWithUrl(values);
-//   }
 // };
 

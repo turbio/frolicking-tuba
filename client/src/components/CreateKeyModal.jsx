@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import EndpointsDropdown from './EndpointsDropdown.jsx';
 import AddNewEndpoint from './AddNewEndpoint.jsx';
-import { renderTextField, validate } from './FormHelpers.jsx';
+import { renderTextField, validateModal } from './FormHelpers.jsx';
 
 
 import * as Actions from '../actions/AppActions';
@@ -143,5 +143,5 @@ const mapStateToProps = (state) => ({
 
 
 export default connect(mapStateToProps, Actions)(reduxForm(
-  { form: 'endpoint', validate })(CreateKeyModal));
+  { form: 'endpoint', validateModal })(CreateKeyModal));
 
