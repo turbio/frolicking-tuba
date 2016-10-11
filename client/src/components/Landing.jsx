@@ -1,18 +1,35 @@
 import React from 'react';
 import { Row, Col, Grid, Button } from 'react-bootstrap';
 
-
 const Landing = () => (
   <div>
-    <svg className="swoosh" viewBox="0 0 1031 650" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+    <svg
+      className="swoosh"
+      viewBox="0 0 1031 650"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+    >
       <defs>
-       <linearGradient x1="100%" y1="50%" x2="0%" y2="50%" id="linearGradient-1">
-            <stop stopColor="#EE433D" offset="0%"></stop>
-            <stop stopColor="#EC3846" offset="49.6568765%"></stop>
-            <stop stopColor="#EC2C51" offset="100%"></stop>
+        <linearGradient
+          x1="100%"
+          y1="50%"
+          x2="0%"
+          y2="50%"
+          id="linearGradient-1"
+        >
+          <stop stopColor="#EE433D" offset="0%" />
+          <stop stopColor="#EC3846" offset="49.6568765%" />
+          <stop stopColor="#EC2C51" offset="100%" />
         </linearGradient>
       </defs>
-      <path d="M0,0 L1024,0 C1024,0 1026.6096,384 1024,384 C950,384 647.47765,432.199 407,499 C165.899454,565.974031 0,650 0,650 L0,0 Z" id="Rectangle-2" stroke="none" fill="url(#linearGradient-1)" fill-rule="evenodd"></path>
+      <path
+        d="M0,0 L1024,0 C1024,0 1026.6096,384 1024,384 C950,384 647.47765,432.199 407,499 C165.899454,565.974031 0,650 0,650 L0,0 Z"  // eslint-disable-line
+        id="Rectangle-2"
+        stroke="none"
+        fill="url(#linearGradient-1)"
+        fillRule="evenodd"
+      />
     </svg>
     <Grid>
       <Row className="mainLanding">
