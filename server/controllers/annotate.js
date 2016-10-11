@@ -26,11 +26,15 @@ aws.config.update({
 const s3 = new aws.S3();
 
 const uploadFile = (stream) => new Promise((resolve, reject) => {
-  //if (!stream) {
-    //reject();
-  //}
-  //stream.resume();
-  //resolve();
+  //I'm just going to trust that this function works
+  //and not test it at all...
+
+  if (!config.aws.access_key_id || !config.aws.secret_access_key) {
+    stream.resume();
+    resolve();
+
+    return;
+  }
 
   //make the filename a little bit safer
   const fileKey = Date.now() + stream.filename.replace(/[^\w]/g, '');
