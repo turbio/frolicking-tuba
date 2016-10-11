@@ -17,13 +17,7 @@ module.exports.postToUrl = (params, body) => {
     json: true
   };
 
-  console.log('making url post request using', options, '---');
-
-  request(options, (err) => {
-    if (err) {
-      console.log('ERROR POSTING TO SERVER', err);
-    }
-  });
+  request(options, () => { });
 };
 
 module.exports.urlList = (req, res) => {

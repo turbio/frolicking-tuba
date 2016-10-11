@@ -47,7 +47,6 @@ const uploadFile = (part) => new Promise((resolve, reject) => {
 });
 
 const sendAnnotation = (body) => new Promise((resolve, reject) => {
-  console.log('SENDING ANNOTATION WITH DATA', body);
   if (!body || !body.key) {
     reject(config.messages.no_key);
 
@@ -62,14 +61,12 @@ const sendAnnotation = (body) => new Promise((resolve, reject) => {
 
   Key.findOne({ where: { key: body.key } })
   .then((key) => {
-    console.log('found key!', key.type);
     params.type = key.type;
     params.output_meta = key.endpoint;
 
     return User.findOne({ where: { id: key.userId } });
   })
   .then((user) => {
-    console.log('GOT BODY', body);
     params.integration_meta = user.ghtoken;
 
     if (params.type === 'github') {
@@ -79,11 +76,10 @@ const sendAnnotation = (body) => new Promise((resolve, reject) => {
       url.postToUrl(params, body);
     }
     resolve();
-  });
+  }).catch((err) => reject(err));
 });
 
 module.exports.create = (req, res) => {
-  console.log('STARTED KEY CREATION');
   const reqBody = {};
   const form = new multiparty.Form();
   const promise = Promise.resolve();
@@ -91,22 +87,17 @@ module.exports.create = (req, res) => {
   form.on('part', (part) =>
     promise.then(uploadFile(part)));
 
-  form.on('error', (err) =>
-    console.log(`Error parsing form: ${err.stack}`));
-
   form.on('field', (name, value) => {
     reqBody[name] = value;
   });
 
   form.on('close', () => {
     promise
-      .then(sendAnnotation(reqBody))
+      .then(() => sendAnnotation(reqBody))
       .then(() => {
-        console.log('CREATED KEY...!?');
         res.set(accessHeaders);
         res.end();
       }).catch((error) => {
-        console.log('ERROR WHILE CREATING KEY', error);
         res.status(400).json({ error });
       });
   });

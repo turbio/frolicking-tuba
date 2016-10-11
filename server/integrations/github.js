@@ -25,11 +25,7 @@ module.exports.createIssue = (params, body) => {
     json: true
   };
 
-  request(options, (err) => {
-    if (err) {
-      console.log(err);
-    }
-  });
+  request(options, () => { });
 };
 
 module.exports.register = (req, res) => {
@@ -43,7 +39,6 @@ module.exports.register = (req, res) => {
           + `&code=${req.query.code}`
   };
 
-  // eslint-disable-next-line max-statements
   request(options, (err, githubRes, body) => {
     if (!body.access_token || !req.session.user || err) {
       res.status(400).json({ error: 'failed to authenticate with github' });
@@ -55,8 +50,6 @@ module.exports.register = (req, res) => {
       { ghtoken: body.access_token },
       { where: { id: req.session.user.id } }
     ).then(() => {
-      console.log('ghtoken updated!');
-      //res.redirect('/create/github');
       res.redirect('/dashboard');
     });
   });
