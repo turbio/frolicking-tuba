@@ -84,6 +84,7 @@ const sendAnnotation = (body) => new Promise((resolve, reject) => {
 
     params.integration_meta = user.ghtoken;
 
+    return Promise.resolve();
   })
   .then(() => {
 
