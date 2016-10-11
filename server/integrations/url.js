@@ -3,8 +3,6 @@ const config = require('../../env/config.json');
 const Url = require('../models/url');
 
 module.exports.postToUrl = (params, body) => {
-  console.log('PARAMS', params, 'BODY', body);
-
   const options = {
     url: params.output_meta,
     method: 'POST',
@@ -19,13 +17,7 @@ module.exports.postToUrl = (params, body) => {
     json: true
   };
 
-  console.log('making url post request using', options, '---');
-
-  request(options, (err) => {
-    if (err) {
-      console.log('ERROR POSTING TO SERVER', err);
-    }
-  });
+  request(options, () => { });
 };
 
 module.exports.urlList = (req, res) => {
