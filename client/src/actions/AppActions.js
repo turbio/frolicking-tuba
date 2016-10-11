@@ -82,7 +82,6 @@ export const logOut = () => (
 
 export const getApiKeys = () => (
   (dispatch) => {
-    console.log('reach get apikeys');
     fetch('/api/keys', { credentials: 'same-origin' })
     .then((response) => response.json())
     .then((json) => {
@@ -120,11 +119,7 @@ export const fetchEndpoints = () => (
       return response.json();
     })
     .then((auth) => {
-      console.log(auth.github, 'reached auth.github');
-
       if (auth.github) {
-        console.log(auth, 'auth true');
-
         dispatch(updateGitHubAuth());
 
         return fetch(
