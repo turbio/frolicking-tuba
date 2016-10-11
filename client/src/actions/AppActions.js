@@ -220,6 +220,7 @@ export const createNewKey = (name, type, endpoint) => (
       return null;
     })
     .then(() => {
+      dispatch(getApiKeys());
       dispatch(hideModal());
     })
     .catch((error) => {
