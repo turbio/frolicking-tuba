@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 //import { logout } from '../actions/AppActions';
 //import { SET_AUTH } from '../utils/AppConstants';
 import * as Actions from '../actions/AppActions';
@@ -12,27 +12,28 @@ class NavbarComponent extends React.Component {
     this.props.logOut();
   }
 
-  renderAuthLinks() {
-    if (this.props.authenticated) {
-      return (<Nav pullRight>
-        <NavItem eventKey={1}>
-          <Link to="/" onClick={() => this.runlogout()}>Log Out</Link>
-        </NavItem>
-      </Nav>);
-    }
-
-    return (<Nav pullRight>
+  render() {
+    const pricingLink = (<NavItem eventKey={2}>Pricing</NavItem>);
+    const teamLink = (<NavItem eventKey={3}>
+      <Link to="/team">Team</Link>
+    </NavItem>);
+    const dashboardLink = (<NavItem eventKey={3}>
+      <Link to="/dashboard">Dashboard</Link>
+    </NavItem>);
+    const authLinks = (<Nav pullRight>
       <NavItem eventKey={1}><Link to="/signup">Sign Up</Link></NavItem>
       <NavItem eventKey={2}><Link to="/signin">Log In</Link></NavItem>
     </Nav>);
+    const profileDropdown = (<Nav pullRight>
+      <NavDropdown eventKey={3} title={this.props.email} id="basic-nav-dropdown">
+        <MenuItem eventKey={3.1}>Profile</MenuItem>
+        <MenuItem divider />
+        <MenuItem eventKey={3.2}>
+          <Link to="/" onClick={() => this.runlogout()}>Log Out</Link>
+        </MenuItem>
+      </NavDropdown>
+    </Nav>);
 
-  }
-
-
-  render() {
-    const pricingLink = (<NavItem eventKey={2}>Pricing</NavItem>);
-    const teamLink = (<NavItem eventKey={3}><Link to="/team">Team</Link></NavItem>);
-    const dashboardLink = (<NavItem eventKey={3}><Link to="/dashboard">Dashboard</Link></NavItem>)
 
     return (
       <Navbar fixedTop>
@@ -51,7 +52,7 @@ class NavbarComponent extends React.Component {
             {this.props.authenticated ? '' : teamLink}
             {this.props.authenticated ? dashboardLink : ''}
           </Nav>
-          { this.renderAuthLinks() }
+          {this.props.authenticated ? profileDropdown : authLinks}
         </Navbar.Collapse>
       </Navbar>
       );
@@ -66,7 +67,10 @@ NavbarComponent.propTypes = {
 };
 
 const mapStateToProps = (state) => (
-  { authenticated: state.auth.authenticated }
+  {
+    authenticated: state.auth.authenticated,
+    email: state.auth.email
+  }
 );
 
 export default connect(mapStateToProps, Actions)(NavbarComponent);
