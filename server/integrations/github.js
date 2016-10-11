@@ -10,8 +10,6 @@ const createIssue = (params, body) => new Promise((resolve, reject) => {
     return;
   }
 
-  console.log('=== starting gh issue creation process ===');
-
   const options = {
     url: `${config.github.api_url}/repos/${params.output_meta}/issues`,
     method: 'POST',
@@ -34,16 +32,10 @@ const createIssue = (params, body) => new Promise((resolve, reject) => {
     json: true
   };
 
-  console.log('=== built github request object ===');
-  console.log('=== url', options.url, '===');
-  console.log('=== key', options.headers.Authorization, '===');
-
   request(options, (err) => {
     if (err) {
       reject(err);
     }
-
-    console.log('=== github issue request has been completed ===');
 
     resolve();
   });

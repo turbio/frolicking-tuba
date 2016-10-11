@@ -48,14 +48,11 @@ module.exports.allowCORS = (req, res) => {
 //});
 
 const sendAnnotation = (body) => new Promise((resolve, reject) => {
-  console.log('=== sending annotation ===');
   if (!body || !body.key) {
     reject(config.messages.no_key);
 
     return;
   }
-
-  console.log('=== with key', body.key, '===');
 
   const params = {};
 
@@ -64,10 +61,6 @@ const sendAnnotation = (body) => new Promise((resolve, reject) => {
     if (!key) {
       return Promise.reject(config.messages.bad_key);
     }
-
-    console.log('=== found key with id', key.id, '===');
-    console.log('=== key type', key.type, '===');
-    console.log('=== key output', key.endpoint, '===');
 
     params.type = key.type;
     params.output_meta = key.endpoint;
@@ -78,9 +71,6 @@ const sendAnnotation = (body) => new Promise((resolve, reject) => {
     if (!user) {
       return Promise.reject(config.messages.server_error);
     }
-
-    console.log('=== found user with id', user.id, '===');
-    console.log('=== integration meta', user.ghtoken, '===');
 
     params.integration_meta = user.ghtoken;
 
@@ -100,19 +90,13 @@ module.exports.create = (req, res) => {
   const promise = Promise.resolve();
 
   //form.on('part', (part) => promise.then(uploadFile(part)));
-  form.on('part', (part) =>
-      console.log('=== part recieved ===') || part.resume());
-
-  form.on('error', (error) => console.log('=== part error ===', error));
-
+  form.on('part', (part) => part.resume());
   form.on('field', (name, value) => (reqBody[name] = value));
 
   form.on('close', () => {
-    console.log('=== form recieved ===');
     promise
       .then(() => sendAnnotation(reqBody))
       .then(() => {
-        console.log('=== all done, wrapping up ===');
         res.set(accessHeaders);
         res.end();
       }).catch((error) => {
