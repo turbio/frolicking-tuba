@@ -33,7 +33,12 @@ module.exports.createKey = (req, res) => {
       res.status(200).json({ rowsUpdated: result[0] });
     });
   } else {
-    Key.create({ userId: req.session.user.id })
+    Key.create({
+      userId: req.session.user.id,
+      name: req.body.name,
+      type: req.body.type,
+      endpoint: req.body.endpoint
+    })
     .then((key) => {
       res.status(200).json(key);
     });
