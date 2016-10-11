@@ -31,7 +31,7 @@ class NavbarComponent extends React.Component {
 
   render() {
     return (
-      <Navbar fixedTop>
+      <Navbar fixedTop className="navbarLoggedOut">
         <Navbar.Header>
           <Navbar.Brand>
             <Link to="/">Markup</Link>
