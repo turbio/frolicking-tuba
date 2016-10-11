@@ -26,6 +26,7 @@ $textFont: 'Cabin';
 $textSize: 'Regular';
 $textWeight: 12px;
 
+$textOverColor: 'white';
 
 body { 
   font-family: $textFont;
@@ -61,7 +62,23 @@ h3 {
   padding-top:70px;
   background: $background-Maincolor;
   height:100vh;
+  color: $textOverColor;
 }
+
+.mainLanding {
+  background: linear-gradient(150deg,#53f 15%,#05d5ff 70%,#a6ffcb 94%);
+    background-image: linear-gradient(150deg, #ee433d 15%, #ec3846 50%, #ec2c51 94%);
+    background-position-x: initial;
+    background-position-y: initial;
+    background-size: initial;
+    background-repeat-x: initial;
+    background-repeat-y: initial;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: initial;
+}
+
 .section1 {
   height:50vh;
   background:gray;
