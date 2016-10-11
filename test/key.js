@@ -36,7 +36,6 @@ describe('keys', () => {
       .get('/api/keys')
       .expect(200)
       .end((err, res) => {
-        console.log('GET KEYS ERROR:', err);
         res.body.should.be.an('array');
         done(err);
       });
