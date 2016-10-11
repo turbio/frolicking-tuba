@@ -15,7 +15,7 @@ let clipAreaElem = null;
 
 let bgImage = '';
 
-const apiEndpoint = 'https://getmarkup.com/api/annotate';
+const apiEndpoint = 'localhost:3000/api/annotate';
 const elemPrefix = 'frolicking-tuba-modal';
 
 const hideModal = () => {
@@ -140,7 +140,7 @@ const takeShot = (cb) => {
     userAgent: navigator.userAgent
   };
 
-  const req = new Request('http://52.43.21.187:3000', {
+  const req = new Request('https://getmarkup.com/docshot', {
     method: 'POST',
     body: JSON.stringify(shotData)
   });
