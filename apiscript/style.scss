@@ -34,9 +34,32 @@ $arrow-size: 10px;
     opacity: 0;
     transform: translate(0, 10px);
 
+    transition: all .25s;
+
+    &.right-arrow{
+      margin-right: $modal-padding;
+      &:after, &:before{
+        left: 100%;
+        top: 8%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+      }
+      &:after{
+        border-left-color: $modal-background;
+        border-width: $arrow-size;
+        margin-top: -$arrow-size;
+      }
+      &:before{
+        border-left-color: $modal-border;
+        border-width: $arrow-size + 1;
+        margin-top: -($arrow-size + 1);
+      }
+    }
     &.left-arrow{
       margin-left: $modal-padding;
-      transition: all .25s;
       &:after, &:before{
         right: 100%;
         top: 8%;
