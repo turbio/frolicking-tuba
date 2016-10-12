@@ -17,7 +17,9 @@ const Documentation = () => (
       <Row>
         <Col md={12}>
           <h2 className="docsHeading">example heading</h2>
-          <p className="docsPara">example para asdfasdfasdfasdfasdf asdfasd fasd fasdf asd</p>
+          <p className="docsPara">
+            example para asdfasdfasdfasdfasdf asdfasd fasd fasdf asd
+          </p>
         </Col>
       </Row>
     </Grid>
