@@ -70,7 +70,10 @@ class KeyModal extends React.Component {
         >
           {
             this.props.urls.map((url) => (
-              <option value={`{"type":"url","endpoint":"${url.url}"}`}>
+              <option 
+              value={`{"type":"url","endpoint":"${url.url}"}`}
+              key={url.url}
+              >
                 {url.url}
               </option>)
             )
@@ -79,6 +82,7 @@ class KeyModal extends React.Component {
             this.props.repos.map((repo) => (
               <option
                 value={`{"type":"github","endpoint":"${repo.full_name}"}`}
+                key={repo.full_name}
               >
                 {repo.full_name}
               </option>
