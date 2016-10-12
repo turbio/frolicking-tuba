@@ -61,6 +61,7 @@ const buildBgImage = (url) => {
   bgImageElem.id = `${elemPrefix}-bg-image`;
   bgImageElem.src = url;
   bgImageElem.onload = () => {
+    buttonElem.className = 'in-close-state';
     bgImageElem.style.opacity = 1;
   };
 
@@ -196,11 +197,11 @@ const startDrag = (event) => {
   };
 
   const dragMove = (moveEvent) => {
-    const xdiff = moveEvent.pageX - event.pageX;
-    const ydiff = moveEvent.pageY - event.pageY;
+    const xdiff = moveEvent.clientX - event.clientX;
+    const ydiff = moveEvent.clientY - event.clientY;
 
-    xPos = (xdiff < 0) ? moveEvent.pageX : event.pageX;
-    yPos = (ydiff < 0) ? moveEvent.pageY : event.pageY;
+    xPos = (xdiff < 0) ? moveEvent.clientX : event.clientX;
+    yPos = (ydiff < 0) ? moveEvent.clientY : event.clientY;
 
     width = Math.abs(xdiff);
     height = Math.abs(ydiff);
@@ -224,7 +225,7 @@ const startDrag = (event) => {
 };
 
 const showModal = () => {
-  buttonElem.className = 'in-close-state';
+  buttonElem.className = 'in-loading-state';
   takeShot((url) => {
     document.body.appendChild(buildBgImage(url));
   });
