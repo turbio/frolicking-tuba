@@ -1,7 +1,7 @@
 // $font-family-sans-serif: 'Lato', sans-serif;
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 @import url(https://fonts.googleapis.com/css?family=Lato);
-@import url(https://fonts.googleapis.com/css?family=Cabin:400,500,600,700);
+@import url(https://fonts.googleapis.com/css?family=Cabin);
 @import url(https://fonts.googleapis.com/css?family=Droid+Sans);
 
 $background-Maincolor:black;
@@ -33,6 +33,7 @@ $textWeight: normal;
 $textOverColor: white;
 $redTextColor: #ec314c;
 
+$actvBtnColor: #ff6d82;
 $bigButtonWidth: 182px;
 
 body { 
@@ -43,8 +44,28 @@ body {
 
 .navbarLoggedOut {
   background: transparent;
+  border: none;
+}
+
+.navbarLoggedOut a {
+  //background: transparent;
   color: $textOverColor;
   text-decoration: none;
+}
+
+.navbar-default * {
+  color: $textOverColor;
+  font-size: $h3Size;  
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: $textOverColor;
+  text-decoration: none;
+}
+
+.navbar-default .navbar-brand {
+  color: $textOverColor;
+  font-size: 25px;
 }
 
 h3 {
@@ -65,6 +86,7 @@ h3 {
 .homePara {
   font-family: $h3Font;
   font-size: $homeParaSize;
+  font-weight: $homeParaWeight;
   color: $textOverColor;
   width: 445px;
   line-height: 1.4;
@@ -94,8 +116,47 @@ h3 {
   width: $bigButtonWidth;
 }
 
+.btn-primary:hover.button1 {
+  color: $actvBtnColor;
+  background-color: white;
+  border-color: $actvBtnColor;
+  box-shadow: 0 0 0 4px $actvBtnColor;
+  text-decoration: none;
+}
+
+.btn-primary:hover.button2 {
+  background-color: $actvBtnColor;
+  color: $textOverColor;
+  border-color: white;
+  box-shadow: 0 0 0 4px $actvBtnColor;
+}
+
+.mainLanding {
+  padding-top:70px;
+  background: transparent;
+  height:100vh;
+  color: $textOverColor;
+}
+
 .mainLandingImg {
-  margin-top: 130px;
+  margin-top: -60px;
+}
+
+.mainLandingSpacer {
+  height: 160px;
+}
+
+.landingPageGrid {
+  z-index: 1;
+}
+
+.swoosh {
+  position: absolute;
+  top: 0;
+  right: -10;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
 }
 
 .table {
@@ -114,26 +175,6 @@ h3 {
 
 .table {
   margin-bottom: 0px;
-}
-
-.mainLanding {
-  padding-top:70px;
-  background: transparent;
-  height:100vh;
-  color: $textOverColor;
-}
-
-.landingPageGrid {
-  z-index: 1;
-}
-
-.swoosh {
-  position: absolute;
-  top: 0;
-  right: -10;
-  bottom: 0;
-  left: 0;
-  z-index: -1;
 }
 
 .section1 {
