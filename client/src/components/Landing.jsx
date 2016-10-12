@@ -46,7 +46,7 @@ const Landing = () => (
         </Col>
         <Col xs={0} md={6}>
           <Image
-            src="Markup_Landingpage_Image.png"
+            src="/landing_example_image.png"
             thumbnail className="mainLandingImg"
           />
         </Col>
