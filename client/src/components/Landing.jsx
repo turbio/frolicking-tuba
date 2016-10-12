@@ -22,7 +22,7 @@ const Landing = () => (
           <div className="landingBackground">
             <div className="main-area">
               <h3 className="homeHeader">API For Gathering Visual Feedback</h3>
-              <p className="homePara">${homeParagraph}</p>
+              <p className="homePara">{homeParagraph}</p>
               <p>
                 <ButtonToolbar>
                   <ButtonGroup>
