@@ -3,7 +3,9 @@ import { SIGN_OUT_USER,
   AUTH_USER, AUTH_ERROR,
   FETCH_KEYS, OPEN_MODAL,
   CLOSE_MODAL, FETCH_ENDPOINTS,
-  ADD_NEW_ENDPOINT, UPDATE_GITHUB_AUTH } from '../utils/AppConstants';
+  ADD_NEW_ENDPOINT, UPDATE_GITHUB_AUTH,
+  FETCH_URLS, UPDATE_GITHUB_STATUS,
+  FETCH_REPOS, SET_MODAL_MODE } from '../utils/AppConstants';
 
 export const authUser = (email) => ({
   type: AUTH_USER,
@@ -21,6 +23,10 @@ export const requestKeys = (keys) => ({
 });
 export const showModal = () => ({ type: OPEN_MODAL });
 export const hideModal = () => ({ type: CLOSE_MODAL });
+export const setModalModeAddUrl = (mode) => ({
+  type: SET_MODAL_MODE,
+  modalModeAddUrl: mode
+});
 export const fetchEndpts = (keys) => ({
   type: FETCH_ENDPOINTS,
   payload: keys
@@ -105,65 +111,45 @@ ${key.key}"></script>`;
   }
 );
 
+export const fetchUrls = () => ((dispatch) => {
+  fetch('/api/urls', { credentials: 'same-origin' })
+  .then((response) => response.json())
+  .then((urls) => {
+    dispatch({ type: FETCH_URLS, urls });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+});
+
+const fetchRepos = () => (
+  fetch('/api/github/repos', { credentials: 'same-origin' })
+  .then((response) => response.json())
+);
+
+export const fetchGithubAuthStatus = () => ((dispatch) => {
+  fetch('/api/users/hasgithub', { credentials: 'same-origin' })
+  .then((response) => response.json())
+  .then((res) => {
+    console.log('github status:', res);
+    dispatch({ type: UPDATE_GITHUB_STATUS, status: res.github });
+
+    return fetchRepos();
+  })
+  .then((repos) => {
+    if (repos.error) {
+      dispatch({ type: FETCH_REPOS, repos: [] });
+    } else {
+      dispatch({ type: FETCH_REPOS, repos });
+    }
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+});
 
 //*******Modal Related Actions*******//
 
-export const fetchEndpoints = () => (
-  (dispatch) => {
-    let githubrepos = [];
-
-    fetch('/api/users/hasgithub', { credentials: 'same-origin' })
-    .then((response) => {
-      console.log(response, 'response fromgithub');
-
-      return response.json();
-    })
-    .then((auth) => {
-      if (auth.github) {
-        dispatch(updateGitHubAuth());
-
-        return fetch(
-          '/api/github/repos', { credentials: 'same-origin' }
-          )
-        .then((response) => response.json());
-      }
-
-      return [];
-    })
-    .then((repos) => {
-      githubrepos = repos;
-
-      return fetch('/api/urls',
-        { credentials: 'same-origin' });
-    })
-    .then((response) => response.json())
-    .then((urls) => {
-      const mappedrepos = githubrepos.map((repo) => {
-        const obj = {};
-
-        obj.type = 'github';
-        obj.name = repo.full_name;
-
-        return obj;
-      });
-
-      const mappedurls = urls.map((url) => {
-        const obj = {};
-
-        obj.type = 'url';
-        obj.name = url.url;
-
-        return obj;
-      });
-
-      dispatch({
-        type: FETCH_ENDPOINTS,
-        payload: mappedrepos.concat(mappedurls)
-      });
-    })
-    .catch((error) => console.log('fetchEndpoints error', error));
-  }
-);
 
 export const createNewUrl = (urlObject) => (
  fetch('/api/urls', {
@@ -197,7 +183,7 @@ export const updateKey = (requestBody) => (
   // }
 );
 
-export const createNewKey = (name, type, endpoint) => (
+export const createNewKey = ({ name, type, endpoint }) => (
   (dispatch) => {
     const requestBody = {
       name,
@@ -220,6 +206,10 @@ export const createNewKey = (name, type, endpoint) => (
       return null;
     })
     .then(() => {
+      dispatch(getApiKeys());
+      dispatch(fetchUrls());
+      dispatch(fetchGithubAuthStatus());
+      dispatch(setModalModeAddUrl(false));
       dispatch(hideModal());
     })
     .catch((error) => {
