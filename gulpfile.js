@@ -2,6 +2,7 @@
 const gulp = require('gulp');
 
 // Include Our Plugins
+const fs = require('fs');
 const path = require('path');
 const sass = require('gulp-sass');
 const concat = require('gulp-concat');
@@ -9,11 +10,31 @@ const rename = require('gulp-rename');
 const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 const insert = require('gulp-file-insert');
+const replace = require('gulp-replace-task');
 const minCss = require('gulp-minify-css');
 const iife = require('gulp-iife');
 
 gulp.task('apiscript-sass', () =>
     gulp.src('./apiscript/style.scss')
+      .pipe(replace({
+        patterns: [
+          {
+            match: /%LOGO_SVG%/,
+            replacement: fs.readFileSync('./apiscript/logo.svg', 'utf8')
+              .replace(/\n/g, '')
+          },
+          {
+            match: /%LOADING_SVG%/,
+            replacement: fs.readFileSync('./apiscript/loading.svg', 'utf8')
+              .replace(/\n/g, '')
+          },
+          {
+            match: /%CLOSE_SVG%/,
+            replacement: fs.readFileSync('./apiscript/close.svg', 'utf8')
+              .replace(/\n/g, '')
+          }
+        ]
+      }))
       .pipe(sass())
       .pipe(minCss())
       .pipe(rename({ suffix: '.min' }))
