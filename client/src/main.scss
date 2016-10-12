@@ -1,6 +1,7 @@
 // $font-family-sans-serif: 'Lato', sans-serif;
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
-@import url(https://fonts.googleapis.com/css?family=Cabin:400,500,600,700);
+// @import url(https://fonts.googleapis.com/css?family=Cabin:400,500,600,700);
+@import url(https://fonts.googleapis.com/css?family=Cabin);
 @import url(https://fonts.googleapis.com/css?family=Droid+Sans);
 
 $redTextColor: #ec314c;
@@ -31,7 +32,7 @@ $darkColor3: #9b9b9b;
 @mixin bodyCopyBig($color) {
   color: $color;
   font-family: 'Cabin';
-  font-weight: 400;
+  font-weight: lighter;
   font-size: 21px;
 }
 
