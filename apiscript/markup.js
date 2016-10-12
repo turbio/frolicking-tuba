@@ -133,8 +133,10 @@ const takeShot = (cb) => {
     browserWidth: window.innerWidth,
     browserHeight: window.innerHeight,
     url: location.href,
-    clipX: window.scrollX,
-    clipY: window.scrollY,
+    scrollX: window.scrollX,
+    scrollY: window.scrollY,
+    clipX: 0,
+    clipY: 0,
     clipWidth: window.innerWidth,
     clipHeight: window.innerHeight,
     userAgent: navigator.userAgent

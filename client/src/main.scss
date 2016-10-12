@@ -1,32 +1,41 @@
 // $font-family-sans-serif: 'Lato', sans-serif;
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 @import url(https://fonts.googleapis.com/css?family=Lato);
-@import url(https://fonts.googleapis.com/css?family=Cabin:400,500,600,700);
+@import url(https://fonts.googleapis.com/css?family=Cabin);
 @import url(https://fonts.googleapis.com/css?family=Droid+Sans);
 
 $background-Maincolor:black;
 
 $logoFont: 'Cabin';
 $logoSize: 26px;
-$logoWeight: 'Medium';
+$logoWeight: medium;
 
-$H3Font: 'Droid Sans';
-$H3Size: 19px;
-$H3Weight: 'Bold';
+$h3Font: 'Droid Sans';
+$h3Size: 19px;
+$h3Weight: normal;
+
+$homeHeaderSize: 26px;
+$homeParaSize: 19px;
+$homeParaWeight: normal;
 
 $labelsFont: 'Cabin';
 $labelsSize: 16px;
-$labelsWeight: 'Bold';
+$labelsWeight: bold;
 
 $headerFont: 'Cabin';
 $headerSize: 16px;
-$headerWeight: 'SemiBold';
+$headerWeight: semibold;
 
 $textFont: 'Cabin';
-$textSize: 'Regular';
-$textWeight: 12px;
+$textSize: 12px;
+$textWeight: normal;
 
-$textOverColor: 'white';
+$textOverColor: white;
+$redTextColor: #ec314c;
+$darkTextColor: black;
+
+$actvBtnColor: #ff6d82;
+$bigButtonWidth: 182px;
 
 body { 
   font-family: $textFont;
@@ -36,13 +45,136 @@ body {
 
 .navbarLoggedOut {
   background: transparent;
+  border: none;
+}
+
+.navbarLoggedOut a {
+  color: $textOverColor;
+  text-decoration: none;
+}
+
+.navbar-default * {
+  font-size: $h3Size;
+  text-decoration: none; 
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: $textOverColor;
+  text-decoration: none;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:active,
+.navbar-default .navbar-nav > li > a:visited {
+  color: $textOverColor;
+  text-decoration: none;
+}
+
+.navbar-default .navbar-brand {
+  color: $textOverColor;
+  font-size: 25px;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:active,
+.navbar-default .navbar-brand:visited {
+  color: $textOverColor;
+  font-size: 25px;
+}
+
+
+h3 {
+  font-family: $h3Font;
+  font-size: $h3Size;
+  font-weight: $h3Weight;
+}
+
+.homeHeader {
+  font-family: $h3Font;
+  font-size: $homeHeaderSize;
+  font-weight: $homeParaWeight;
+  color: $textOverColor;
+  width: 445px;
+  margin-bottom: 35px;
+}
+
+.homePara {
+  font-family: $h3Font;
+  font-size: $homeParaSize;
+  font-weight: $homeParaWeight;
+  color: $textOverColor;
+  width: 445px;
+  line-height: 1.4;
+}
+
+.button1, .button2 {
+  font-weight: $h3Weight;
+  font-size: $h3Size;
+  font-family: $headerFont;
+  height: 42px;
+  border-radius: 12px;
+  margin-top: 24px;
+}
+
+.button1 {
+  color: $redTextColor;
+  background-color: white;
+  border: transparent;
+  width: $bigButtonWidth;
+  margin-right: 25px;
+}
+
+.button2 {
+  color: $textOverColor;
+  background: transparent;
+  border: 2px solid white;
+  width: $bigButtonWidth;
+}
+
+.btn-primary:hover.button1 {
+  color: $actvBtnColor;
+  background-color: white;
+  border-color: $actvBtnColor;
+  box-shadow: 0 0 0 4px $actvBtnColor;
+  text-decoration: none;
+}
+
+.btn-primary:hover.button2 {
+  background-color: $actvBtnColor;
+  color: $textOverColor;
+  border-color: white;
+  box-shadow: 0 0 0 4px $actvBtnColor;
+}
+
+.mainLanding {
+  padding-top:70px;
+  background: transparent;
+  height:100vh;
   color: $textOverColor;
 }
 
-h3 {
-  font-family: $H3Font;
-  font-size: $H3Size;
-  font-weight: $H3Weight;
+.mainLandingImg {
+  margin-top: -60px;
+  overflow: hidden;
+}
+
+.mainLandingSpacer {
+  height: 160px;
+}
+
+.landingPageGrid {
+  z-index: 1;
+}
+
+.swoosh {
+  position: absolute;
+  overflow: hidden;
+  top: -10px;
+  right: -10px;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  width: 105%;
 }
 
 .table {
@@ -63,42 +195,35 @@ h3 {
   margin-bottom: 0px;
 }
 
-.mainLanding {
-  padding-top:70px;
-  background: $background-Maincolor;
-  height:100vh;
-  color: $textOverColor;
+.sectionHeader {
+  color: $darkTextColor;
+  font-size: $logoSize;
+  font-weight: $labelsWeight;
+  text-align: center;
 }
 
-// .swoosh {
-//   background: linear-gradient(150deg,#53f 15%,#05d5ff 70%,#a6ffcb 94%);
-//     background-image: linear-gradient(150deg, #ee433d 15%, #ec3846 50%, #ec2c51 94%);
-//     background-position-x: initial;
-//     background-position-y: initial;
-//     background-size: initial;
-//     background-repeat-x: initial;
-//     background-repeat-y: initial;
-//     background-attachment: initial;
-//     background-origin: initial;
-//     background-clip: initial;
-//     background-color: initial;
-// }
-
-.swoosh {
-  width: 105%;
-  height: 100%;
+.subSectionHeader {
+  font-size: $h3Size;
+  font-weight: $labelsWeight;
+  color: $darkTextColor;
 }
 
 .section1 {
-  height:50vh;
-  background:gray;
+  height:100vh;
+  //background:gray;
 }
 
 .section1Container1 {
   position:relative;
   margin:0 auto;
-  background: black;
   text-align: center;
+}
+
+.rectanglePlaceholder {
+  width: 150px;
+  height: 150px;
+  //display: inline-block;
+  background: #d8d8d8;
 }
 
 .section2 {
