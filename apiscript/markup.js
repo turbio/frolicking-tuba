@@ -19,6 +19,8 @@ let bgImage = '';
 
 const apiEndpoint = 'https://getmarkup.com/api/annotate';
 const elemPrefix = 'frolicking-tuba';
+const modalWidth = 300;
+const rightPad = 36;
 
 const hideModal = () => {
   buttonElem.className = '';
@@ -78,7 +80,6 @@ const buildOverlay = () => {
 const buildModal = () => {
   modalElem = document.createElement('div');
   modalElem.id = `${elemPrefix}-modal`;
-  modalElem.className = 'left-arrow';
 
   formElem = document.createElement('form');
   formElem.id = `${elemPrefix}-feedback`;
@@ -196,6 +197,21 @@ const startDrag = (event) => {
     clipAreaElem.style.top = `${yPos}px`;
   };
 
+  const positionModal = () => {
+    if (xPos + width + modalWidth < window.innerWidth) {
+      modalElem.className = 'left-arrow';
+      modalElem.style.left = `${xPos + width}px`;
+    } else if (xPos - modalWidth > 0) {
+      console.log(xPos - modalWidth);
+      modalElem.className = 'right-arrow';
+      modalElem.style.left = `${xPos - modalWidth - rightPad}px`;
+    } else {
+      modalElem.style.left = '10px';
+    }
+
+    modalElem.style.top = `${yPos}px`;
+  };
+
   const dragMove = (moveEvent) => {
     const xdiff = moveEvent.clientX - event.clientX;
     const ydiff = moveEvent.clientY - event.clientY;
@@ -213,8 +229,7 @@ const startDrag = (event) => {
     document.removeEventListener('mouseup', dragDone);
     document.removeEventListener('mousemove', dragMove);
 
-    modalElem.style.top = `${yPos}px`;
-    modalElem.style.left = `${xPos + width}px`;
+    positionModal();
 
     modalElem.style.opacity = 1;
     modalElem.style.transform = 'translate(0, 0)';
