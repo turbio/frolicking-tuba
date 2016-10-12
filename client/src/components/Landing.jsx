@@ -9,7 +9,7 @@ import {
   Image
 } from 'react-bootstrap';
 
-const homeParagraph = 'Enable commenting directly on your website and'
+const homeParagraph = 'Enable commenting directly on your website and '
   + 'integrate with whichever workflow tool you already use.';
 
 const Landing = () => (
