@@ -9,6 +9,9 @@ import {
   Image
 } from 'react-bootstrap';
 
+const homeParagraph = 'Enable commenting directly on your website and'
+  + 'integrate with whichever workflow tool you already use.';
+
 const Landing = () => (
   <div>
     <Image className="swoosh" src="swoosh.svg" />
@@ -19,22 +22,33 @@ const Landing = () => (
           <div className="landingBackground">
             <div className="main-area">
               <h3 className="homeHeader">API For Gathering Visual Feedback</h3>
-              <p className="homePara">Enable commenting directly on your website and integrate with whichever workflow tool you already use.</p>
+              <p className="homePara">${homeParagraph}</p>
               <p>
                 <ButtonToolbar>
                   <ButtonGroup>
-                    <Button bsStyle="primary" className="button1">Sign Up</Button>
+                    <Button
+                      bsStyle="primary"
+                      className="button1"
+                    >Sign Up
+                    </Button>
                   </ButtonGroup>
                   <ButtonGroup>
-                    <Button bsStyle="primary" className="button2">Read Docs</Button>
+                    <Button
+                      bsStyle="primary"
+                      className="button2"
+                    >Read Docs
+                    </Button>
                   </ButtonGroup>
                 </ButtonToolbar>
               </p>
             </div>
           </div>
         </Col>
-        <Col xs={0} md={6 }>
-          <Image src="Markup_Landingpage_Image.png" thumbnail className="mainLandingImg"/>
+        <Col xs={0} md={6}>
+          <Image
+            src="Markup_Landingpage_Image.png"
+            thumbnail className="mainLandingImg"
+          />
         </Col>
       </Row>
 
