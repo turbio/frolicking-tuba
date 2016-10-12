@@ -1,12 +1,14 @@
 import { OPEN_MODAL,
   CLOSE_MODAL, OPEN_MODAL_EDIT,
   ADD_NEW_ENDPOINT, FETCH_ENDPOINTS,
-  UPDATE_GITHUB_AUTH, SIGN_OUT_USER } from '../utils/AppConstants';
+  UPDATE_GITHUB_AUTH, SIGN_OUT_USER,
+  SET_MODAL_MODE } from '../utils/AppConstants';
 
 const assign = Object.assign;
 
 const initialState = {
   showModal: false,
+  modalModeAddUrl: false,
   endpoints: null,
   githubAuthStatus: false,
   addingNewEndpoint: false,
@@ -27,6 +29,8 @@ export default function keyModalReducer(state = initialState, action) {
       isEditing: false,
       associatedKey: null
     });
+  case SET_MODAL_MODE:
+    return assign({}, state, { modalModeAddUrl: action.modalModeAddUrl });
   case OPEN_MODAL_EDIT:
     return assign({}, state, {
       showModal: true,
