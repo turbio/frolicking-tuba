@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 //import { connect } from 'react-redux';
 //import NavbarContainer from '../containers/NavbarContainer';
 import NavbarComponent from './Navbar.jsx';
+import Footer from './Footer.jsx';
 //import { handleAuthSubmit } from '../actions/AppActions';
 
 class App extends Component {
@@ -15,6 +16,7 @@ class App extends Component {
       <div>
         <NavbarComponent />
         {this.props.children}
+        <Footer />
       </div>
     );
   }

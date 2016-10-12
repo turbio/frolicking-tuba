@@ -1,6 +1,6 @@
 // $font-family-sans-serif: 'Lato', sans-serif;
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
-@import url(https://fonts.googleapis.com/css?family=Cabin);
+@import url(https://fonts.googleapis.com/css?family=Cabin:400,500,600,700);
 @import url(https://fonts.googleapis.com/css?family=Droid+Sans);
 
 $redTextColor: #ec314c;
@@ -10,52 +10,6 @@ $lightColor1: #ffffff;
 $darkColor1: #4a4a4a;
 $darkColor2: rgba(74, 74, 74, 0.75);
 $darkColor3: #9b9b9b;
-
-/////////////////////// DEFAULT AND NAVBAR STYLES ///////////////////////////
-body { 
-  font-weight: normal;
-  font-size: 12px;
-}
-
-.navbarLoggedOut {
-  background: transparent;
-  border: none;
-}
-
-.navbarLoggedOut a {
-  color: $lightColor1;
-  text-decoration: none;
-}
-
-.navbar-default * {
-  font-size: 16px;
-  text-decoration: none; 
-}
-
-.navbar-default .navbar-nav > li > a {
-  color: $lightColor1;
-  text-decoration: none;
-}
-
-.navbar-default .navbar-nav > li > a:hover,
-.navbar-default .navbar-nav > li > a:active,
-.navbar-default .navbar-nav > li > a:visited {
-  color: $lightColor1;
-  text-decoration: none;
-}
-
-.navbar-default .navbar-brand {
-  color: $lightColor1;
-  font-size: 26px;
-}
-
-.navbar-default .navbar-brand:hover,
-.navbar-default .navbar-brand:active,
-.navbar-default .navbar-brand:visited {
-  color: $lightColor1;
-  font-size: 26px;
-}
-//////////////////////////////////////////////////////////////
 
 
 
@@ -67,7 +21,7 @@ body {
   font-size: 26px;
 }
 
-@mixin logoOne($color) {
+@mixin logo($color) {
   color: $color;
   font-family: 'Cabin';
   font-weight: medium;
@@ -77,7 +31,7 @@ body {
 @mixin bodyCopyBig($color) {
   color: $color;
   font-family: 'Cabin';
-  font-weight: regular;
+  font-weight: 400;
   font-size: 21px;
 }
 
@@ -106,7 +60,7 @@ body {
   color: $color;
   font-family: 'Cabin';
   font-weight: bold;
-  font-size: 16px; 
+  font-size: 16px;
 }
 
 @mixin navBarLinks($color) {
@@ -123,6 +77,51 @@ body {
   font-size: 12px;
 }
 ////////////////// END OF MIXIN DEFINITIONS //////////////////////
+
+
+/////////////////////// DEFAULT AND NAVBAR STYLES ///////////////////////////
+// body {
+//   font-weight: normal;
+//   font-size: 12px;
+// }
+
+.navbarLoggedOut {
+  background: transparent;
+  border: none;
+}
+
+.navbarLoggedOut a {
+  @include navBarLinks($lightColor1);
+  text-decoration: none;
+}
+
+.navbar-default * {
+  @include navBarLinks($lightColor1);
+  text-decoration: none;
+}
+
+.navbar-default .navbar-nav > li > a {
+  @include navBarLinks($lightColor1);
+  text-decoration: none;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:active,
+.navbar-default .navbar-nav > li > a:visited {
+  color: $lightColor1;
+  text-decoration: none;
+}
+
+.navbar-default .navbar-brand {
+  @include logo($lightColor1);
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:active,
+.navbar-default .navbar-brand:visited {
+  @include logo($lightColor1);
+}
+//////////////////////////////////////////////////////////////
 
 
 
@@ -269,4 +268,11 @@ h3 {
   height:50vh;
   background:orange;
 }
-/////////////////// END OF ADDITIONAL STYLING ///////////////////
+
+.footer {
+  height: 60px;
+  position:relative;
+  margin:0 auto;
+  text-align: center;
+}
+
