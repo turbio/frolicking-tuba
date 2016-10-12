@@ -14,7 +14,7 @@ const homeParagraph = 'Enable commenting directly on your website and '
 
 const Landing = () => (
   <div>
-    <Image className="swoosh" src="swoosh.svg" />
+    <Image className="swoosh" src="/swoosh.svg" />
     <Grid className="landingPageGrid">
       <Row className="mainLandingSpacer" />
       <Row className="mainLanding">

@@ -17,7 +17,6 @@ import Team from './components/Team.jsx';
 import Create from './components/Create.jsx';
 import CreateStart from './components/CreateStart.jsx';
 import CreateGithub from './components/CreateGithub.jsx';
-import Welcome from './components/Welcome.jsx';
 import RequireAuth from './components/RequireAuth.jsx';
 //import { requireAuth, auth } from './utils/auth';
 import configureStore from './store/configureStore';
@@ -44,7 +43,6 @@ render(
         <Route path="/" component={Landing} />
         <Route path="/signup" component={Signup} />
         <Route path="/signin" component={Signin} />
-        <Route path="/welcome" component={Welcome} />
         <Route path="/create" component={RequireAuth(Create)}>
           <IndexRoute component={CreateStart} />
           <Route
