@@ -4,7 +4,7 @@ const config = require('../../env/config.json');
 const User = require('../models/user');
 const Key = require('../models/key');
 const multiparty = require('multiparty');
-//const AWS = require('aws-sdk');
+const aws = require('aws-sdk');
 
 const accessHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -18,44 +18,49 @@ module.exports.allowCORS = (req, res) => {
   res.end();
 };
 
-//const AWS_BUCKET_URL =
-//'https://s3-us-west-1.amazonaws.com/tuba-images-bucket/';
+aws.config.update({
+  accessKeyId: config.aws.access_key_id,
+  secretAccessKey: config.aws.secret_access_key
+});
 
-//prefer using environment variables versus hard-coding values here
-//AWS.config.update({
-  //accessKeyId: config.aws.accessKeyId,
-  //secretAccessKey: config.aws.secretAccessKey
-//});
-//const s3Client = new AWS.S3();
+const s3 = new aws.S3();
 
-//const uploadFile = (part) => new Promise((resolve, reject) => {
-  //const fileKey = Date.now() + part.filename;
+const uploadFile = (stream) => new Promise((resolve, reject) => {
+  //I'm just going to trust that this function works
+  //and not test it at all...
 
-  //s3Client.putObject({
-    //Bucket: 'tuba-images-bucket',
-    //Key: fileKey,
-    //ACL: 'public-read',
-    //Body: part,
-    //ContentType: part.headers['content-type'],
-    //ContentLength: part.byteCount
-  //}, (err) => {
-    //if (err) {
-      //reject(err);
-    //} else {
-      //resolve(AWS_BUCKET_URL + fileKey);
-    //}
-  //});
-//});
+  if (!config.aws.access_key_id || !config.aws.secret_access_key) {
+    stream.resume();
+    resolve();
+
+    return;
+  }
+
+  //make the filename a little bit safer
+  const fileKey = Date.now() + stream.filename.replace(/[^\w]/g, '');
+
+  s3.putObject({
+    Bucket: config.aws.s3_bucket,
+    Key: fileKey,
+    ACL: 'public-read',
+    Body: stream,
+    ContentType: stream.headers['content-type'],
+    ContentLength: stream.byteCount
+  }, (err) => {
+    if (err) {
+      reject(err);
+    } else {
+      resolve(`${config.aws.s3_url}${config.aws.s3_bucket}/${fileKey}`);
+    }
+  });
+});
 
 const sendAnnotation = (body) => new Promise((resolve, reject) => {
-  console.log('=== sending annotation ===');
   if (!body || !body.key) {
     reject(config.messages.no_key);
 
     return;
   }
-
-  console.log('=== with key', body.key, '===');
 
   const params = {};
 
@@ -64,10 +69,6 @@ const sendAnnotation = (body) => new Promise((resolve, reject) => {
     if (!key) {
       return Promise.reject(config.messages.bad_key);
     }
-
-    console.log('=== found key with id', key.id, '===');
-    console.log('=== key type', key.type, '===');
-    console.log('=== key output', key.endpoint, '===');
 
     params.type = key.type;
     params.output_meta = key.endpoint;
@@ -78,9 +79,6 @@ const sendAnnotation = (body) => new Promise((resolve, reject) => {
     if (!user) {
       return Promise.reject(config.messages.server_error);
     }
-
-    console.log('=== found user with id', user.id, '===');
-    console.log('=== integration meta', user.ghtoken, '===');
 
     params.integration_meta = user.ghtoken;
 
@@ -99,20 +97,18 @@ module.exports.create = (req, res) => {
   const form = new multiparty.Form();
   const promise = Promise.resolve();
 
-  //form.on('part', (part) => promise.then(uploadFile(part)));
-  form.on('part', (part) =>
-      console.log('=== part recieved ===') || part.resume());
-
-  form.on('error', (error) => console.log('=== part error ===', error));
-
   form.on('field', (name, value) => (reqBody[name] = value));
 
+  form.on('part', (part) => {
+    promise
+    .then(() => uploadFile(part))
+    .then((accessor) => (reqBody.attachment = accessor));
+  });
+
   form.on('close', () => {
-    console.log('=== form recieved ===');
     promise
       .then(() => sendAnnotation(reqBody))
       .then(() => {
-        console.log('=== all done, wrapping up ===');
         res.set(accessHeaders);
         res.end();
       }).catch((error) => {

@@ -36,7 +36,9 @@
     "url"
   ],
   "aws": {
-    "accessKeyId": "enter key here",
-    "secretAccessKey": "enter key here"
+    "access_key_id": "",
+    "secret_access_key": "",
+    "s3_url": "https://s3-us-west-1.amazonaws.com/",
+    "s3_bucket": "tuba-images-bucket"
   }
 }
