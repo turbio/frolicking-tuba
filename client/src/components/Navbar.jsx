@@ -43,7 +43,7 @@ class NavbarComponent extends React.Component {
       <Navbar fixedTop className="navbarLoggedOut">
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/">Markup</Link>
+            <Link to="/">MARKUP</Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>

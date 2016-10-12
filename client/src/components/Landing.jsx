@@ -40,13 +40,13 @@ const Landing = () => (
       />
     </svg>
     <Grid className="landingPageGrid">
+      <Row className="mainLandingSpacer" />
       <Row className="mainLanding">
-        <Col xs={1} md={1} />
-        <Col xs={11} md={6}>
+        <Col xs={12} md={6}>
           <div className="landingBackground">
             <div className="main-area">
-              <h3 className="homeHeader">Markup for a seamless feedback workflow</h3>
-              <p className="homePara">GetMarkup is an efficient way to collect feedback from your website, and have it automatically routed to GitHub issues or your own custom endpoint.</p>
+              <h3 className="homeHeader">API For Gathering Visual Feedback</h3>
+              <p className="homePara">Enable commenting directly on your website and integrate with whichever workflow tool you already use.</p>
               <p>
                 <ButtonToolbar>
                   <ButtonGroup>
@@ -60,7 +60,7 @@ const Landing = () => (
             </div>
           </div>
         </Col>
-        <Col xs={0} md={5}>
+        <Col xs={0} md={6 }>
           <Image src="Markup_Landingpage_Image.png" thumbnail className="mainLandingImg"/>
         </Col>
       </Row>
