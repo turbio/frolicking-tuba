@@ -93,20 +93,7 @@ export const getApiKeys = () => (
   (dispatch) => {
     fetch('/api/keys', { credentials: 'same-origin' })
     .then((response) => response.json())
-    .then((json) => {
-
-      const keys = json.map((key) => {
-        const newKey = key;
-
-        newKey.api_key
-          = `<script src="https://d1p3e8i5yp3axf.cloudfront.net/?key=\
-${key.key}"></script>`;
-
-        return newKey;
-      });
-
-      dispatch(requestKeys(keys));
-    })
+    .then((json) => dispatch(requestKeys(json)))
     .catch((error) => dispatch(authError(error)));
   }
 );

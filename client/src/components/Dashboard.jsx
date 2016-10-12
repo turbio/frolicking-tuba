@@ -24,7 +24,8 @@ class Dashboard extends Component {
            <Key
              title={key.name}
              endpoint={key.endpoint}
-             keyString={key.api_key}
+             keyString={key.key}
+             key={key.key}
            />
          )
         )

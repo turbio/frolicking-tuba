@@ -14,31 +14,40 @@ const Title = ({ text }) => (
 
 Title.propTypes = { text: PropTypes.string };
 
-const Key = ({ title, endpoint, keyString }) => (
-  <Panel
-    header={
-      <div>
-        <Title text={title} />
-        <Button bsStyle="link">Settings</Button>
-      </div>
-    }
-  >
-    <FormGroup>
-      <ControlLabel>Endpoint</ControlLabel>
-      <FormControl type="text" disabled defaultValue={endpoint} />
-    </FormGroup>
+const Key = ({ title, endpoint, keyString }) => {
+  const onSettingsClick = () => {
+    console.log('Settings clicked, key:', keyString);
+  };
 
-    <FormGroup>
-      <ControlLabel>API Key</ControlLabel>
-      <InputGroup>
-        <FormControl type="text" disabled defaultValue={keyString} />
-        <InputGroup.Button>
-          <Button>Copy</Button>
-        </InputGroup.Button>
-      </InputGroup>
-    </FormGroup>
-  </Panel>
-);
+  return (
+    <Panel
+      header={
+        <div>
+          <Title text={title} />
+          <Button bsStyle="link" onClick={onSettingsClick}>Settings</Button>
+        </div>
+      }
+    >
+      <FormGroup>
+        <ControlLabel>Endpoint</ControlLabel>
+        <FormControl type="text" disabled defaultValue={endpoint} />
+      </FormGroup>
+
+      <FormGroup>
+        <ControlLabel>API Key</ControlLabel>
+        <InputGroup>
+          <FormControl type="text" disabled defaultValue={
+            `<script src="https://d1p3e8i5yp3axf.cloudfront.net/?key=\
+${keyString}"></script>`
+          } />
+          <InputGroup.Button>
+            <Button>Copy</Button>
+          </InputGroup.Button>
+        </InputGroup>
+      </FormGroup>
+    </Panel>
+  )
+};
 
 Key.propTypes = {
   title: PropTypes.string,
