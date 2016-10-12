@@ -1,46 +1,20 @@
 // $font-family-sans-serif: 'Lato', sans-serif;
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
-@import url(https://fonts.googleapis.com/css?family=Lato);
 @import url(https://fonts.googleapis.com/css?family=Cabin);
 @import url(https://fonts.googleapis.com/css?family=Droid+Sans);
 
-$background-Maincolor:black;
-
-$logoFont: 'Cabin';
-$logoSize: 26px;
-$logoWeight: medium;
-
-$h3Font: 'Droid Sans';
-$h3Size: 19px;
-$h3Weight: normal;
-
-$homeHeaderSize: 26px;
-$homeParaSize: 19px;
-$homeParaWeight: normal;
-
-$labelsFont: 'Cabin';
-$labelsSize: 16px;
-$labelsWeight: bold;
-
-$headerFont: 'Cabin';
-$headerSize: 16px;
-$headerWeight: semibold;
-
-$textFont: 'Cabin';
-$textSize: 12px;
-$textWeight: normal;
-
-$textOverColor: white;
 $redTextColor: #ec314c;
-$darkTextColor: black;
-
 $actvBtnColor: #ff6d82;
 $bigButtonWidth: 182px;
+$lightColor1: #ffffff;
+$darkColor1: #4a4a4a;
+$darkColor2: rgba(74, 74, 74, 0.75);
+$darkColor3: #9b9b9b;
 
+/////////////////////// DEFAULT AND NAVBAR STYLES ///////////////////////////
 body { 
-  font-family: $textFont;
-  font-weight: $textWeight;
-  font-size: $textSize;
+  font-weight: normal;
+  font-size: 12px;
 }
 
 .navbarLoggedOut {
@@ -49,86 +23,151 @@ body {
 }
 
 .navbarLoggedOut a {
-  color: $textOverColor;
+  color: $lightColor1;
   text-decoration: none;
 }
 
 .navbar-default * {
-  font-size: $h3Size;
+  font-size: 16px;
   text-decoration: none; 
 }
 
 .navbar-default .navbar-nav > li > a {
-  color: $textOverColor;
+  color: $lightColor1;
   text-decoration: none;
 }
 
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:active,
 .navbar-default .navbar-nav > li > a:visited {
-  color: $textOverColor;
+  color: $lightColor1;
   text-decoration: none;
 }
 
 .navbar-default .navbar-brand {
-  color: $textOverColor;
-  font-size: 25px;
+  color: $lightColor1;
+  font-size: 26px;
 }
 
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:active,
 .navbar-default .navbar-brand:visited {
-  color: $textOverColor;
-  font-size: 25px;
+  color: $lightColor1;
+  font-size: 26px;
+}
+//////////////////////////////////////////////////////////////
+
+
+
+///////////////////// MIXIN DEFINITIONS ///////////////////////////
+@mixin headerOne($color) {
+  color: $color;
+  font-family: 'Droid Sans';
+  font-weight: bold;
+  font-size: 26px;
 }
 
+@mixin logoOne($color) {
+  color: $color;
+  font-family: 'Cabin';
+  font-weight: medium;
+  font-size: 26px;
+}
+
+@mixin bodyCopyBig($color) {
+  color: $color;
+  font-family: 'Cabin';
+  font-weight: regular;
+  font-size: 21px;
+}
+
+@mixin primActionBut($color) {
+  color: $color;
+  font-family: 'Cabin';
+  font-weight: bold;
+  font-size: 19px;
+}
+
+@mixin headerTwo($color) {
+  color: $color;
+  font-family: 'Droid Sans';
+  font-weight: bold;
+  font-size: 19px;
+}
+
+@mixin bodyCopySm($color) {
+  color: $color;
+  font-family: 'Cabin';
+  font-weight: regular;
+  font-size: 19px;
+}
+
+@mixin labelsOne($color) {
+  color: $color;
+  font-family: 'Cabin';
+  font-weight: bold;
+  font-size: 16px; 
+}
+
+@mixin navBarLinks($color) {
+  color: $color;
+  font-family: 'Cabin';
+  font-weight: semibold;
+  font-size: 16px;
+}
+
+@mixin dashLinksInFields($color) {
+  color: $color;
+  font-family: 'Cabin';
+  font-weight: regular;
+  font-size: 12px;
+}
+////////////////// END OF MIXIN DEFINITIONS //////////////////////
+
+
+
+///////////////////// ADDITIONAL STYLING //////////////////////////////
+.docsHeading {
+  @include headerOne($darkColor1);
+}
+
+.docsPara {
+  @include bodyCopyBig($darkColor3);
+}
 
 h3 {
-  font-family: $h3Font;
-  font-size: $h3Size;
-  font-weight: $h3Weight;
+  @include headerTwo($darkColor1);
 }
 
 .homeHeader {
-  font-family: $h3Font;
-  font-size: $homeHeaderSize;
-  font-weight: $homeParaWeight;
-  color: $textOverColor;
+  @include headerOne($lightColor1);
   width: 445px;
   margin-bottom: 35px;
 }
 
 .homePara {
-  font-family: $h3Font;
-  font-size: $homeParaSize;
-  font-weight: $homeParaWeight;
-  color: $textOverColor;
-  width: 445px;
-  line-height: 1.4;
+  @include bodyCopyBig($lightColor1);
+  width: 435px;
+  line-height: 1.3;
 }
 
 .button1, .button2 {
-  font-weight: $h3Weight;
-  font-size: $h3Size;
-  font-family: $headerFont;
-  height: 42px;
+  @include primActionBut($lightColor1);
   border-radius: 12px;
   margin-top: 24px;
+  width: $bigButtonWidth;
 }
 
 .button1 {
   color: $redTextColor;
   background-color: white;
   border: transparent;
-  width: $bigButtonWidth;
   margin-right: 25px;
 }
 
 .button2 {
-  color: $textOverColor;
   background: transparent;
   border: 2px solid white;
-  width: $bigButtonWidth;
 }
 
 .btn-primary:hover.button1 {
@@ -141,7 +180,7 @@ h3 {
 
 .btn-primary:hover.button2 {
   background-color: $actvBtnColor;
-  color: $textOverColor;
+  color: $lightColor1;
   border-color: white;
   box-shadow: 0 0 0 4px $actvBtnColor;
 }
@@ -150,7 +189,7 @@ h3 {
   padding-top:70px;
   background: transparent;
   height:100vh;
-  color: $textOverColor;
+  color: $lightColor1;
 }
 
 .mainLandingImg {
@@ -191,26 +230,18 @@ h3 {
   padding: 5px;
 }
 
-.table {
-  margin-bottom: 0px;
-}
-
 .sectionHeader {
-  color: $darkTextColor;
-  font-size: $logoSize;
-  font-weight: $labelsWeight;
-  text-align: center;
+   @include headerOne($darkColor1);
+   text-align: center;
 }
 
 .subSectionHeader {
-  font-size: $h3Size;
-  font-weight: $labelsWeight;
-  color: $darkTextColor;
+  @include headerTwo($darkColor1);
+  text-align: center;
 }
 
 .section1 {
   height:100vh;
-  //background:gray;
 }
 
 .section1Container1 {
@@ -222,7 +253,6 @@ h3 {
 .rectanglePlaceholder {
   width: 150px;
   height: 150px;
-  //display: inline-block;
   background: #d8d8d8;
 }
 
@@ -239,3 +269,4 @@ h3 {
   height:50vh;
   background:orange;
 }
+/////////////////// END OF ADDITIONAL STYLING ///////////////////

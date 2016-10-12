@@ -1,4 +1,9 @@
 import React from 'react';
+import {
+  Row,
+  Col,
+  Grid
+} from 'react-bootstrap';
 // import Swagger from 'swagger-client';
 // import AutoAffix from 'react-overlays';
 // import Waypoint from 'react-waypoint';
@@ -8,9 +13,16 @@ import React from 'react';
 
 const Documentation = () => (
   <div>
-    <h3>text</h3>
-    <h3>text</h3>
-    <h3>text</h3>
+    <Grid>
+      <Row>
+        <Col md={12}>
+          <h2 className="docsHeading">example heading</h2>
+          <p className="docsPara">
+            example para asdfasdfasdfasdfasdf asdfasd fasd fasdf asd
+          </p>
+        </Col>
+      </Row>
+    </Grid>
   </div>
 );
 
