@@ -8,7 +8,9 @@ let toInputElem = null;
 let fromInputElem = null;
 let titleInputElem = null;
 let buttonElem = null;
-let fileAttachElem = null;
+let fileInputElem = null;
+let fileLabelElem = null;
+let fileLabelWrapperElem = null;
 let overlayElem = null;
 let bgImageElem = null;
 let clipAreaElem = null;
@@ -19,6 +21,7 @@ const apiEndpoint = 'https://getmarkup.com/api/annotate';
 const elemPrefix = 'frolicking-tuba';
 
 const hideModal = () => {
+  buttonElem.className = '';
   modalElem.parentNode.removeChild(modalElem);
   modalElem = null;
 
@@ -73,17 +76,32 @@ const buildOverlay = () => {
 
 const buildModal = () => {
   modalElem = document.createElement('div');
-  modalElem.id = elemPrefix;
+  modalElem.id = `${elemPrefix}-modal`;
+  modalElem.className = 'left-arrow';
 
   formElem = document.createElement('form');
   formElem.id = `${elemPrefix}-feedback`;
+
+  toInputElem = document.createElement('input');
+  toInputElem.id = `${elemPrefix}-to-input`;
+  toInputElem.type = 'text';
+  toInputElem.name = 'to';
+  toInputElem.minlength = 1;
+  toInputElem.placeholder = 'To';
+
+  fromInputElem = document.createElement('input');
+  fromInputElem.id = `${elemPrefix}-from-input`;
+  fromInputElem.type = 'text';
+  fromInputElem.name = 'from';
+  fromInputElem.minlength = 1;
+  fromInputElem.placeholder = 'From';
 
   titleInputElem = document.createElement('input');
   titleInputElem.id = `${elemPrefix}-title-input`;
   titleInputElem.type = 'text';
   titleInputElem.name = 'title';
   titleInputElem.minlength = 1;
-  titleInputElem.placeholder = 'Title';
+  titleInputElem.placeholder = 'Message Title';
 
   commentInputElem = document.createElement('textarea');
   commentInputElem.id = `${elemPrefix}-comment`;
@@ -91,39 +109,34 @@ const buildModal = () => {
   commentInputElem.minlength = 1;
   commentInputElem.placeholder = 'Enter your comments here';
 
-  toInputElem = document.createElement('input');
-  toInputElem.id = `${elemPrefix}-to-input`;
-  toInputElem.type = 'text';
-  toInputElem.name = 'to';
-  toInputElem.minlength = 1;
-  toInputElem.placeholder = 'Message to';
+  fileInputElem = document.createElement('input');
+  fileInputElem.id = `${elemPrefix}-file-input`;
+  fileInputElem.type = 'file';
+  fileInputElem.name = 'modalAttachment';
 
-  fromInputElem = document.createElement('input');
-  fromInputElem.id = `${elemPrefix}-from-input`;
-  fromInputElem.type = 'text';
-  fromInputElem.name = 'from';
-  fromInputElem.minlength = 1;
-  fromInputElem.placeholder = 'Message from';
+  fileLabelElem = document.createElement('label');
+  fileLabelElem.htmlFor = fileInputElem.id;
+  fileLabelElem.innerHTML = 'Attach a file';
 
-  fileAttachElem = document.createElement('input');
-  fileAttachElem.id = `${elemPrefix}-fileAttach-input`;
-  fileAttachElem.type = 'file';
-  fileAttachElem.name = 'modalAttachment';
+  fileLabelWrapperElem = document.createElement('div');
+  fileLabelWrapperElem.id = `${elemPrefix}-file-input-container`;
 
   const submitElem = document.createElement('input');
 
   submitElem.id = `${elemPrefix}-submit`;
   submitElem.type = 'submit';
   submitElem.name = 'modalSubmit';
-  submitElem.value = 'send';
+  submitElem.value = 'Submit Feedback';
 
   modalElem.appendChild(formElem);
-  formElem.appendChild(titleInputElem);
-  formElem.appendChild(commentInputElem);
   formElem.appendChild(toInputElem);
   formElem.appendChild(fromInputElem);
-  formElem.appendChild(fileAttachElem);
+  formElem.appendChild(titleInputElem);
+  formElem.appendChild(commentInputElem);
+  formElem.appendChild(fileLabelWrapperElem);
+  fileLabelWrapperElem.appendChild(fileLabelElem);
   formElem.appendChild(submitElem);
+  formElem.appendChild(fileInputElem);
 
   formElem.onsubmit = submitForm;
 
@@ -211,6 +224,7 @@ const startDrag = (event) => {
 };
 
 const showModal = () => {
+  buttonElem.className = 'in-close-state';
   takeShot((url) => {
     document.body.appendChild(buildBgImage(url));
   });

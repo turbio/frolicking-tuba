@@ -1,57 +1,128 @@
+$font-size: 12px;
+$font-stack: HelveticaNeue,Helvetica,sans-serif;
+
+$modal-width: 300px;
+$modal-padding: 12px;
+$modal-item-padding: 8px;
+$modal-background: #fcfcfc;
+$modal-border: #bababa;
+
+$comment-area-height: 100px;
+$primary-color: #ee433d;
+$secondary-color: #ec2c51;
+$row-height: 30px;
+
+$corner-rounding: 2px;
+$border-width: 1px;
+
+$arrow-size: 10px;
+
 #frolicking-tuba{
-  background: white;
-  border: 2px #ccc solid;
-  position: fixed;
+  &-modal{
+    position: absolute;
 
-  font-family: Helvetica,sans-serif;
-  opacity: 0;
-  transform: translate(0, 10px);
-  transition: all .25s;
-  border-radius: 10px;
-  width: 316px;
-  z-index: 9999998;
-  padding: 2px 6px 6px 6px;
-  margin-left: 10px;
+    font-family: $font-stack;
+    font-size: $font-size;
 
-  &-comment{
-    height: 100px;
-    width: 300px;
-    padding: 8px;
-    resize: none;
-    font-family: Helvetica,sans-serif;
-    font-size: 12px;
-    margin-top: 5px;
-    margin-bottom: -5px;
-    border: 1px solid #ccc;
+    background-color: $modal-background;
+    border: $border-width solid $modal-border;
     border-radius: 4px;
+    width: $modal-width;
+    z-index: 9999998;
+    padding: $modal-padding;
+
+    opacity: 0;
+    transform: translate(0, 10px);
+
+    &.left-arrow{
+      margin-left: $modal-padding;
+      transition: all .25s;
+      &:after, &:before{
+        right: 100%;
+        top: 8%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+      }
+      &:after{
+        border-right-color: $modal-background;
+        border-width: $arrow-size;
+        margin-top: -$arrow-size;
+      }
+      &:before{
+        border-right-color: $modal-border;
+        border-width: $arrow-size + 1;
+        margin-top: -($arrow-size + 1);
+      }
+    }
+    input[type=text], label, textarea{
+      font-family: $font-stack;
+      font-size: $font-size;
+
+      background-color: #ffffff;
+      border: $border-width solid #979797;
+      border-radius: $corner-rounding;
+      outline: none;
+    }
+
+    input[type=text], textarea{
+      width: $modal-width - ($modal-item-padding * 2) - ($border-width * 2);
+    }
+
+    input[type=text]{
+      margin-bottom: $modal-item-padding;
+      padding: $modal-item-padding;
+    }
+
+    textarea{
+      height: $comment-area-height;
+      padding: $modal-item-padding;
+      resize: none;
+    }
+
+    input[type=file]{
+      display: none;
+    }
+
+    label{
+      vertical-align: middle;
+      text-align: center;
+      display: inline-block;
+      border-radius: $corner-rounding;
+      padding: $modal-item-padding / 2;
+    }
   }
 
-  &-title-input,
-  &-to-input,
-  &-from-input,
-  &-fileAttach-input {
-    padding: 8px;
-    margin-top: 5px;
-    font-family: Helvetica,sans-serif;
-    font-size: 12px;
-    width: 300px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+  &-file-input-container{
+    font-family: $font-stack;
+    font-size: $font-size;
+
+    border: $border-width solid #979797;
+    background: #ffffff;
+    border-radius: 0 0 $corner-rounding $corner-rounding;
+    padding: 6px;
+    position: relative;
+    top: -4px;
   }
 
   &-submit{
+    font-family: $font-stack;
+    font-size: $font-size;
+    font-weight: 600;
+    height: $row-height;
+    background: linear-gradient(to left, #ee433d, #ec2c51);
+    border-radius: $corner-rounding;
+
     cursor: pointer;
-    background: #a7d4f6;
-    border: none;
     color: white;
-    font-size: 15px;
-    margin: 12px auto 4px auto;
+    margin-top: $modal-item-padding;
     float: right;
-    border-radius: 4px;
-    padding: 5px 10px;
+    border: none;
 
     &:hover{
-      background: #95bedd;
+      background: linear-gradient(to left, mix(#ee433d, white, 85%), mix(#ec2c51, white, 85%));
     }
   }
 
@@ -83,6 +154,10 @@
       background-color: #ec2c51;
       box-shadow: 3px 3px 10px rgba(0, 0, 0, .25);
     }
+
+    &.in-close-state{
+      background-image: url("data:image/svg+xml;utf8,<svg fill=\"#ffffff\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z\"/></svg>");
+    }
   }
 
   &-overlay{
@@ -101,7 +176,7 @@
 
   &-clip-area{
     position: absolute;
-    border: dashed 1px rgba(0, 0, 0, .5);
+    border: dashed $border-width rgba(0, 0, 0, .5);
     background-attachment: fixed;
     background-color: #fff;
     z-index: 9999997;
