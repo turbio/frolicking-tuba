@@ -2,8 +2,6 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
-//import { logout } from '../actions/AppActions';
-//import { SET_AUTH } from '../utils/AppConstants';
 import * as Actions from '../actions/AppActions';
 
 class NavbarComponent extends React.Component {
