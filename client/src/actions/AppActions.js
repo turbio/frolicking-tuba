@@ -207,6 +207,8 @@ export const createNewKey = ({ name, type, endpoint }) => (
     })
     .then(() => {
       dispatch(getApiKeys());
+      dispatch(fetchUrls());
+      dispatch(fetchGithubAuthStatus());
       dispatch(hideModal());
     })
     .catch((error) => {
