@@ -40,7 +40,7 @@ class NavbarComponent extends React.Component {
 
 
     return (
-      <Navbar fixedTop className="navbarLoggedOut">
+      <Navbar className="navbarLoggedOut">
         <Navbar.Header>
           <Navbar.Brand>
             <Link to="/">MARKUP</Link>

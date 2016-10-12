@@ -32,6 +32,7 @@ $textWeight: normal;
 
 $textOverColor: white;
 $redTextColor: #ec314c;
+$darkTextColor: black;
 
 $actvBtnColor: #ff6d82;
 $bigButtonWidth: 182px;
@@ -48,17 +49,23 @@ body {
 }
 
 .navbarLoggedOut a {
-  //background: transparent;
   color: $textOverColor;
   text-decoration: none;
 }
 
 .navbar-default * {
-  color: $textOverColor;
-  font-size: $h3Size;  
+  font-size: $h3Size;
+  text-decoration: none; 
 }
 
 .navbar-default .navbar-nav > li > a {
+  color: $textOverColor;
+  text-decoration: none;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:active,
+.navbar-default .navbar-nav > li > a:visited {
   color: $textOverColor;
   text-decoration: none;
 }
@@ -67,6 +74,14 @@ body {
   color: $textOverColor;
   font-size: 25px;
 }
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:active,
+.navbar-default .navbar-brand:visited {
+  color: $textOverColor;
+  font-size: 25px;
+}
+
 
 h3 {
   font-family: $h3Font;
@@ -140,6 +155,7 @@ h3 {
 
 .mainLandingImg {
   margin-top: -60px;
+  overflow: hidden;
 }
 
 .mainLandingSpacer {
@@ -152,11 +168,13 @@ h3 {
 
 .swoosh {
   position: absolute;
-  top: 0;
-  right: -10;
+  overflow: hidden;
+  top: -10px;
+  right: -10px;
   bottom: 0;
   left: 0;
   z-index: -1;
+  width: 105%;
 }
 
 .table {
@@ -177,16 +195,35 @@ h3 {
   margin-bottom: 0px;
 }
 
+.sectionHeader {
+  color: $darkTextColor;
+  font-size: $logoSize;
+  font-weight: $labelsWeight;
+  text-align: center;
+}
+
+.subSectionHeader {
+  font-size: $h3Size;
+  font-weight: $labelsWeight;
+  color: $darkTextColor;
+}
+
 .section1 {
   height:100vh;
-  background:gray;
+  //background:gray;
 }
 
 .section1Container1 {
   position:relative;
   margin:0 auto;
-  background: black;
   text-align: center;
+}
+
+.rectanglePlaceholder {
+  width: 150px;
+  height: 150px;
+  //display: inline-block;
+  background: #d8d8d8;
 }
 
 .section2 {
