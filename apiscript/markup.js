@@ -16,7 +16,7 @@ let clipAreaElem = null;
 let bgImage = '';
 
 const apiEndpoint = 'https://getmarkup.com/api/annotate';
-const elemPrefix = 'frolicking-tuba-modal';
+const elemPrefix = 'frolicking-tuba';
 
 const hideModal = () => {
   modalElem.parentNode.removeChild(modalElem);
@@ -57,6 +57,9 @@ const buildBgImage = (url) => {
   bgImageElem = document.createElement('img');
   bgImageElem.id = `${elemPrefix}-bg-image`;
   bgImageElem.src = url;
+  bgImageElem.onload = () => {
+    bgImageElem.style.opacity = 1;
+  };
 
   return bgImageElem;
 };
@@ -210,10 +213,6 @@ const startDrag = (event) => {
 const showModal = () => {
   takeShot((url) => {
     document.body.appendChild(buildBgImage(url));
-
-    setTimeout(() => {
-      bgImageElem.style.opacity = 1;
-    });
   });
 
   document.body.appendChild(buildOverlay());
