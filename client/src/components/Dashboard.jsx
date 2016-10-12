@@ -6,12 +6,15 @@ import { connect } from 'react-redux';
 import * as Actions from '../actions/AppActions';
 
 import Key from './Key.jsx';
-import CreateKeyModal from './CreateKeyModal.jsx';
+// import CreateKeyModal from './CreateKeyModal.jsx';
+import KeyModal from './KeyModal.jsx';
 //import { requestKeys } from '../actions/AppActions';
 
 class Dashboard extends Component {
   componentWillMount() {
     this.props.actions.getApiKeys();
+    this.props.actions.fetchUrls();
+    this.props.actions.fetchGithubAuthStatus();
   }
 
   returnKeys() {
@@ -44,7 +47,10 @@ class Dashboard extends Component {
             >Create API Key
             </Button>
           </p>
-          <CreateKeyModal />
+          {
+            // (<CreateKeyModal />)
+          }
+          <KeyModal />
         </Row>
         <Row>
 
