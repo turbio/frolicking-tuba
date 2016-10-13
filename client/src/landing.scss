@@ -1,5 +1,6 @@
 .landing-section {
   height: 100vh;
+  text-align: center;
 
   h3 {
     margin: 1em;
@@ -8,12 +9,21 @@
 }
 
 #landing-content {
-  margin: 10% 0 0 0;
+  margin: 0;
   width: 100vw;
 }
 
 #above-the-fold {
-  min-height:100vh;
+  position: relative;
+
+  padding-top: 10%;
+  min-height: 100vh;
+  height: 30em;
+
+  @media screen and (min-width: 992px) {
+    height: 50em;
+  }
+
   color: nth($light-colors, 1);
 
   h3 {
@@ -35,8 +45,8 @@
     left: 0;
     z-index: -1;
 
-    height: 100%;
     width: 100%;
+    height: 100%;
 
     border-bottom: 1px #ccc solid;
   }
@@ -90,8 +100,6 @@
 }
 
 #image-blurbs {
-  text-align: center;
-
   img {
     width: 10em;
     height: 10em;
@@ -111,14 +119,4 @@
 }
 
 #pricing {
-}
-
-#team-profiles {
-  margin-top: 100px;
-
-  .profile-image {
-    border-radius: 50%;
-    margin-top: 30px;
-    padding: 5px;
-  }
 }
