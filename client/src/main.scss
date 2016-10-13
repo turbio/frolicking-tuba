@@ -179,6 +179,7 @@ $darkColor3: #9b9b9b;
         font-size: 1.55em;
       }
       button {
+        height: 2.25em;
         font-family: 'Cabin';
         font-size: .85em;
         font-weight: 600;
@@ -187,6 +188,7 @@ $darkColor3: #9b9b9b;
     }
 
     img {
+      max-width: 65em;
       width: 175%;
     }
   }

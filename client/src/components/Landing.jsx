@@ -21,22 +21,8 @@ const Landing = () => (
           <h3>API For Gathering Visual Feedback</h3>
           <p>{homeParagraph}</p>
           <p>
-            <ButtonToolbar>
-              <ButtonGroup>
-                <Button
-                  bsStyle="primary"
-                  className="button1"
-                >Sign Up
-                </Button>
-              </ButtonGroup>
-              <ButtonGroup>
-                <Button
-                  bsStyle="primary"
-                  className="button2"
-                >Read Docs
-                </Button>
-              </ButtonGroup>
-            </ButtonToolbar>
+            <Button bsStyle="primary" className="button1">Sign Up </Button>
+            <Button bsStyle="primary" className="button2">Read Docs </Button>
           </p>
         </Col>
         <Col sm={12} md={6} className="right-side-image hidden-sm hidden-xs">
