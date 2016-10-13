@@ -19,7 +19,7 @@ const Landing = () => (
           <h3>API For Gathering Visual Feedback</h3>
           <p>{homeParagraph}</p>
           <p>
-            <Button bsStyle="primary" className="button1">Sign Up </Button>
+            <Button bsStyle="primary" className="fill">Sign Up </Button>
             <Button bsStyle="primary" className="button2">Read Docs </Button>
           </p>
         </Col>

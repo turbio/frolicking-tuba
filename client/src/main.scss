@@ -1,157 +1,58 @@
-// $font-family-sans-serif: 'Lato', sans-serif;
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
-// @import url(https://fonts.googleapis.com/css?family=Cabin:400,500,600,700);
+@import "./node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 @import url(https://fonts.googleapis.com/css?family=Cabin);
 @import url(https://fonts.googleapis.com/css?family=Droid+Sans);
 
 $redTextColor: #ec314c;
 $actvBtnColor: #ff6d82;
 $bigButtonWidth: 182px;
+
 $lightColor1: #ffffff;
+$lightColor2: #E8E5E5;
+$lightColor3: #F7F7F7;
+
 $darkColor1: #4a4a4a;
 $darkColor2: rgba(74, 74, 74, 0.75);
 $darkColor3: #9b9b9b;
 
 
-
-///////////////////// MIXIN DEFINITIONS ///////////////////////////
-@mixin headerOne($color) {
-  color: $color;
-  font-family: 'Droid Sans';
-  font-weight: bold;
-  font-size: 26px;
-}
-
-@mixin logo($color) {
-  color: $color;
-  font-family: 'Cabin';
-  font-weight: medium;
-  font-size: 26px;
-}
-
-@mixin bodyCopyBig($color) {
-  color: $color;
-  font-family: 'Cabin';
-  font-weight: lighter;
-  font-size: 21px;
-}
-
-@mixin primActionBut($color) {
-  color: $color;
-  font-family: 'Cabin';
-  font-weight: bold;
-  font-size: 19px;
-}
-
-@mixin headerTwo($color) {
-  color: $color;
-  font-family: 'Droid Sans';
-  font-weight: bold;
-  font-size: 19px;
-}
-
-@mixin bodyCopySm($color) {
-  color: $color;
-  font-family: 'Cabin';
-  font-weight: regular;
-  font-size: 19px;
-}
-
-@mixin labelsOne($color) {
-  color: $color;
-  font-family: 'Cabin';
-  font-weight: bold;
-  font-size: 16px;
-}
-
-@mixin navBarLinks($color) {
-  color: $color;
-  font-family: 'Cabin';
-  font-weight: semibold;
-  font-size: 16px;
-}
-
-@mixin dashLinksInFields($color) {
-  color: $color;
-  font-family: 'Cabin';
-  font-weight: regular;
-  font-size: 12px;
-}
-
-
-////////////////// END OF MIXIN DEFINITIONS //////////////////////
-
-
-/////////////////////// DEFAULT AND NAVBAR STYLES ///////////////////////////
-
 .navbar {
   background: transparent;
   border: none;
-}
 
-
-.navbarhome.navbar-default {
-  * {
-    @include navBarLinks($lightColor1);
-    text-decoration: none;
-  }
-  .navbar-brand {
-    @include logo($lightColor1);
-
-      &:hover,
-      &:active,
-      &:visited {
-        @include logo($lightColor1);
-      }
-  }
-  .navbar-nav > li > a:hover,
-  .navbar-nav > li > a:active,
-  .navbar-nav > li > a:visited {
-    color: $darkColor3;
-    text-decoration: none;
-  }
-}
-
-
-.navbarnorm.navbar-default {
-
-  * {
-    @include navBarLinks($darkColor3);
-    text-decoration: none;
-  }
-
-  .navbar-brand {
-   @include logo($darkColor3);
-
-      &:hover, &:active, &:visited {
-        @include logo($darkColor3);
-      }
-  }
-  // .navbar-nav > li > a {
-  //   &:hover,
-  //   &:active,
-  //   &:visited {
-  //   color: $lightColor1;
-  //   text-decoration: none;
-  //   }
-  // }
-}
-
-.navbar-nav > li > a > a:hover {
-// .navbar-nav > li > a > a:active,
-// .navbar-nav > li > a > a:visited {
-  color: $lightColor1;
+  font-family: 'Cabin';
+  font-weight: semibold;
+  font-size: 16px;
   text-decoration: none;
+
+  .navbar-brand {
+    font-family: 'Cabin';
+    font-weight: medium;
+    font-size: 26px;
+  }
+
+  &.navbar-home a {
+    color: $lightColor1;
+
+    &:hover,&:focus {
+      color: $lightColor2;
+    }
+  }
+
+  &.navbar-norm a {
+    color: $darkColor3;
+
+    &:hover,&:focus {
+      color: $darkColor2;
+    }
+  }
+
+  a {
+    &:hover,&:active,&:focus {
+      text-decoration: none;
+    }
+  }
 }
 
-
-
-
-//////////////////////////////////////////////////////////////
-
-
-
-///////////////////// ADDITIONAL STYLING //////////////////////////////
 #landing-content {
   .swoosh {
     position: absolute;
@@ -170,21 +71,51 @@ $darkColor3: #9b9b9b;
     color: $lightColor1;
 
     >div:nth-child(1) {
+      margin-top: 10%;
+
       h3 {
-        @include headerOne($lightColor1);
+        color: $lightColor1;
+        font-family: 'Droid Sans';
+        font-weight: bold;
+        font-size: 26px;
         margin-bottom: 1em;
       }
+
       p {
         font-family: 'Cabin';
         font-size: 1.55em;
       }
+
       button {
         height: 2.25em;
         font-family: 'Cabin';
         font-size: .85em;
         font-weight: 600;
+
+        color: $lightColor1;
+        font-family: 'Cabin';
+        font-weight: bold;
+        font-size: 19px;
+
+        border-radius: 12px;
+        margin-top: 24px;
+        width: $bigButtonWidth;
       }
-      margin-top: 10%;
+
+      button.fill {
+        color: $redTextColor;
+        background-color: white;
+        border: transparent;
+        margin-right: 25px;
+
+        &:hover {
+          color: $actvBtnColor;
+          background-color: white;
+          border-color: $actvBtnColor;
+          box-shadow: 0 0 0 4px $actvBtnColor;
+          text-decoration: none;
+        }
+      }
     }
 
     img {
@@ -210,40 +141,9 @@ $darkColor3: #9b9b9b;
   }
 }
 
-
-.docsHeading {
-  @include headerOne($darkColor1);
-}
-
-.docsPara {
-  @include bodyCopyBig($darkColor3);
-}
-
-.button1, .button2 {
-  @include primActionBut($lightColor1);
-  border-radius: 12px;
-  margin-top: 24px;
-  width: $bigButtonWidth;
-}
-
-.button1 {
-  color: $redTextColor;
-  background-color: white;
-  border: transparent;
-  margin-right: 25px;
-}
-
 .button2 {
   background: transparent;
   border: 2px solid white;
-}
-
-.btn-primary:hover.button1 {
-  color: $actvBtnColor;
-  background-color: white;
-  border-color: $actvBtnColor;
-  box-shadow: 0 0 0 4px $actvBtnColor;
-  text-decoration: none;
 }
 
 .btn-primary:hover.button2 {
@@ -255,7 +155,7 @@ $darkColor3: #9b9b9b;
 
 .footer {
   height: 60px;
-  position:relative;
+  position: relative;
   margin:0 auto;
   text-align: center;
 }
