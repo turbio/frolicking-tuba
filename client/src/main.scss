@@ -8,9 +8,17 @@ $redTextColor: #ec314c;
 $actvBtnColor: #ff6d82;
 $bigButtonWidth: 182px;
 $lightColor1: #ffffff;
+$lightColor2: #E8E5E5;
+$lightColor3: #F7F7F7;
 $darkColor1: #4a4a4a;
 $darkColor2: rgba(74, 74, 74, 0.75);
 $darkColor3: #9b9b9b;
+
+/* Rectangle 155 Copy: */
+$authpagebackgroundColor: rgba(155,155,155,0.08);
+
+// Gradient CSS
+//background-image: linear-gradient(90deg, #EE433D 0%, #EC3846 50%, #EC2C51 100%);
 
 
 
@@ -20,6 +28,12 @@ $darkColor3: #9b9b9b;
   font-family: 'Droid Sans';
   font-weight: bold;
   font-size: 26px;
+}
+@mixin authpagelogo($color) {
+  color: $color;
+  font-family: 'Cabin';
+  font-weight: medium;
+  font-size: 36px;
 }
 
 @mixin logo($color) {
@@ -87,6 +101,8 @@ $darkColor3: #9b9b9b;
 .navbar {
   background: transparent;
   border: none;
+  height: 70px;
+  padding-top:7.5px;
 }
 
 
@@ -97,54 +113,65 @@ $darkColor3: #9b9b9b;
   }
   .navbar-brand {
     @include logo($lightColor1);
-
-      &:hover,
-      &:active,
-      &:visited {
-        @include logo($lightColor1);
-      }
   }
-  .navbar-nav > li > a:hover,
-  .navbar-nav > li > a:active,
-  .navbar-nav > li > a:visited {
-    color: $darkColor3;
-    text-decoration: none;
+  .container {
+    .navbar-header {
+      .navbar-toggle .icon-bar {
+          background-color: white;
+      }
+    }
+    .navbar-collapse {
+      .navbar-nav > li > a > a {
+        &:hover {
+          color: $lightColor2;
+          text-decoration: none;
+        }
+      }
+      .navbar-nav > ul > li > a {
+        color: $lightColor1;
+
+        &:hover {
+          color: $lightColor2;
+          text-decoration: none;
+        }
+      }
+    }
   }
 }
 
 
 .navbarnorm.navbar-default {
-
   * {
     @include navBarLinks($darkColor3);
     text-decoration: none;
   }
-
   .navbar-brand {
-   @include logo($darkColor3);
-
-      &:hover, &:active, &:visited {
-        @include logo($darkColor3);
-      }
+    @include logo($darkColor2);
   }
-  // .navbar-nav > li > a {
-  //   &:hover,
-  //   &:active,
-  //   &:visited {
-  //   color: $lightColor1;
-  //   text-decoration: none;
-  //   }
-  // }
+  .container {
+    .navbar-header {
+      .navbar-toggle .icon-bar {
+          background-color: $darkColor2;
+      }
+    }
+    .navbar-collapse {
+      .navbar-nav > li > a > a {
+        &:hover {
+          color: $darkColor2;
+          text-decoration: none;
+        }
+      }
+      .navbar-nav > ul > li > a {
+        color: $darkColor3;
+
+        &:hover {
+          color: $darkColor2;
+          text-decoration: none;
+        }
+      }
+    }
+  }
 }
-
-.navbar-nav > li > a > a:hover {
-// .navbar-nav > li > a > a:active,
-// .navbar-nav > li > a > a:visited {
-  color: $lightColor1;
-  text-decoration: none;
-}
-
-
 
 
 //////////////////////////////////////////////////////////////
@@ -288,10 +315,30 @@ h3 {
   background:orange;
 }
 
-.footer {
-  height: 60px;
+.authPageHeader {
+  margin-top:67px;
+  margin-bottom:67px;
   position:relative;
-  margin:0 auto;
+  margin-left: auto;
+  margin-right:auto;
   text-align: center;
+  //background-color: $authpagebackgroundColor;
+}
+
+#authPageLogo {
+  @include authpagelogo($darkColor3);
+}
+
+.footer {
+  margin-top:45px;
+  height: 55px;
+  position:relative;
+  margin-left: auto;
+  margin-right:auto;
+  padding-top:10px;
+  text-align: center;
+  @include dashLinksInFields($darkColor2);
+  background-color: $lightColor3;
+
 }
 
