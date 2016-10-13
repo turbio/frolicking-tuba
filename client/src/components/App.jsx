@@ -12,9 +12,13 @@ class App extends Component {
   }
 
   render() {
+    const onHomePage = () => (
+      window.location.pathname === '/' ? 'home' : 'norm'
+    );
+
     return (
       <div>
-        <NavbarComponent />
+        <NavbarComponent onHomePage={onHomePage} />
         {this.props.children}
         <Footer />
       </div>
