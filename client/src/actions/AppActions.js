@@ -2,8 +2,7 @@ import { browserHistory } from 'react-router';
 import { SIGN_OUT_USER,
   AUTH_USER, AUTH_ERROR,
   FETCH_KEYS, OPEN_MODAL,
-  CLOSE_MODAL, FETCH_ENDPOINTS,
-  ADD_NEW_ENDPOINT, UPDATE_GITHUB_AUTH,
+  CLOSE_MODAL,
   FETCH_URLS, UPDATE_GITHUB_STATUS,
   FETCH_REPOS, SET_MODAL_MODE,
   OPEN_EDIT_MODAL, CLOSE_EDIT_MODAL,
@@ -24,32 +23,6 @@ export const requestKeys = (keys) => ({
   type: FETCH_KEYS,
   payload: keys
 });
-// create new key Modal actions
-export const showModal = () => ({ type: OPEN_MODAL });
-export const hideModal = () => ({ type: CLOSE_MODAL });
-export const setModalModeAddUrl = (mode) => ({
-  type: SET_MODAL_MODE,
-  modalModeAddUrl: mode
-});
-// edit existing key Modal actions
-export const showEditModal = (key) => ({
-  type: OPEN_EDIT_MODAL,
-  key
-});
-export const hideEditModal = () => ({ type: CLOSE_EDIT_MODAL });
-export const setEditModalNewUrl = (mode) => ({
-  type: SET_EDIT_MODAL_MODE,
-  mode
-});
-
-export const fetchEndpts = (keys) => ({
-  type: FETCH_ENDPOINTS,
-  payload: keys
-});
-
-export const addNewEndpt = () => ({ type: ADD_NEW_ENDPOINT });
-export const updateGitHubAuth = () => ({ type: UPDATE_GITHUB_AUTH });
-
 
 const headers = new Headers();
 
@@ -92,8 +65,6 @@ export const logOut = () => (
   (dispatch) => {
     fetch('/api/users/signout', { credentials: 'same-origin' })
     .then(() => {
-      //localStorage.token = false;
-      //delete localStorage.token;
       Reflect.deleteProperty(localStorage, 'token');
 
       dispatch(authRemove());
@@ -152,7 +123,26 @@ export const fetchGithubAuthStatus = () => ((dispatch) => {
 
 //*******Modal Related Actions*******//
 
+// create new key Modal actions
+export const showModal = () => ({ type: OPEN_MODAL });
+export const hideModal = () => ({ type: CLOSE_MODAL });
+export const setModalModeAddUrl = (mode) => ({
+  type: SET_MODAL_MODE,
+  modalModeAddUrl: mode
+});
 
+// edit existing key Modal actions
+export const showEditModal = (key) => ({
+  type: OPEN_EDIT_MODAL,
+  key
+});
+export const hideEditModal = () => ({ type: CLOSE_EDIT_MODAL });
+export const setEditModalNewUrl = (mode) => ({
+  type: SET_EDIT_MODAL_MODE,
+  mode
+});
+
+// both modals
 export const createNewUrl = (urlObject) => (
  fetch('/api/urls', {
    method: 'POST',
@@ -161,7 +151,6 @@ export const createNewUrl = (urlObject) => (
    body: JSON.stringify(urlObject)
  })
 );
-
 export const createNewKey = ({ key, name, type, endpoint }) => (
   (dispatch) => {
     const requestBody = {

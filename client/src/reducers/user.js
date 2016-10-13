@@ -11,7 +11,7 @@ const initialState = {
 const assign = Object.assign;
 
 
-export default function authReducer(state = initialState, action) {
+export default function userReducer(state = initialState, action) {
   switch (action.type) {
   case AUTH_USER:
     return assign({}, state, {
