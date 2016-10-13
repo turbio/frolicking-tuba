@@ -5,7 +5,10 @@ import { SIGN_OUT_USER,
   CLOSE_MODAL, FETCH_ENDPOINTS,
   ADD_NEW_ENDPOINT, UPDATE_GITHUB_AUTH,
   FETCH_URLS, UPDATE_GITHUB_STATUS,
-  FETCH_REPOS, SET_MODAL_MODE } from '../utils/AppConstants';
+  FETCH_REPOS, SET_MODAL_MODE,
+  OPEN_EDIT_MODAL, CLOSE_EDIT_MODAL,
+  SET_EDIT_MODAL_MODE
+} from '../utils/AppConstants';
 
 export const authUser = (email) => ({
   type: AUTH_USER,
@@ -26,6 +29,15 @@ export const hideModal = () => ({ type: CLOSE_MODAL });
 export const setModalModeAddUrl = (mode) => ({
   type: SET_MODAL_MODE,
   modalModeAddUrl: mode
+});
+export const showEditModal = (key) => ({
+  type: OPEN_EDIT_MODAL,
+  key
+});
+export const hideEditModal = () => ({ type: CLOSE_EDIT_MODAL });
+export const setEditModalNewUrl = (mode) => ({
+  type: SET_EDIT_MODAL_MODE,
+  mode
 });
 export const fetchEndpts = (keys) => ({
   type: FETCH_ENDPOINTS,
@@ -93,20 +105,7 @@ export const getApiKeys = () => (
   (dispatch) => {
     fetch('/api/keys', { credentials: 'same-origin' })
     .then((response) => response.json())
-    .then((json) => {
-
-      const keys = json.map((key) => {
-        const newKey = key;
-
-        newKey.api_key
-          = `<script src="https://d1p3e8i5yp3axf.cloudfront.net/?key=\
-${key.key}"></script>`;
-
-        return newKey;
-      });
-
-      dispatch(requestKeys(keys));
-    })
+    .then((json) => dispatch(requestKeys(json)))
     .catch((error) => dispatch(authError(error)));
   }
 );
@@ -183,13 +182,17 @@ export const updateKey = (requestBody) => (
   // }
 );
 
-export const createNewKey = ({ name, type, endpoint }) => (
+export const createNewKey = ({ key, name, type, endpoint }) => (
   (dispatch) => {
     const requestBody = {
       name,
       type,
       endpoint
     };
+
+    if (key) {
+      requestBody.key = key;
+    }
 
     //make the API Key
     fetch('/api/keys', {
@@ -211,6 +214,8 @@ export const createNewKey = ({ name, type, endpoint }) => (
       dispatch(fetchGithubAuthStatus());
       dispatch(setModalModeAddUrl(false));
       dispatch(hideModal());
+      dispatch(hideEditModal());
+      browserHistory.replace('/dashboard');
     })
     .catch((error) => {
       console.log('error in createnewkey:', error);
