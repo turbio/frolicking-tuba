@@ -53,7 +53,7 @@ gulp.task('apiscript', ['apiscript-sass'], () =>
 
 //Compile Sass
 gulp.task('sass', () =>
-  gulp.src(path.join(__dirname, 'client/src/*.scss'))
+  gulp.src(path.join(__dirname, 'client/src/main.scss'))
     .pipe(sass())
     .pipe(concat('styles.css'))
     .pipe(gulp.dest(path.join(__dirname, 'client/public')))

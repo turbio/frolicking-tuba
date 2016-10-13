@@ -2,137 +2,19 @@
 @import url(https://fonts.googleapis.com/css?family=Cabin);
 @import url(https://fonts.googleapis.com/css?family=Droid+Sans);
 
-$red-text-color: #ec314c;
-$active-button-color: #ff6d82;
-$big-button-width: 182px;
+@import "client/src/colors";
 
-$light-colors: #ffffff #E8E5E5 #F7F7F7;
-$dark-colors: #4a4a4a rgba(74, 74, 74, 0.75) #9b9b9b;
+@import "client/src/landing";
+@import "client/src/navbar";
 
-.navbar {
-  background: transparent;
-  border: none;
-
+p {
   font-family: 'Cabin';
-  font-size: 16px;
-  text-decoration: none;
-
-  .navbar-brand {
-    font-family: 'Cabin';
-    font-weight: medium;
-    font-size: 26px;
-  }
-
-  &.navbar-home a {
-    color: nth($light-colors, 1);
-
-    &:hover,&:focus {
-      color: nth($light-colors, 2);
-    }
-  }
-
-  &.navbar-norm a {
-    color: nth($dark-colors, 3);
-
-    &:hover,&:focus {
-      color: nth($dark-colors, 2);
-    }
-  }
-
-  a {
-    &:hover,&:active,&:focus {
-      text-decoration: none;
-    }
-  }
+  font-size: 1.45em;
 }
 
-#landing-content {
-  .swoosh {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-
-    height: 100%;
-    width: 100%;
-
-    border-bottom: 1px #ccc solid;
-  }
-
-  .above-the-fold {
-    min-height:100vh;
-    color: nth($light-colors, 1);
-
-    >div:nth-child(1) {
-      margin-top: 10%;
-
-      h3 {
-        color: nth($light-colors, 1);
-        font-family: 'Droid Sans';
-        font-weight: bold;
-        font-size: 26px;
-        margin-bottom: 1em;
-      }
-
-      p {
-        font-family: 'Cabin';
-        font-size: 1.55em;
-      }
-    }
-
-    img {
-      max-width: 65em;
-      width: 175%;
-    }
-  }
-
-  .right-side-image {
-    position: absolute;
-    right: 0;
-    overflow: hidden;
-  }
-
-  button {
-    height: 2.25em;
-    font-family: 'Cabin';
-    font-size: .85em;
-    font-weight: 600;
-
-    color: nth($light-colors, 1);
-
-    border-radius: .65em;
-    width: $big-button-width;
-
-    background: transparent;
-    border: 2px solid nth($light-colors, 1);
-
-    &:hover {
-      background-color: $active-button-color;
-      color: nth($light-colors, 1);
-      box-shadow: 0 0 0 4px $active-button-color;
-    }
-  }
-
-  button.fill {
-    color: $red-text-color;
-    background-color: nth($light-colors, 1);
-    border: transparent;
-    margin-right: 25px;
-
-    &:hover {
-      color: $active-button-color;
-    }
-  }
-}
-
-#team-profiles {
-  margin-top: 100px;
-
-  .profile-image {
-    border-radius: 50%;
-    margin-top: 30px;
-    padding: 5px;
-  }
+h1,h2,h3,h4,h5 {
+  font-family: 'Droid Sans';
+  font-weight: bold;
 }
 
 //this is bad and who ever wrote it should feel bad
@@ -146,9 +28,15 @@ $dark-colors: #4a4a4a rgba(74, 74, 74, 0.75) #9b9b9b;
 }
 
 .footer {
-  height: 60px;
   position: relative;
-  margin:0 auto;
+
+  font-family: 'Droid Sans';
+  font-size: 1.25em;
+
+  padding: 1em;
+
   text-align: center;
+  vertical-align: middle;
+
   background-color: nth($light-colors, 3);
 }

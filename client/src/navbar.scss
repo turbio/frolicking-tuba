@@ -1,0 +1,37 @@
+.navbar {
+  background: transparent;
+  border: none;
+
+  font-family: 'Cabin';
+  font-size: 16px;
+  text-decoration: none;
+
+  .navbar-brand {
+    font-family: 'Cabin';
+    font-weight: medium;
+    font-size: 26px;
+  }
+
+  &.navbar-home a {
+    color: nth($light-colors, 1);
+
+    &:hover,&:focus {
+      color: nth($light-colors, 2);
+    }
+  }
+
+  &.navbar-norm a {
+    color: nth($dark-colors, 3);
+
+    &:hover,&:focus {
+      color: nth($dark-colors, 2);
+    }
+  }
+
+  a {
+    &:hover,&:active,&:focus {
+      text-decoration: none;
+    }
+  }
+}
+

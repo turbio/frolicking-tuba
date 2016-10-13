@@ -1,0 +1,125 @@
+.landing-section {
+  height: 100vh;
+
+  h3 {
+    margin: 1em;
+    text-align: center;
+  }
+}
+
+#landing-content {
+  margin: 10em 0 0 0;
+  width: 100vw;
+
+  .swoosh {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+
+    height: 100%;
+    width: 100%;
+
+    border-bottom: 1px #ccc solid;
+  }
+
+  .right-side-image {
+    position: absolute;
+    right: 0;
+    overflow: hidden;
+
+    img {
+      max-width: 65em;
+      width: 175%;
+    }
+  }
+
+  button {
+    height: 2.25em;
+    font-family: 'Cabin';
+    font-size: .85em;
+    font-weight: 600;
+
+    color: nth($light-colors, 1);
+
+    border-radius: .65em;
+    width: 10em;
+
+    background: transparent;
+    border: 2px solid nth($light-colors, 1);
+
+    &:hover {
+      background-color: $active-button-color;
+      color: nth($light-colors, 1);
+      box-shadow: 0 0 0 4px $active-button-color;
+    }
+  }
+
+  button.fill {
+    color: $red-text-color;
+    background-color: nth($light-colors, 1);
+    border: transparent;
+    margin-right: 25px;
+
+    &:hover {
+      color: $active-button-color;
+    }
+  }
+}
+
+#above-the-fold {
+  min-height:100vh;
+  color: nth($light-colors, 1);
+
+  >div:nth-child(1) {
+    margin-top: 10%;
+
+    h3 {
+      color: nth($light-colors, 1);
+      font-family: 'Droid Sans';
+      font-weight: bold;
+      font-size: 26px;
+      margin-bottom: 1em;
+    }
+
+    p {
+      font-family: 'Cabin';
+      font-size: 1.55em;
+    }
+  }
+
+}
+
+#image-blurbs {
+  text-align: center;
+
+  img {
+    width: 10em;
+    height: 10em;
+  }
+
+  >div {
+    padding: 1.25em;
+  }
+
+  p {
+    color: nth($dark-colors, 2);
+  }
+}
+
+#use-cases {
+  background: nth($light-colors, 3);
+}
+
+#pricing {
+}
+
+#team-profiles {
+  margin-top: 100px;
+
+  .profile-image {
+    border-radius: 50%;
+    margin-top: 30px;
+    padding: 5px;
+  }
+}

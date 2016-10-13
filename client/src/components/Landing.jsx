@@ -11,94 +11,62 @@ const homeParagraph = 'Enable commenting directly on your website and '
   + 'integrate with whichever workflow tool you already use.';
 
 const Landing = () => (
-  <div id="landing-content">
-    <Image className="swoosh" src="/swoosh_fill.svg" />
-    <Grid>
-      <Row className="above-the-fold">
-        <Col sm={12} md={6} >
-          <h3>API For Gathering Visual Feedback</h3>
-          <p>{homeParagraph}</p>
-          <p>
-            <Button bsStyle="primary" className="fill">Sign Up </Button>
-            <Button bsStyle="primary" className="outline">Read Docs </Button>
-          </p>
-        </Col>
-        <Col sm={12} md={6} className="right-side-image hidden-sm hidden-xs">
+  <Grid id="landing-content">
+    <Row id="above-the-fold">
+      <Image className="swoosh" src="/swoosh_fill.svg" />
+      <Col sm={12} md={6} >
+        <h3>API For Gathering Visual Feedback</h3>
+        <p>{homeParagraph}</p>
+        <p>
+          <Button bsStyle="primary" className="fill">Sign Up </Button>
+          <Button bsStyle="primary" className="outline">Read Docs </Button>
+        </p>
+      </Col>
+      <Col sm={12} md={6} className="right-side-image hidden-sm hidden-xs">
+        <Image src="/landing_example_image.svg" />
+      </Col>
+    </Row>
+
+    <Row id="image-blurbs" className="landing-section">
+      <h3>Collaborate Better Across Teams</h3>
+      <Col sm={12} md={4}>
+        <div>
           <Image src="/landing_example_image.svg" />
-        </Col>
-      </Row>
-
-      <Row>
-        <Col sm={12} md={12}>
-          <h3>Collaborate Better Across Teams</h3>
-        </Col>
-        <Col sm={12} md={4}>
-          <div className="section1Container1">
-            <div className="rectanglePlaceholder" />
-            <h3>Easily Set Up New Projects</h3>
-            <p>section1Container1</p>
-          </div>
-        </Col>
-        <Col sm={12} md={4}>
-          <div className="section1Container2">
-            <div className="rectanglePlaceholder" />
-            <h3>section1Container2</h3>
-            <p>This is the Content.</p>
-          </div>
-        </Col>
-        <Col sm={12} md={4}>
-          <div className="section1Container3">
-            <div className="rectanglePlaceholder" />
-            <h3>section1Container3</h3>
-            <p>This is the Content.</p>
-          </div>
-        </Col>
-      </Row>
-
-      <Row>
-        <Col sm={12} md={8}>
-          <div className="section2Container1">
-            <h3>Capture Feedback Quickly</h3>
-            <p>This is the Content.</p>
-          </div>
-        </Col>
-        <Col sm={12} md={4}>
-          <div className="section2Container2">
-            <h3>section2Container2</h3>
-            <p>This is the Content.</p>
-          </div>
-        </Col>
-      </Row>
-
-      <Row>
-        <Col sm={12} md={4}>
-          <div className="section3Container1">
-            <h3>Workflow Options</h3>
-            <p>This is the Content.</p>
-          </div>
-        </Col>
-        <Col sm={12} md={8}>
-          <div className="section3Container2">
-            <h3>section3Container2</h3>
-            <p>This is the Content.</p>
-          </div>
-        </Col>
-      </Row>
-
-      <Row>
-        <Col sm={12} md={12}>
-          <div className="finalCTA">
-            <div>
-              <h3>Try Markup Today</h3>
-              <p>This is the Content.</p>
-              <p><Button bsStyle="primary">Learn more</Button></p>
-            </div>
-          </div>
-        </Col>
-      </Row>
-
-    </Grid>
-  </div>
+          <h4>Easily Set Up New Projects</h4>
+          <p>
+            Generate a custom script tag for every unique project.
+            Insert our script tag on any page to get started instantly.
+          </p>
+        </div>
+      </Col>
+      <Col sm={12} md={4}>
+        <div>
+          <Image src="/landing_example_image.svg" />
+          <h4>Enable Frictionless Feedback</h4>
+          <p>
+            Gather feedback directly on your front-end from all of
+            your relevant teams without requiring any additional setup.
+          </p>
+        </div>
+      </Col>
+      <Col sm={12} md={4}>
+        <div>
+          <Image src="/landing_example_image.svg" />
+          <h4>Speed Up Communication</h4>
+          <p>
+            Comments are sent directly to github or can be
+            configured to whichever workflow tool works best for you
+          </p>
+        </div>
+      </Col>
+    </Row>
+    <Row id="use-cases" className="landing-section">
+      <h3>Use Cases</h3>
+    </Row>
+    <Row id="pricing" className="landing-section">
+      <h3>Pricing</h3>
+    </Row>
+  </Grid>
 );
 
 export default Landing;
