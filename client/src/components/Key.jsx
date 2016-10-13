@@ -24,8 +24,8 @@ const Key = ({ title, endpoint, keyString, showEditModal }) => {
     showEditModal(keyString);
   };
 
-  const scriptTagText = `<script src="https://d1p3e8i5yp3axf.cloudfront.net/?key=\
-${keyString}"></script>`;
+  const scriptTagText = `<script src="https://d1p3e8i5yp3axf.cloudfront.net/\
+?key=${keyString}"></script>`;
 
   return (
     <Panel
@@ -40,7 +40,7 @@ ${keyString}"></script>`;
         <ControlLabel>Endpoint</ControlLabel>
         <FormControl
           type="text"
-          className="no-extras"
+          className="no-extras-input"
           disabled defaultValue={endpoint}
         />
       </FormGroup>
@@ -51,7 +51,7 @@ ${keyString}"></script>`;
           <FormControl
             type="text"
             disabled
-            className="no-extras"
+            className="no-extras-input"
             defaultValue={scriptTagText}
           />
           <InputGroup.Button>

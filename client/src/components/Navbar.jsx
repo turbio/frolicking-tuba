@@ -91,7 +91,7 @@ class NavbarComponent extends Component {
 
     return (
       <Navbar
-        className={`navbar${this.props.onHomePage()}`}
+        className={`navbar-${this.props.onHomePage()}`}
       >
         <Navbar.Header>
           <Navbar.Brand>
