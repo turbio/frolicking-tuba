@@ -1,67 +1,55 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 
+const teamMembers = [
+  {
+    name: 'Mason Clayton',
+    description: 'description',
+    image: 'https://s3-us-west-1.amazonaws.com/'
+      + 'tuba-images-bucket/MasonClayton-sqc-smw.jpg'
+  },
+  {
+    name: 'Sean Yang',
+    description: 'description',
+    image: 'https://s3-us-west-1.amazonaws.com/'
+      + 'tuba-images-bucket/SeanYang-sqc-smw.jpg'
+  },
+  {
+    name: 'Teague Ashburn',
+    description: 'description',
+    image: 'https://s3-us-west-1.amazonaws.com/'
+      + 'tuba-images-bucket/TeagueAshburn-sqc-smw.jpg'
+  },
+  {
+    name: 'Timur Zhartybayev',
+    description: 'description',
+    image: 'https://s3-us-west-1.amazonaws.com/'
+      + 'tuba-images-bucket/TimurZhartybayev-sqc-smw.jpg'
+  }
+];
 
 const Team = () => (
-  <Grid className="teamProfiles">
+  <Grid id="team-profiles">
     <Row>
       <Col xs={12} sm={12} md={12}>
         <h1>Markup Team</h1>
       </Col>
     </Row>
     <Row>
-      <Col xs={12} sm={6} md={3}>
-        <img
-          className="profileImage"
-          width="250"
-          role="presentation"
-          src={`https://s3-us-west-1.amazonaws.com/
-tuba-images-bucket/MasonClayton-sqc-smw.jpg`}
-        />
-        <h3>"Lint Stricter"</h3>
-        <p>Example text here about this person.
-Super duper paratrooper.  Tuba!
-        </p>
-      </Col>
-      <Col xs={12} sm={6} md={3}>
-        <img
-          className="profileImage"
-          width="250"
-          role="presentation"
-          src={`https://s3-us-west-1.amazonaws.com/
-tuba-images-bucket/SeanYang-sqc-smw.jpg`}
-        />
-        <h3>Sean Yang</h3>
-        <p>Example text here about this person.
-Super duper paratrooper.  Tuba!
-        </p>
-      </Col>
-      <Col xs={12} sm={6} md={3}>
-        <img
-          className="profileImage"
-          width="250"
-          role="presentation"
-          src={`https://s3-us-west-1.amazonaws.com/
-tuba-images-bucket/TeagueAshburn-sqc-smw.jpg`}
-        />
-        <h3>Teague Ashburn</h3>
-        <p>Example text here about this person.
-Super duper paratrooper.  Tuba!
-        </p>
-      </Col>
-      <Col xs={12} sm={6} md={3}>
-        <img
-          className="profileImage"
-          width="250"
-          role="presentation"
-          src={`https://s3-us-west-1.amazonaws.com/
-tuba-images-bucket/TimurZhartybayev-sqc-smw.jpg`}
-        />
-        <h3>Timur Zhartybayev</h3>
-        <p>Example text here about this person.
-Super duper paratrooper.  Tuba!
-        </p>
-      </Col>
+      {
+        teamMembers.map((member) => (
+          <Col xs={12} sm={6} md={3}>
+            <img
+              className="profile-image"
+              width="250"
+              role="presentation"
+              src={member.image}
+            />
+            <h3>{member.name}</h3>
+            <p>{member.description}</p>
+          </Col>
+        ))
+      }
     </Row>
   </Grid>
 );

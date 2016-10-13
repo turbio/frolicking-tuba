@@ -28,9 +28,9 @@ const Landing = () => (
         </Col>
       </Row>
 
-      <Row className="section1">
+      <Row>
         <Col sm={12} md={12}>
-          <h3 className="sectionHeader">Collaborate Better Across Teams</h3>
+          <h3>Collaborate Better Across Teams</h3>
         </Col>
         <Col sm={12} md={4}>
           <div className="section1Container1">
@@ -55,7 +55,7 @@ const Landing = () => (
         </Col>
       </Row>
 
-      <Row className="section2">
+      <Row>
         <Col sm={12} md={8}>
           <div className="section2Container1">
             <h3>Capture Feedback Quickly</h3>
@@ -70,7 +70,7 @@ const Landing = () => (
         </Col>
       </Row>
 
-      <Row className="section3">
+      <Row>
         <Col sm={12} md={4}>
           <div className="section3Container1">
             <h3>Workflow Options</h3>
@@ -85,7 +85,7 @@ const Landing = () => (
         </Col>
       </Row>
 
-      <Row className="section4">
+      <Row>
         <Col sm={12} md={12}>
           <div className="finalCTA">
             <div>

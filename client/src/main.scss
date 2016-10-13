@@ -200,6 +200,17 @@ $darkColor3: #9b9b9b;
   }
 }
 
+#team-profiles {
+  margin-top: 100px;
+
+  .profile-image {
+    border-radius: 50%;
+    margin-top: 30px;
+    padding: 5px;
+  }
+}
+
+
 .docsHeading {
   @include headerOne($darkColor1);
 }
@@ -240,60 +251,6 @@ $darkColor3: #9b9b9b;
   color: $lightColor1;
   border-color: white;
   box-shadow: 0 0 0 4px $actvBtnColor;
-}
-
-.table {
-  margin-bottom: 0px;
-}
-
-.teamProfiles {
-  margin-top: 100px;
-}
-
-.profileImage {
-  border-radius: 50%;
-  margin-top: 30px;
-  padding: 5px;
-}
-
-.sectionHeader {
-   @include headerOne($darkColor1);
-   text-align: center;
-}
-
-.subSectionHeader {
-  @include headerTwo($darkColor1);
-  text-align: center;
-}
-
-.section1 {
-  height:100vh;
-}
-
-.section1Container1 {
-  position:relative;
-  margin:0 auto;
-  text-align: center;
-}
-
-.rectanglePlaceholder {
-  width: 150px;
-  height: 150px;
-  background: #d8d8d8;
-}
-
-.section2 {
-  height:100vh;
-  background:green;
-}
-
-.section3 {
-  height:100vh;
-  background:red;
-}
-.section4 {
-  height:50vh;
-  background:orange;
 }
 
 .footer {
