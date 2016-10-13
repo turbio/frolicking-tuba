@@ -1,6 +1,12 @@
 import React, { PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
-import { Modal, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import {
+  Modal,
+  FormGroup,
+  ControlLabel,
+  FormControl,
+  Button
+} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import * as Actions from '../actions/AppActions';
 
@@ -111,20 +117,18 @@ class EditKeyModal extends React.Component {
 
     const authGithubButton = (
       <div>
-        <div>
-          Or
-        </div>
-        <button
-          className="btn btn-primary"
+        <div className="text-center"> ---OR--- </div>
+        <br />
+        <Button
+          bsStyle="primary"
           onClick={(event) => {
             event.preventDefault();
             document.location = '/api/integrations/github';
           }}
+          block
         >
           Link Github Account
-        </button>
-        <br />
-        <br />
+        </Button>
       </div>
     );
 
@@ -152,15 +156,17 @@ class EditKeyModal extends React.Component {
               && this.props.urls.length === 0 ? '' : dropdown }
             { showTextInput ? urlTextInput : '' }
             { this.props.github ? '' : authGithubButton }
-            <button
-              action="submit"
-              className="btn btn-primary"
-              onClick={this.onFormSubmit}
-            >
-              Update Key
-            </button>
           </form>
         </Modal.Body>
+        <Modal.Footer>
+          <Button
+            type="submit"
+            bsStyle="primary"
+            onClick={this.onFormSubmit}
+          >
+            Update Key
+          </Button>
+        </Modal.Footer>
       </Modal>
     );
   }
