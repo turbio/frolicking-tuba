@@ -12,19 +12,23 @@
     font-size: 26px;
   }
 
-  &.navbar-home a {
-    color: nth($light-colors, 1);
+  &.navbar-home {
+    li a, .navbar-brand {
+      color: nth($light-colors, 1);
 
-    &:hover,&:focus {
-      color: nth($light-colors, 2);
+      &:hover,&:focus {
+        color: nth($light-colors, 2);
+      }
     }
   }
 
-  &.navbar-norm a {
-    color: nth($dark-colors, 3);
+  &.navbar-norm {
+    li a, .navbar-brand {
+      color: nth($dark-colors, 3);
 
-    &:hover,&:focus {
-      color: nth($dark-colors, 2);
+      &:hover,&:focus {
+        color: nth($dark-colors, 2);
+      }
     }
   }
 
