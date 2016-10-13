@@ -77,51 +77,76 @@ $darkColor3: #9b9b9b;
   font-weight: regular;
   font-size: 12px;
 }
+
+
 ////////////////// END OF MIXIN DEFINITIONS //////////////////////
 
 
 /////////////////////// DEFAULT AND NAVBAR STYLES ///////////////////////////
-// body {
-//   font-weight: normal;
-//   font-size: 12px;
-// }
 
-.navbarLoggedOut {
+.navbar {
   background: transparent;
   border: none;
 }
 
-.navbarLoggedOut a {
-  @include navBarLinks($lightColor1);
-  text-decoration: none;
+
+.navbarhome.navbar-default {
+  * {
+    @include navBarLinks($lightColor1);
+    text-decoration: none;
+  }
+  .navbar-brand {
+    @include logo($lightColor1);
+
+      &:hover,
+      &:active,
+      &:visited {
+        @include logo($lightColor1);
+      }
+  }
+  .navbar-nav > li > a:hover,
+  .navbar-nav > li > a:active,
+  .navbar-nav > li > a:visited {
+    color: $darkColor3;
+    text-decoration: none;
+  }
 }
 
-.navbar-default * {
-  @include navBarLinks($lightColor1);
-  text-decoration: none;
+
+.navbarnorm.navbar-default {
+
+  * {
+    @include navBarLinks($darkColor3);
+    text-decoration: none;
+  }
+
+  .navbar-brand {
+   @include logo($darkColor3);
+
+      &:hover, &:active, &:visited {
+        @include logo($darkColor3);
+      }
+  }
+  // .navbar-nav > li > a {
+  //   &:hover,
+  //   &:active,
+  //   &:visited {
+  //   color: $lightColor1;
+  //   text-decoration: none;
+  //   }
+  // }
 }
 
-.navbar-default .navbar-nav > li > a {
-  @include navBarLinks($lightColor1);
-  text-decoration: none;
-}
-
-.navbar-default .navbar-nav > li > a:hover,
-.navbar-default .navbar-nav > li > a:active,
-.navbar-default .navbar-nav > li > a:visited {
+.navbar-nav > li > a > a:hover {
+// .navbar-nav > li > a > a:active,
+// .navbar-nav > li > a > a:visited {
   color: $lightColor1;
   text-decoration: none;
 }
 
-.navbar-default .navbar-brand {
-  @include logo($lightColor1);
-}
 
-.navbar-default .navbar-brand:hover,
-.navbar-default .navbar-brand:active,
-.navbar-default .navbar-brand:visited {
-  @include logo($lightColor1);
-}
+
+
 //////////////////////////////////////////////////////////////
 
 
