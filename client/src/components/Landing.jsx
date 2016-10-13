@@ -4,8 +4,6 @@ import {
   Col,
   Grid,
   Button,
-  ButtonGroup,
-  ButtonToolbar,
   Image
 } from 'react-bootstrap';
 
