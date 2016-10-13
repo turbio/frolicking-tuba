@@ -8,6 +8,7 @@ import {
   Button
 } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import CopyToClipboard from 'react-copy-to-clipboard';
 
 import * as Actions from '../actions/AppActions';
 
@@ -23,6 +24,9 @@ const Key = ({ title, endpoint, keyString, showEditModal }) => {
     showEditModal(keyString);
   };
 
+  const scriptTagText = `<script src="https://d1p3e8i5yp3axf.cloudfront.net/?key=\
+${keyString}"></script>`;
+
   return (
     <Panel
       header={
@@ -34,7 +38,11 @@ const Key = ({ title, endpoint, keyString, showEditModal }) => {
     >
       <FormGroup>
         <ControlLabel>Endpoint</ControlLabel>
-        <FormControl type="text" disabled defaultValue={endpoint} />
+        <FormControl
+          type="text"
+          className="no-extras"
+          disabled defaultValue={endpoint}
+        />
       </FormGroup>
 
       <FormGroup>
@@ -43,13 +51,13 @@ const Key = ({ title, endpoint, keyString, showEditModal }) => {
           <FormControl
             type="text"
             disabled
-            defaultValue={
-            `<script src="https://d1p3e8i5yp3axf.cloudfront.net/?key=\
-${keyString}"></script>`
-          }
+            className="no-extras"
+            defaultValue={scriptTagText}
           />
           <InputGroup.Button>
-            <Button>Copy</Button>
+            <CopyToClipboard text={scriptTagText}>
+              <Button>Copy</Button>
+            </CopyToClipboard>
           </InputGroup.Button>
         </InputGroup>
       </FormGroup>

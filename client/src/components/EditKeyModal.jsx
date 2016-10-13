@@ -110,6 +110,7 @@ class EditKeyModal extends React.Component {
               </option>
             ))
           }
+          <hr />
           <option value="addnewurl">Add a new URL</option>
         </FormControl>
       </FormGroup>
