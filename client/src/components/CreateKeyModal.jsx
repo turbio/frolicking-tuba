@@ -101,17 +101,18 @@ class CreateKeyModal extends React.Component {
 
     const authGithubButton = (
       <div>
-        <div> ---OR--- </div>
+        <div className="text-center"> ---OR--- </div>
         <br />
-        <button
-          className="btn btn-primary"
+        <Button
+          bsStyle="primary"
           onClick={(event) => {
             event.preventDefault();
             document.location = '/api/integrations/github';
           }}
+          block
         >
           Link Github Account
-        </button>
+        </Button>
       </div>
     );
 
