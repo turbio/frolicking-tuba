@@ -14,12 +14,12 @@ const homeParagraph = 'Enable commenting directly on your website and '
 
 const Landing = () => (
   <div id="landing-content">
-    <Image className="swoosh" src="/swoosh.svg" />
+    <Image className="swoosh" src="/swoosh_fill.svg" />
     <Grid>
       <Row className="above-the-fold">
         <Col sm={12} md={6} >
-          <h3 className="homeHeader">API For Gathering Visual Feedback</h3>
-          <p className="homePara">{homeParagraph}</p>
+          <h3>API For Gathering Visual Feedback</h3>
+          <p>{homeParagraph}</p>
           <p>
             <ButtonToolbar>
               <ButtonGroup>
@@ -39,8 +39,8 @@ const Landing = () => (
             </ButtonToolbar>
           </p>
         </Col>
-        <Col sm={12} md={6} className="hidden-sm hidden-xs">
-          <Image src="/landing_example_image.png" />
+        <Col sm={12} md={6} className="right-side-image hidden-sm hidden-xs">
+          <Image src="/landing_example_image.svg" />
         </Col>
       </Row>
 

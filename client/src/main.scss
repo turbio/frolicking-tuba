@@ -159,20 +159,42 @@ $darkColor3: #9b9b9b;
     left: 0;
     z-index: -1;
 
-    height: 90%;
+    height: 100%;
     width: 100%;
+
+    border-bottom: 1px #ccc solid;
   }
+
   .above-the-fold {
     min-height:100vh;
     color: $lightColor1;
 
-    img {
-      width: 100%;
-
-      @media screen and (orientation:portrait) {
-        height: 90%;
+    >div:nth-child(1) {
+      h3 {
+        @include headerOne($lightColor1);
+        margin-bottom: 1em;
       }
+      p {
+        font-family: 'Cabin';
+        font-size: 1.55em;
+      }
+      button {
+        font-family: 'Cabin';
+        font-size: .85em;
+        font-weight: 600;
+      }
+      margin-top: 10%;
     }
+
+    img {
+      width: 175%;
+    }
+  }
+
+  .right-side-image {
+    position: absolute;
+    right: 0;
+    overflow: hidden;
   }
 }
 
@@ -182,22 +204,6 @@ $darkColor3: #9b9b9b;
 
 .docsPara {
   @include bodyCopyBig($darkColor3);
-}
-
-h3 {
-  @include headerTwo($darkColor1);
-}
-
-.homeHeader {
-  @include headerOne($lightColor1);
-  width: 445px;
-  margin-bottom: 35px;
-}
-
-.homePara {
-  @include bodyCopyBig($lightColor1);
-  width: 435px;
-  line-height: 1.3;
 }
 
 .button1, .button2 {
