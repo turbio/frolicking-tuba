@@ -1,12 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { Row, Grid, Button } from 'react-bootstrap';
-import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as Actions from '../actions/AppActions';
 
 import Key from './Key.jsx';
-import KeyModal from './KeyModal.jsx';
+import CreateKeyModal from './CreateKeyModal.jsx';
 import EditKeyModal from './EditKeyModal.jsx';
 
 class Dashboard extends Component {
@@ -20,8 +19,6 @@ class Dashboard extends Component {
     return (
       <Grid>
         <Row>
-
-          <p><Link to="/create">Create Key</Link></p>
           <p>
             <Button
               bsStyle="link"
@@ -29,7 +26,7 @@ class Dashboard extends Component {
             >Create API Key
             </Button>
           </p>
-          <KeyModal />
+          <CreateKeyModal />
           <EditKeyModal />
         </Row>
         <Row>

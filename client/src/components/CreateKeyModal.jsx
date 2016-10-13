@@ -4,7 +4,7 @@ import { Modal, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import * as Actions from '../actions/AppActions';
 
-class KeyModal extends React.Component {
+class CreateKeyModal extends React.Component {
   constructor(props) {
     super(props);
     this.onFormSubmit = this.onFormSubmit.bind(this);
@@ -149,7 +149,7 @@ class KeyModal extends React.Component {
   }
 }
 
-KeyModal.propTypes = {
+CreateKeyModal.propTypes = {
   keymodal: PropTypes.bool,
   modalModeAddUrl: PropTypes.bool,
   github: PropTypes.bool,
@@ -168,4 +168,4 @@ const mapStateToProps = (state) => ({
   repos: state.repos.repos
 });
 
-export default connect(mapStateToProps, Actions)(KeyModal);
+export default connect(mapStateToProps, Actions)(CreateKeyModal);
