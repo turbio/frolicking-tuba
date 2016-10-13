@@ -16,9 +16,18 @@ class App extends Component {
       window.location.pathname === '/' ? 'home' : 'norm'
     );
 
+    const onAuthPage = () => {
+      if (window.location.pathname === '/signin'
+        || window.location.pathname === '/signup') {
+        return true;
+      }
+
+      return false;
+    };
+
     return (
       <div>
-        <NavbarComponent onHomePage={onHomePage} />
+        <NavbarComponent onHomePage={onHomePage} onAuthPage={onAuthPage} />
         {this.props.children}
         <Footer />
       </div>

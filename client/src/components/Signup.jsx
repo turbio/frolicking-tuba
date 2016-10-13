@@ -13,7 +13,7 @@ const Signup = () => (
     <Row>
       <Col md={6} mdOffset={3}>
         <Jumbotron>
-          <h1>Sign Up</h1>
+          <h1>Create an Account</h1>
           <AuthForm />
         </Jumbotron>
       </Col>

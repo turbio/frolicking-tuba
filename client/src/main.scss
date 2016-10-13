@@ -9,9 +9,16 @@ $actvBtnColor: #ff6d82;
 $bigButtonWidth: 182px;
 $lightColor1: #ffffff;
 $lightColor2: #E8E5E5;
+$lightColor3: #F7F7F7;
 $darkColor1: #4a4a4a;
 $darkColor2: rgba(74, 74, 74, 0.75);
 $darkColor3: #9b9b9b;
+
+/* Rectangle 155 Copy: */
+$authpagebackgroundColor: rgba(155,155,155,0.08);
+
+// Gradient CSS
+//background-image: linear-gradient(90deg, #EE433D 0%, #EC3846 50%, #EC2C51 100%);
 
 
 
@@ -21,6 +28,12 @@ $darkColor3: #9b9b9b;
   font-family: 'Droid Sans';
   font-weight: bold;
   font-size: 26px;
+}
+@mixin authpagelogo($color) {
+  color: $color;
+  font-family: 'Cabin';
+  font-weight: medium;
+  font-size: 36px;
 }
 
 @mixin logo($color) {
@@ -114,6 +127,14 @@ $darkColor3: #9b9b9b;
           text-decoration: none;
         }
       }
+      .navbar-nav > ul > li > a {
+        color: $lightColor1;
+
+        &:hover {
+          color: $lightColor2;
+          text-decoration: none;
+        }
+      }
     }
   }
 }
@@ -130,11 +151,19 @@ $darkColor3: #9b9b9b;
   .container {
     .navbar-header {
       .navbar-toggle .icon-bar {
-          background-color: white;
+          background-color: $darkColor2;
       }
     }
     .navbar-collapse {
       .navbar-nav > li > a > a {
+        &:hover {
+          color: $darkColor2;
+          text-decoration: none;
+        }
+      }
+      .navbar-nav > ul > li > a {
+        color: $darkColor3;
+
         &:hover {
           color: $darkColor2;
           text-decoration: none;
@@ -286,6 +315,20 @@ h3 {
   background:orange;
 }
 
+.authPageHeader {
+  margin-top:67px;
+  margin-bottom:67px;
+  position:relative;
+  margin-left: auto;
+  margin-right:auto;
+  text-align: center;
+  //background-color: $authpagebackgroundColor;
+}
+
+#authPageLogo {
+  @include authpagelogo($darkColor3);
+}
+
 .footer {
   margin-top:45px;
   height: 55px;
@@ -295,7 +338,7 @@ h3 {
   padding-top:10px;
   text-align: center;
   @include dashLinksInFields($darkColor2);
-  background-color: $lightColor2;
+  background-color: $lightColor3;
 
 }
 
