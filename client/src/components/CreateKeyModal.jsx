@@ -1,147 +1,171 @@
-import React, { Component, PropTypes } from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { Modal } from 'react-bootstrap';
+import React, { PropTypes } from 'react';
+import { findDOMNode } from 'react-dom';
+import { Modal, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 import { connect } from 'react-redux';
-
-import EndpointsDropdown from './EndpointsDropdown.jsx';
-import AddNewEndpoint from './AddNewEndpoint.jsx';
-import { renderTextField, validateModal } from './FormHelpers.jsx';
-
-
 import * as Actions from '../actions/AppActions';
 
-const parseValue = (value) => {
-  let type = '';
-  let endpointname = '';
-
-  if (value.substring(0, value.indexOf(':')) === 'github') {
-    type = 'github';
-    endpointname = value.substring(value.indexOf(':') + 1, value.length);
-  } else {
-    type = 'url';
-    if (value.indexOf(':') < 0) {
-      endpointname = value;
-    } else {
-      endpointname
-        = value.substring(value.indexOf(':') + 1, value.length);
-    }
-  }
-
-  return [type, endpointname];
-};
-
-class CreateKeyModal extends Component {
+class CreateKeyModal extends React.Component {
   constructor(props) {
     super(props);
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.renderEndpointsField = this.renderEndpointsField.bind(this);
-    this.addingnewendpoint = this.addingnewendpoint.bind(this);
+    this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.onDropdownChange = this.onDropdownChange.bind(this);
+    this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
-  componentWillMount() {
-    this.props.fetchEndpoints();
-  }
+  onFormSubmit(event) {
+    event.preventDefault();
+    const keyName = findDOMNode(this.keyName).value;
 
-  handleFormSubmit(values) {
-    const results = parseValue(values.endpoint);
-    const endpointtype = results[0];
-    const endpointname = results[1];
+    console.log('keyName:', keyName);
+    if (this.urlText) {
+      this.props.createNewKey({
+        name: keyName,
+        endpoint: findDOMNode(this.urlText).value,
+        type: 'url'
+      });
+    } else {
+      const requestBody = JSON.parse(findDOMNode(this.endpointSelect).value);
 
-    this.props.createNewKey(values.keyname, endpointtype, endpointname);
-  }
-
-
-  addingnewendpoint() {
-    this.props.addNewEndpt();
-  }
-
-  close() {
-    this.props.hideModal();
-  }
-
-  renderEndpointsField({ input, label, type }) {
-    // placeholder check
-    // replace with whether or not user has any endpoints first
-    // OR if selected "addendpoint" === true in store
-    if (this.props.endpoints.length < 1 || this.props.addingNewEndpoint) {
-      return (<AddNewEndpoint
-        input={input}
-        label={label}
-        type={type}
-        githubAuthState={this.props.githubAuthState}
-      />);
+      requestBody.name = keyName;
+      this.props.createNewKey(requestBody);
     }
+  }
 
-    return (<EndpointsDropdown
-      input={input}
-      label={label}
-      endpoints={this.props.endpoints}
-      useNewEndpoint={this.addingnewendpoint}
-    />);
+  onDropdownChange() {
+    const selectValue = findDOMNode(this.endpointSelect).value;
+
+    if (selectValue === 'addnewurl') {
+      this.props.setModalModeAddUrl(true);
+    } else {
+      this.props.setModalModeAddUrl(false);
+    }
   }
 
   render() {
+    let showTextInput = !(this.props.github || (this.props.urls.length > 0));
 
-    const { handleSubmit } = this.props;
+    if (!showTextInput) {
+      showTextInput = this.props.modalModeAddUrl;
+    }
+
+    const urlTextInput = (
+      <FormGroup controlId="formBasicText">
+        <ControlLabel>URL</ControlLabel>
+        <FormControl
+          type="text"
+          placeholder="Enter URL"
+          ref={(ref) => { this.urlText = ref; }}
+        />
+      </FormGroup>
+    );
+
+    const dropdown = (
+      <FormGroup controlId="formControlsSelect">
+        <ControlLabel>Select Endpoint</ControlLabel>
+        <FormControl
+          componentClass="select"
+          placeholder="select"
+          ref={(ref) => { this.endpointSelect = ref; }}
+          onChange={this.onDropdownChange}
+        >
+          {
+            this.props.urls.map((url) => (
+              <option
+                value={`{"type":"url","endpoint":"${url.url}"}`}
+                key={url.url}
+              >
+                {url.url}
+              </option>)
+            )
+          }
+          {
+            this.props.repos.map((repo) => (
+              <option
+                value={`{"type":"github","endpoint":"${repo.full_name}"}`}
+                key={repo.full_name}
+              >
+                {repo.full_name}
+              </option>
+            ))
+          }
+          <option value="addnewurl">Add a new URL</option>
+        </FormControl>
+      </FormGroup>
+    );
+
+    const authGithubButton = (
+      <div>
+        <div>
+          Or
+        </div>
+        <button
+          className="btn btn-primary"
+          onClick={(event) => {
+            event.preventDefault();
+            document.location = '/api/integrations/github';
+          }}
+        >
+          Link Github Account
+        </button>
+        <br />
+        <br />
+      </div>
+    );
 
     return (
-      <Modal show={this.props.keymodal} onHide={() => this.close()}>
+      <Modal
+        show={this.props.keymodal}
+        onHide={() => {
+          this.props.setModalModeAddUrl(false);
+          this.props.hideModal();
+        }}
+      >
         <Modal.Header closeButton />
         <Modal.Body>
-
-          <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-
-            <Field
-              name="keyname"
-              component={renderTextField}
-              className="form-control"
-              type="text"
-              label="Key Name"
-              placeholder="Enter an API Key Name"
-            />
-            <Field
-              name="endpoint"
-              component={this.renderEndpointsField}
-              className="form-control"
-              type="text"
-              label="Endpoint"
-            />
-
+          <form>
+            <FormGroup controlId="keyn">
+              <ControlLabel>Name</ControlLabel>
+              <FormControl
+                type="text"
+                placeholder="Enter Name"
+                ref={(ref) => { this.keyName = ref; }}
+              />
+            </FormGroup>
+            { !this.props.github
+              && this.props.urls.length === 0 ? '' : dropdown }
+            { showTextInput ? urlTextInput : '' }
+            { this.props.github ? '' : authGithubButton }
             <button
               action="submit"
               className="btn btn-primary"
+              onClick={this.onFormSubmit}
             >
-              Create Key
+              Generate Key
             </button>
           </form>
-
         </Modal.Body>
       </Modal>
-      );
+    );
   }
 }
 
 CreateKeyModal.propTypes = {
   keymodal: PropTypes.bool,
+  modalModeAddUrl: PropTypes.bool,
+  github: PropTypes.bool,
+  urls: PropTypes.arrayOf(PropTypes.any),
+  repos: PropTypes.arrayOf(PropTypes.any),
   hideModal: PropTypes.func,
-  handleSubmit: PropTypes.func,
-  createNewKey: PropTypes.func,
-  fetchEndpoints: PropTypes.func,
-  addNewEndpt: PropTypes.func,
-  endpoints: PropTypes.oneOfType([null, React.PropTypes.array]),
-  addingNewEndpoint: PropTypes.bool,
-  githubAuthState: PropTypes.bool
+  setModalModeAddUrl: PropTypes.func,
+  createNewKey: PropTypes.func
 };
-
 
 const mapStateToProps = (state) => ({
   keymodal: state.keymodal.showModal,
-  endpoints: state.keymodal.endpoints,
-  addingNewEndpoint: state.keymodal.addingNewEndpoint,
-  githubAuthState: state.keymodal.githubAuthStatus
+  modalModeAddUrl: state.keymodal.modalModeAddUrl,
+  github: state.auth.github,
+  urls: state.urls.urls,
+  repos: state.repos.repos
 });
 
-
-export default connect(mapStateToProps, Actions)(reduxForm(
-  { form: 'endpoint', validateModal })(CreateKeyModal));
-
+export default connect(mapStateToProps, Actions)(CreateKeyModal);

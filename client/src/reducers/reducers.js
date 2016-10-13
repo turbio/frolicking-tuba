@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { reducer as FormReducer } from 'redux-form';
-import authReducer from './loggedin';
+import userReducer from './user';
 import keyModalReducer from './keymodal';
 import editModalReducer from './editmodal';
 import keysReducer from './keys';
@@ -9,7 +9,7 @@ import reposReducer from './repos';
 
 
 const rootReducer = combineReducers({
-  auth: authReducer,
+  auth: userReducer,
   form: FormReducer,
   keymodal: keyModalReducer,
   editmodal: editModalReducer,

@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 // import thunk from 'redux-thunk';
 
-import { Router, Route, browserHistory, IndexRoute } from 'react-router';
+import { Router, Route, browserHistory } from 'react-router';
 
 import App from './components/App.jsx';
 import Landing from './components/Landing.jsx';
@@ -14,9 +14,6 @@ import Signin from './components/Signin.jsx';
 import Signup from './components/Signup.jsx';
 import Dashboard from './components/Dashboard.jsx';
 import Team from './components/Team.jsx';
-import Create from './components/Create.jsx';
-import CreateStart from './components/CreateStart.jsx';
-import CreateGithub from './components/CreateGithub.jsx';
 import RequireAuth from './components/RequireAuth.jsx';
 //import { requireAuth, auth } from './utils/auth';
 import configureStore from './store/configureStore';
@@ -43,12 +40,6 @@ render(
         <Route path="/" component={Landing} />
         <Route path="/signup" component={Signup} />
         <Route path="/signin" component={Signin} />
-        <Route path="/create" component={RequireAuth(Create)}>
-          <IndexRoute component={CreateStart} />
-          <Route
-            path="github" component={RequireAuth(CreateGithub)}
-          />
-        </Route>
         <Route path="/team" component={Team} />
         <Route
           path="/dashboard"

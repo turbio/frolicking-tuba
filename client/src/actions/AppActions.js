@@ -2,8 +2,7 @@ import { browserHistory } from 'react-router';
 import { SIGN_OUT_USER,
   AUTH_USER, AUTH_ERROR,
   FETCH_KEYS, OPEN_MODAL,
-  CLOSE_MODAL, FETCH_ENDPOINTS,
-  ADD_NEW_ENDPOINT, UPDATE_GITHUB_AUTH,
+  CLOSE_MODAL,
   FETCH_URLS, UPDATE_GITHUB_STATUS,
   FETCH_REPOS, SET_MODAL_MODE,
   OPEN_EDIT_MODAL, CLOSE_EDIT_MODAL,
@@ -24,29 +23,6 @@ export const requestKeys = (keys) => ({
   type: FETCH_KEYS,
   payload: keys
 });
-export const showModal = () => ({ type: OPEN_MODAL });
-export const hideModal = () => ({ type: CLOSE_MODAL });
-export const setModalModeAddUrl = (mode) => ({
-  type: SET_MODAL_MODE,
-  modalModeAddUrl: mode
-});
-export const showEditModal = (key) => ({
-  type: OPEN_EDIT_MODAL,
-  key
-});
-export const hideEditModal = () => ({ type: CLOSE_EDIT_MODAL });
-export const setEditModalNewUrl = (mode) => ({
-  type: SET_EDIT_MODAL_MODE,
-  mode
-});
-export const fetchEndpts = (keys) => ({
-  type: FETCH_ENDPOINTS,
-  payload: keys
-});
-
-export const addNewEndpt = () => ({ type: ADD_NEW_ENDPOINT });
-export const updateGitHubAuth = () => ({ type: UPDATE_GITHUB_AUTH });
-
 
 const headers = new Headers();
 
@@ -89,8 +65,6 @@ export const logOut = () => (
   (dispatch) => {
     fetch('/api/users/signout', { credentials: 'same-origin' })
     .then(() => {
-      //localStorage.token = false;
-      //delete localStorage.token;
       Reflect.deleteProperty(localStorage, 'token');
 
       dispatch(authRemove());
@@ -121,9 +95,16 @@ export const fetchUrls = () => ((dispatch) => {
   });
 });
 
-const fetchRepos = () => (
+const fetchRepos = (dispatch) => (
   fetch('/api/github/repos', { credentials: 'same-origin' })
   .then((response) => response.json())
+  .then((repos) => {
+    if (repos.error) {
+      dispatch({ type: FETCH_REPOS, repos: [] });
+    } else {
+      dispatch({ type: FETCH_REPOS, repos });
+    }
+  })
 );
 
 export const fetchGithubAuthStatus = () => ((dispatch) => {
@@ -133,14 +114,7 @@ export const fetchGithubAuthStatus = () => ((dispatch) => {
     console.log('github status:', res);
     dispatch({ type: UPDATE_GITHUB_STATUS, status: res.github });
 
-    return fetchRepos();
-  })
-  .then((repos) => {
-    if (repos.error) {
-      dispatch({ type: FETCH_REPOS, repos: [] });
-    } else {
-      dispatch({ type: FETCH_REPOS, repos });
-    }
+    return fetchRepos(dispatch);
   })
   .catch((err) => {
     console.log(err);
@@ -149,7 +123,26 @@ export const fetchGithubAuthStatus = () => ((dispatch) => {
 
 //*******Modal Related Actions*******//
 
+// create new key Modal actions
+export const showModal = () => ({ type: OPEN_MODAL });
+export const hideModal = () => ({ type: CLOSE_MODAL });
+export const setModalModeAddUrl = (mode) => ({
+  type: SET_MODAL_MODE,
+  modalModeAddUrl: mode
+});
 
+// edit existing key Modal actions
+export const showEditModal = (key) => ({
+  type: OPEN_EDIT_MODAL,
+  key
+});
+export const hideEditModal = () => ({ type: CLOSE_EDIT_MODAL });
+export const setEditModalNewUrl = (mode) => ({
+  type: SET_EDIT_MODAL_MODE,
+  mode
+});
+
+// both modals
 export const createNewUrl = (urlObject) => (
  fetch('/api/urls', {
    method: 'POST',
@@ -158,30 +151,6 @@ export const createNewUrl = (urlObject) => (
    body: JSON.stringify(urlObject)
  })
 );
-
-export const updateKey = (requestBody) => (
-  // (dispatch) => {
-  //console.log('inupdatekey');
-
-    fetch('/api/keys', {
-      method: 'POST',
-      headers,
-      credentials: 'same-origin',
-      body: JSON.stringify(requestBody)
-    })
-    .then((response) => response.json())
-    .then(() => {
-      console.log('in updateKey');
-
-      //dispatch(hideModal());
-    })
-    .catch((error) => {
-      console.log('error in updateKey:', error);
-      //dispatch(error);
-    })
-  // }
-);
-
 export const createNewKey = ({ key, name, type, endpoint }) => (
   (dispatch) => {
     const requestBody = {
@@ -223,22 +192,3 @@ export const createNewKey = ({ key, name, type, endpoint }) => (
     });
   }
 );
-
-
-// export const checkAuth = () => {
-//   (dispatch) => {
-//     fetch('/api/users/signedin', { credentials: 'same-origin' })
-//     .then((response) => response.json())
-//     .then((json) => {
-//       console.log(json, 'testing json return for checkAuth');
-
-//       if (json.signedin) {
-//         localStorage.token = true;
-//         dispatch(authUser());
-//       } else {
-//         dispatch(logOut());
-//       }
-//     });
-//   };
-// };
-

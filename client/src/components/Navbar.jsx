@@ -68,6 +68,26 @@ class NavbarComponent extends Component {
       </NavDropdown>
     </Nav>);
 
+    const loggedInNav = (
+      <Nav pullRight>
+        {dashboardLink}
+        {documentationLink}
+        {profileDropdown}
+      </Nav>
+    );
+
+
+    if (this.props.onAuthPage()) {
+      return (
+        <div className="authPageHeader">
+          <Link
+            to="/"
+            id="authPageLogo"
+          >MARKUP
+          </Link>
+        </div>
+      );
+    }
 
     return (
       <Navbar
@@ -86,10 +106,8 @@ class NavbarComponent extends Component {
             {this.props.authenticated ? '' : documentationLink}
             {this.props.authenticated ? '' : pricingLink}
             {this.props.authenticated ? '' : teamLink}
-            {this.props.authenticated ? dashboardLink : ''}
-            {this.props.authenticated ? documentationLink : ''}
           </Nav>
-          {this.props.authenticated ? profileDropdown : authLinks}
+          {this.props.authenticated ? loggedInNav : authLinks}
         </Navbar.Collapse>
       </Navbar>
       );
@@ -102,7 +120,8 @@ NavbarComponent.propTypes = {
   authenticated: PropTypes.oneOfType([PropTypes.func, PropTypes.boolean]),
   logOut: PropTypes.func,
   email: PropTypes.string,
-  onHomePage: PropTypes.func
+  onHomePage: PropTypes.func,
+  onAuthPage: PropTypes.func
 };
 
 const mapStateToProps = (state) => (
@@ -117,5 +136,3 @@ export default connect(mapStateToProps, Actions)(NavbarComponent);
 //Add code back in when wanting to show active page states in nav
 //<li className="active"><a href="#">Link <span className="sr-only">
 //(current)</span></a></li>
-
-//Add code back in to have a User dropdown
