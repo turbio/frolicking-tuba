@@ -1,3 +1,5 @@
+/*eslint "no-sync": "off"*/
+
 // Include gulp
 const gulp = require('gulp');
 
