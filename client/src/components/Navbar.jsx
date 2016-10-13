@@ -117,5 +117,3 @@ export default connect(mapStateToProps, Actions)(NavbarComponent);
 //Add code back in when wanting to show active page states in nav
 //<li className="active"><a href="#">Link <span className="sr-only">
 //(current)</span></a></li>
-
-//Add code back in to have a User dropdown

@@ -8,6 +8,7 @@ $redTextColor: #ec314c;
 $actvBtnColor: #ff6d82;
 $bigButtonWidth: 182px;
 $lightColor1: #ffffff;
+$lightColor2: #E8E5E5;
 $darkColor1: #4a4a4a;
 $darkColor2: rgba(74, 74, 74, 0.75);
 $darkColor3: #9b9b9b;
@@ -87,6 +88,8 @@ $darkColor3: #9b9b9b;
 .navbar {
   background: transparent;
   border: none;
+  height: 70px;
+  padding-top:7.5px;
 }
 
 
@@ -97,54 +100,49 @@ $darkColor3: #9b9b9b;
   }
   .navbar-brand {
     @include logo($lightColor1);
-
-      &:hover,
-      &:active,
-      &:visited {
-        @include logo($lightColor1);
-      }
   }
-  .navbar-nav > li > a:hover,
-  .navbar-nav > li > a:active,
-  .navbar-nav > li > a:visited {
-    color: $darkColor3;
-    text-decoration: none;
+  .container {
+    .navbar-header {
+      .navbar-toggle .icon-bar {
+          background-color: white;
+      }
+    }
+    .navbar-collapse {
+      .navbar-nav > li > a > a {
+        &:hover {
+          color: $lightColor2;
+          text-decoration: none;
+        }
+      }
+    }
   }
 }
 
 
 .navbarnorm.navbar-default {
-
   * {
     @include navBarLinks($darkColor3);
     text-decoration: none;
   }
-
   .navbar-brand {
-   @include logo($darkColor3);
-
-      &:hover, &:active, &:visited {
-        @include logo($darkColor3);
-      }
+    @include logo($darkColor2);
   }
-  // .navbar-nav > li > a {
-  //   &:hover,
-  //   &:active,
-  //   &:visited {
-  //   color: $lightColor1;
-  //   text-decoration: none;
-  //   }
-  // }
+  .container {
+    .navbar-header {
+      .navbar-toggle .icon-bar {
+          background-color: white;
+      }
+    }
+    .navbar-collapse {
+      .navbar-nav > li > a > a {
+        &:hover {
+          color: $darkColor2;
+          text-decoration: none;
+        }
+      }
+    }
+  }
 }
-
-.navbar-nav > li > a > a:hover {
-// .navbar-nav > li > a > a:active,
-// .navbar-nav > li > a > a:visited {
-  color: $lightColor1;
-  text-decoration: none;
-}
-
-
 
 
 //////////////////////////////////////////////////////////////
@@ -296,9 +294,15 @@ h3 {
 }
 
 .footer {
-  height: 60px;
+  margin-top:45px;
+  height: 55px;
   position:relative;
-  margin:0 auto;
+  margin-left: auto;
+  margin-right:auto;
+  padding-top:10px;
   text-align: center;
+  @include dashLinksInFields($darkColor2);
+  background-color: $lightColor2;
+
 }
 
