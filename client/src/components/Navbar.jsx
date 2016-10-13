@@ -1,36 +1,66 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
-//import { logout } from '../actions/AppActions';
-//import { SET_AUTH } from '../utils/AppConstants';
 import * as Actions from '../actions/AppActions';
 
-class NavbarComponent extends React.Component {
+class NavbarComponent extends Component {
 
   runlogout() {
     this.props.logOut();
   }
 
   render() {
-    const pricingLink = (<NavItem eventKey={2}>Pricing</NavItem>);
+
+    const pricingLink = (<NavItem eventKey={2}>
+      <Link
+        to="/pricing"
+      >Pricing</Link>
+    </NavItem>);
+
     const teamLink = (<NavItem eventKey={3}>
-      <Link to="/team">Team</Link>
+      <Link
+        to="/team"
+      >Team</Link>
     </NavItem>);
+
     const dashboardLink = (<NavItem eventKey={3}>
-      <Link to="/dashboard">Dashboard</Link>
+      <Link
+        to="/dashboard"
+      >Dashboard</Link>
     </NavItem>);
-    const authLinks = (<Nav pullRight>
-      <NavItem eventKey={1}><Link to="/signup">Sign Up</Link></NavItem>
-      <NavItem eventKey={2}><Link to="/signin">Log In</Link></NavItem>
-    </Nav>);
+
+    const authLinks = (
+      <Nav pullRight>
+        <NavItem eventKey={1}>
+          <Link
+            to="/signup"
+          >Sign Up</Link>
+        </NavItem>
+        <NavItem eventKey={2}>
+          <Link
+            to="/signin"
+          >Log In
+          </Link>
+        </NavItem>
+      </Nav>);
+
+    const documentationLink = (<NavItem eventKey={1}>
+      <Link
+        to="/documentation"
+      >Documentation</Link>
+    </NavItem>
+    );
+
     const profileDropdown = (<Nav pullRight>
       <NavDropdown
         eventKey={3}
         title={this.props.email}
         id="basic-nav-dropdown"
       >
-        <MenuItem eventKey={3.1}>Profile</MenuItem>
+        <MenuItem
+          eventKey={3.1}
+        >Profile</MenuItem>
         <MenuItem divider />
         <MenuItem eventKey={3.2}>
           <Link to="/" onClick={() => this.runlogout()}>Log Out</Link>
@@ -40,21 +70,24 @@ class NavbarComponent extends React.Component {
 
 
     return (
-      <Navbar className="navbarLoggedOut">
+      <Navbar
+        className={`navbar${this.props.onHomePage()}`}
+      >
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/">MARKUP</Link>
+            <Link
+              to="/"
+            >MARKUP</Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
-            <NavItem eventKey={1}>
-              <Link to="/documentation">Documentation</Link>
-            </NavItem>
+            {this.props.authenticated ? '' : documentationLink}
             {this.props.authenticated ? '' : pricingLink}
             {this.props.authenticated ? '' : teamLink}
             {this.props.authenticated ? dashboardLink : ''}
+            {this.props.authenticated ? documentationLink : ''}
           </Nav>
           {this.props.authenticated ? profileDropdown : authLinks}
         </Navbar.Collapse>
@@ -68,7 +101,8 @@ class NavbarComponent extends React.Component {
 NavbarComponent.propTypes = {
   authenticated: PropTypes.oneOfType([PropTypes.func, PropTypes.boolean]),
   logOut: PropTypes.func,
-  email: PropTypes.string
+  email: PropTypes.string,
+  onHomePage: PropTypes.func
 };
 
 const mapStateToProps = (state) => (

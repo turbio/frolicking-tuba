@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 //import { connect } from 'react-redux';
 //import NavbarContainer from '../containers/NavbarContainer';
 import NavbarComponent from './Navbar.jsx';
+import Footer from './Footer.jsx';
 //import { handleAuthSubmit } from '../actions/AppActions';
 
 class App extends Component {
@@ -11,10 +12,15 @@ class App extends Component {
   }
 
   render() {
+    const onHomePage = () => (
+      window.location.pathname === '/' ? 'home' : 'norm'
+    );
+
     return (
       <div>
-        <NavbarComponent />
+        <NavbarComponent onHomePage={onHomePage} />
         {this.props.children}
+        <Footer />
       </div>
     );
   }

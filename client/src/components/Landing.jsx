@@ -9,7 +9,7 @@ import {
   Image
 } from 'react-bootstrap';
 
-const homeParagraph = 'Enable commenting directly on your website and'
+const homeParagraph = 'Enable commenting directly on your website and '
   + 'integrate with whichever workflow tool you already use.';
 
 const Landing = () => (
@@ -22,7 +22,7 @@ const Landing = () => (
           <div className="landingBackground">
             <div className="main-area">
               <h3 className="homeHeader">API For Gathering Visual Feedback</h3>
-              <p className="homePara">${homeParagraph}</p>
+              <p className="homePara">{homeParagraph}</p>
               <p>
                 <ButtonToolbar>
                   <ButtonGroup>
