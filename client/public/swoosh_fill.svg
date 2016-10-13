@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1024px"
+   height="768px"
+   viewBox="0 0 1024 768"
+   preserveAspectRatio="none"
+   version="1.1"
+   id="svg2"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="swoosh_fill.svg">
+  <metadata
+     id="metadata29">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Group 4</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1286"
+     inkscape:window-height="753"
+     id="namedview27"
+     showgrid="false"
+     inkscape:zoom="0.66499837"
+     inkscape:cx="460.1175"
+     inkscape:cy="384"
+     inkscape:window-x="287"
+     inkscape:window-y="22"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <!-- Generator: Sketch 40.3 (33839) - http://www.bohemiancoding.com/sketch -->
+  <title
+     id="title4">Group 4</title>
+  <desc
+     id="desc6">Created with Sketch.</desc>
+  <defs
+     id="defs8">
+    <linearGradient
+       x1="100%"
+       y1="0%"
+       x2="0%"
+       y2="100%"
+       id="linearGradient-1">
+      <stop
+         stop-color="#A59696"
+         stop-opacity="0.42224298"
+         offset="0%"
+         id="stop11" />
+      <stop
+         stop-color="#D8D8D8"
+         stop-opacity="0.42224298"
+         offset="100%"
+         id="stop13" />
+    </linearGradient>
+    <linearGradient
+       x1="100%"
+       y1="50%"
+       x2="0%"
+       y2="50%"
+       id="linearGradient-2">
+      <stop
+         stop-color="#EE433D"
+         offset="0%"
+         id="stop16" />
+      <stop
+         stop-color="#EC3846"
+         offset="49.6568765%"
+         id="stop18" />
+      <stop
+         stop-color="#EC2C51"
+         offset="100%"
+         id="stop20" />
+    </linearGradient>
+  </defs>
+  <g
+     id="Welcome"
+     stroke="none"
+     stroke-width="1"
+     fill="none"
+     fill-rule="evenodd">
+    <g
+       id="Desktop-Copy-12">
+      <g
+         id="Group-4">
+        <rect
+           id="Rectangle-11"
+           fill="url(#linearGradient-1)"
+           x="0"
+           y="0"
+           width="1024"
+           height="768" />
+        <path
+           d="M0,1 L1024,1 L1024,451 L1024,490 C950,492 647.47765,507.199 407,574 C165.899454,640.974031 0,725 0,725 L0,1 Z"
+           id="Rectangle-2"
+           fill="url(#linearGradient-2)" />
+      </g>
+    </g>
+  </g>
+</svg>
