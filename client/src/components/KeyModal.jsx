@@ -70,9 +70,9 @@ class KeyModal extends React.Component {
         >
           {
             this.props.urls.map((url) => (
-              <option 
-              value={`{"type":"url","endpoint":"${url.url}"}`}
-              key={url.url}
+              <option
+                value={`{"type":"url","endpoint":"${url.url}"}`}
+                key={url.url}
               >
                 {url.url}
               </option>)
