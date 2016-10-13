@@ -1,6 +1,12 @@
 import React, { PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
-import { Modal, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import {
+  Modal,
+  FormGroup,
+  ControlLabel,
+  FormControl,
+  Button
+} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import * as Actions from '../actions/AppActions';
 
@@ -95,9 +101,8 @@ class CreateKeyModal extends React.Component {
 
     const authGithubButton = (
       <div>
-        <div>
-          Or
-        </div>
+        <div> ---OR--- </div>
+        <br />
         <button
           className="btn btn-primary"
           onClick={(event) => {
@@ -107,8 +112,6 @@ class CreateKeyModal extends React.Component {
         >
           Link Github Account
         </button>
-        <br />
-        <br />
       </div>
     );
 
@@ -135,15 +138,17 @@ class CreateKeyModal extends React.Component {
               && this.props.urls.length === 0 ? '' : dropdown }
             { showTextInput ? urlTextInput : '' }
             { this.props.github ? '' : authGithubButton }
-            <button
-              action="submit"
-              className="btn btn-primary"
-              onClick={this.onFormSubmit}
-            >
-              Generate Key
-            </button>
           </form>
         </Modal.Body>
+        <Modal.Footer>
+          <Button
+            type="submit"
+            bsStyle="primary"
+            onClick={this.onFormSubmit}
+          >
+            Generate Key
+          </Button>
+        </Modal.Footer>
       </Modal>
     );
   }
