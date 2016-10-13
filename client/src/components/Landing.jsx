@@ -20,7 +20,7 @@ const Landing = () => (
           <p>{homeParagraph}</p>
           <p>
             <Button bsStyle="primary" className="fill">Sign Up </Button>
-            <Button bsStyle="primary" className="button2">Read Docs </Button>
+            <Button bsStyle="primary" className="outline">Read Docs </Button>
           </p>
         </Col>
         <Col sm={12} md={6} className="right-side-image hidden-sm hidden-xs">

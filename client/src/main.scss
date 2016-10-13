@@ -14,7 +14,6 @@ $dark-colors: #4a4a4a rgba(74, 74, 74, 0.75) #9b9b9b;
   border: none;
 
   font-family: 'Cabin';
-  font-weight: semibold;
   font-size: 16px;
   text-decoration: none;
 
@@ -79,37 +78,6 @@ $dark-colors: #4a4a4a rgba(74, 74, 74, 0.75) #9b9b9b;
         font-family: 'Cabin';
         font-size: 1.55em;
       }
-
-      button {
-        height: 2.25em;
-        font-family: 'Cabin';
-        font-size: .85em;
-        font-weight: 600;
-
-        color: nth($light-colors, 1);
-        font-family: 'Cabin';
-        font-weight: bold;
-        font-size: 19px;
-
-        border-radius: 12px;
-        margin-top: 24px;
-        width: $big-button-width;
-      }
-
-      button.fill {
-        color: $red-text-color;
-        background-color: white;
-        border: transparent;
-        margin-right: 25px;
-
-        &:hover {
-          color: $active-button-color;
-          background-color: white;
-          border-color: $active-button-color;
-          box-shadow: 0 0 0 4px $active-button-color;
-          text-decoration: none;
-        }
-      }
     }
 
     img {
@@ -123,6 +91,38 @@ $dark-colors: #4a4a4a rgba(74, 74, 74, 0.75) #9b9b9b;
     right: 0;
     overflow: hidden;
   }
+
+  button {
+    height: 2.25em;
+    font-family: 'Cabin';
+    font-size: .85em;
+    font-weight: 600;
+
+    color: nth($light-colors, 1);
+
+    border-radius: .65em;
+    width: $big-button-width;
+
+    background: transparent;
+    border: 2px solid nth($light-colors, 1);
+
+    &:hover {
+      background-color: $active-button-color;
+      color: nth($light-colors, 1);
+      box-shadow: 0 0 0 4px $active-button-color;
+    }
+  }
+
+  button.fill {
+    color: $red-text-color;
+    background-color: nth($light-colors, 1);
+    border: transparent;
+    margin-right: 25px;
+
+    &:hover {
+      color: $active-button-color;
+    }
+  }
 }
 
 #team-profiles {
@@ -133,18 +133,6 @@ $dark-colors: #4a4a4a rgba(74, 74, 74, 0.75) #9b9b9b;
     margin-top: 30px;
     padding: 5px;
   }
-}
-
-.button2 {
-  background: transparent;
-  border: 2px solid white;
-}
-
-.btn-primary:hover.button2 {
-  background-color: $active-button-color;
-  color: nth($light-colors, 1);
-  border-color: white;
-  box-shadow: 0 0 0 4px $active-button-color;
 }
 
 .footer {
