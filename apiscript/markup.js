@@ -8,7 +8,9 @@ let toInputElem = null;
 let fromInputElem = null;
 let titleInputElem = null;
 let buttonElem = null;
-let fileAttachElem = null;
+let fileInputElem = null;
+let fileLabelElem = null;
+let fileLabelWrapperElem = null;
 let overlayElem = null;
 let bgImageElem = null;
 let clipAreaElem = null;
@@ -16,9 +18,12 @@ let clipAreaElem = null;
 let bgImage = '';
 
 const apiEndpoint = 'https://getmarkup.com/api/annotate';
-const elemPrefix = 'frolicking-tuba-modal';
+const elemPrefix = 'frolicking-tuba';
+const modalWidth = 300;
+const rightPad = 36;
 
 const hideModal = () => {
+  buttonElem.className = '';
   modalElem.parentNode.removeChild(modalElem);
   modalElem = null;
 
@@ -57,6 +62,10 @@ const buildBgImage = (url) => {
   bgImageElem = document.createElement('img');
   bgImageElem.id = `${elemPrefix}-bg-image`;
   bgImageElem.src = url;
+  bgImageElem.onload = () => {
+    buttonElem.className = 'in-close-state';
+    bgImageElem.style.opacity = 1;
+  };
 
   return bgImageElem;
 };
@@ -70,17 +79,31 @@ const buildOverlay = () => {
 
 const buildModal = () => {
   modalElem = document.createElement('div');
-  modalElem.id = elemPrefix;
+  modalElem.id = `${elemPrefix}-modal`;
 
   formElem = document.createElement('form');
   formElem.id = `${elemPrefix}-feedback`;
+
+  toInputElem = document.createElement('input');
+  toInputElem.id = `${elemPrefix}-to-input`;
+  toInputElem.type = 'text';
+  toInputElem.name = 'to';
+  toInputElem.minlength = 1;
+  toInputElem.placeholder = 'To';
+
+  fromInputElem = document.createElement('input');
+  fromInputElem.id = `${elemPrefix}-from-input`;
+  fromInputElem.type = 'text';
+  fromInputElem.name = 'from';
+  fromInputElem.minlength = 1;
+  fromInputElem.placeholder = 'From';
 
   titleInputElem = document.createElement('input');
   titleInputElem.id = `${elemPrefix}-title-input`;
   titleInputElem.type = 'text';
   titleInputElem.name = 'title';
   titleInputElem.minlength = 1;
-  titleInputElem.placeholder = 'Title';
+  titleInputElem.placeholder = 'Message Title';
 
   commentInputElem = document.createElement('textarea');
   commentInputElem.id = `${elemPrefix}-comment`;
@@ -88,39 +111,34 @@ const buildModal = () => {
   commentInputElem.minlength = 1;
   commentInputElem.placeholder = 'Enter your comments here';
 
-  toInputElem = document.createElement('input');
-  toInputElem.id = `${elemPrefix}-to-input`;
-  toInputElem.type = 'text';
-  toInputElem.name = 'to';
-  toInputElem.minlength = 1;
-  toInputElem.placeholder = 'Message to';
+  fileInputElem = document.createElement('input');
+  fileInputElem.id = `${elemPrefix}-file-input`;
+  fileInputElem.type = 'file';
+  fileInputElem.name = 'modalAttachment';
 
-  fromInputElem = document.createElement('input');
-  fromInputElem.id = `${elemPrefix}-from-input`;
-  fromInputElem.type = 'text';
-  fromInputElem.name = 'from';
-  fromInputElem.minlength = 1;
-  fromInputElem.placeholder = 'Message from';
+  fileLabelElem = document.createElement('label');
+  fileLabelElem.htmlFor = fileInputElem.id;
+  fileLabelElem.innerHTML = 'Attach a file';
 
-  fileAttachElem = document.createElement('input');
-  fileAttachElem.id = `${elemPrefix}-fileAttach-input`;
-  fileAttachElem.type = 'file';
-  fileAttachElem.name = 'modalAttachment';
+  fileLabelWrapperElem = document.createElement('div');
+  fileLabelWrapperElem.id = `${elemPrefix}-file-input-container`;
 
   const submitElem = document.createElement('input');
 
   submitElem.id = `${elemPrefix}-submit`;
   submitElem.type = 'submit';
   submitElem.name = 'modalSubmit';
-  submitElem.value = 'send';
+  submitElem.value = 'Submit Feedback';
 
   modalElem.appendChild(formElem);
-  formElem.appendChild(titleInputElem);
-  formElem.appendChild(commentInputElem);
   formElem.appendChild(toInputElem);
   formElem.appendChild(fromInputElem);
-  formElem.appendChild(fileAttachElem);
+  formElem.appendChild(titleInputElem);
+  formElem.appendChild(commentInputElem);
+  formElem.appendChild(fileLabelWrapperElem);
+  fileLabelWrapperElem.appendChild(fileLabelElem);
   formElem.appendChild(submitElem);
+  formElem.appendChild(fileInputElem);
 
   formElem.onsubmit = submitForm;
 
@@ -179,12 +197,27 @@ const startDrag = (event) => {
     clipAreaElem.style.top = `${yPos}px`;
   };
 
-  const dragMove = (moveEvent) => {
-    const xdiff = moveEvent.pageX - event.pageX;
-    const ydiff = moveEvent.pageY - event.pageY;
+  const positionModal = () => {
+    if (xPos + width + modalWidth < window.innerWidth) {
+      modalElem.className = 'left-arrow';
+      modalElem.style.left = `${xPos + width}px`;
+    } else if (xPos - modalWidth > 0) {
+      console.log(xPos - modalWidth);
+      modalElem.className = 'right-arrow';
+      modalElem.style.left = `${xPos - modalWidth - rightPad}px`;
+    } else {
+      modalElem.style.left = '10px';
+    }
 
-    xPos = (xdiff < 0) ? moveEvent.pageX : event.pageX;
-    yPos = (ydiff < 0) ? moveEvent.pageY : event.pageY;
+    modalElem.style.top = `${yPos}px`;
+  };
+
+  const dragMove = (moveEvent) => {
+    const xdiff = moveEvent.clientX - event.clientX;
+    const ydiff = moveEvent.clientY - event.clientY;
+
+    xPos = (xdiff < 0) ? moveEvent.clientX : event.clientX;
+    yPos = (ydiff < 0) ? moveEvent.clientY : event.clientY;
 
     width = Math.abs(xdiff);
     height = Math.abs(ydiff);
@@ -196,8 +229,7 @@ const startDrag = (event) => {
     document.removeEventListener('mouseup', dragDone);
     document.removeEventListener('mousemove', dragMove);
 
-    modalElem.style.top = `${yPos}px`;
-    modalElem.style.left = `${xPos + width}px`;
+    positionModal();
 
     modalElem.style.opacity = 1;
     modalElem.style.transform = 'translate(0, 0)';
@@ -208,12 +240,9 @@ const startDrag = (event) => {
 };
 
 const showModal = () => {
+  buttonElem.className = 'in-loading-state';
   takeShot((url) => {
     document.body.appendChild(buildBgImage(url));
-
-    setTimeout(() => {
-      bgImageElem.style.opacity = 1;
-    });
   });
 
   document.body.appendChild(buildOverlay());
