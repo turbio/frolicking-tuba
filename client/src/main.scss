@@ -150,6 +150,30 @@ $darkColor3: #9b9b9b;
 
 
 ///////////////////// ADDITIONAL STYLING //////////////////////////////
+#landing-content {
+  .swoosh {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+
+    height: 90%;
+    width: 100%;
+  }
+  .above-the-fold {
+    min-height:100vh;
+    color: $lightColor1;
+
+    img {
+      width: 100%;
+
+      @media screen and (orientation:portrait) {
+        height: 90%;
+      }
+    }
+  }
+}
+
 .docsHeading {
   @include headerOne($darkColor1);
 }
@@ -206,37 +230,6 @@ h3 {
   color: $lightColor1;
   border-color: white;
   box-shadow: 0 0 0 4px $actvBtnColor;
-}
-
-.mainLanding {
-  padding-top:70px;
-  background: transparent;
-  height:100vh;
-  color: $lightColor1;
-}
-
-.mainLandingImg {
-  margin-top: -60px;
-  overflow: hidden;
-}
-
-.mainLandingSpacer {
-  height: 160px;
-}
-
-.landingPageGrid {
-  z-index: 1;
-}
-
-.swoosh {
-  position: absolute;
-  overflow: hidden;
-  top: -10px;
-  right: -10px;
-  bottom: 0;
-  left: 0;
-  z-index: -1;
-  width: 105%;
 }
 
 .table {

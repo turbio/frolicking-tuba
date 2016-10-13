@@ -1,0 +1,8 @@
+<svg width="19px" height="18px" viewBox="9 9 19 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <polyline id="Path-2" stroke="#FFFFFF" stroke-width="1.5" fill="none" points="21 10 27 10 27 16"></polyline>
+  <polyline id="Path-2-Copy-3" stroke="#FFFFFF" stroke-width="1.5" fill="none" points="21 26 27 26 27 20"></polyline>
+  <polyline id="Path-2-Copy" stroke="#FFFFFF" stroke-width="1.5" fill="none" points="16 10 10 10 10 16"></polyline>
+  <polyline id="Path-2-Copy-2" stroke="#FFFFFF" stroke-width="1.5" fill="none" points="16 26 10 26 10 20"></polyline>
+  <path d="M18.5,15.4316054 L18.5,20.4316054" id="Line" stroke="#FFFFFF" stroke-width="1" stroke-linecap="square" fill="none"></path>
+  <path d="M16,18 L21,18" id="Line" stroke="#FFFFFF" stroke-width="1" stroke-linecap="square" fill="none"></path>
+</svg>

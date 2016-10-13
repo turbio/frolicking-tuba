@@ -8,6 +8,7 @@ import * as Actions from '../actions/AppActions';
 import Key from './Key.jsx';
 // import CreateKeyModal from './CreateKeyModal.jsx';
 import KeyModal from './KeyModal.jsx';
+import EditKeyModal from './EditKeyModal.jsx';
 //import { requestKeys } from '../actions/AppActions';
 
 class Dashboard extends Component {
@@ -24,7 +25,8 @@ class Dashboard extends Component {
            <Key
              title={key.name}
              endpoint={key.endpoint}
-             keyString={key.api_key}
+             keyString={key.key}
+             key={key.key}
            />
          )
         )
@@ -51,19 +53,21 @@ class Dashboard extends Component {
             // (<CreateKeyModal />)
           }
           <KeyModal />
+          <EditKeyModal />
         </Row>
         <Row>
 
           {
-            this.returnKeys()
-           //  this.props.keys.map((key) => (
-           //    <Key
-           //      title={key.name}
-           //      endpoint={key.endpoint}
-           //      keyString={key.api_key}
-           //    />
-           //  )
-           // )
+            // this.returnKeys()
+            this.props.keys.map((key) => (
+              <Key
+                title={key.name}
+                endpoint={key.endpoint}
+                keyString={key.key}
+                key={key.key}
+              />
+            )
+           )
           }
         </Row>
       </Grid>
