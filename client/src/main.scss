@@ -145,10 +145,6 @@ $dark-colors: #4a4a4a rgba(74, 74, 74, 0.75) #9b9b9b;
   text-align: center;
 }
 
-#authPageLogo {
-  @include authpagelogo($darkColor3);
-}
-
 .footer {
   height: 60px;
   position: relative;
