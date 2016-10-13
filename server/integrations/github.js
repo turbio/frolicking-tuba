@@ -84,6 +84,11 @@ module.exports.repoList = (req, res) => {
 
   User.findOne({ where: { id: req.session.user.id } })
   .then((user) => {
+    if (!user) {
+      res.status(500).json({ error: config.messages.server_error });
+
+      return;
+    }
     if (user.ghtoken === null) {
       res.status(400).json({ error: config.messages.github_no_auth });
 
