@@ -4,7 +4,7 @@ import { Modal, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import * as Actions from '../actions/AppActions';
 
-class KeyModal extends React.Component {
+class EditKeyModal extends React.Component {
   constructor(props) {
     super(props);
     this.onFormSubmit = this.onFormSubmit.bind(this);
@@ -16,9 +16,9 @@ class KeyModal extends React.Component {
     event.preventDefault();
     const keyName = findDOMNode(this.keyName).value;
 
-    console.log('keyName:', keyName);
     if (this.urlText) {
       this.props.createNewKey({
+        key: this.props.editKey,
         name: keyName,
         endpoint: findDOMNode(this.urlText).value,
         type: 'url'
@@ -27,6 +27,7 @@ class KeyModal extends React.Component {
       const requestBody = JSON.parse(findDOMNode(this.endpointSelect).value);
 
       requestBody.name = keyName;
+      requestBody.key = this.props.editKey;
       this.props.createNewKey(requestBody);
     }
   }
@@ -35,9 +36,9 @@ class KeyModal extends React.Component {
     const selectValue = findDOMNode(this.endpointSelect).value;
 
     if (selectValue === 'addnewurl') {
-      this.props.setModalModeAddUrl(true);
+      this.props.setEditModalNewUrl(true);
     } else {
-      this.props.setModalModeAddUrl(false);
+      this.props.setEditModalNewUrl(false);
     }
   }
 
@@ -47,6 +48,21 @@ class KeyModal extends React.Component {
     if (!showTextInput) {
       showTextInput = this.props.modalModeAddUrl;
     }
+
+    let defaultValues = this.props.keys.reduce((prev, key) => {
+      let values = prev;
+
+      if (values === null && key.key === this.props.editKey) {
+        values = {
+          name: key.name,
+          endpoint: `{"type":"${key.type}","endpoint":"${key.endpoint}"}`
+        };
+      }
+
+      return values;
+    }, null);
+
+    defaultValues = defaultValues || {};
 
     const urlTextInput = (
       <FormGroup controlId="formBasicText">
@@ -64,7 +80,7 @@ class KeyModal extends React.Component {
         <ControlLabel>Select Endpoint</ControlLabel>
         <FormControl
           componentClass="select"
-          placeholder="select"
+          defaultValue={defaultValues.endpoint}
           ref={(ref) => { this.endpointSelect = ref; }}
           onChange={this.onDropdownChange}
         >
@@ -112,12 +128,13 @@ class KeyModal extends React.Component {
       </div>
     );
 
+
     return (
       <Modal
-        show={this.props.keymodal}
+        show={this.props.show}
         onHide={() => {
-          this.props.setModalModeAddUrl(false);
-          this.props.hideModal();
+          this.props.setEditModalNewUrl(false);
+          this.props.hideEditModal();
         }}
       >
         <Modal.Header closeButton />
@@ -127,7 +144,7 @@ class KeyModal extends React.Component {
               <ControlLabel>Name</ControlLabel>
               <FormControl
                 type="text"
-                placeholder="Enter Name"
+                defaultValue={defaultValues.name}
                 ref={(ref) => { this.keyName = ref; }}
               />
             </FormGroup>
@@ -140,7 +157,7 @@ class KeyModal extends React.Component {
               className="btn btn-primary"
               onClick={this.onFormSubmit}
             >
-              Generate Key
+              Update Key
             </button>
           </form>
         </Modal.Body>
@@ -149,23 +166,27 @@ class KeyModal extends React.Component {
   }
 }
 
-KeyModal.propTypes = {
-  keymodal: PropTypes.bool,
+EditKeyModal.propTypes = {
+  show: PropTypes.bool,
+  editKey: PropTypes.string,
   modalModeAddUrl: PropTypes.bool,
+  keys: PropTypes.arrayOf(PropTypes.any),
   github: PropTypes.bool,
   urls: PropTypes.arrayOf(PropTypes.any),
   repos: PropTypes.arrayOf(PropTypes.any),
-  hideModal: PropTypes.func,
-  setModalModeAddUrl: PropTypes.func,
+  hideEditModal: PropTypes.func,
+  setEditModalNewUrl: PropTypes.func,
   createNewKey: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
-  keymodal: state.keymodal.showModal,
-  modalModeAddUrl: state.keymodal.modalModeAddUrl,
+  show: state.editmodal.show,
+  editKey: state.editmodal.key,
+  modalModeAddUrl: state.editmodal.modalModeAddUrl,
+  keys: state.keys.data,
   github: state.auth.github,
   urls: state.urls.urls,
   repos: state.repos.repos
 });
 
-export default connect(mapStateToProps, Actions)(KeyModal);
+export default connect(mapStateToProps, Actions)(EditKeyModal);
