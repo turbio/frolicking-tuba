@@ -6,34 +6,14 @@ import { connect } from 'react-redux';
 import * as Actions from '../actions/AppActions';
 
 import Key from './Key.jsx';
-// import CreateKeyModal from './CreateKeyModal.jsx';
 import KeyModal from './KeyModal.jsx';
 import EditKeyModal from './EditKeyModal.jsx';
-//import { requestKeys } from '../actions/AppActions';
 
 class Dashboard extends Component {
   componentWillMount() {
     this.props.actions.getApiKeys();
     this.props.actions.fetchUrls();
     this.props.actions.fetchGithubAuthStatus();
-  }
-
-  returnKeys() {
-    if (this.props.keys) {
-      return (
-         this.props.keys.map((key) => (
-           <Key
-             title={key.name}
-             endpoint={key.endpoint}
-             keyString={key.key}
-             key={key.key}
-           />
-         )
-        )
-      );
-    }
-
-    return <div />;
   }
 
   render() {
@@ -49,16 +29,12 @@ class Dashboard extends Component {
             >Create API Key
             </Button>
           </p>
-          {
-            // (<CreateKeyModal />)
-          }
           <KeyModal />
           <EditKeyModal />
         </Row>
         <Row>
 
           {
-            // this.returnKeys()
             this.props.keys.map((key) => (
               <Key
                 title={key.name}
@@ -82,10 +58,6 @@ Dashboard.propTypes = {
 };
 
 const mapStateToProps = (state) => ({ keys: state.keys.data });
-// const mapStateToProps = (state) => {
-//   return { keys: state.keys.data };
-// };
-
 
 const mapDispatchToProps
   = (dispatch) => ({ actions: bindActionCreators(Actions, dispatch) });

@@ -24,12 +24,14 @@ export const requestKeys = (keys) => ({
   type: FETCH_KEYS,
   payload: keys
 });
+// create new key Modal actions
 export const showModal = () => ({ type: OPEN_MODAL });
 export const hideModal = () => ({ type: CLOSE_MODAL });
 export const setModalModeAddUrl = (mode) => ({
   type: SET_MODAL_MODE,
   modalModeAddUrl: mode
 });
+// edit existing key Modal actions
 export const showEditModal = (key) => ({
   type: OPEN_EDIT_MODAL,
   key
@@ -39,6 +41,7 @@ export const setEditModalNewUrl = (mode) => ({
   type: SET_EDIT_MODAL_MODE,
   mode
 });
+
 export const fetchEndpts = (keys) => ({
   type: FETCH_ENDPOINTS,
   payload: keys
@@ -121,9 +124,16 @@ export const fetchUrls = () => ((dispatch) => {
   });
 });
 
-const fetchRepos = () => (
+const fetchRepos = (dispatch) => (
   fetch('/api/github/repos', { credentials: 'same-origin' })
   .then((response) => response.json())
+  .then((repos) => {
+    if (repos.error) {
+      dispatch({ type: FETCH_REPOS, repos: [] });
+    } else {
+      dispatch({ type: FETCH_REPOS, repos });
+    }
+  })
 );
 
 export const fetchGithubAuthStatus = () => ((dispatch) => {
@@ -133,14 +143,7 @@ export const fetchGithubAuthStatus = () => ((dispatch) => {
     console.log('github status:', res);
     dispatch({ type: UPDATE_GITHUB_STATUS, status: res.github });
 
-    return fetchRepos();
-  })
-  .then((repos) => {
-    if (repos.error) {
-      dispatch({ type: FETCH_REPOS, repos: [] });
-    } else {
-      dispatch({ type: FETCH_REPOS, repos });
-    }
+    return fetchRepos(dispatch);
   })
   .catch((err) => {
     console.log(err);
@@ -157,29 +160,6 @@ export const createNewUrl = (urlObject) => (
    credentials: 'same-origin',
    body: JSON.stringify(urlObject)
  })
-);
-
-export const updateKey = (requestBody) => (
-  // (dispatch) => {
-  //console.log('inupdatekey');
-
-    fetch('/api/keys', {
-      method: 'POST',
-      headers,
-      credentials: 'same-origin',
-      body: JSON.stringify(requestBody)
-    })
-    .then((response) => response.json())
-    .then(() => {
-      console.log('in updateKey');
-
-      //dispatch(hideModal());
-    })
-    .catch((error) => {
-      console.log('error in updateKey:', error);
-      //dispatch(error);
-    })
-  // }
 );
 
 export const createNewKey = ({ key, name, type, endpoint }) => (
@@ -223,22 +203,3 @@ export const createNewKey = ({ key, name, type, endpoint }) => (
     });
   }
 );
-
-
-// export const checkAuth = () => {
-//   (dispatch) => {
-//     fetch('/api/users/signedin', { credentials: 'same-origin' })
-//     .then((response) => response.json())
-//     .then((json) => {
-//       console.log(json, 'testing json return for checkAuth');
-
-//       if (json.signedin) {
-//         localStorage.token = true;
-//         dispatch(authUser());
-//       } else {
-//         dispatch(logOut());
-//       }
-//     });
-//   };
-// };
-
