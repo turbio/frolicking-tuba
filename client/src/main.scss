@@ -135,6 +135,20 @@ $dark-colors: #4a4a4a rgba(74, 74, 74, 0.75) #9b9b9b;
   }
 }
 
+//this is bad and who ever wrote it should feel bad
+.authPageHeader {
+  margin-top:67px;
+  margin-bottom:67px;
+  position:relative;
+  margin-left: auto;
+  margin-right:auto;
+  text-align: center;
+}
+
+#authPageLogo {
+  @include authpagelogo($darkColor3);
+}
+
 .footer {
   height: 60px;
   position: relative;
