@@ -8,8 +8,26 @@
 }
 
 #landing-content {
-  margin: 10em 0 0 0;
+  margin: 10% 0 0 0;
   width: 100vw;
+}
+
+#above-the-fold {
+  min-height:100vh;
+  color: nth($light-colors, 1);
+
+  h3 {
+    color: nth($light-colors, 1);
+    font-family: 'Droid Sans';
+    font-weight: bold;
+    font-size: 26px;
+    margin-bottom: 1em;
+  }
+
+  p {
+    font-family: 'Cabin';
+    font-size: 1.55em;
+  }
 
   .swoosh {
     position: absolute;
@@ -23,6 +41,10 @@
     border-bottom: 1px #ccc solid;
   }
 
+  .left-side-blurb {
+    padding: 5%;
+  }
+
   .right-side-image {
     position: absolute;
     right: 0;
@@ -30,7 +52,7 @@
 
     img {
       max-width: 65em;
-      width: 175%;
+      width: 125%;
     }
   }
 
@@ -65,29 +87,6 @@
       color: $active-button-color;
     }
   }
-}
-
-#above-the-fold {
-  min-height:100vh;
-  color: nth($light-colors, 1);
-
-  >div:nth-child(1) {
-    margin-top: 10%;
-
-    h3 {
-      color: nth($light-colors, 1);
-      font-family: 'Droid Sans';
-      font-weight: bold;
-      font-size: 26px;
-      margin-bottom: 1em;
-    }
-
-    p {
-      font-family: 'Cabin';
-      font-size: 1.55em;
-    }
-  }
-
 }
 
 #image-blurbs {

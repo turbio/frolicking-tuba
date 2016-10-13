@@ -14,7 +14,7 @@ const Landing = () => (
   <Grid id="landing-content">
     <Row id="above-the-fold">
       <Image className="swoosh" src="/swoosh_fill.svg" />
-      <Col sm={12} md={6} >
+      <Col sm={12} md={6} className="left-side-blurb">
         <h3>API For Gathering Visual Feedback</h3>
         <p>{homeParagraph}</p>
         <p>
