@@ -6,6 +6,9 @@
 
 @import "client/src/landing";
 @import "client/src/navbar";
+@import "client/src/dashboard";
+@import "client/src/signupsignin";
+@import "client/src/documentation";
 
 p {
   font-family: 'Cabin';
@@ -62,8 +65,4 @@ h2,h3,h5 {
     margin-top: 30px;
     padding: 5px;
   }
-}
-
-.no-extras-input {
-  cursor: text !important;
 }

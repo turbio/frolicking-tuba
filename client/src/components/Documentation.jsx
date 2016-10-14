@@ -18,14 +18,14 @@ const script1 = "<script src=\"http://getmarkup.com/script.js?" //eslint-disable
 const script2 = `{
   "method": "POST",
     "body": {
-      "to": "string",
-      "from": "string",
-      "title": "string",
-      "comment": "string",
-      "file": "file or url to file sent",
-      "key": "string",
-      "screenshot": "screenshot file or url to screenshot file sent",
-      "location": "string",
+      "to": "Amanda",
+      "from": "Jeff",
+      "title": "Error on landing page",
+      "comment": "Please update to the new Uber partner logo on the home page",
+      "file": "https://getmarkup.com/examplefilename",
+      "key": "a22e4697e8255a183b74ba94586e8765",
+      "screenshot": "https://getmarkup.com/examplefilename",
+      "location": "https://www.google.com/",
     }
 }`; // eslint-disable-line
 const bodyTag = '<body>';
@@ -34,7 +34,7 @@ const Documentation = () => (
   <div>
     <Grid>
       <Row>
-        <Col md={12}>
+        <Col md={12} className="docs-section">
           <h2 className="docsHeading">Introduction</h2>
           <p className="docsPara">
             Enable commenting directly on your website,
@@ -42,7 +42,7 @@ const Documentation = () => (
             of your choosing.
           </p>
         </Col>
-        <Col md={12}>
+        <Col md={12} className="docs-section">
           <h2 className="docsHeading">Client-Side</h2>
           <p className="docsPara">
             Copy and paste our provided tag right before the closing
@@ -50,7 +50,7 @@ const Documentation = () => (
           </p>
           <Highlight>{script1}</Highlight>
         </Col>
-        <Col md={12}>
+        <Col md={12} className="docs-section">
           <h2 className="docsHeading">Output option: Github Issues</h2>
           <p className="docsPara">
             We take care of this for you!
@@ -58,14 +58,14 @@ const Documentation = () => (
             to authorize Github, and choose the repo.<br />
           </p>
         </Col>
-        <Col md={12}>
+        <Col md={12} className="docs-section">
           <h2 className="docsHeading">Output option: Custom API Endpoint</h2>
           <p className="docsPara">
             If you want to configure an endpoint to integrate with a workflow
             other than github.  Here is an example response in JSON format to
             your specified URL.<br />
           </p>
-          <Table striped condensed hover>
+          <Table condensed hover>
             <thead>
               <td><strong>Field Name</strong></td>
               <td><strong>Description</strong></td>

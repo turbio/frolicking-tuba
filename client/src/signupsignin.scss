@@ -1,0 +1,52 @@
+#authPageLogo,
+#authPageLogo:active,
+#authPageLogo:hover,
+#authPageLogo:visited {
+  font-size: 36px;
+  margin-bottom: 70px;
+  text-decoration: none;
+  font-family: Cabin;
+  font-weight: 500;
+  color: #898989;
+}
+
+.signup-form-container {
+  //width: 480px;
+}
+
+.auth-form {
+  width: 372px;
+}
+
+.form-control {
+  font-family: 'Cabin';
+  font-size:1.2em;
+  margin-bottom: 10px;
+}
+
+.panel > .panel-heading {
+  height: 47px;
+  font-family: 'Droid Sans';
+  font-size: 19px;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: middle;
+  color: rgba(74, 74, 74, 0.75);
+}
+
+.btn.btn-primary {
+  width: 342px;
+    height: 40px;
+    border-radius: 3px;
+    background-image: linear-gradient(to left, #ee433d, #ec3846 50%, #ec2c51);
+    box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.24);
+    margin-bottom: 38px;
+    margin-top: 20px;
+}
+
+.no-account {
+  text-align: center;
+  margin-bottom: 100px;
+  margin-top: 30px;
+}
+
