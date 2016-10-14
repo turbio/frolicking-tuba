@@ -15,23 +15,27 @@ const Landing = () => (
     <Row id="above-the-fold">
       <Image className="swoosh" src="/swoosh_fill.svg" />
       <Col sm={12} md={6} className="left-side-blurb">
-        <h3>API For Gathering Visual Feedback</h3>
+        <h1>API For Gathering Visual Feedback</h1>
         <p>{homeParagraph}</p>
         <p>
           <Button bsStyle="primary" className="fill">Sign Up </Button>
           <Button bsStyle="primary" className="outline">Read Docs </Button>
         </p>
       </Col>
-      <Col sm={12} md={6} className="right-side-image hidden-sm hidden-xs">
+      <Col
+        sm={12}
+        md={6}
+        className="right-side-image hidden-sm hidden-xs"
+      >
         <Image src="/landing_example_image.svg" />
       </Col>
     </Row>
 
     <Row id="image-blurbs" className="landing-section">
-      <h3>Collaborate Better Across Teams</h3>
+      <h1>Collaborate Better Across Teams</h1>
       <Col sm={12} md={4}>
         <div>
-          <Image src="/landing_example_image.svg" />
+          <Image src="/LandingPageSection1Image1.svg" />
           <h4>Easily Set Up New Projects</h4>
           <p>
             Generate a custom script tag for every unique project.
@@ -41,7 +45,7 @@ const Landing = () => (
       </Col>
       <Col sm={12} md={4}>
         <div>
-          <Image src="/landing_example_image.svg" />
+          <Image src="/LandingPageSection1Image2.svg" />
           <h4>Enable Frictionless Feedback</h4>
           <p>
             Gather feedback directly on your front-end from all of
@@ -51,7 +55,7 @@ const Landing = () => (
       </Col>
       <Col sm={12} md={4}>
         <div>
-          <Image src="/landing_example_image.svg" />
+          <Image src="/LandingPageSection1Image3.svg" />
           <h4>Speed Up Communication</h4>
           <p>
             Comments are sent directly to github or can be
@@ -61,10 +65,34 @@ const Landing = () => (
       </Col>
     </Row>
     <Row id="use-cases" className="landing-section">
-      <h3>Use Cases</h3>
+      <h1>Use Cases</h1>
+      <Col sm={12} md={6}>
+        <div className="tile">
+          <h4>Colloborative Sourcing</h4>
+          <p>Allow users to colloborate on open
+          source projects by enabling direct feedback on your site</p>
+        </div>
+        <div className="tile">
+          <h4>Manage Multiple Clients</h4>
+          <p>Set up different API Keys to easily
+          organize information from various clients and projects</p>
+        </div>
+      </Col>
+      <Col sm={12} md={6}>
+        <div className="tile">
+          <h4>Bug Reporting</h4>
+          <p>Easily report bugs by integrating our reporting tool
+          with your existing issue tracker</p>
+        </div>
+        <div className="tile">
+          <h4>Visual Feedback</h4>
+          <p>Gather visual feedback on your frontend from internal
+          teams before launching</p>
+        </div>
+      </Col>
     </Row>
     <Row id="pricing" className="landing-section">
-      <h3>Pricing</h3>
+      <h1>Pricing</h1>
     </Row>
   </Grid>
 );
