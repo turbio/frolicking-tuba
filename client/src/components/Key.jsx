@@ -5,7 +5,8 @@ import {
   InputGroup,
   ControlLabel,
   FormControl,
-  Button
+  Button,
+  Image
 } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import CopyToClipboard from 'react-copy-to-clipboard';
@@ -32,7 +33,13 @@ const Key = ({ title, endpoint, keyString, showEditModal }) => {
       header={
         <div>
           <Title text={title} />
-          <Button bsStyle="link" onClick={onSettingsClick}>Settings</Button>
+          <Button
+            bsStyle="link"
+            onClick={onSettingsClick}
+            className="pull-right settings-button"
+          >
+            <Image src="/settings.svg" />
+          </Button>
         </div>
       }
     >
