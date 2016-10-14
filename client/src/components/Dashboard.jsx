@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Row, Grid, Button, Image } from 'react-bootstrap';
+import { Row, Col, Grid, Button, Image } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as Actions from '../actions/AppActions';
@@ -35,7 +35,7 @@ class Dashboard extends Component {
           <EditKeyModal />
         </Row>
         <Row>
-
+          <Col>
           {
             this.props.keys.map((key) => (
               <Key
@@ -47,6 +47,7 @@ class Dashboard extends Component {
             )
            )
           }
+          </Col>
         </Row>
       </Grid>
    );

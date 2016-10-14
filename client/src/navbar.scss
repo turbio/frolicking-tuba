@@ -27,6 +27,22 @@
         color: nth($light-colors, 2);
       }
     }
+
+    .open > a {
+      background: transparent;
+    }
+
+    .open > a:focus, .open > a:hover {
+      background: transparent;
+    }
+
+    .dropdown-menu {
+      background: #ee433d;
+    }
+
+    .dropdown-menu > li > a:hover {
+      background-color: rgba(0, 0, 0, 0.2);;
+    }
   }
 
   &.navbar-norm {
