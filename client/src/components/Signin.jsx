@@ -4,7 +4,7 @@ import React from 'react';
 import { withRouter, Link } from 'react-router';
 
 import {
-  Jumbotron, Grid, Row, Col
+  Panel, Grid, Row, Col
 } from 'react-bootstrap';
 
 import AuthForm from './AuthForm.jsx';
@@ -13,15 +13,17 @@ const Signin = () => (
   <Grid>
     <Row>
       <Col md={6} mdOffset={3}>
-        <Jumbotron>
-          <h3>Welcome Back</h3>
+        <Panel
+          header="Welcome Back!"
+          className="signup-form-container"
+        >
           <AuthForm />
-        </Jumbotron>
+        </Panel>
       </Col>
     </Row>
     <Row>
-      <Col md={6} mdOffset={3}>
-        Don't have an account?
+      <Col md={6} mdOffset={3} className="no-account">
+        <p>Don't have an account?</p>
         <Link
           to="/signup"
         >Sign Up
