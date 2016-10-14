@@ -9,10 +9,23 @@
 
 p {
   font-family: 'Cabin';
-  font-size: 1.3em;
+  font-size: 1.2em;
 }
 
-h1,h2,h3,h4,h5 {
+h1 {
+  font-family: 'Droid Sans';
+  font-size:1.625em;
+  font-weight: bold;
+}
+
+h4 {
+  font-family: 'Droid Sans';
+  font-size:1.2em;
+  font-weight: bold;
+}
+
+
+h2,h3,h5 {
   font-family: 'Droid Sans';
   font-weight: bold;
 }

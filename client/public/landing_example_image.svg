@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="781px" height="470px" viewBox="0 0 781 470" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+<svg width="863px" height="514px" viewBox="202 148 863 514" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 40.3 (33839) - http://www.bohemiancoding.com/sketch -->
-    <title>Group</title>
     <desc>Created with Sketch.</desc>
     <defs>
         <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-1">
@@ -108,178 +107,174 @@
             <use xlink:href="#path-36"></use>
         </mask>
     </defs>
-    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Desktop-Copy-13" transform="translate(-243.000000, -148.000000)">
-            <g id="Group" transform="translate(270.000000, 159.000000)">
-                <g id="Group-Copy-2">
-                    <g id="Group-2" filter="url(#filter-1)">
-                        <g id="shadow" opacity="0.1" filter="url(#filter-3)" fill-opacity="1" fill="black">
-                            <use filter="url(#filter-4)" xlink:href="#path-2"></use>
-                        </g>
-                        <g id="top">
-                            <use fill="#EFEFEF" fill-rule="evenodd" xlink:href="#path-6"></use>
-                            <use fill-opacity="0.1" fill="url(#linearGradient-5)" fill-rule="evenodd" style="mix-blend-mode: multiply;" xlink:href="#path-6"></use>
-                            <use stroke-opacity="0.25" stroke="#FFFFFF" mask="url(#mask-7)" stroke-width="7.5" xlink:href="#path-6"></use>
-                        </g>
-                        <mask id="mask-9" fill="white">
-                            <use xlink:href="#path-8"></use>
-                        </mask>
-                        <use id="screen" fill="#2B2B2B" xlink:href="#path-8"></use>
-                        <mask id="mask-12" fill="white">
-                            <use xlink:href="#path-10"></use>
-                        </mask>
-                        <g id="screen" stroke="#000000" mask="url(#mask-11)" stroke-width="2.5">
-                            <use mask="url(#mask-13)" xlink:href="#path-10"></use>
-                        </g>
-                        <path d="M727,406.038781 C727,406.038781 702.994433,417.878053 643.2496,417.207756 C642.985089,417.878053 442.016,420 364.0816,420 C284.984,420 84.0149115,417.878053 83.7504,417.207756 C24.0055671,417.878053 0,406.038781 0,406.038781 L727,406.038781 Z" id="bottom" fill="url(#linearGradient-14)"></path>
-                        <g id="bottomfront">
-                            <use fill="#F3F3F3" fill-rule="evenodd" xlink:href="#path-16"></use>
-                            <use fill-opacity="0.02" fill="url(#linearGradient-15)" fill-rule="evenodd" style="mix-blend-mode: multiply;" xlink:href="#path-16"></use>
-                            <use fill="black" fill-opacity="1" filter="url(#filter-17)" xlink:href="#path-16"></use>
-                        </g>
-                        <g id="shadows">
-                            <use fill="#FAFAFA" xlink:href="#path-21"></use>
-                            <use fill-opacity="0.03" fill="url(#linearGradient-18)" style="mix-blend-mode: multiply;" xlink:href="#path-21"></use>
-                            <use fill-opacity="0.04" fill="url(#linearGradient-19)" style="mix-blend-mode: multiply;" xlink:href="#path-21"></use>
-                            <use fill-opacity="0.3" fill="url(#linearGradient-20)" style="mix-blend-mode: soft-light;" xlink:href="#path-21"></use>
-                        </g>
-                    </g>
-                    <g id="Group-2-Copy" transform="translate(87.000000, 31.000000)">
-                        <g id="Background" fill="url(#linearGradient-22)">
-                            <rect id="Rectangle-127" x="0.633333333" y="0" width="549.262735" height="343.384948"></rect>
-                        </g>
-                        <g id="Hero-content" transform="translate(49.000000, 75.000000)">
-                            <g id="Group-9">
-                                <text id="Collaboratively-admi" opacity="0.6" font-family="AvenirNext-Regular, Avenir Next" font-size="10" font-weight="normal" letter-spacing="-0.129999965" fill="#FFFFFF">
-                                    <tspan x="62.5835701" y="60">Collaboratively administrate empowered markets via plug-and-play networks. </tspan>
-                                    <tspan x="90.2035703" y="74">Dynamically procrastinate B2C users after installed base benefits. </tspan>
-                                </text>
-                                <text id="LOREM-IPSUM" font-family="AvenirNext-UltraLight, Avenir Next" font-size="30" font-weight="200" letter-spacing="-1.00088465" fill="#FFFFFF">
-                                    <tspan x="138.460159" y="30">LOREM IPSUM</tspan>
-                                </text>
-                                <text id="LOREM-IPSUM" font-family="AvenirNext-Regular, Avenir Next" font-size="6" font-weight="normal" letter-spacing="0.75" fill="#FFFFFF">
-                                    <tspan x="209.054995" y="136">LOREM IPSUM</tspan>
-                                </text>
-                                <text id="59" font-family="AvenirNext-UltraLight, Avenir Next" font-size="21" font-weight="200" letter-spacing="-1.68000007" fill="#31BEF8">
-                                    <tspan x="223.421137" y="122">59</tspan>
-                                </text>
-                                <text id="LOREM-IPSUM" font-family="AvenirNext-Regular, Avenir Next" font-size="6" font-weight="normal" letter-spacing="0.75" fill="#FFFFFF">
-                                    <tspan x="302.054995" y="136">LOREM IPSUM</tspan>
-                                </text>
-                                <text id="60%" font-family="AvenirNext-UltraLight, Avenir Next" font-size="21" font-weight="200" letter-spacing="-1.68000007" fill="#31BEF8">
-                                    <tspan x="307.722441" y="122">60%</tspan>
-                                </text>
-                                <text id="LOREM-IPSUM" font-family="AvenirNext-Regular, Avenir Next" font-size="6" font-weight="normal" letter-spacing="0.75" fill="#FFFFFF">
-                                    <tspan x="407.012138" y="136">LOREM IPSUM</tspan>
-                                </text>
-                                <text id="LOREM-IPSUM-Copy" font-family="AvenirNext-Regular, Avenir Next" font-size="6" font-weight="normal" letter-spacing="0.75" fill="#FFFFFF">
-                                    <tspan x="9.76928092" y="136">LOREM IPSUM</tspan>
-                                </text>
-                                <text id="50%" font-family="AvenirNext-UltraLight, Avenir Next" font-size="21" font-weight="200" letter-spacing="-1.68000007" fill="#31BEF8">
-                                    <tspan x="412.679584" y="122">50%</tspan>
-                                </text>
-                                <text id="50%-copy" font-family="AvenirNext-UltraLight, Avenir Next" font-size="21" font-weight="200" letter-spacing="-1.68000007" fill="#31BEF8">
-                                    <tspan x="15.436727" y="122">50%</tspan>
-                                </text>
-                                <text id="LOREM-IPSUM" font-family="AvenirNext-Regular, Avenir Next" font-size="6" font-weight="normal" letter-spacing="0.75" fill="#FFFFFF">
-                                    <tspan x="114.726424" y="136">LOREM IPSUM</tspan>
-                                </text>
-                                <text id="3.3%" font-family="AvenirNext-UltraLight, Avenir Next" font-size="21" font-weight="200" letter-spacing="-1.68000007" fill="#31BEF8">
-                                    <tspan x="119.641117" y="122">3.3%</tspan>
-                                </text>
-                            </g>
-                        </g>
-                        <g id="videos" transform="translate(112.408257, 248.000000)">
-                            <g id="Button">
-                                <g id="-&gt;">
-                                    <g id="Group-10">
-                                        <g id="surf_1800x1200_2" opacity="0.408465485" transform="translate(12.428738, 12.561408)">
-                                            <mask id="mask-24" fill="white">
-                                                <use xlink:href="#path-23"></use>
-                                            </mask>
-                                            <use id="Mask" fill="#072036" xlink:href="#path-23"></use>
-                                        </g>
-                                        <g id="as_surf_slater_2048" opacity="0.411963619" transform="translate(207.922428, 12.561408)">
-                                            <mask id="mask-26" fill="white">
-                                                <use xlink:href="#path-25"></use>
-                                            </mask>
-                                            <use id="Mask" fill="#0C2840" xlink:href="#path-25"></use>
-                                        </g>
-                                        <g id="India_Surf_Tours_-_17__1_" filter="url(#filter-27)" opacity="0.647644928" transform="translate(78.197476, 0.000000)">
-                                            <mask id="mask-29" fill="white">
-                                                <use xlink:href="#path-28"></use>
-                                            </mask>
-                                            <use id="Mask" fill="#163A59" xlink:href="#path-28"></use>
-                                        </g>
-                                        <rect id="Rectangle-117" fill="#0D1F2D" x="78.1974759" y="84.4291349" width="168.564758" height="1.23554832"></rect>
-                                        <ellipse id="Oval-71" fill="#F4A657" cx="80.2689323" cy="84.8409843" rx="3.10718447" ry="2.47109663"></ellipse>
-                                        <polygon id="Stroke-3904-Copy" fill="#FFFFFF" points="79.6216022 85.8706079 79.6216022 83.8113607 81.5635925 84.8409843"></polygon>
-                                        <path d="M163.885,28 C169.896489,28 174.77,32.8728143 174.77,38.8834432 C174.77,44.894072 169.896489,49.7668863 163.885,49.7668863 C157.873511,49.7668863 153,44.894072 153,38.8834432 C153,32.8728143 157.873511,28 163.885,28 Z" id="Stroke-3901" fill="#FFBB00" opacity="0.263215174"></path>
-                                        <polygon id="Stroke-3904" fill="#FFFFFF" opacity="0.504812047" points="161.916042 41.449934 161.916042 35.7961973 167.247846 38.6230657"></polygon>
-                                        <polygon id="Polygon-1" stroke-opacity="0.203699449" stroke="#FFFFFF" stroke-linecap="square" fill="#081F38" opacity="0.356576493" points="12.9301618 26.7702135 25.8603237 36.8927005 12.9301618 47.0151875 0 36.8927005"></polygon>
-                                        <polygon id="Polygon-1-Copy" stroke-opacity="0.203699449" stroke="#FFFFFF" stroke-linecap="square" fill="#081F38" opacity="0.356576493" transform="translate(315.362784, 36.892700) scale(-1, 1) translate(-315.362784, -36.892700) " points="315.362784 26.7702135 328.292946 36.8927005 315.362784 47.0151875 302.432622 36.8927005"></polygon>
-                                        <polyline id="Path-122" stroke="#FFFFFF" stroke-width="2" opacity="0.500668025" transform="translate(11.973552, 36.754294) scale(-1, 1) translate(-11.973552, -36.754294) " points="10.3572816 34.1835034 13.589822 36.7542937 10.3572816 39.3250841"></polyline>
-                                        <polyline id="Path-122-Copy" stroke="#FFFFFF" stroke-width="2" opacity="0.498811141" points="314.343496 34.1835034 317.576036 36.7542937 314.343496 39.3250841"></polyline>
-                                    </g>
-                                </g>
-                            </g>
-                        </g>
-                        <g id="Header" transform="translate(35.248445, 16.113196)">
-                            <path d="M248.028404,11.0040112 L486.929745,11.0040112" id="Line" stroke="#FFFFFF" stroke-linecap="square" opacity="0.2"></path>
-                            <path d="M247.929612,11.0040112 L289.595848,11.0040112" id="Line" stroke="#31BEF8" stroke-linecap="square"></path>
-                            <text id="LOREM-IPSUM" font-family="AvenirNext-Regular, Avenir Next" font-size="4" font-weight="normal" letter-spacing="0.857142925" fill="#FFFFFF">
-                                <tspan x="247.697248" y="6">LOREM IPSUM</tspan>
-                            </text>
-                            <text id="LOREM-IPSUM" font-family="AvenirNext-Regular, Avenir Next" font-size="4" font-weight="normal" letter-spacing="0.857142925" fill="#FFFFFF">
-                                <tspan x="313.412844" y="6">LOREM IPSUM</tspan>
-                            </text>
-                            <text id="LOREM-IPSUM" font-family="AvenirNext-Regular, Avenir Next" font-size="4" font-weight="normal" letter-spacing="0.857142925" fill="#FFFFFF">
-                                <tspan x="377.864679" y="6">LOREM IPSUM</tspan>
-                            </text>
-                            <text id="LOREM-IPSUM" font-family="AvenirNext-Regular, Avenir Next" font-size="4" font-weight="normal" letter-spacing="0.857142925" fill="#FFFFFF">
-                                <tspan x="442.316514" y="6">LOREM IPSUM</tspan>
-                            </text>
-                            <text id="COMPANY-NAME" font-family="Roboto-Black, Roboto" font-size="14" font-weight="700" letter-spacing="-0.202999994" fill="#FFFFFF">
-                                <tspan x="0" y="13">COMPANY NAME</tspan>
-                            </text>
-                        </g>
-                    </g>
-                    <rect id="Rectangle-Copy-4" fill-opacity="0.599999964" fill="#000000" x="89" y="260" width="548.738532" height="115"></rect>
-                    <rect id="Rectangle-Copy-5" fill-opacity="0.599999964" fill="#000000" x="88.2614679" y="31" width="548.738532" height="164"></rect>
-                    <rect id="Rectangle-Copy-6" fill-opacity="0.599999964" fill="#000000" x="88" y="195" width="223" height="65"></rect>
-                    <rect id="Rectangle-Copy-7" fill-opacity="0.599999964" fill="#000000" x="434" y="195" width="203" height="65"></rect>
-                    <g id="Group-Copy" transform="translate(107.000000, 336.000000)">
-                        <ellipse id="Oval" fill="url(#linearGradient-30)" cx="10.5" cy="10" rx="10.2162162" ry="10"></ellipse>
-                        <polyline id="Path-2" stroke="#FFFFFF" stroke-width="1.5" points="11.9189189 5.55555556 15.3243243 5.55555556 15.3243243 8.88888889"></polyline>
-                        <polyline id="Path-2-Copy-3" stroke="#FFFFFF" stroke-width="1.5" points="11.9189189 14.4444444 15.3243243 14.4444444 15.3243243 11.1111111"></polyline>
-                        <polyline id="Path-2-Copy" stroke="#FFFFFF" stroke-width="1.5" points="9.08108108 5.55555556 5.67567568 5.55555556 5.67567568 8.88888889"></polyline>
-                        <polyline id="Path-2-Copy-2" stroke="#FFFFFF" stroke-width="1.5" points="9.08108108 14.4444444 5.67567568 14.4444444 5.67567568 11.1111111"></polyline>
-                        <path d="M10.5,8.57311411 L10.5,11.3508919" id="Line" stroke="#FFFFFF" stroke-linecap="square"></path>
-                        <path d="M9.08108108,10 L11.9189189,10" id="Line" stroke="#FFFFFF" stroke-linecap="square"></path>
-                    </g>
-                    <g id="Group-4-Copy" transform="translate(291.000000, 75.000000)">
-                        <g id="Rectangle-1-Copy-3">
-                            <use fill="black" fill-opacity="1" filter="url(#filter-32)" xlink:href="#path-31"></use>
-                            <use stroke-opacity="0.455134737" stroke="#979797" mask="url(#mask-33)" stroke-width="2" fill="#FFFDFD" fill-rule="evenodd" xlink:href="#path-31"></use>
-                        </g>
-                        <use id="Rectangle-3-Copy" stroke="#979797" mask="url(#mask-35)" fill="#FFFFFF" xlink:href="#path-34"></use>
-                        <g id="Group-3" transform="translate(84.000000, 94.000000)">
-                            <rect id="Rectangle-3-Copy-3" fill="url(#linearGradient-30)" x="0" y="0" width="72" height="14" rx="1.5"></rect>
-                            <text id="Submit-Feedback" font-family="HelveticaNeue-Medium, HelveticaNeue" font-size="7" font-weight="500" fill="#FFFFFF">
-                                <tspan x="7.0415" y="9">Submit Feedback</tspan>
-                            </text>
-                        </g>
-                        <text id="Message-Title" font-family="HelveticaNeue, Helvetica Neue" font-size="9" font-weight="normal" letter-spacing="-0.0799999982" fill="#9B9B9B">
-                            <tspan x="16" y="20">Message Title</tspan>
+    <g id="Group" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(270.000000, 159.000000)">
+        <g id="Group-Copy-2">
+            <g id="Group-2" filter="url(#filter-1)">
+                <g id="shadow" opacity="0.1" filter="url(#filter-3)" fill-opacity="1" fill="black">
+                    <use filter="url(#filter-4)" xlink:href="#path-2"></use>
+                </g>
+                <g id="top">
+                    <use fill="#EFEFEF" fill-rule="evenodd" xlink:href="#path-6"></use>
+                    <use fill-opacity="0.1" fill="url(#linearGradient-5)" fill-rule="evenodd" style="mix-blend-mode: multiply;" xlink:href="#path-6"></use>
+                    <use stroke-opacity="0.25" stroke="#FFFFFF" mask="url(#mask-7)" stroke-width="7.5" xlink:href="#path-6"></use>
+                </g>
+                <mask id="mask-9" fill="white">
+                    <use xlink:href="#path-8"></use>
+                </mask>
+                <use id="screen" fill="#2B2B2B" xlink:href="#path-8"></use>
+                <mask id="mask-12" fill="white">
+                    <use xlink:href="#path-10"></use>
+                </mask>
+                <g id="screen" stroke="#000000" mask="url(#mask-11)" stroke-width="2.5">
+                    <use mask="url(#mask-13)" xlink:href="#path-10"></use>
+                </g>
+                <path d="M727,406.038781 C727,406.038781 702.994433,417.878053 643.2496,417.207756 C642.985089,417.878053 442.016,420 364.0816,420 C284.984,420 84.0149115,417.878053 83.7504,417.207756 C24.0055671,417.878053 0,406.038781 0,406.038781 L727,406.038781 Z" id="bottom" fill="url(#linearGradient-14)"></path>
+                <g id="bottomfront">
+                    <use fill="#F3F3F3" fill-rule="evenodd" xlink:href="#path-16"></use>
+                    <use fill-opacity="0.02" fill="url(#linearGradient-15)" fill-rule="evenodd" style="mix-blend-mode: multiply;" xlink:href="#path-16"></use>
+                    <use fill="black" fill-opacity="1" filter="url(#filter-17)" xlink:href="#path-16"></use>
+                </g>
+                <g id="shadows">
+                    <use fill="#FAFAFA" xlink:href="#path-21"></use>
+                    <use fill-opacity="0.03" fill="url(#linearGradient-18)" style="mix-blend-mode: multiply;" xlink:href="#path-21"></use>
+                    <use fill-opacity="0.04" fill="url(#linearGradient-19)" style="mix-blend-mode: multiply;" xlink:href="#path-21"></use>
+                    <use fill-opacity="0.3" fill="url(#linearGradient-20)" style="mix-blend-mode: soft-light;" xlink:href="#path-21"></use>
+                </g>
+            </g>
+            <g id="Group-2-Copy" transform="translate(87.000000, 31.000000)">
+                <g id="Background" fill="url(#linearGradient-22)">
+                    <rect id="Rectangle-127" x="0.633333333" y="0" width="549.262735" height="343.384948"></rect>
+                </g>
+                <g id="Hero-content" transform="translate(49.000000, 75.000000)">
+                    <g id="Group-9">
+                        <text id="Collaboratively-admi" opacity="0.6" font-family="AvenirNext-Regular, Avenir Next" font-size="10" font-weight="normal" letter-spacing="-0.129999965" fill="#FFFFFF">
+                            <tspan x="62.5835701" y="60">Collaboratively administrate empowered markets via plug-and-play networks. </tspan>
+                            <tspan x="90.2035703" y="74">Dynamically procrastinate B2C users after installed base benefits. </tspan>
                         </text>
-                        <use id="Rectangle-3-Copy-2" stroke="#979797" mask="url(#mask-37)" fill="#FFFFFF" xlink:href="#path-36"></use>
-                        <text id="Our-numbers-went-up" font-family="HelveticaNeue, Helvetica Neue" font-size="9" font-weight="normal" letter-spacing="-0.0799999982" fill="#4A4A4A">
-                            <tspan x="16" y="44">Our numbers went up this year, </tspan>
-                            <tspan x="16" y="55">please change this to 65 to </tspan>
-                            <tspan x="16" y="66">reflect that.</tspan>
+                        <text id="LOREM-IPSUM" font-family="AvenirNext-UltraLight, Avenir Next" font-size="30" font-weight="200" letter-spacing="-1.00088465" fill="#FFFFFF">
+                            <tspan x="138.460159" y="30">LOREM IPSUM</tspan>
+                        </text>
+                        <text id="LOREM-IPSUM" font-family="AvenirNext-Regular, Avenir Next" font-size="6" font-weight="normal" letter-spacing="0.75" fill="#FFFFFF">
+                            <tspan x="209.054995" y="136">LOREM IPSUM</tspan>
+                        </text>
+                        <text id="59" font-family="AvenirNext-UltraLight, Avenir Next" font-size="21" font-weight="200" letter-spacing="-1.68000007" fill="#31BEF8">
+                            <tspan x="223.421137" y="122">59</tspan>
+                        </text>
+                        <text id="LOREM-IPSUM" font-family="AvenirNext-Regular, Avenir Next" font-size="6" font-weight="normal" letter-spacing="0.75" fill="#FFFFFF">
+                            <tspan x="302.054995" y="136">LOREM IPSUM</tspan>
+                        </text>
+                        <text id="60%" font-family="AvenirNext-UltraLight, Avenir Next" font-size="21" font-weight="200" letter-spacing="-1.68000007" fill="#31BEF8">
+                            <tspan x="307.722441" y="122">60%</tspan>
+                        </text>
+                        <text id="LOREM-IPSUM" font-family="AvenirNext-Regular, Avenir Next" font-size="6" font-weight="normal" letter-spacing="0.75" fill="#FFFFFF">
+                            <tspan x="407.012138" y="136">LOREM IPSUM</tspan>
+                        </text>
+                        <text id="LOREM-IPSUM-Copy" font-family="AvenirNext-Regular, Avenir Next" font-size="6" font-weight="normal" letter-spacing="0.75" fill="#FFFFFF">
+                            <tspan x="9.76928092" y="136">LOREM IPSUM</tspan>
+                        </text>
+                        <text id="50%" font-family="AvenirNext-UltraLight, Avenir Next" font-size="21" font-weight="200" letter-spacing="-1.68000007" fill="#31BEF8">
+                            <tspan x="412.679584" y="122">50%</tspan>
+                        </text>
+                        <text id="50%-copy" font-family="AvenirNext-UltraLight, Avenir Next" font-size="21" font-weight="200" letter-spacing="-1.68000007" fill="#31BEF8">
+                            <tspan x="15.436727" y="122">50%</tspan>
+                        </text>
+                        <text id="LOREM-IPSUM" font-family="AvenirNext-Regular, Avenir Next" font-size="6" font-weight="normal" letter-spacing="0.75" fill="#FFFFFF">
+                            <tspan x="114.726424" y="136">LOREM IPSUM</tspan>
+                        </text>
+                        <text id="3.3%" font-family="AvenirNext-UltraLight, Avenir Next" font-size="21" font-weight="200" letter-spacing="-1.68000007" fill="#31BEF8">
+                            <tspan x="119.641117" y="122">3.3%</tspan>
                         </text>
                     </g>
                 </g>
+                <g id="videos" transform="translate(112.408257, 248.000000)">
+                    <g id="Button">
+                        <g id="-&gt;">
+                            <g id="Group-10">
+                                <g id="surf_1800x1200_2" opacity="0.408465485" transform="translate(12.428738, 12.561408)">
+                                    <mask id="mask-24" fill="white">
+                                        <use xlink:href="#path-23"></use>
+                                    </mask>
+                                    <use id="Mask" fill="#072036" xlink:href="#path-23"></use>
+                                </g>
+                                <g id="as_surf_slater_2048" opacity="0.411963619" transform="translate(207.922428, 12.561408)">
+                                    <mask id="mask-26" fill="white">
+                                        <use xlink:href="#path-25"></use>
+                                    </mask>
+                                    <use id="Mask" fill="#0C2840" xlink:href="#path-25"></use>
+                                </g>
+                                <g id="India_Surf_Tours_-_17__1_" filter="url(#filter-27)" opacity="0.647644928" transform="translate(78.197476, 0.000000)">
+                                    <mask id="mask-29" fill="white">
+                                        <use xlink:href="#path-28"></use>
+                                    </mask>
+                                    <use id="Mask" fill="#163A59" xlink:href="#path-28"></use>
+                                </g>
+                                <rect id="Rectangle-117" fill="#0D1F2D" x="78.1974759" y="84.4291349" width="168.564758" height="1.23554832"></rect>
+                                <ellipse id="Oval-71" fill="#F4A657" cx="80.2689323" cy="84.8409843" rx="3.10718447" ry="2.47109663"></ellipse>
+                                <polygon id="Stroke-3904-Copy" fill="#FFFFFF" points="79.6216022 85.8706079 79.6216022 83.8113607 81.5635925 84.8409843"></polygon>
+                                <path d="M163.885,28 C169.896489,28 174.77,32.8728143 174.77,38.8834432 C174.77,44.894072 169.896489,49.7668863 163.885,49.7668863 C157.873511,49.7668863 153,44.894072 153,38.8834432 C153,32.8728143 157.873511,28 163.885,28 Z" id="Stroke-3901" fill="#FFBB00" opacity="0.263215174"></path>
+                                <polygon id="Stroke-3904" fill="#FFFFFF" opacity="0.504812047" points="161.916042 41.449934 161.916042 35.7961973 167.247846 38.6230657"></polygon>
+                                <polygon id="Polygon-1" stroke-opacity="0.203699449" stroke="#FFFFFF" stroke-linecap="square" fill="#081F38" opacity="0.356576493" points="12.9301618 26.7702135 25.8603237 36.8927005 12.9301618 47.0151875 0 36.8927005"></polygon>
+                                <polygon id="Polygon-1-Copy" stroke-opacity="0.203699449" stroke="#FFFFFF" stroke-linecap="square" fill="#081F38" opacity="0.356576493" transform="translate(315.362784, 36.892700) scale(-1, 1) translate(-315.362784, -36.892700) " points="315.362784 26.7702135 328.292946 36.8927005 315.362784 47.0151875 302.432622 36.8927005"></polygon>
+                                <polyline id="Path-122" stroke="#FFFFFF" stroke-width="2" opacity="0.500668025" transform="translate(11.973552, 36.754294) scale(-1, 1) translate(-11.973552, -36.754294) " points="10.3572816 34.1835034 13.589822 36.7542937 10.3572816 39.3250841"></polyline>
+                                <polyline id="Path-122-Copy" stroke="#FFFFFF" stroke-width="2" opacity="0.498811141" points="314.343496 34.1835034 317.576036 36.7542937 314.343496 39.3250841"></polyline>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+                <g id="Header" transform="translate(35.248445, 16.113196)">
+                    <path d="M248.028404,11.0040112 L486.929745,11.0040112" id="Line" stroke="#FFFFFF" stroke-linecap="square" opacity="0.2"></path>
+                    <path d="M247.929612,11.0040112 L289.595848,11.0040112" id="Line" stroke="#31BEF8" stroke-linecap="square"></path>
+                    <text id="LOREM-IPSUM" font-family="AvenirNext-Regular, Avenir Next" font-size="4" font-weight="normal" letter-spacing="0.857142925" fill="#FFFFFF">
+                        <tspan x="247.697248" y="6">LOREM IPSUM</tspan>
+                    </text>
+                    <text id="LOREM-IPSUM" font-family="AvenirNext-Regular, Avenir Next" font-size="4" font-weight="normal" letter-spacing="0.857142925" fill="#FFFFFF">
+                        <tspan x="313.412844" y="6">LOREM IPSUM</tspan>
+                    </text>
+                    <text id="LOREM-IPSUM" font-family="AvenirNext-Regular, Avenir Next" font-size="4" font-weight="normal" letter-spacing="0.857142925" fill="#FFFFFF">
+                        <tspan x="377.864679" y="6">LOREM IPSUM</tspan>
+                    </text>
+                    <text id="LOREM-IPSUM" font-family="AvenirNext-Regular, Avenir Next" font-size="4" font-weight="normal" letter-spacing="0.857142925" fill="#FFFFFF">
+                        <tspan x="442.316514" y="6">LOREM IPSUM</tspan>
+                    </text>
+                    <text id="COMPANY-NAME" font-family="Roboto-Black, Roboto" font-size="14" font-weight="700" letter-spacing="-0.202999994" fill="#FFFFFF">
+                        <tspan x="0" y="13">COMPANY NAME</tspan>
+                    </text>
+                </g>
+            </g>
+            <rect id="Rectangle-Copy-4" fill-opacity="0.599999964" fill="#000000" x="89" y="260" width="548.738532" height="115"></rect>
+            <rect id="Rectangle-Copy-5" fill-opacity="0.599999964" fill="#000000" x="88.2614679" y="31" width="548.738532" height="164"></rect>
+            <rect id="Rectangle-Copy-6" fill-opacity="0.599999964" fill="#000000" x="88" y="195" width="223" height="65"></rect>
+            <rect id="Rectangle-Copy-7" fill-opacity="0.599999964" fill="#000000" x="434" y="195" width="203" height="65"></rect>
+            <g id="Group-Copy" transform="translate(107.000000, 336.000000)">
+                <ellipse id="Oval" fill="url(#linearGradient-30)" cx="10.5" cy="10" rx="10.2162162" ry="10"></ellipse>
+                <polyline id="Path-2" stroke="#FFFFFF" stroke-width="1.5" points="11.9189189 5.55555556 15.3243243 5.55555556 15.3243243 8.88888889"></polyline>
+                <polyline id="Path-2-Copy-3" stroke="#FFFFFF" stroke-width="1.5" points="11.9189189 14.4444444 15.3243243 14.4444444 15.3243243 11.1111111"></polyline>
+                <polyline id="Path-2-Copy" stroke="#FFFFFF" stroke-width="1.5" points="9.08108108 5.55555556 5.67567568 5.55555556 5.67567568 8.88888889"></polyline>
+                <polyline id="Path-2-Copy-2" stroke="#FFFFFF" stroke-width="1.5" points="9.08108108 14.4444444 5.67567568 14.4444444 5.67567568 11.1111111"></polyline>
+                <path d="M10.5,8.57311411 L10.5,11.3508919" id="Line" stroke="#FFFFFF" stroke-linecap="square"></path>
+                <path d="M9.08108108,10 L11.9189189,10" id="Line" stroke="#FFFFFF" stroke-linecap="square"></path>
+            </g>
+            <g id="Group-4-Copy" transform="translate(291.000000, 75.000000)">
+                <g id="Rectangle-1-Copy-3">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-32)" xlink:href="#path-31"></use>
+                    <use stroke-opacity="0.455134737" stroke="#979797" mask="url(#mask-33)" stroke-width="2" fill="#FFFDFD" fill-rule="evenodd" xlink:href="#path-31"></use>
+                </g>
+                <use id="Rectangle-3-Copy" stroke="#979797" mask="url(#mask-35)" fill="#FFFFFF" xlink:href="#path-34"></use>
+                <g id="Group-3" transform="translate(84.000000, 94.000000)">
+                    <rect id="Rectangle-3-Copy-3" fill="url(#linearGradient-30)" x="0" y="0" width="72" height="14" rx="1.5"></rect>
+                    <text id="Submit-Feedback" font-family="Helvetica" font-size="7" font-weight="normal" fill="#FFFFFF">
+                        <tspan x="9.26391602" y="9.5">Submit Feedback</tspan>
+                    </text>
+                </g>
+                <text id="Message-Title" font-family="HelveticaNeue, Helvetica Neue" font-size="9" font-weight="normal" letter-spacing="-0.0799999982" fill="#9B9B9B">
+                    <tspan x="16" y="20">Message Title</tspan>
+                </text>
+                <use id="Rectangle-3-Copy-2" stroke="#979797" mask="url(#mask-37)" fill="#FFFFFF" xlink:href="#path-36"></use>
+                <text id="Our-numbers-went-up" font-family="HelveticaNeue, Helvetica Neue" font-size="9" font-weight="normal" letter-spacing="-0.0799999982" fill="#4A4A4A">
+                    <tspan x="16" y="44">Our numbers went up this year, </tspan>
+                    <tspan x="16" y="55">please change this to 65 to </tspan>
+                    <tspan x="16" y="66">reflect that.</tspan>
+                </text>
             </g>
         </g>
     </g>
