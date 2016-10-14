@@ -13,7 +13,7 @@ const Signin = () => (
   <Grid>
     <Row>
       <Col md={6} mdOffset={3}>
-        <Panel 
+        <Panel
           header="Welcome Back!"
           className="signup-form-container"
         >
