@@ -20,17 +20,29 @@ const createIssue = (params, body) => new Promise((resolve, reject) => {
     body: {
       title: body.title,
       body:
-        `![alt text](${body.screenshot})\n`
-        + `## Annotation\n`
-        + `* to: ${body.to}\n`
-        + `* from: ${body.from}\n`
-        + `* comment: ${body.comment}\n`
-        + `* file url (if attachment included): ${body.url} `
-        + `![attachment](${body.attachment})`
+        + `**to:** ${body.to}\n`
+        + `**from:** ${body.from}\n`
+        + `**subject:** ${body.title}\n` 
+        + `**body:** ${body.comment}\n`
+        + `---\n`
+        + `**Attachments and screenshots (if provided):**\n`
+        + `![attachment](${body.attachment})\n`
+        + `![alt text](${body.screenshot})\n`
     },
     json: true
   };
 
+-----------------------------
+
+**To:** Sender Name
+**From:** Recipient
+**Subject:** Message Title
+**Body:** Message Body
+
+---
+Images and Attachments
+
+-----------------------------
   request(options, (err) => {
     if (err) {
       reject(err);
