@@ -4,6 +4,7 @@
   padding:5em;
   display:block;
 
+
   h1 {
     margin: 3em;
     text-align: center;
@@ -192,7 +193,7 @@
     border: 2px solid $red-text-color;
 
     &:hover {
-      color:$red-text-color
+      color: $red-text-color;
       background-color: white;
       box-shadow: 0 0 0 4px $active-button-color;
       font-weight:700;
