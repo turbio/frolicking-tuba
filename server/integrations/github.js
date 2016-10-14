@@ -32,17 +32,6 @@ const createIssue = (params, body) => new Promise((resolve, reject) => {
     json: true
   };
 
------------------------------
-
-**To:** Sender Name
-**From:** Recipient
-**Subject:** Message Title
-**Body:** Message Body
-
----
-Images and Attachments
-
------------------------------
   request(options, (err) => {
     if (err) {
       reject(err);
