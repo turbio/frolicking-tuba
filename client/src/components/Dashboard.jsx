@@ -36,17 +36,16 @@ class Dashboard extends Component {
         </Row>
         <Row>
           <Col>
-          {
-            this.props.keys.map((key) => (
-              <Key
-                title={key.name}
-                endpoint={key.endpoint}
-                keyString={key.key}
-                key={key.key + key.updatedAt}
-              />
-            )
-           )
-          }
+            {
+              this.props.keys.map((key) => (
+                <Key
+                  title={key.name}
+                  endpoint={key.endpoint}
+                  keyString={key.key}
+                  key={key.key + key.updatedAt}
+                />
+              ))
+            }
           </Col>
         </Row>
       </Grid>
