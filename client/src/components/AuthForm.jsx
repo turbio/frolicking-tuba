@@ -52,7 +52,7 @@ class AuthForm extends Component {
             action="submit"
             className="btn btn-primary"
           >
-            Sign Up
+            Submit
           </button>
         </form>
       </div>
