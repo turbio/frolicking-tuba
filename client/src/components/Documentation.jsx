@@ -3,10 +3,9 @@ import {
   Row,
   Col,
   Grid,
-  Table,
-  Image
+  Table
 } from 'react-bootstrap';
-import Highlight from 'react-highlight'
+import Highlight from 'react-highlight';
 // import Swagger from 'swagger-client';
 // import AutoAffix from 'react-overlays';
 // import Waypoint from 'react-waypoint';
@@ -14,7 +13,8 @@ import Highlight from 'react-highlight'
 // import { Nav, NavItem } from 'react-bootstrap';
 //import Scrollspy from 'react-scrollspy';
 
-const script1 = "<script src=\"http://getmarkup.com/script.js?key=a22e4697e8255a183b74ba94586e8765\"></script>";
+const script1 = "<script src=\"http://getmarkup.com/script.js?" //eslint-disable-line
+  + "key=a22e4697e8255a183b74ba94586e8765\"></script>"; // eslint-disable-line
 const script2 = `{
   "method": "POST",
     "body": {
@@ -27,8 +27,8 @@ const script2 = `{
       "screenshot": "screenshot file or url to screenshot file sent",
       "location": "string",
     }
-}`;
-const bodyTag = `<body>`;
+}`; // eslint-disable-line
+const bodyTag = '<body>';
 
 const Documentation = () => (
   <div>
@@ -37,26 +37,33 @@ const Documentation = () => (
         <Col md={12}>
           <h2 className="docsHeading">Introduction</h2>
           <p className="docsPara">
-            Enable commenting directly on your website, and integrate with Github Issues or a custom endpoint of your choosing.
+            Enable commenting directly on your website,
+            and integrate with Github Issues or a custom endpoint
+            of your choosing.
           </p>
         </Col>
         <Col md={12}>
           <h2 className="docsHeading">Client-Side</h2>
           <p className="docsPara">
-            Copy and paste our provided tag right before the closing <code>{bodyTag}</code> tag of a desired page.
+            Copy and paste our provided tag right before the closing
+            <code>{bodyTag}</code> tag of a desired page.
           </p>
           <Highlight>{script1}</Highlight>
         </Col>
         <Col md={12}>
           <h2 className="docsHeading">Output option: Github Issues</h2>
           <p className="docsPara">
-            We take care of this for you!  When you create your key, you'll have the option to authorize Github, and choose the repo.<br />
+            We take care of this for you!
+            When you create your key, you'll have the option
+            to authorize Github, and choose the repo.<br />
           </p>
         </Col>
         <Col md={12}>
           <h2 className="docsHeading">Output option: Custom API Endpoint</h2>
           <p className="docsPara">
-            If you want to configure an endpoint to integrate with a workflow other than github.  Here is an example response in JSON format to your specified URL.<br />
+            If you want to configure an endpoint to integrate with a workflow
+            other than github.  Here is an example response in JSON format to
+            your specified URL.<br />
           </p>
           <Table striped condensed hover>
             <thead>
@@ -82,11 +89,13 @@ const Documentation = () => (
               </tr>
               <tr>
                 <td>file</td>
-                <td>String URL of file uploaded by the commmeting user (if provided).</td>
+                <td>String URL of file uploaded by the
+                commmeting user (if provided).</td>
               </tr>
               <tr>
                 <td>file</td>
-                <td>String URL of file uploaded by the commmeting user (if provided).</td>
+                <td>String URL of file uploaded by the
+                commmeting user (if provided).</td>
               </tr>
               <tr>
                 <td>key</td>
@@ -94,11 +103,13 @@ const Documentation = () => (
               </tr>
               <tr>
                 <td>screenshot</td>
-                <td>String URL of screenshot uploaded by the commmeting user (if provided).</td>
+                <td>String URL of screenshot uploaded by the
+                commmeting user (if provided).</td>
               </tr>
               <tr>
                 <td>location</td>
-                <td>String URL of the active web page where the user comment originated.</td>
+                <td>String URL of the active web page where the
+                user comment originated.</td>
               </tr>
             </tbody>
           </Table>
