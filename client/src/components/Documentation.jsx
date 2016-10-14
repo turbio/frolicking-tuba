@@ -3,7 +3,8 @@ import {
   Row,
   Col,
   Grid,
-  Table
+  Table,
+  Image
 } from 'react-bootstrap';
 import Highlight from 'react-highlight'
 // import Swagger from 'swagger-client';
@@ -34,6 +35,12 @@ const Documentation = () => (
     <Grid>
       <Row>
         <Col md={12}>
+          <h2 className="docsHeading">Introduction</h2>
+          <p className="docsPara">
+            Enable commenting directly on your website, and integrate with Github Issues or a custom endpoint of your choosing.
+          </p>
+        </Col>
+        <Col md={12}>
           <h2 className="docsHeading">Client-Side</h2>
           <p className="docsPara">
             Copy and paste our provided tag right before the closing <code>{bodyTag}</code> tag of a desired page.
@@ -41,11 +48,17 @@ const Documentation = () => (
           <Highlight>{script1}</Highlight>
         </Col>
         <Col md={12}>
-          <h2 className="docsHeading">Server-Side</h2>
+          <h2 className="docsHeading">Output option: Github Issues</h2>
+          <p className="docsPara">
+            We take care of this for you!  When you create your key, you'll have the option to authorize Github, and choose the repo.<br />
+          </p>
+        </Col>
+        <Col md={12}>
+          <h2 className="docsHeading">Output option: Custom API Endpoint</h2>
           <p className="docsPara">
             If you want to configure an endpoint to integrate with a workflow other than github.  Here is an example response in JSON format to your specified URL.<br />
           </p>
-          <Table striped bordered condensed hover>
+          <Table striped condensed hover>
             <thead>
               <td><strong>Field Name</strong></td>
               <td><strong>Description</strong></td>
