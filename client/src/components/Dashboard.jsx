@@ -37,7 +37,7 @@ class Dashboard extends Component {
                 title={key.name}
                 endpoint={key.endpoint}
                 keyString={key.key}
-                key={key.key}
+                key={key.key + key.updatedAt}
               />
             )
            )
