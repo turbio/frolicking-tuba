@@ -20,9 +20,9 @@ const createIssue = (params, body) => new Promise((resolve, reject) => {
     body: {
       title: body.title,
       body:
-        + `**to:** ${body.to}\n`
+        + `**to:** ${body.to}\n` // eslint-disable-line
         + `**from:** ${body.from}\n`
-        + `**subject:** ${body.title}\n` 
+        + `**subject:** ${body.title}\n`
         + `**body:** ${body.comment}\n`
         + `---\n`
         + `**Attachments and screenshots (if provided):**\n`
