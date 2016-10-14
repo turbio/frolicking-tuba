@@ -32,7 +32,7 @@ const Key = ({ title, endpoint, keyString, showEditModal }) => {
     <Panel
       header={
         <div>
-          <Title text={title} />
+          <Title text={title} id="apikeyname" />
           <Button
             bsStyle="link"
             onClick={onSettingsClick}
