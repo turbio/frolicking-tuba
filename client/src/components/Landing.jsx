@@ -1,4 +1,6 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
+
 import {
   Row,
   Col,
@@ -18,8 +20,18 @@ const Landing = () => (
         <h1>API For Gathering Visual Feedback</h1>
         <p>{homeParagraph}</p>
         <p>
-          <Button bsStyle="primary" className="fill">Sign Up </Button>
-          <Button bsStyle="primary" className="outline">Read Docs </Button>
+          <Button
+            bsStyle="primary"
+            className="fill"
+            onClick={() => browserHistory.push('/signup')}
+          > Sign Up
+          </Button>
+          <Button
+            bsStyle="primary"
+            className="outline"
+            onClick={() => browserHistory.push('/documentation')}
+          >Read Docs
+          </Button>
         </p>
       </Col>
       <Col
@@ -91,8 +103,18 @@ const Landing = () => (
         </div>
       </Col>
     </Row>
-    <Row id="pricing" className="landing-section">
-      <h1>Pricing</h1>
+    <Row className="final-cta">
+      <h1>Get Started Free</h1>
+      <Button
+        className="fill"
+        onClick={() => browserHistory.push('/signup')}
+      > Sign Up Now
+      </Button>
+      <Button
+        className="outline"
+        onClick={() => browserHistory.push('/documentation')}
+      >Read The Docs
+      </Button>
     </Row>
   </Grid>
 );

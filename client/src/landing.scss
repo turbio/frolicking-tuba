@@ -2,6 +2,8 @@
   height: 70vh;
   text-align: center;
   padding:5em;
+  display:block;
+
 
   h1 {
     margin: 3em;
@@ -24,28 +26,6 @@
   width: 100vw;
 }
 
-#use-cases {
-  background-image: linear-gradient(-180deg,
-    rgba(216,216,216,0.21) 0%,
-    rgba(155,155,155,0.21) 53%,
-    rgba(216,216,216,0.21) 100%);
-  background-size:100%;
-  z-index:-1;
-
-  margin-bottom:10em;
-
-  .tile {
-    -webkit-box-shadow: 0 8px 21px -6px rgba(0,0,0,0.4);
-    -moz-box-shadow: 0 8px 21px -6px rgba(0,0,0,0.4);
-    box-shadow: 0 8px 21px -6px rgba(0,0,0,0.4);
-    margin:4em;
-    background-color:white;
-  }
-
-  p {
-    padding: 1em 0.5em;
-  }
-}
 
 #above-the-fold {
   position: relative;
@@ -114,9 +94,9 @@
     border: 2px solid nth($light-colors, 1);
 
     &:hover {
-      background-color: $active-button-color;
       color: nth($light-colors, 1);
       box-shadow: 0 0 0 4px $active-button-color;
+      font-weight:700;
     }
   }
 
@@ -147,7 +127,88 @@
   }
 }
 
+#use-cases {
+  background-image: linear-gradient(-180deg,
+    rgba(216,216,216,0.21) 0%,
+    rgba(155,155,155,0.21) 53%,
+    rgba(216,216,216,0.21) 100%);
+  background-size:100%;
+  z-index:-1;
+
+  margin-bottom:5em;
+
+  h1 {
+    text-align:left
+  }
+  .tile {
+    -webkit-box-shadow: 0 8px 21px -6px rgba(0,0,0,0.4);
+    -moz-box-shadow: 0 8px 21px -6px rgba(0,0,0,0.4);
+    box-shadow: 0 8px 21px -6px rgba(0,0,0,0.4);
+    margin: 0em 2em 4em 2em;
+    background-color:white;
+  }
+
+  p {
+    padding: 0em 0.5em 1em 0.5em;
+    color: nth($dark-colors, 2);
+    text-align: left;
+
+  }
+
+  h4 {
+    padding: 1em 0.5em 0em 0.5em;
+    color: nth($dark-colors,1);
+    text-align: left;
+    margin-left:2.2em
+  }
+
+}
 
 
-#pricing {
+
+.final-cta {
+  height: 40vh;
+  text-align: center;
+  padding:2em;
+
+  h1 {
+    margin: 2em;
+    text-align: center;
+  }
+
+  button {
+    height: 3em;
+    font-family: 'Cabin';
+    font-size: 1em;
+    font-weight: 600;
+    display:block;
+    margin: 1em auto;
+
+    color: $red-text-color;
+
+    border-radius: .65em;
+    width: 30em;
+
+    background: transparent;
+    border: 2px solid $red-text-color;
+
+    &:hover {
+      color: $red-text-color;
+      background-color: white;
+      box-shadow: 0 0 0 4px $active-button-color;
+      font-weight:700;
+    }
+  }
+
+  button.fill {
+    color: white;
+    background: $primary-gradient;
+    border: transparent;
+
+    &:hover {
+      box-shadow: 0 0 0 4px $active-button-color;
+      font-weight:700;
+    }
+  }
+
 }
