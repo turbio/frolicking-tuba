@@ -1,21 +1,29 @@
 //signup
 
 import React from 'react';
-import { withRouter } from 'react-router';
+import { withRouter, Link } from 'react-router';
 import {
-  Jumbotron, Grid, Row, Col
+  Panel, Grid, Row, Col
 } from 'react-bootstrap';
 import AuthForm from './AuthForm.jsx';
-
 
 const Signup = () => (
   <Grid>
     <Row>
       <Col md={6} mdOffset={3}>
-        <Jumbotron>
-          <h1>Create an Account</h1>
+        <Panel header="Create an Account" className="signup-form-container">
           <AuthForm />
-        </Jumbotron>
+        </Panel>
+      </Col>
+    </Row>
+    <Row>
+      <Col md={6} mdOffset={3} className="no-account-2">
+        <p>Don't have an account?</p>
+        <Link
+          to="/signup"
+          className="no-account"
+        >Sign Up
+        </Link>
       </Col>
     </Row>
   </Grid>

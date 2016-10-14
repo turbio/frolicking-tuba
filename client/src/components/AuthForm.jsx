@@ -29,7 +29,7 @@ class AuthForm extends Component {
     const { handleSubmit } = this.props;
 
     return (
-      <div className="container">
+      <div className="container auth-form">
         { this.renderAuthenticationError() }
 
         <form onSubmit={handleSubmit(this.handleFormSubmit)}>
@@ -52,7 +52,7 @@ class AuthForm extends Component {
             action="submit"
             className="btn btn-primary"
           >
-            Sign In
+            Sign Up
           </button>
         </form>
       </div>
