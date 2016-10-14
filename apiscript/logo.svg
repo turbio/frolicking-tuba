@@ -1,8 +1,21 @@
-<svg width="19px" height="18px" viewBox="9 9 19 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-  <polyline id="Path-2" stroke="#FFFFFF" stroke-width="1.5" fill="none" points="21 10 27 10 27 16"></polyline>
-  <polyline id="Path-2-Copy-3" stroke="#FFFFFF" stroke-width="1.5" fill="none" points="21 26 27 26 27 20"></polyline>
-  <polyline id="Path-2-Copy" stroke="#FFFFFF" stroke-width="1.5" fill="none" points="16 10 10 10 10 16"></polyline>
-  <polyline id="Path-2-Copy-2" stroke="#FFFFFF" stroke-width="1.5" fill="none" points="16 26 10 26 10 20"></polyline>
-  <path d="M18.5,15.4316054 L18.5,20.4316054" id="Line" stroke="#FFFFFF" stroke-width="1" stroke-linecap="square" fill="none"></path>
-  <path d="M16,18 L21,18" id="Line" stroke="#FFFFFF" stroke-width="1" stroke-linecap="square" fill="none"></path>
+
+<svg width="21px" height="20px" viewBox="107 336 21 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.3 (33839) - http://www.bohemiancoding.com/sketch -->
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="100%" y1="50%" x2="0%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#EE433D" offset="0%"></stop>
+            <stop stop-color="#EC3846" offset="49.6568765%"></stop>
+            <stop stop-color="#EC2C51" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Group-Copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(107.000000, 336.000000)">
+        <ellipse id="Oval" fill="url(#linearGradient-1)" cx="10.5" cy="10" rx="10.2162162" ry="10"></ellipse>
+        <polyline id="Path-2" stroke="#FFFFFF" points="11.9189189 5.55555556 15.3243243 5.55555556 15.3243243 8.88888889"></polyline>
+        <polyline id="Path-2-Copy-3" stroke="#FFFFFF" stroke-width="1.5" points="11.9189189 14.4444444 15.3243243 14.4444444 15.3243243 11.1111111"></polyline>
+        <polyline id="Path-2-Copy" stroke="#FFFFFF" points="9.08108108 5.55555556 5.67567568 5.55555556 5.67567568 8.88888889"></polyline>
+        <polyline id="Path-2-Copy-2" stroke="#FFFFFF" points="9.08108108 14.4444444 5.67567568 14.4444444 5.67567568 11.1111111"></polyline>
+        <path d="M10.5,8.57311411 L10.5,11.3508919" id="Line" stroke="#FFFFFF" stroke-linecap="square"></path>
+        <path d="M9.08108108,10 L11.9189189,10" id="Line" stroke="#FFFFFF" stroke-linecap="square"></path>
+    </g>
 </svg>
