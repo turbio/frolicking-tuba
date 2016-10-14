@@ -17,12 +17,11 @@ const Signup = () => (
       </Col>
     </Row>
     <Row>
-      <Col md={6} mdOffset={3} className="no-account-2">
-        <p>Don't have an account?</p>
+      <Col md={6} mdOffset={3} className="no-account">
+        <p>Already have an account?</p>
         <Link
-          to="/signup"
-          className="no-account"
-        >Sign Up
+          to="/signin"
+        >Sign In
         </Link>
       </Col>
     </Row>
