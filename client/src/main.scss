@@ -6,6 +6,7 @@
 
 @import "client/src/landing";
 @import "client/src/navbar";
+@import "client/src/dashboard";
 
 p {
   font-family: 'Cabin';
@@ -49,8 +50,4 @@ h1,h2,h3,h4,h5 {
     margin-top: 30px;
     padding: 5px;
   }
-}
-
-.no-extras-input {
-  cursor: text !important;
 }

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Row, Grid, Button } from 'react-bootstrap';
+import { Row, Grid, Button, Image } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as Actions from '../actions/AppActions';
@@ -19,13 +19,18 @@ class Dashboard extends Component {
     return (
       <Grid>
         <Row>
-          <p>
+          <div className="create-api-key-div">
             <Button
               bsStyle="link"
               onClick={() => this.props.actions.showModal()}
-            >Create API Key
+              className="pull-right"
+            >
+              <Image className="plus-sign-icon" src="/plus_sign.svg" />
+              <span className="create-api-key">
+                Create API Key
+              </span>
             </Button>
-          </p>
+          </div>
           <CreateKeyModal />
           <EditKeyModal />
         </Row>
