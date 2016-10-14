@@ -34,14 +34,18 @@
   color: rgba(74, 74, 74, 0.75);
 }
 
-.btn.btn-primary {
+#auth-submit-button {
   width: 342px;
-    height: 40px;
-    border-radius: 3px;
-    background-image: linear-gradient(to left, #ee433d, #ec3846 50%, #ec2c51);
-    box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.24);
-    margin-bottom: 38px;
-    margin-top: 20px;
+  height: 40px;
+  border: none;
+  background-image: linear-gradient(to left, #ee433d, #ec3846 50%, #ec2c51);
+  box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.24);
+  margin-bottom: 38px;
+  margin-top: 20px;
+  color: white;
+  font-family: 'Cabin';
+  font-weight: bold;
+  font-size: 16px;
 }
 
 .no-account {

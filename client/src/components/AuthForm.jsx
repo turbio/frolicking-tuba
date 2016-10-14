@@ -50,7 +50,7 @@ class AuthForm extends Component {
 
           <button
             action="submit"
-            className="btn btn-primary"
+            id="auth-submit-button"
           >
             Submit
           </button>
