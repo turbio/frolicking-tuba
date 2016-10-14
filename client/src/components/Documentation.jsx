@@ -21,10 +21,10 @@ const script2 = `{
       "to": "Amanda",
       "from": "Jeff",
       "title": "Error on landing page",
-      "comment": "Please update Uber logo on the home page to reflect their rebrand",
-      "file": "https://s3-us-west-1.amazonaws.com/tuba-images-bucket/1475882069369dog.txt",
+      "comment": "Please update to the new Uber partner logo on the home page",
+      "file": "https://getmarkup.com/examplefilename",
       "key": "a22e4697e8255a183b74ba94586e8765",
-      "screenshot": "https://s3-us-west-1.amazonaws.com/tuba-images-bucket/exampleScreenshot.png",
+      "screenshot": "https://getmarkup.com/examplefilename",
       "location": "https://www.google.com/",
     }
 }`; // eslint-disable-line
