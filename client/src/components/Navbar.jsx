@@ -110,7 +110,7 @@ class NavbarComponent extends Component {
           {this.props.authenticated ? loggedInNav : authLinks}
         </Navbar.Collapse>
       </Navbar>
-      );
+    );
   }
 
 }
